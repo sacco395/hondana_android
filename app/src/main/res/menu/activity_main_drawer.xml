@@ -1,36 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/group_0">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="ホーム" />
+    </group>
+    <group android:id="@+id/group_2">
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:icon="@drawable/ic_favorite_black_24dp"
+            android:title="本への気になる" />
+    </group>
+    <group android:id="@+id/group_3">
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:icon="@drawable/ic_autorenew_black_24dp"
+            android:title="交換した本" />
+    </group>
+    <group android:id="@+id/group_4">
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:icon="@drawable/ic_import_contacts_black_24dp"
+            android:title="取引中の本" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
-
+    <group android:id="@+id/group_5">
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="設定" />
+    </group>
+    <group android:id="@+id/group_6">
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_book_black_24dp"
+            android:title="ガイド" />
+    </group>
+    <group android:id="@+id/group_7">
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_mail_black_24dp"
+            android:title="お問い合わせ" />
+    </group>
 </menu>
