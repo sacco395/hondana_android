@@ -32,9 +32,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 //スキャン画面へ移動
-                Intent intent = new Intent();
-                intent.setClassName(getPackageName(),
-                        getPackageName() + ".BarcodeScanActivity");
+                Intent intent = new Intent(MainActivity.this, BarcodeScanActivity.class);
                 startActivity(intent);
             }
         });
