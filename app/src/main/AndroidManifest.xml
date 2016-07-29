@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.books.hondana">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -14,10 +13,7 @@
         android:label="@string/title_MyActivity"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-    <service android:name="com.kii.cloud.analytics.EventUploadService" />
-
-
+        <service android:name="com.kii.cloud.analytics.EventUploadService" />
 
         <activity
             android:name=".MainActivity"
@@ -29,7 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BarcodeScanActivity"></activity>
+        <activity android:name=".BarcodeScanActivity" />
+        <activity android:name=".GuideListActivity" />
+        <activity android:name=".GuideActivity_01"
+            android:label="@string/title_activity_guide01"></activity>
+        <activity android:name=".GuideActivity_02"
+            android:label="@string/title_activity_guide02"></activity>
     </application>
 
 </manifest>

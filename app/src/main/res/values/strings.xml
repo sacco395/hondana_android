@@ -7,4 +7,14 @@
     <string name="action_settings">Settings</string>
     <string name="title_MyActivity">ホンダナ</string>
     <string name="search">本を探す</string>
+    <string-array name="array01">
+        <item>初めての方へ</item>
+        <item>交換するには</item>
+    </string-array>
+
+    <string name="title_activity_guide01">初めての方へ</string>
+
+    <string name="title_activity_guide02">交換するには</string>
+    <string name="btn_a">戻る</string>
+    <string name="btn_b">戻る</string>
 </resources>
