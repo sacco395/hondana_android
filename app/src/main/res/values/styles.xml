@@ -16,6 +16,8 @@
         <item name="android:textColorSecondary">@color/toolbar_icon</item>
     </style>
 
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

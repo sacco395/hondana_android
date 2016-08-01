@@ -9,11 +9,26 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import android.support.design.widget.Snackbar;
+
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+
+import android.view.Menu;
+import android.view.MenuItem;
+
+
 public class GuideListActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guide_list);
+        setContentView(R.layout.activity_guide);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar02);
+        toolbar.setTitle("ガイド");
+
 
 
         ListView list = (ListView) findViewById(R.id.listViewMain);
