@@ -16,14 +16,14 @@
 
 
 
-           <include layout="@layout/toolbar_global_menu_logo" />
+           <include layout="@layout/part_toolbar_global_menu_logo" />
 
 
 
        </android.support.design.widget.AppBarLayout>
 
     <!--<include-->
-                <!--layout="@layout/toolbar_global_menu_logo"-->
+                <!--layout="@layout/part_toolbar_global_menu_logo"-->
                 <!--app:toolbarViewModel="@{globalToolbarViewModel}"/>-->
     <include layout="@layout/content_main" />
 

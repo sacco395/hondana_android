@@ -27,10 +27,20 @@
         </activity>
         <activity android:name=".BarcodeScanActivity" />
         <activity android:name=".GuideListActivity" />
-        <activity android:name=".GuideActivity_01"
-            android:label="@string/title_activity_guide01"></activity>
-        <activity android:name=".GuideActivity_02"
-            android:label="@string/title_activity_guide02"></activity>
+        <activity
+            android:name=".GuideActivity_01"
+            android:label="@string/title_activity_guide01" />
+        <activity
+            android:name=".GuideActivity_02"
+            android:label="@string/title_activity_guide02" />
+        <activity
+            android:name=".InquiryActivity"
+            android:label="@string/title_activity_inquiry"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LikesActivity"
+            android:label="@string/title_activity_likes"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -17,4 +17,6 @@
     <string name="title_activity_guide02">交換するには</string>
     <string name="btn_a">戻る</string>
     <string name="btn_b">戻る</string>
+    <string name="title_activity_inquiry">InquiryActivity</string>
+    <string name="title_activity_likes">LikesActivity</string>
 </resources>
