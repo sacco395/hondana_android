@@ -3,7 +3,6 @@ package com.books.hondana;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,15 +13,35 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class LikesActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        AdapterView.OnItemClickListener {
+    private BaseAdapter adapter;
+
+    // Isle of Wight in U.K.
+    private static final String[] scenes = {
+            // Scenes of Isle of Wight
+            "デザイン思考は世界を変える",
+            "十月の旅人",
+            "無印良品は仕組みが９割",
+    };
+
+    private static final String[] authors = {
+            // Scenes of Isle of Wight
+            "ティム・ブラウン",
+            "レイ・ブラッドベリ",
+            "松井忠三",
+    };
+
+    // ちょっと冗長的ですが分かり易くするために
+    private static final int[] photos = {
+            R.drawable.changedesign,
+            R.drawable.october,
+            R.drawable.muji,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,65 +51,6 @@ public class LikesActivity extends AppCompatActivity
         toolbar.setTitle("気になる本一覧");
         setSupportActionBar(toolbar);
 
-
-
-            // 表示させるデータを設定する。
-            // データを格納するためのArrayListを宣言
-            ArrayList<HashMap<String,Object>> outputArray = new ArrayList<HashMap<String,Object>>();
-            // ↑ここがポイント１
-
-            for( int i = 0; i < 3; i++ ) {
-                HashMap<String, Object> item = new HashMap<String, Object>();
-                // 画像の設定（とりあえず全ての項目に同じ画像を入れています。）
-                item.put("iconKey", R.drawable.changedesign);
-                // 文字列の設定（とりあえず、ループのカウンタを表示させています。）
-                item.put("textKey", i + "番目");
-                // 表示用のArrayListに設定
-                outputArray.add(item);
-            }
-
-            // 画像表示用に作成したCustomAdapterに、上記ArrayListを設定
-            SimpleAdapter myAdapter = new SimpleAdapter(
-                    this,
-                    outputArray,
-                    R.layout.part_book_list,  // ここがポイント２
-                    new String[]{"iconKey","textKey"}, // ここがポイント３－１
-                    new int[]{R.id.book_image,R.id.book_title} // ここがポイント３－２
-            );
-
-            // ListViewにmyAdapterをセット
-            ListView listView = (ListView)findViewById(R.id.listViewMain);
-            listView.setAdapter(myAdapter);
-
-
-//        ListView list = (ListView) findViewById(R.id.listViewMain);
-//        String[] item01 = getResources().getStringArray(R.array.array01);
-//
-//        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, item01);
-//        list.setAdapter(adapter);
-//
-//
-//
-//        // リスト項目がクリックされた時の処理
-//        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView parent, View view, int position, long id) {
-//                String strData = adapter.getItem(position);
-//
-//                Intent intent = new Intent();
-//
-//                switch (position) {
-//                    case 0:
-//                        intent.setClass(LikesActivity.this, LikesActivity_01.class);
-//                        break;
-//                    case 1:
-//                        intent.setClass(LikesActivity.this, LikesActivity_02.class);
-//                        break;
-//                }
-//                intent.putExtra("SELECTED_DATA", strData);
-//                startActivity(intent);
-//            }
-//        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +71,38 @@ public class LikesActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        // ListViewのインスタンスを生成
+        ListView listView = (ListView) findViewById(R.id.list_view);
+
+        // BaseAdapter を継承したadapterのインスタンスを生成
+        // レイアウトファイル list.xml を activity_main.xml に inflate するためにadapterに引数として渡す
+        adapter = new ListViewAdapter(this.getApplicationContext(), R.layout.part_book_list, scenes,authors, photos);
+
+        // ListViewにadapterをセット
+        listView.setAdapter(adapter);
+
+        // 後で使います
+        listView.setOnItemClickListener(this);
+
     }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+        Intent intent = new Intent(this.getApplicationContext(), LikesSelectedActivity.class);
+        // clickされたpositionのtextとphotoのID
+        String selectedText = scenes[position];
+        int selectedPhoto = photos[position];
+        // インテントにセット
+        intent.putExtra("Text", selectedText);
+        intent.putExtra("Photo", selectedPhoto);
+        // Activity をスイッチする
+        startActivity(intent);
+    }
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -169,5 +160,4 @@ public class LikesActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }
