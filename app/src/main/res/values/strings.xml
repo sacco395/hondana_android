@@ -19,4 +19,8 @@
     <string name="btn_b">戻る</string>
     <string name="title_activity_inquiry">InquiryActivity</string>
     <string name="title_activity_likes">LikesActivity</string>
+    <string name="title_activity_swap_book">SwapBookActivity</string>
+
+    <string name="one">発送した本</string>
+    <string name="two">発送された本</string>
 </resources>

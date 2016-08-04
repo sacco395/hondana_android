@@ -54,7 +54,6 @@ public class ListViewAdapter extends BaseAdapter {
         holder.imageView.setImageResource(ids[position]);
         // 現在の position にあるファイル名リストを holder の textView にセット
         holder.textView.setText(titles[position]);
-
         holder.textView2.setText(authors[position]);
 
         return convertView;
