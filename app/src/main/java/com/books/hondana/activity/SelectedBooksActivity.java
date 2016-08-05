@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.books.hondana.R;
 
-public class LikesSelectedActivity extends AppCompatActivity {
+public class SelectedBooksActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

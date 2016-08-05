@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import com.books.hondana.activity.SelectedBooksActivity;
 
-public class PassedBooksFragment extends Fragment
+public class PassedRequestFragment extends Fragment
         implements AdapterView.OnItemClickListener {
     private BaseAdapter adapter;
     // Isle of Wight in U.K.

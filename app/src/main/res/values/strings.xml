@@ -20,5 +20,6 @@
     <string name="title_activity_inquiry">InquiryActivity</string>
     <string name="title_activity_likes">LikesActivity</string>
     <string name="title_activity_swap_book">SwapBookActivity</string>
-    
+    <string name="title_activity_request">RequestActivity</string>
+
 </resources>

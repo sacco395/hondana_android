@@ -42,11 +42,15 @@
             android:label="@string/title_activity_likes"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.LikesSelectedActivity"
-            android:label="@string/app_name"></activity>
+            android:name=".activity.SelectedBooksActivity"
+            android:label="@string/app_name" />
         <activity
             android:name=".activity.SwapBookActivity"
             android:label="@string/title_activity_swap_book"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.RequestActivity"
+            android:label="@string/title_activity_request"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

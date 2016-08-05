@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import com.books.hondana.activity.LikesSelectedActivity;
+import com.books.hondana.activity.SelectedBooksActivity;
 
 
 public class ReceivedBooksFragment extends Fragment
@@ -64,7 +64,7 @@ public class ReceivedBooksFragment extends Fragment
 
         @Override
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-            Intent intent = new Intent(this.getContext(), LikesSelectedActivity.class);
+            Intent intent = new Intent(this.getContext(), SelectedBooksActivity.class);
             // clickされたpositionのtextとphotoのID
             String selectedText = scenes[position];
             int selectedPhoto = photos[position];

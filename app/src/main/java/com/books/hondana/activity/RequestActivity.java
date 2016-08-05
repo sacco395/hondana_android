@@ -3,64 +3,50 @@ package com.books.hondana.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
+import android.view.View;
 
-import com.books.hondana.ListViewAdapter;
+import com.books.hondana.PassedRequestFragment;
 import com.books.hondana.R;
+import com.books.hondana.ReceivedRequestFragment;
 
-public class LikesActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        AdapterView.OnItemClickListener {
-    private BaseAdapter adapter;
+import java.util.ArrayList;
+import java.util.List;
 
-    // Isle of Wight in U.K.
-    private static final String[] scenes = {
-            // Scenes of Isle of Wight
-            "デザイン思考は世界を変える",
-            "十月の旅人",
-            "無印良品は仕組みが９割",
-    };
+public class RequestActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String[] authors = {
-            // Scenes of Isle of Wight
-            "ティム・ブラウン",
-            "レイ・ブラッドベリ",
-            "松井忠三",
-    };
-
-    // ちょっと冗長的ですが分かり易くするために
-    private static final int[] photos = {
-            R.drawable.changedesign,
-            R.drawable.october,
-            R.drawable.muji,
-    };
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_likes);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("気になる本一覧");
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_swap_book);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("取引中の本");
+        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //スキャン画面へ移動
-                Intent intent = new Intent(LikesActivity.this, MainActivity.class);
+                Intent intent = new Intent(RequestActivity.this, BarcodeScanActivity.class);
                 startActivity(intent);
             }
         });
@@ -75,36 +61,49 @@ public class LikesActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        // ListViewのインスタンスを生成
-        ListView listView = (ListView) findViewById(R.id.list_view);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
-        // BaseAdapter を継承したadapterのインスタンスを生成
-        // レイアウトファイル list.xml を activity_main.xml に inflate するためにadapterに引数として渡す
-        adapter = new ListViewAdapter(this.getApplicationContext(), R.layout.part_book_list, scenes,authors, photos);
-
-        // ListViewにadapterをセット
-        listView.setAdapter(adapter);
-
-        // 後で使います
-        listView.setOnItemClickListener(this);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
     }
 
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        Intent intent = new Intent(this.getApplicationContext(), SelectedBooksActivity.class);
-        // clickされたpositionのtextとphotoのID
-        String selectedText = scenes[position];
-        int selectedPhoto = photos[position];
-        // インテントにセット
-        intent.putExtra("Text", selectedText);
-        intent.putExtra("Photo", selectedPhoto);
-        // Activity をスイッチする
-        startActivity(intent);
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new PassedRequestFragment(), "リクエスト送信中");
+        adapter.addFragment(new ReceivedRequestFragment(), "リクエスト受信中");
+        viewPager.setAdapter(adapter);
     }
 
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
 
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
 
 
     @Override
@@ -120,7 +119,7 @@ public class LikesActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.likes, menu);
+        getMenuInflater().inflate(R.menu.swap_book, menu);
         return true;
     }
 
