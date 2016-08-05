@@ -22,7 +22,7 @@ public class ListViewAdapter extends BaseAdapter {
     private String[] authors;
     private int[] ids;
 
-    public ListViewAdapter(Context context, int itemLayoutId, String[] scenes, String[] authors,int[] photos) {
+    public ListViewAdapter(Context context, int itemLayoutId, String[] scenes, String[] authors, int[] photos) {
         super();
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.itemLayoutId = itemLayoutId;

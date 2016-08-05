@@ -1,10 +1,12 @@
-package com.books.hondana;
+package com.books.hondana.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.books.hondana.R;
 
 public class GuideActivity_02 extends Activity {
     @Override

@@ -1,4 +1,4 @@
-package com.books.hondana;
+package com.books.hondana.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,9 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+
+import com.books.hondana.ListViewAdapter;
+import com.books.hondana.R;
 
 public class LikesActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -142,17 +145,33 @@ public class LikesActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_home) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_like) {
+            Intent intent = new Intent(this, LikesActivity.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_exchange) {
+            Intent intent = new Intent(this, SwapBookActivity.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_transaction) {
+            Intent intent = new Intent(this, SwapBookActivity.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_set) {
+            Intent intent = new Intent(this, GuideListActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_guide) {
+            Intent intent = new Intent(this, GuideListActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_mail) {
+            Intent intent = new Intent(this, InquiryActivity.class);
+            startActivity(intent);
 
         }
 

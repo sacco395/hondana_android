@@ -1,4 +1,4 @@
-package com.books.hondana;
+package com.books.hondana.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.books.hondana.PassedBooksFragment;
+import com.books.hondana.R;
+import com.books.hondana.ReceivedBooksFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +73,8 @@ public class SwapBookActivity extends AppCompatActivity
 
         private void setupViewPager(ViewPager viewPager) {
             ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-            adapter.addFragment(new SendBooksFragment(), "発送した本");
-            adapter.addFragment(new ShippedBooksFragment(), "発送された本");
+            adapter.addFragment(new PassedBooksFragment(), "手渡した本");
+            adapter.addFragment(new ReceivedBooksFragment(), "受け取った本");
             viewPager.setAdapter(adapter);
         }
 
@@ -142,17 +146,33 @@ public class SwapBookActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_home) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_like) {
+            Intent intent = new Intent(this, LikesActivity.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_exchange) {
+            Intent intent = new Intent(this, SwapBookActivity.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_transaction) {
+            Intent intent = new Intent(this, SwapBookActivity.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_set) {
+            Intent intent = new Intent(this, GuideListActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_guide) {
+            Intent intent = new Intent(this, GuideListActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_mail) {
+            Intent intent = new Intent(this, InquiryActivity.class);
+            startActivity(intent);
 
         }
 
