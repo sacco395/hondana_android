@@ -1,11 +1,8 @@
-package com.books.hondana.activity;
+package com.books.hondana;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
-import com.books.hondana.PassedBooksFragment;
-import com.books.hondana.ReceivedBooksFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 

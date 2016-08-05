@@ -157,7 +157,7 @@ public class RequestActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_transaction) {
-            Intent intent = new Intent(this, SwapBookActivity.class);
+            Intent intent = new Intent(this, RequestActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_set) {
