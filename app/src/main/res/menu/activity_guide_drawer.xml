@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group_0">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="ホーム" />
+    </group>
+    <group android:id="@+id/group_2">
+        <item
+            android:id="@+id/nav_like"
+            android:icon="@drawable/ic_favorite_black_24dp"
+            android:title="本への気になる" />
+    </group>
+    <group android:id="@+id/group_3">
+        <item
+            android:id="@+id/nav_exchange"
+            android:icon="@drawable/ic_autorenew_black_24dp"
+            android:title="交換した本" />
+    </group>
+    <group android:id="@+id/group_4">
+        <item
+            android:id="@+id/nav_transaction"
+            android:icon="@drawable/ic_import_contacts_black_24dp"
+            android:title="取引中の本" />
+    </group>
+    <group android:id="@+id/group_5">
+        <item
+            android:id="@+id/nav_set"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="設定" />
+    </group>
+    <group android:id="@+id/group_6">
+        <item
+            android:id="@+id/nav_guide"
+            android:icon="@drawable/ic_book_black_24dp"
+            android:title="ガイド" />
+    </group>
+    <group android:id="@+id/group_7">
+        <item
+            android:id="@+id/nav_mail"
+            android:icon="@drawable/ic_mail_black_24dp"
+            android:title="お問い合わせ" />
+    </group>
+</menu>

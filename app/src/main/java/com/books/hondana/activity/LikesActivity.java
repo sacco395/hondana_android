@@ -162,11 +162,11 @@ public class LikesActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_set) {
-            Intent intent = new Intent(this, GuideListActivity.class);
+            Intent intent = new Intent(this, SetActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_guide) {
-            Intent intent = new Intent(this, GuideListActivity.class);
+            Intent intent = new Intent(this, GuideActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_mail) {

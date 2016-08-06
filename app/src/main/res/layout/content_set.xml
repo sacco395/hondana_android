@@ -9,12 +9,10 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.GuideListActivity"
-tools:showIn="@layout/app_bar_sub">
-
-
+    tools:context="com.books.hondana.activity.SetActivity"
+    tools:showIn="@layout/app_bar_set">
     <ListView
-        android:id="@+id/listViewMain"
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

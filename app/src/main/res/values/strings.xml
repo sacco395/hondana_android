@@ -12,14 +12,19 @@
         <item>交換するには</item>
     </string-array>
 
-    <string name="title_activity_guide01">初めての方へ</string>
+    <string-array name="array02">
+        <item>プロフィール</item>
+        <item>住所</item>
+    </string-array>
 
-    <string name="title_activity_guide02">交換するには</string>
+
     <string name="btn_a">戻る</string>
     <string name="btn_b">戻る</string>
     <string name="title_activity_inquiry">InquiryActivity</string>
     <string name="title_activity_likes">LikesActivity</string>
     <string name="title_activity_swap_book">SwapBookActivity</string>
     <string name="title_activity_request">RequestActivity</string>
+    <string name="title_activity_guide">GuideActivity</string>
+    <string name="title_activity_set">SetActivity</string>
 
 </resources>
