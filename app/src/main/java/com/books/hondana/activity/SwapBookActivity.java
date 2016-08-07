@@ -48,7 +48,7 @@ public class SwapBookActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 //スキャン画面へ移動
-                Intent intent = new Intent(SwapBookActivity.this, LikesActivity.class);
+                Intent intent = new Intent(SwapBookActivity.this, BarcodeScanActivity.class);
                 startActivity(intent);
             }
         });
@@ -133,9 +133,9 @@ public class SwapBookActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

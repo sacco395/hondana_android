@@ -26,5 +26,6 @@
     <string name="title_activity_request">RequestActivity</string>
     <string name="title_activity_guide">GuideActivity</string>
     <string name="title_activity_set">SetActivity</string>
+    <string name="title_activity_evaluation">EvaluationActivity</string>
 
 </resources>

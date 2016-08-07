@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                //スキャン画面へ移動
-               Intent intent = new Intent(MainActivity.this, BarcodeScanActivity.class);
+               Intent intent = new Intent(MainActivity.this, EvaluationActivity.class);
                startActivity(intent);
             }
         });
@@ -81,9 +81,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
 
         int id = item.getItemId();
+
 
         if (id == R.id.nav_home) {
             Intent intent = new Intent(this, MainActivity.class);

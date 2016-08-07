@@ -26,10 +26,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.BarcodeScanActivity" />
-        <activity
-            android:name=".activity.GuideActivity_01" />
-        <activity
-            android:name=".activity.GuideActivity_02" />
+        <activity android:name=".activity.GuideActivity_01" />
+        <activity android:name=".activity.GuideActivity_02" />
         <activity
             android:name=".activity.InquiryActivity"
             android:label="@string/title_activity_inquiry"
@@ -56,11 +54,13 @@
         <activity
             android:name=".activity.SetActivity"
             android:label="@string/title_activity_set"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.SetActivity_01" />
+        <activity android:name=".activity.SetActivity_02" />
+        <activity
+            android:name=".activity.EvaluationActivity"
+            android:label="@string/title_activity_evaluation"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".activity.SetActivity_01" />
-        <activity
-            android:name=".activity.SetActivity_02" />
     </application>
 
 </manifest>
