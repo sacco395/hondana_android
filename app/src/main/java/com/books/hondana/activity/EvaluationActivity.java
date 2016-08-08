@@ -8,9 +8,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -54,6 +56,12 @@ public class EvaluationActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
     }
     private void setupTabIcons() {
@@ -118,5 +126,12 @@ public class EvaluationActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

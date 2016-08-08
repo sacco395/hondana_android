@@ -67,7 +67,6 @@ public class UserpageActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick");
-                drawer.closeDrawer();
                 Intent intent = new Intent(UserpageActivity.this, EvaluationActivity.class);
                 startActivity(intent);
             }
