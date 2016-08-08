@@ -32,6 +32,7 @@ public class UserpageActivity extends AppCompatActivity
         toolbar.setTitle("User さん");
         setSupportActionBar(toolbar);
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +43,7 @@ public class UserpageActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
@@ -60,8 +61,18 @@ public class UserpageActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // binding.navView.setNavigationItemSelectedListener(this);
+        LinearLayout Evaluation = (LinearLayout)findViewById(R.id.evaluation);
 
+        Evaluation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick");
+                drawer.closeDrawer();
+                Intent intent = new Intent(UserpageActivity.this, EvaluationActivity.class);
+                startActivity(intent);
+            }
+        });
+        // binding.navView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -155,3 +166,4 @@ public class UserpageActivity extends AppCompatActivity
         });
     }
 }
+
