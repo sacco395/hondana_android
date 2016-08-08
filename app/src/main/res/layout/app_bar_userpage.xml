@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.books.hondana.activity.EvaluationActivity">
+    tools:context="com.books.hondana.activity.UserpageActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -19,16 +19,9 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/custom_tab_layout_height"
-            app:tabMode="fixed"
-            app:tabGravity="fill"/>
-
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_evaluation" />
+    <include layout="@layout/content_userpage" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -38,20 +31,5 @@
         android:layout_margin="@dimen/fab_margin"
         app:fabSize="normal"
         android:src="@drawable/ic_add_a_photo_white_48dp" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/menu_drawer" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -60,6 +60,10 @@
         <activity
             android:name=".activity.EvaluationActivity"
             android:label="@string/title_activity_evaluation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.UserpageActivity"
+            android:label="@string/title_activity_userpage"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -3,71 +3,41 @@ package com.books.hondana.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.books.hondana.ListViewAdapter;
 import com.books.hondana.R;
 
-public class LikesActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        AdapterView.OnItemClickListener {
+public class UserpageActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "LikesActivity";
-
-    private BaseAdapter adapter;
-
-    // Isle of Wight in U.K.
-    private static final String[] scenes = {
-            // Scenes of Isle of Wight
-            "デザイン思考は世界を変える",
-            "十月の旅人",
-            "無印良品は仕組みが９割",
-    };
-
-    private static final String[] authors = {
-            // Scenes of Isle of Wight
-            "ティム・ブラウン",
-            "レイ・ブラッドベリ",
-            "松井忠三",
-    };
-
-    // ちょっと冗長的ですが分かり易くするために
-    private static final int[] photos = {
-            R.drawable.changedesign,
-            R.drawable.october,
-            R.drawable.muji,
-    };
+    private static final String TAG = "UserpageActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_likes);
+        setContentView(R.layout.activity_userpage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("気になる本一覧");
+        toolbar.setTitle("User さん");
         setSupportActionBar(toolbar);
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //スキャン画面へ移動
-                Intent intent = new Intent(LikesActivity.this, MainActivity.class);
+                Intent intent = new Intent(UserpageActivity.this, BarcodeScanActivity.class);
                 startActivity(intent);
             }
         });
@@ -92,38 +62,7 @@ public class LikesActivity extends AppCompatActivity
 
         // binding.navView.setNavigationItemSelectedListener(this);
 
-
-        // ListViewのインスタンスを生成
-        ListView listView = (ListView) findViewById(R.id.list_view);
-
-        // BaseAdapter を継承したadapterのインスタンスを生成
-        // レイアウトファイル list.xml を activity_main.xml に inflate するためにadapterに引数として渡す
-        adapter = new ListViewAdapter(this.getApplicationContext(), R.layout.part_book_list, scenes,authors, photos);
-
-        // ListViewにadapterをセット
-        listView.setAdapter(adapter);
-
-        // 後で使います
-        listView.setOnItemClickListener(this);
-
     }
-
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        Intent intent = new Intent(this.getApplicationContext(), SelectedBooksActivity.class);
-        // clickされたpositionのtextとphotoのID
-        String selectedText = scenes[position];
-        int selectedPhoto = photos[position];
-        // インテントにセット
-        intent.putExtra("Text", selectedText);
-        intent.putExtra("Photo", selectedPhoto);
-        // Activity をスイッチする
-        startActivity(intent);
-    }
-
-
-
 
     @Override
     public void onBackPressed() {
@@ -138,7 +77,7 @@ public class LikesActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.likes, menu);
+        getMenuInflater().inflate(R.menu.toolbar_userpage, menu);
         return true;
     }
 
@@ -210,7 +149,7 @@ public class LikesActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick");
-                Intent intent = new Intent(LikesActivity.this, UserpageActivity.class);
+                Intent intent = new Intent(UserpageActivity.this, UserpageActivity.class);
                 startActivity(intent);
             }
         });

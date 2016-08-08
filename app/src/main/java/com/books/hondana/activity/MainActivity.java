@@ -9,15 +9,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.books.hondana.R;
 
 // import android.databinding.DataBindingUtil;
-import com.books.hondana.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +40,20 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                //スキャン画面へ移動
-               Intent intent = new Intent(MainActivity.this, EvaluationActivity.class);
+               Intent intent = new Intent(MainActivity.this, BarcodeScanActivity.class);
                startActivity(intent);
             }
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                setProfileInMenu(drawerView);
+            }
+        };
         drawer.setDrawerListener(toggle);
 
         //         this, binding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -51,6 +64,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // binding.navView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -69,7 +83,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.toolbar_top, menu);
         return true;
     }
 
@@ -79,6 +93,18 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+        switch (id) {
+            case R.id.nav_search:
+
+                break;
+            case R.id.nav_notifications:
+
+                break;
+            case R.id.nav_todo:
+
+                break;
+        }
 
         //noinspection SimplifiableIfStatement
 //        if (id == R.id.action_settings) {
@@ -94,7 +120,6 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
 
         int id = item.getItemId();
-
 
         if (id == R.id.nav_home) {
             Intent intent = new Intent(this, MainActivity.class);
@@ -129,5 +154,24 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    void setProfileInMenu(View drawerView) {
+//        tvUserName.setText(user.getName());
+//        Picasso.with(this)
+//                .load(user.getIconUrl())
+//                .into(ivUserIcon);
+        LinearLayout llUserContainer = (LinearLayout) drawerView.findViewById(R.id.ll_user_container);
+        TextView tvUserName = (TextView) drawerView.findViewById(R.id.tv_user_name);
+        ImageView ivUserIcon = (ImageView) drawerView.findViewById(R.id.iv_user_icon);
+
+        llUserContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick");
+                Intent intent = new Intent(MainActivity.this, UserpageActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

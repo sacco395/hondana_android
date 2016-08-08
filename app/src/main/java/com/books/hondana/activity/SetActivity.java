@@ -8,17 +8,24 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.books.hondana.R;
 
 public class SetActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = "SetActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +35,25 @@ public class SetActivity extends AppCompatActivity
         toolbar.setTitle("設定");
         setSupportActionBar(toolbar);
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                setProfileInMenu(drawerView);
+            }
+        };
         drawer.setDrawerListener(toggle);
+
+        //         this, binding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        // binding.drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // binding.navView.setNavigationItemSelectedListener(this);
 
         ListView list = (ListView) findViewById(R.id.list_view);
         String[] item01 = getResources().getStringArray(R.array.array02);
@@ -79,7 +96,7 @@ public class SetActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.guide, menu);
+//        getMenuInflater().inflate(R.menu.guide, menu);
         return true;
     }
 
@@ -137,5 +154,23 @@ public class SetActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    void setProfileInMenu(View drawerView) {
+//        tvUserName.setText(user.getName());
+//        Picasso.with(this)
+//                .load(user.getIconUrl())
+//                .into(ivUserIcon);
+        LinearLayout llUserContainer = (LinearLayout) drawerView.findViewById(R.id.ll_user_container);
+        TextView tvUserName = (TextView) drawerView.findViewById(R.id.tv_user_name);
+        ImageView ivUserIcon = (ImageView) drawerView.findViewById(R.id.iv_user_icon);
+
+        llUserContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick");
+                Intent intent = new Intent(SetActivity.this, UserpageActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
