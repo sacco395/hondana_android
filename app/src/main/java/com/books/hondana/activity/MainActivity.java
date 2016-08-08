@@ -95,8 +95,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.nav_search:
-
+            case R.id.nav_search:{
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);}
                 break;
             case R.id.nav_notifications:
 

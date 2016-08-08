@@ -5,8 +5,9 @@
     <color name="colorAccent">#52AE93</color>
     <color name="toolbar_title">#4b4b4b</color>
     <color name="toolbar_icon">#4b4b4b</color>
+    <color name="textColor">#4b4b4b</color>
 
-    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="textColorPrimary">#4b4b4b</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
 </resources>
