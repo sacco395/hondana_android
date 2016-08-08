@@ -6,7 +6,6 @@
         android:icon="@drawable/ic_search_black_24dp"
         android:orderInCategory="100"
         app:showAsAction="ifRoom|collapseActionView"
-
         app:actionViewClass="android.support.v7.widget.SearchView"
         android:title="検索" />
 

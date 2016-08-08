@@ -1,8 +1,11 @@
 package com.books.hondana.activity;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -26,7 +29,12 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.toolbar_serch, menu);
-
+        SearchView searchView = (SearchView)
+                MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete)
+                searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchAutoComplete.setHintTextColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        searchAutoComplete.setTextColor(ContextCompat.getColor(this, R.color.textColorPrimary));
         return true;
     }
 
@@ -38,4 +46,5 @@ public class SearchActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
