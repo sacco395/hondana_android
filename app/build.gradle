@@ -30,6 +30,10 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+//compile 'universal-image-loader-1.9.5.jar'
+    compile('com.kii:cloud-sdk:2.4.3:library@aar') {
+        transitive = true}
+
     compile 'com.example.library:android-cloud-sdk-v2.4.10@aar'
     compile project(':modules:volley')
     compile 'com.android.support:appcompat-v7:23.4.0'
@@ -40,4 +44,6 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp-apache:2.7.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:support-v4:23.4.0'
+    compile 'me.dm7.barcodescanner:zxing:1.8.4'
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
 }

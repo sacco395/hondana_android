@@ -29,4 +29,8 @@
     <string name="title_activity_evaluation">EvaluationActivity</string>
     <string name="title_activity_userpage">UserpageActivity</string>
 
+    <string name="cloud_name">Kii Cloud</string>
+    <string name="app_service_name">ホンダナ</string>
+    <string name="msg_toroku">ホンダナに登録</string>
+
 </resources>
