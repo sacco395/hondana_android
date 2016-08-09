@@ -30,7 +30,7 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-//compile 'universal-image-loader-1.9.5.jar'
+    compile files ('libs/universal-image-loader-1.9.5.jar')
     compile('com.kii:cloud-sdk:2.4.3:library@aar') {
         transitive = true}
 
