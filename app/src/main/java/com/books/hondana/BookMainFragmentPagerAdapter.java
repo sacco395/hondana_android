@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.administrator.bookscan.Connection.QueryParamSet;
-import com.example.administrator.bookscan.Model.KiiBook;
+import com.books.hondana.Connection.QueryParamSet;
 
 /**
  * Created by Administrator on 2016/08/02.
