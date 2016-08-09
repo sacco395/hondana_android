@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                //スキャン画面へ移動
-               Intent intent = new Intent(MainActivity.this, BarcodeScanActivity.class);
+               Intent intent = new Intent(MainActivity.this, BookMainActivity.class);
                startActivity(intent);
             }
         });
