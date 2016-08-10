@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.books.hondana.Model.KiiBook;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
 
@@ -67,6 +68,9 @@ public class BookListAdapter extends ArrayAdapter<KiiBook>  {
 
 		// 画像データのダウンロードと設定
 		ImageLoader imageLoader = ImageLoader.getInstance();
+
+		imageLoader.init(ImageLoaderConfiguration.createDefault(context));
+
 		imageLoader.displayImage(imgUrl,imgView);
 
 		return convertView;

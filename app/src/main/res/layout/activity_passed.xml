@@ -48,8 +48,6 @@
             android:background="#52AE93"/>
 
 
-
-
         <!--区切り線-->
         <View
             android:layout_width="fill_parent"

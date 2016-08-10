@@ -29,7 +29,6 @@
     <string name="title_activity_evaluation">EvaluationActivity</string>
     <string name="title_activity_userpage">UserpageActivity</string>
 
-<<<<<<< HEAD
     //本のリクエストページに使用//
     <string name="requestText01">"交換をリクエストします"</string>
     <string name="requestText02">"1.クリックポストで宛名ラベルを作成しましょう。"</string>
@@ -75,7 +74,7 @@
 
     <string name="radioButtonBad">"悪い"</string>
 
-    <string name="evaluateText03">"本を送った相手に評価のコメントを送信しましょう。(例)ありがとうございました。本が届きました。またよろしくお願いします。"</string>
+    <string name="evaluateText03">"本を送った相手に評価のコメントを送信しましょう。\n(例)ありがとうございました。本が届きました。またよろしくお願いします。"</string>
 
     <string name="buttonTransmission">"送信"</string>
 

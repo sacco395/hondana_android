@@ -112,12 +112,20 @@ public class MainActivity extends AppCompatActivity
                         ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             }
             break;
-            case R.id.nav_notifications:
+            case R.id.nav_notifications: {
+                Intent intent = new Intent(this, PassedActivity.class);
+                startActivity(intent,
+                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
                 break;
-            case R.id.nav_todo:
+            }
+            case R.id.nav_todo:{
+                Intent intent = new Intent(this, EvaluateActivity.class);
+                startActivity(intent,
+                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
                 break;
+            }
         }
 
         //noinspection SimplifiableIfStatement
