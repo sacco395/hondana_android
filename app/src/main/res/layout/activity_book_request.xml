@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroller"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--交換をリクエストします-->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingTop="6dip"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/requestText01"
+            android:text="@string/requestText01"
+            android:layout_weight="0.1" />
+
+
+
+        <!--区切り線-->
+
+
+        <!--クリックポストで宛名ラベルを作成しましょう。-->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:id="@+id/requestText02"
+            android:text="@string/requestText02"
+            android:layout_gravity="center_horizontal" />
+
+        <!--クリックポストへボタン-->
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonClickPost"
+            android:id="@+id/buttonClickPost"
+            android:layout_gravity="center_horizontal"
+            android:background="#52AE93"/>
+
+
+
+
+        <!--区切り線-->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#666"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="6dip"
+            android:layout_marginBottom="12dip" />
+
+
+        <!--宛名ラベルのデータをアップロードしましょう。-->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:id="@+id/textView3"
+            android:text="@string/requestText03"
+            android:layout_gravity="center_horizontal" />
+
+        <!--ファイルを選択ボタン-->
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonSelectFile"
+            android:id="@+id/buttonSelectFile"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp"
+            android:background="#52AE93" />
+
+        <!--アップロードボタン-->
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonUpload"
+            android:id="@+id/buttonUpload"
+            android:layout_gravity="center_horizontal"
+            android:background="#52AE93" />
+
+
+
+
+        <!--区切り線-->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#666"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="6dip"
+            android:layout_marginBottom="12dip" />
+
+        <!--同梱を希望する場合はチェックを入れてください。-->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:text="@string/requestText04"
+            android:id="@+id/textView4"
+            android:layout_gravity="center_horizontal" />
+
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/checkBoxBundle"
+            android:id="@+id/checkBoxBundle"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.16" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/bottom_bar"
+            android:gravity="center_vertical">
+
+
+
+
+
+
+            <!--下部に固定されたキャンセルボタン-->
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonCancel"
+                android:text="@string/buttonCancel"
+                android:textColor="#52AE93"
+                android:background="#4b4b4b"/>
+
+            <!--下部に固定されたリクエスト完了ボタン-->
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonRequest"
+                android:text="@string/buttonRequest"
+                android:background="#52AE93" />
+
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

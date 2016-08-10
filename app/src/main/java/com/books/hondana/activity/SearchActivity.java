@@ -27,12 +27,17 @@ public class SearchActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.toolbar_serch, menu);
         SearchView searchView = (SearchView)
                 MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+
+
         SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete)
                 searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+
+
         searchAutoComplete.setHintTextColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
         searchAutoComplete.setTextColor(ContextCompat.getColor(this, R.color.textColorPrimary));
         return true;

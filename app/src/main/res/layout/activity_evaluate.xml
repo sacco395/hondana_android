@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="center_horizontal">
+
+
+    <!--受け取り評価をしてください-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/evaluateText01"
+        android:id="@+id/evaluateText01"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/view"
+        android:layout_alignLeft="@+id/view" />
+
+
+    <!--本が発送されました。本が到着したら、出品者の評価をしてください。-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/evaluateText02"
+        android:id="@+id/evaluateText02"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/textView1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
+
+
+
+
+    <!--中身を確認しました-->
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxEvaluation"
+        android:id="@+id/checkBox"
+        android:layout_marginTop="32dp"
+        android:checked="false"
+        android:layout_below="@+id/checkBoxEvaluation"
+        android:layout_centerHorizontal="true" />
+
+
+    <!--区切り線-->
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#666"
+        android:layout_marginLeft="6dip"
+        android:layout_marginRight="6dip"
+        android:layout_marginTop="6dip"
+        android:layout_marginBottom="12dip" />
+
+
+    <!--RadioButtonから1つだけ選択させる-->
+    <RadioGroup
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/RadioGroup"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_below="@+id/imageView"
+        android:layout_alignEnd="@+id/view"
+        android:layout_alignStart="@+id/editText"
+        android:layout_alignRight="@+id/view"
+        android:layout_alignLeft="@+id/editText">
+
+
+        <!--良い-->
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radioButtonGood"
+            android:id="@+id/radioButton1"
+            android:layout_weight="0.35" />
+
+        <!--普通-->
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radioButtonNeutral"
+            android:id="@+id/radioButton2"
+            android:checked="false"
+            android:layout_weight="0.35" />
+
+        <!--悪い-->
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radioButtonBad"
+            android:id="@+id/radioButton3"
+            android:layout_weight="0.35"
+            android:checked="false" />
+    </RadioGroup>
+
+
+
+    <!--評価コメント入力-->
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:hint="@string/evaluateText03"
+        android:inputType="none"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/RadioGroup"
+        android:layout_centerHorizontal="true" />
+
+
+
+    <!--評価送信ボタン-->
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonTransmission"
+        android:id="@+id/buttonDownload"
+        android:layout_gravity="center_horizontal"
+        android:background="#00a497"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
+
+
+    <!--ラジオボタンの評価アイコン-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/icon_good"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/view"
+        android:layout_alignStart="@+id/editText"
+        android:layout_marginStart="18dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/icon_neutral"
+        android:layout_above="@+id/RadioGroup"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:src="@drawable/icon_bad"
+        android:layout_above="@+id/RadioGroup"
+        android:layout_alignEnd="@+id/textView2" />
+
+
+
+</RelativeLayout>

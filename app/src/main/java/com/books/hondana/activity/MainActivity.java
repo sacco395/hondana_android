@@ -1,6 +1,9 @@
 package com.books.hondana.activity;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -9,10 +12,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,9 +31,14 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        getWindow().setExitTransition(new Slide());
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,7 +50,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                //スキャン画面へ移動
-               Intent intent = new Intent(MainActivity.this, BarcodeScanActivity.class);
+               Intent intent = new Intent(MainActivity.this, BookRequestActivity.class);
                startActivity(intent);
             }
         });
@@ -87,6 +97,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -97,8 +108,10 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.nav_search:{
                 Intent intent = new Intent(this, SearchActivity.class);
-                startActivity(intent);}
-                break;
+                startActivity(intent,
+                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            }
+            break;
             case R.id.nav_notifications:
 
                 break;

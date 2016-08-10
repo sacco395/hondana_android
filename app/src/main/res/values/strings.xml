@@ -29,4 +29,53 @@
     <string name="title_activity_evaluation">EvaluationActivity</string>
     <string name="title_activity_userpage">UserpageActivity</string>
 
+    //本のリクエストページに使用//
+    <string name="requestText01">"交換をリクエストします"</string>
+    <string name="requestText02">"1.クリックポストで宛名ラベルを作成しましょう。"</string>
+    <string name="buttonClickPost">"クリックポストへ"</string>
+
+    <string name="requestText03">"2.宛名ラベルのデータをアップロードしましょう。"</string>
+    <string name="buttonSelectFile">"ファイルを選択"</string>
+    <string name="buttonUpload">"アップロード"</string>
+
+    <string name="requestText04">"3.同梱を希望する場合はチェックを入れてください。"</string>
+    <string name="checkBoxBundle">"同梱希望"</string>
+
+    <string name="buttonCancel">"キャンセル"</string>
+    <string name="buttonRequest">"リクエスト完了"</string>
+
+
+    //本の発送ページに使用//
+    <string name="passedText01">"交換リクエストが届きました"</string>
+    <string name="passedText02">"1.届いた宛名ラベルをダウンロードしましょう。"</string>
+    <string name="buttonDownload">"ダウンロードする"</string>
+
+    <string name="passedText03">"2.宛名ラベルをプリントして梱包した本に貼り付け、\n本を発送してください。"</string>
+    <string name="passedText04">"本の梱包のやりかた>"</string>
+
+    <string name="passedText05">"3.同梱を希望している人に発送する場合は\n選択してください。"</string>
+
+    <string name="radioButtonBundle">"同梱しました！"</string>
+    <string name="radioButtonNotBundle">"ごめんなさい、同梱できませんでした‥"</string>
+
+    <string name="buttonSending">"発送完了"</string>
+
+
+    //評価ページに使用//
+    <string name="evaluateText01">"受け取り評価をしてください"</string>
+
+    <string name="evaluateText02">"本が発送されました。\n本が到着したら、出品者の評価をしてください。"</string>
+
+    <string name="checkBoxEvaluation">"中身を確認しました"</string>
+
+    <string name="radioButtonGood">"良い"</string>
+
+    <string name="radioButtonNeutral">"普通"</string>
+
+    <string name="radioButtonBad">"悪い"</string>
+
+    <string name="evaluateText03">"本を送った相手に評価のコメントを送信しましょう。(例)ありがとうございました。本が届きました。またよろしくお願いします。"</string>
+
+    <string name="buttonTransmission">"送信"</string>
+
 </resources>
