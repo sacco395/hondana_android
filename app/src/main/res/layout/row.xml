@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="176dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:id="@+id/imgTitle"
+            android:adjustViewBounds="false"
+            android:scaleType="fitCenter"
+            android:layout_margin="4dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:layout_margin="4dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="28dp"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:text="Medium Text"
+                android:id="@+id/rowTextTitle"
+                android:textSize="12sp"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:minLines="2" />
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="20dp"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:text="Medium Text"
+                android:id="@+id/rowTextAuthor"
+                android:textSize="12sp"
+                android:ellipsize="end"
+                android:focusableInTouchMode="false"
+                android:maxLines="1" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:src="@android:drawable/btn_star_big_on" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -29,6 +29,7 @@
     <string name="title_activity_evaluation">EvaluationActivity</string>
     <string name="title_activity_userpage">UserpageActivity</string>
 
+<<<<<<< HEAD
     //本のリクエストページに使用//
     <string name="requestText01">"交換をリクエストします"</string>
     <string name="requestText02">"1.クリックポストで宛名ラベルを作成しましょう。"</string>
@@ -77,5 +78,10 @@
     <string name="evaluateText03">"本を送った相手に評価のコメントを送信しましょう。(例)ありがとうございました。本が届きました。またよろしくお願いします。"</string>
 
     <string name="buttonTransmission">"送信"</string>
+
+    <string name="cloud_name">Kii Cloud</string>
+    <string name="app_service_name">ホンダナ</string>
+    <string name="msg_toroku">ホンダナに登録</string>
+
 
 </resources>

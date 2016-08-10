@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:layout_weight="0.9">
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ホンダナに登録されている本の一覧"
+                android:id="@+id/textView4"
+                android:textColor="@android:color/primary_text_light"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+            <!--
+             <ListView android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/list"
+                 android:layout_marginTop="3dp"
+                 android:layout_gravity="right"
+                 android:layout_weight="0.7" />
+     -->
+
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/gridView"
+                android:numColumns="auto_fit"
+                android:verticalSpacing="4dp"
+                android:horizontalSpacing="4dp"
+                android:layout_margin="2dp"
+                android:backgroundTintMode="add" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_horizontal"
+            android:layout_weight="0.1">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ログインに戻る"
+                android:id="@+id/btnReturn"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_camera"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentStart="false"
+        android:layout_gravity="right"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

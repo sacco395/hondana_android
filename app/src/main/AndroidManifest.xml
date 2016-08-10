@@ -10,21 +10,24 @@
         android:name=".VolleyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/title_MyActivity"
+       android:label="@string/title_MyActivity"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <service android:name="com.kii.cloud.analytics.EventUploadService" />
 
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/title_MyActivity"
             android:theme="@style/AppTheme.NoActionBar">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
         <activity android:name=".activity.BarcodeScanActivity" />
         <activity android:name=".activity.GuideActivity_01" />
         <activity android:name=".activity.GuideActivity_02" />
@@ -65,10 +68,24 @@
             android:name=".activity.UserpageActivity"
             android:label="@string/title_activity_userpage"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.BookRequestActivity" />
         <activity android:name=".activity.PassedActivity" />
         <activity android:name=".activity.EvaluateActivity"></activity>
+        <activity android:name=".activity.BaseScannerActivity" />
+        <activity
+            android:name=".activity.BookDetailActivity"
+            android:label="@string/title_activity_swap_book"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.BookMainActivity"
+            android:label="@string/title_activity_swap_book"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.BookSearchListActivity" />
+        <activity android:name=".activity.SimpleScannerActivity" />
+        <activity android:name=".activity.SearchActivity" >
+        </activity>
     </application>
 
 </manifest>
