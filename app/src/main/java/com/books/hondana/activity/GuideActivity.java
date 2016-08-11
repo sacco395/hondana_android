@@ -122,7 +122,7 @@ public class GuideActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, BookMainActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_like) {

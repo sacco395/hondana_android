@@ -16,7 +16,7 @@
         <service android:name="com.kii.cloud.analytics.EventUploadService" />
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.BookMainActivity"
             android:label="@string/title_MyActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -78,14 +78,12 @@
             android:name=".activity.BookDetailActivity"
             android:label="@string/title_activity_swap_book"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.BookMainActivity"
-            android:label="@string/title_activity_swap_book"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity-->
+            <!--android:name=".activity.BookMainActivity"-->
+            <!--android:label="@string/title_activity_swap_book"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
         <activity android:name=".activity.BookSearchListActivity" />
         <activity android:name=".activity.SimpleScannerActivity" />
-        <activity android:name=".activity.SearchActivity" >
-        </activity>
     </application>
 
 </manifest>
