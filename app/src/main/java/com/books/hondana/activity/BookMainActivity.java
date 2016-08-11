@@ -107,6 +107,7 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        //カメラボタン
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override

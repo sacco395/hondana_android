@@ -17,7 +17,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class BarcodeScanActivity extends ActionBarActivity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = BookMainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

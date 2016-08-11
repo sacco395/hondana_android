@@ -49,7 +49,7 @@ public class ListViewAdapter2 extends BaseAdapter {
         ViewHolder holder;
         // 最初だけ View を inflate して、それを再利用する
         if (convertView == null) {
-            // activity_main.xml に list.xml を inflate して convertView とする
+
             convertView = inflater.inflate(itemLayoutId, parent, false);
             // ViewHolder を生成
             holder = new ViewHolder();

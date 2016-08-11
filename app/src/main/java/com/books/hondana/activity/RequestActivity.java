@@ -1,13 +1,17 @@
 package com.books.hondana.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -21,7 +25,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.books.hondana.Connection.QueryParamSet;
+import com.books.hondana.Model.KiiBook;
 import com.books.hondana.PassedRequestFragment;
 import com.books.hondana.R;
 import com.books.hondana.ReceivedRequestFragment;
@@ -33,6 +40,21 @@ public class RequestActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "RequestActivity";
+
+    // Intent Parameter
+    private static final int ACT_READ_BARCODE = 1;
+    private static final int ACT_BOOK_SEARCH_LIST = 2;
+    private static final int ACT_BOOK_DETAIL_TO_ADD = 3;
+
+    ////////////////////////////////////////
+    private static final int ZXING_CAMERA_PERMISSION = 1;
+    private Class<?> mClss;
+
+    // Search Param
+    private String search_Isbn;
+
+    //    private String search_Keyword;
+    private FloatingActionButton mFab;
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -47,13 +69,12 @@ public class RequestActivity extends AppCompatActivity
         toolbar.setTitle("取引中の本");
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        //カメラボタン
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //スキャン画面へ移動
-                Intent intent = new Intent(RequestActivity.this, BarcodeScanActivity.class);
-                startActivity(intent);
+                launchSimpleActivity(v);
             }
         });
 
@@ -152,6 +173,90 @@ public class RequestActivity extends AppCompatActivity
 //        }
 
         return super.onOptionsItemSelected(item);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    //  Barcode Scanner 起動関連
+    public void launchSimpleActivity(View v) {
+        launchActivity(SimpleScannerActivity.class);
+    }
+
+    public void launchActivity(Class<?> clss) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            mClss = clss;
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA}, ZXING_CAMERA_PERMISSION);
+        } else {
+            Intent intent = new Intent(this, clss);
+            startActivityForResult(intent, ACT_READ_BARCODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,  String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case ZXING_CAMERA_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if(mClss != null) {
+                        Intent intent = new Intent(this, mClss);
+                        startActivity(intent);
+                    }
+                } else {
+                    Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
+                }
+                return;
+        }
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ACT_READ_BARCODE) {
+            if (resultCode == RESULT_OK) {
+                /////////////////////////////////
+                kickBookSearch(data);
+                //////////////////////////////////
+            }
+        }
+        else if (requestCode == ACT_BOOK_SEARCH_LIST){
+            if (resultCode == RESULT_OK) {
+                /////////////////////////////////
+                kickListSearchResult(data);
+                /////////////////////////////////
+            }
+        }
+        else if (requestCode == ACT_BOOK_DETAIL_TO_ADD){
+            if(resultCode == RESULT_OK){
+                // 再起動しなくてもいいかも？
+                //kickLoadHondanaBooks();
+                // No Action
+            }
+        }
+    }
+
+    private void kickBookSearch( Intent data ){
+
+        Bundle extras = data.getExtras();
+        String code = extras.getString("READ_CODE");
+        String format = extras.getString("READ_FORMAT");
+        Toast.makeText(this, "Contents = " + code +
+                ", Format = " + format, Toast.LENGTH_SHORT).show();
+        this.search_Isbn = code;
+        // 書籍情報を検索
+        Intent intent = new Intent(RequestActivity.this,BookSearchListActivity.class);
+        QueryParamSet queryParamSet = new QueryParamSet();
+        queryParamSet.addQueryParam(KiiBook.ISBN,this.search_Isbn);
+        intent.putExtra( "SEARCH_PARAM", queryParamSet );
+        startActivityForResult(intent, ACT_BOOK_SEARCH_LIST);
+    }
+
+    private void kickListSearchResult(Intent data){
+        Bundle extras = data.getExtras();
+        //HashMap<String,String> bookInfo = (HashMap<String, String>) data.getSerializableExtra("Book");
+        KiiBook kiiBook = (KiiBook)extras.get("Book");
+        Intent intent = new Intent(RequestActivity.this,BookDetailActivity.class);
+        intent.putExtra("Book", kiiBook );
+        startActivityForResult(intent, ACT_BOOK_DETAIL_TO_ADD);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
