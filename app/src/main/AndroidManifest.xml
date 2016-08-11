@@ -7,19 +7,20 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".VolleyApplication"
+        android:name="com.books.hondana.HelloKii"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-       android:label="@string/title_MyActivity"
+        android:label="@string/title_MyActivity"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
+
         <service android:name="com.kii.cloud.analytics.EventUploadService" />
 
         <activity
-            android:name=".activity.BookMainActivity"
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_MyActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,62 +29,96 @@
 
         </activity>
 
+
+        <activity
+            android:name=".activity.BookMainActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.BarcodeScanActivity" />
-        <activity android:name=".activity.GuideActivity_01" />
-        <activity android:name=".activity.GuideActivity_02" />
+        <activity
+            android:name=".activity.GuideActivity_01"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.GuideActivity_02"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.InquiryActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_inquiry"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.LikesActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_likes"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SelectedBooksActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" />
         <activity
             android:name=".activity.SwapBookActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_swap_book"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.RequestActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_request"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.GuideActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_guide"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SetActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_set"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.SetActivity_01" />
-        <activity android:name=".activity.SetActivity_02" />
+        <activity android:name=".activity.SetActivity_01"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SetActivity_02"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.EvaluationActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_evaluation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.UserpageActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_userpage"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.BookRequestActivity" />
-        <activity android:name=".activity.PassedActivity" />
-        <activity android:name=".activity.EvaluateActivity"></activity>
-        <activity android:name=".activity.BaseScannerActivity" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.BookRequestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.PassedActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.EvaluateActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.BaseScannerActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.BookDetailActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_swap_book"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--<activity-->
             <!--android:name=".activity.BookMainActivity"-->
             <!--android:label="@string/title_activity_swap_book"-->
             <!--android:theme="@style/AppTheme.NoActionBar" />-->
-        <activity android:name=".activity.BookSearchListActivity" />
-        <activity android:name=".activity.SimpleScannerActivity" />
+        <activity
+            android:name=".activity.BookSearchListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.SimpleScannerActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
