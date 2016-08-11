@@ -188,7 +188,7 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
                 break;
             }
             case R.id.nav_todo:{
-                Intent intent = new Intent(this, EvaluateActivity.class);
+                Intent intent = new Intent(this, TodoActivity.class);
                 startActivity(intent,
                         ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 

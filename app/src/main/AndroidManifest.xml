@@ -84,6 +84,7 @@
             <!--android:theme="@style/AppTheme.NoActionBar" />-->
         <activity android:name=".activity.BookSearchListActivity" />
         <activity android:name=".activity.SimpleScannerActivity" />
+        <activity android:name=".activity.TodoActivity" />
     </application>
 
 </manifest>
