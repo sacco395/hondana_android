@@ -63,7 +63,7 @@ public class RequestActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_swap_book);
+        setContentView(R.layout.activity_request);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("取引中の本");

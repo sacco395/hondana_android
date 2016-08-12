@@ -2,8 +2,8 @@ package com.books.hondana.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -17,15 +17,14 @@ public class PassedActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passed);
 
+
         findViewById(R.id.buttonCancel).setOnClickListener(this);
         findViewById(R.id.buttonSending).setOnClickListener(this);
 
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+// ツールバーをアクションバーとしてセット
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar02);
+        setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
     }
 
     @Override

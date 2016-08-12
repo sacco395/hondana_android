@@ -33,7 +33,6 @@
         <activity
             android:name=".activity.BookMainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.BarcodeScanActivity" />
         <activity
             android:name=".activity.GuideActivity_01"
             android:screenOrientation="portrait"/>

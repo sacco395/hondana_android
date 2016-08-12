@@ -2,8 +2,8 @@ package com.books.hondana.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -46,12 +46,9 @@ public class TodoActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_likes);
 
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        // ツールバーをアクションバーとしてセット
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar02);
+        setSupportActionBar(toolbar);
 
         // ListViewのインスタンスを生成
         ListView listView = (ListView) findViewById(R.id.list_view);
