@@ -37,6 +37,7 @@ public class LoginActivity extends Activity {
     private static final String TAG = "LoginActivity";
 
     // define our UI elements
+    private TextView mEmailField;
     private TextView mUsernameField;
     private TextView mPasswordField;
     private ProgressDialog mProgress;
@@ -48,6 +49,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.login);
 
         // link our variables to UI elements
+        mEmailField = (TextView) findViewById(R.id.email_field);
         mUsernameField = (TextView) findViewById(R.id.username_field);
         mPasswordField = (TextView) findViewById(R.id.password_field);
 
@@ -61,13 +63,14 @@ public class LoginActivity extends Activity {
                 "Signing up...", true);
 
         // get the username/password combination from the UI
+        String email = mEmailField.getText().toString();
         String username = mUsernameField.getText().toString();
         String password = mPasswordField.getText().toString();
         Log.v(TAG, "Registering: " + username + ":" + password);
 
         // create a KiiUser object
         try {
-            KiiUser user = KiiUser.createWithUsername(username);
+            KiiUser user = KiiUser.createWithEmail(username, email);
             // register the user asynchronously
             user.register(new KiiUserCallBack() {
 
@@ -116,6 +119,7 @@ public class LoginActivity extends Activity {
                 "Signing in...", true);
 
         // get the username/password combination from the UI
+        String mail = mEmailField.getText().toString();
         String username = mUsernameField.getText().toString();
         String password = mPasswordField.getText().toString();
         Log.v(TAG, "Logging in: " + username + ":" + password);
