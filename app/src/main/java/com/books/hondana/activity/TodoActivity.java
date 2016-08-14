@@ -2,6 +2,7 @@ package com.books.hondana.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -10,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import com.books.hondana.ListViewAdapter;
+import com.books.hondana.ListViewAdapter3;
 import com.books.hondana.R;
 
 public class TodoActivity extends AppCompatActivity
@@ -19,43 +20,50 @@ public class TodoActivity extends AppCompatActivity
     private BaseAdapter adapter;
 
 
-    // Isle of Wight in U.K.
-    private static final String[] scenes = {
+    private static final String[] date = {
             // Scenes of Isle of Wight
-            "デザイン思考は世界を変える",
-            "十月の旅人",
-            "無印良品は仕組みが９割",
+            "3日前",
+            "4日前",
+            "5日前",
     };
 
-    private static final String[] authors = {
+    private static final String[] todo = {
             // Scenes of Isle of Wight
-            "ティム・ブラウン",
-            "レイ・ブラッドベリ",
-            "松井忠三",
+            "らっこさんから「デザイン思考は世界を変える」に交換リクエストが届きました。\nこちらから発送をしましょう。",
+            "ポニータさんから「舟を編む」が発送されました。\n届いたら内容を確認して、受取評価をしてください。",
+            "ポニータさんに「舟を編む」の交換リクエスト中です。\n発送完了連絡をお待ちください。",
     };
+
 
     // ちょっと冗長的ですが分かり易くするために
     private static final int[] photos = {
             R.drawable.changedesign,
-            R.drawable.october,
-            R.drawable.muji,
+            R.drawable.fune,
+            R.drawable.fune,
     };
-
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_likes);
+        setContentView(R.layout.activity_todo);
 
         // ツールバーをアクションバーとしてセット
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar02);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("やることリスト");
         setSupportActionBar(toolbar);
 
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         // ListViewのインスタンスを生成
-        ListView listView = (ListView) findViewById(R.id.list_view);
+        ListView listView = (ListView) findViewById(R.id.list_view3);
 
         // BaseAdapter を継承したadapterのインスタンスを生成
 
-        adapter = new ListViewAdapter(this.getApplicationContext(), R.layout.part_book_list, scenes, authors, photos);
+        adapter = new ListViewAdapter3 (this.getApplicationContext(), R.layout.part_todo_list,date,todo, photos);
 
         // ListViewにadapterをセット
         listView.setAdapter(adapter);
@@ -67,22 +75,41 @@ public class TodoActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        Intent intent = new Intent(this.getApplicationContext(), SelectedBooksActivity.class);
-        // clickされたpositionのtextとphotoのID
-        String selectedText = scenes[position];
-        int selectedPhoto = photos[position];
-        // インテントにセット
-        intent.putExtra("Text", selectedText);
-        intent.putExtra("Photo", selectedPhoto);
-        // Activity をスイッチする
-        startActivity(intent);
+        Intent intent = new Intent();
+
+        switch (position) {
+            case 0:
+                intent = new Intent (TodoActivity.this, PassedActivity.class);
+                startActivity(intent);
+                break;
+            case 1:
+                intent = new Intent (TodoActivity.this, EvaluateActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
+
+
+//        Intent intent = new Intent(this.getApplicationContext(), SelectedBooksActivity.class);
+//        // clickされたpositionのtextとphotoのID
+//        String selectedText = todo[position];
+//        int selectedPhoto = photos[position];
+//        // インテントにセット
+//        intent.putExtra("Text", selectedText);
+//        intent.putExtra("Photo", selectedPhoto);
+//        // Activity をスイッチする
+//        startActivity(intent);
+//    }
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
