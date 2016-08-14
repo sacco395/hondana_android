@@ -15,12 +15,12 @@
         android:paddingTop="16dip" >
 
         <EditText
-            android:id="@+id/username_field"
+            android:id="@+id/mail_field"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dip"
             android:gravity="left|center_vertical"
-            android:hint="Enter username"
+            android:hint="メールアドレス"
             android:background="@drawable/editor_background"
             android:inputType="textEmailAddress"
             android:minWidth="250dip"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dip"
             android:gravity="left|center_vertical"
-            android:hint="Enter password"
+            android:hint="パスワード"
             android:inputType="textPassword"
             android:minWidth="250dip"
             android:background="@drawable/editor_background"
@@ -48,6 +48,25 @@
             android:paddingTop="2dip"
             android:scrollHorizontally="true"
             android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/username_field"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dip"
+            android:gravity="left|center_vertical"
+            android:hint="ニックネーム"
+            android:background="@drawable/editor_background"
+            android:inputType="textEmailAddress"
+            android:minWidth="250dip"
+            android:paddingBottom="2dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="2dip"
+            android:paddingTop="2dip"
+            android:scrollHorizontally="true"
+            android:singleLine="true" >
+        </EditText>
+
 
     </LinearLayout>
 
