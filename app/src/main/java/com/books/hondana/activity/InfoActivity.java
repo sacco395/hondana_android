@@ -101,10 +101,13 @@ public class InfoActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId () == android.R.id.home) {
-            finish ();
-            return true;
+        switch (item.getItemId ()) {
+            case android.R.id.home:
+                onBackPressed ();
+                return true;
+            default:
+                return super.onOptionsItemSelected (item);
         }
-        return super.onOptionsItemSelected (item);
+
     }
 }
