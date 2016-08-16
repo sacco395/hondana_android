@@ -11,14 +11,21 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import com.books.hondana.ListViewAdapter3;
+import com.books.hondana.ListViewAdapter4;
 import com.books.hondana.R;
 
-public class TodoActivity extends AppCompatActivity
+public class InfoActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener {
 
     private BaseAdapter adapter;
 
+
+    private static final String[] info = {
+            // Scenes of Isle of Wight
+            "有効期限が近づいているブクがあります",
+            "事務局から個別メッセージ1ブクをプレゼントしました",
+            "ホンダナで交換申請されるための秘訣教えます!",
+    };
 
     private static final String[] date = {
             // Scenes of Isle of Wight
@@ -27,30 +34,22 @@ public class TodoActivity extends AppCompatActivity
             "5日前",
     };
 
-    private static final String[] todo = {
-            // Scenes of Isle of Wight
-            "らっこさんから「デザイン思考は世界を変える」に交換リクエストが届きました。\nこちらから発送をしましょう。",
-            "ポニータさんから「舟を編む」が発送されました。\n届いたら内容を確認して、受取評価をしてください。",
-            "ポニータさんに「舟を編む」の交換リクエスト中です。\n発送完了連絡をお待ちください。",
-    };
-
-
     // ちょっと冗長的ですが分かり易くするために
     private static final int[] photos = {
-            R.drawable.changedesign,
-            R.drawable.fune,
-            R.drawable.fune,
+            R.drawable.usericon,
+            R.drawable.usericon,
+            R.drawable.usericon,
     };
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
-        setContentView (R.layout.activity_todo);
+        setContentView (R.layout.activity_info);
 
         // ツールバーをアクションバーとしてセット
         Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
-        toolbar.setTitle ("やることリスト");
+        toolbar.setTitle ("あなたへのお知らせ");
         setSupportActionBar (toolbar);
 
 
@@ -60,11 +59,11 @@ public class TodoActivity extends AppCompatActivity
         }
 
         // ListViewのインスタンスを生成
-        ListView listView = (ListView) findViewById (R.id.list_view3);
+        ListView listView = (ListView) findViewById (R.id.list_view4);
 
         // BaseAdapter を継承したadapterのインスタンスを生成
 
-        adapter = new ListViewAdapter3 (this.getApplicationContext (), R.layout.part_todo_list, date, todo, photos);
+        adapter = new ListViewAdapter4 (this.getApplicationContext (), R.layout.part_info_list, info ,date, photos);
 
         // ListViewにadapterをセット
         listView.setAdapter (adapter);
@@ -76,18 +75,15 @@ public class TodoActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        Intent intent = new Intent ();
-
-        switch (position) {
-            case 0:
-                intent = new Intent (TodoActivity.this, PassedActivity.class);
-                startActivity (intent);
-                break;
-            case 1:
-                intent = new Intent (TodoActivity.this, EvaluateActivity.class);
-                startActivity (intent);
-                break;
-        }
+        Intent intent = new Intent(this.getApplicationContext(), SelectedBooksActivity.class);
+        // clickされたpositionのtextとphotoのID
+        String selectedText = info[position];
+        int selectedPhoto = photos[position];
+        // インテントにセット
+        intent.putExtra("Text", selectedText);
+        intent.putExtra("Photo", selectedPhoto);
+        // Activity をスイッチする
+        startActivity(intent);
     }
 
 

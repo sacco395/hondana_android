@@ -181,7 +181,7 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
             }
             break;
             case R.id.nav_notifications: {
-                Intent intent = new Intent(this, PassedActivity.class);
+                Intent intent = new Intent(this, InfoActivity.class);
                 startActivity(intent,
                         ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
