@@ -110,17 +110,17 @@ public class SwapBookActivity extends AppCompatActivity
     }
 
         private void setupViewPager(ViewPager viewPager) {
-            ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+            Tab2ViewPagerAdapter adapter = new Tab2ViewPagerAdapter(getSupportFragmentManager());
             adapter.addFragment(new PassedBooksFragment(), "手渡した本");
             adapter.addFragment(new ReceivedBooksFragment(), "受け取った本");
             viewPager.setAdapter(adapter);
         }
 
-        class ViewPagerAdapter extends FragmentPagerAdapter {
+        class Tab2ViewPagerAdapter extends FragmentPagerAdapter {
             private final List<Fragment> mFragmentList = new ArrayList<>();
             private final List<String> mFragmentTitleList = new ArrayList<>();
 
-            public ViewPagerAdapter(FragmentManager manager) {
+            public Tab2ViewPagerAdapter(FragmentManager manager) {
                 super(manager);
             }
 

@@ -51,7 +51,7 @@ public class ReceivedRequestFragment extends Fragment
             super.onViewCreated(view, savedInstanceState);
 
             ListView listView = (ListView) view.findViewById(R.id.list);
-            adapter = new ListViewAdapter(this.getContext(), R.layout.part_book_list, scenes, authors, photos);
+            adapter = new PRBookListViewAdapter (this.getContext(), R.layout.part_book_list, scenes, authors, photos);
 
             // ListViewにadapterをセット
             listView.setAdapter(adapter);

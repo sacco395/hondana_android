@@ -16,12 +16,12 @@ public class BadEvaluationFragment extends Fragment
         implements AdapterView.OnItemClickListener {
     private BaseAdapter adapter;
     // Isle of Wight in U.K.
-    private static final String[] scenes = {
+    private static final String[] evaluations = {
             // Scenes of Isle of Wight
             "悪い : 送った相手",
     };
 
-    private static final String[] authors = {
+    private static final String[] users = {
             // Scenes of Isle of Wight
             "ミカ",
     };
@@ -54,7 +54,7 @@ public class BadEvaluationFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         ListView listView = (ListView) view.findViewById(R.id.list);
-        adapter = new ListViewAdapter2(this.getContext(), R.layout.part_evaluation_list, scenes, authors, comments, date, photos);
+        adapter = new EvaluationListViewAdapter (this.getContext(), R.layout.part_evaluation_list, evaluations, users, comments, date, photos);
 
         // ListViewにadapterをセット
         listView.setAdapter(adapter);
@@ -69,7 +69,7 @@ public class BadEvaluationFragment extends Fragment
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         Intent intent = new Intent(this.getContext(), SelectedBooksActivity.class);
         // clickされたpositionのtextとphotoのID
-        String selectedText = scenes[position];
+        String selectedText = evaluations[position];
         int selectedPhoto = photos[position];
         // インテントにセット
         intent.putExtra("Text", selectedText);

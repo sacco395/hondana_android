@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.Connection.QueryParamSet;
-import com.books.hondana.ListViewAdapter;
+import com.books.hondana.PRBookListViewAdapter;
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
 
@@ -54,7 +54,7 @@ public class LikesActivity extends AppCompatActivity
     private BaseAdapter adapter;
 
     // Isle of Wight in U.K.
-    private static final String[] scenes = {
+    private static final String[] titles = {
             // Scenes of Isle of Wight
             "デザイン思考は世界を変える",
             "十月の旅人",
@@ -119,7 +119,7 @@ public class LikesActivity extends AppCompatActivity
 
         // BaseAdapter を継承したadapterのインスタンスを生成
 
-        adapter = new ListViewAdapter(this.getApplicationContext(), R.layout.part_book_list, scenes,authors, photos);
+        adapter = new PRBookListViewAdapter (this.getApplicationContext(), R.layout.part_book_list, titles,authors, photos);
 
         // ListViewにadapterをセット
         listView.setAdapter(adapter);
@@ -134,7 +134,7 @@ public class LikesActivity extends AppCompatActivity
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         Intent intent = new Intent(this.getApplicationContext(), SelectedBooksActivity.class);
         // clickされたpositionのtextとphotoのID
-        String selectedText = scenes[position];
+        String selectedText = titles[position];
         int selectedPhoto = photos[position];
         // インテントにセット
         intent.putExtra("Text", selectedText);

@@ -15,25 +15,31 @@ import android.widget.TextView;
 
 import com.books.hondana.activity.SelectedBooksActivity;
 
-public class ListViewAdapter4 extends BaseAdapter {
+public class EvaluationListViewAdapter extends BaseAdapter {
 
     static class ViewHolder {
         TextView textView;
         TextView textView2;
+        TextView textView3;
+        TextView textView4;
         ImageView imageView;
     }
 
     private LayoutInflater inflater;
     private int itemLayoutId;
-    private String[] info;
+    private String[] titles;
+    private String[] authors;
+    private String[] comments;
     private String[] date;
     private int[] ids;
 
-    public ListViewAdapter4(Context context, int itemLayoutId, String[] info, String[] date, int[] photos) {
+    public EvaluationListViewAdapter(Context context, int itemLayoutId, String[] scenes, String[] authors, String[] comments, String[] date, int[] photos) {
         super();
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.itemLayoutId = itemLayoutId;
-        this.info = info;
+        this.titles = scenes;
+        this.authors = authors;
+        this.comments = comments;
         this.date = date;
         this.ids = photos;
     }
@@ -49,6 +55,8 @@ public class ListViewAdapter4 extends BaseAdapter {
             holder = new ViewHolder();
             holder.textView = (TextView) convertView.findViewById(R.id.textView);
             holder.textView2 = (TextView) convertView.findViewById(R.id.textView2);
+            holder.textView3 = (TextView) convertView.findViewById(R.id.textView3);
+            holder.textView4 = (TextView) convertView.findViewById(R.id.textView4);
             holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
             convertView.setTag(holder);
         }
@@ -60,8 +68,10 @@ public class ListViewAdapter4 extends BaseAdapter {
         // holder の imageView にセット
         holder.imageView.setImageResource(ids[position]);
         // 現在の position にあるファイル名リストを holder の textView にセット
-        holder.textView.setText(info[position]);
-        holder.textView2.setText(date[position]);
+        holder.textView.setText(titles[position]);
+        holder.textView2.setText(authors[position]);
+        holder.textView3.setText(comments[position]);
+        holder.textView4.setText(date[position]);
 
         return convertView;
     }
@@ -69,7 +79,7 @@ public class ListViewAdapter4 extends BaseAdapter {
     @Override
     public int getCount() {
         // texts 配列の要素数
-        return info.length;
+        return titles.length;
     }
 
     @Override
@@ -82,29 +92,42 @@ public class ListViewAdapter4 extends BaseAdapter {
         return 0;
     }
 
-    public static class PassedRequestFragment extends Fragment
+    public static class AllEvaluationFragment extends Fragment
             implements AdapterView.OnItemClickListener {
         private BaseAdapter adapter;
         // Isle of Wight in U.K.
-        private static final String[] info = {
+        private static final String[] scenes = {
                 // Scenes of Isle of Wight
-                "有効期限が近づいているブクがあります",
-                "事務局から個別メッセージ1ブクをプレゼントしました",
-                "ホンダナで交換申請されるための秘訣教えます!",
+                "デザイン思考は世界を変える",
+                "十月の旅人",
+                "無印良品は仕組みが９割",
+        };
+
+        private static final String[] authors = {
+                // Scenes of Isle of Wight
+                "ティム・ブラウン",
+                "レイ・ブラッドベリ",
+                "松井忠三",
+        };
+        private static final String[] comments = {
+                // Scenes of Isle of Wight
+                "本日届きました。ありがとうございました。",
+                "ほげ",
+                "また機会がありましたらよろしくお願いします。",
         };
 
         private static final String[] date = {
                 // Scenes of Isle of Wight
-                "3日前",
-                "4日前",
-                "5日前",
+                "2016.00.00 00:00",
+                "2016.00.00 00:00",
+                "2016.00.00 00:00",
         };
 
         // ちょっと冗長的ですが分かり易くするために
         private static final int[] photos = {
-                R.drawable.usericon,
-                R.drawable.usericon,
-                R.drawable.usericon,
+                R.drawable.changedesign,
+                R.drawable.october,
+                R.drawable.muji,
         };
 
 
@@ -119,8 +142,8 @@ public class ListViewAdapter4 extends BaseAdapter {
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
 
-            ListView listView = (ListView) view.findViewById(R.id.list_view4);
-            adapter = new ListViewAdapter4 (this.getContext(), R.layout.part_info_list, info, date, photos);
+            ListView listView = (ListView) view.findViewById(R.id.list);
+            adapter = new EvaluationListViewAdapter (this.getContext(), R.layout.part_book_list, scenes, authors, comments, date, photos);
 
             // ListViewにadapterをセット
             listView.setAdapter(adapter);
@@ -135,7 +158,7 @@ public class ListViewAdapter4 extends BaseAdapter {
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
             Intent intent = new Intent(this.getContext(), SelectedBooksActivity.class);
             // clickされたpositionのtextとphotoのID
-            String selectedText = info[position];
+            String selectedText = scenes[position];
             int selectedPhoto = photos[position];
             // インテントにセット
             intent.putExtra("Text", selectedText);

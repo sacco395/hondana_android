@@ -110,20 +110,20 @@ public class EvaluationActivity extends AppCompatActivity {
 
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter2 adapter2
-                = new ViewPagerAdapter2(getSupportFragmentManager());
-        adapter2.addFragment(new AllEvaluationFragment(), "すべて");
-        adapter2.addFragment(new GoodEvaluationFragment(), "良い");
-        adapter2.addFragment(new NeutralEvaluationFragment(), "普通");
-        adapter2.addFragment(new BadEvaluationFragment(), "悪い");
-        viewPager.setAdapter(adapter2);
+        Tab4ViewPagerAdapter adapter
+                = new Tab4ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new AllEvaluationFragment(), "すべて");
+        adapter.addFragment(new GoodEvaluationFragment(), "良い");
+        adapter.addFragment(new NeutralEvaluationFragment(), "普通");
+        adapter.addFragment(new BadEvaluationFragment(), "悪い");
+        viewPager.setAdapter(adapter);
     }
 
-    class ViewPagerAdapter2 extends FragmentPagerAdapter {
+    class Tab4ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public ViewPagerAdapter2(FragmentManager manager) {
+        public Tab4ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
 

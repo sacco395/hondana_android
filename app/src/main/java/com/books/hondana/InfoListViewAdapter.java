@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.books.hondana.activity.SelectedBooksActivity;
 
-public class ListViewAdapter extends BaseAdapter {
+public class InfoListViewAdapter extends BaseAdapter {
 
     static class ViewHolder {
         TextView textView;
@@ -25,16 +25,16 @@ public class ListViewAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private int itemLayoutId;
-    private String[] titles;
-    private String[] authors;
+    private String[] info;
+    private String[] date;
     private int[] ids;
 
-    public ListViewAdapter(Context context, int itemLayoutId, String[] scenes, String[] authors, int[] photos) {
+    public InfoListViewAdapter(Context context, int itemLayoutId, String[] info, String[] date, int[] photos) {
         super();
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.itemLayoutId = itemLayoutId;
-        this.titles = scenes;
-        this.authors = authors;
+        this.info = info;
+        this.date = date;
         this.ids = photos;
     }
 
@@ -60,8 +60,8 @@ public class ListViewAdapter extends BaseAdapter {
         // holder の imageView にセット
         holder.imageView.setImageResource(ids[position]);
         // 現在の position にあるファイル名リストを holder の textView にセット
-        holder.textView.setText(titles[position]);
-        holder.textView2.setText(authors[position]);
+        holder.textView.setText(info[position]);
+        holder.textView2.setText(date[position]);
 
         return convertView;
     }
@@ -69,7 +69,7 @@ public class ListViewAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         // texts 配列の要素数
-        return titles.length;
+        return info.length;
     }
 
     @Override
@@ -86,25 +86,25 @@ public class ListViewAdapter extends BaseAdapter {
             implements AdapterView.OnItemClickListener {
         private BaseAdapter adapter;
         // Isle of Wight in U.K.
-        private static final String[] scenes = {
+        private static final String[] info = {
                 // Scenes of Isle of Wight
-                "デザイン思考は世界を変える",
-                "十月の旅人",
-                "無印良品は仕組みが９割",
+                "有効期限が近づいているブクがあります",
+                "事務局から個別メッセージ1ブクをプレゼントしました",
+                "ホンダナで交換申請されるための秘訣教えます!",
         };
 
-        private static final String[] authors = {
+        private static final String[] date = {
                 // Scenes of Isle of Wight
-                "ティム・ブラウン",
-                "レイ・ブラッドベリ",
-                "松井忠三",
+                "3日前",
+                "4日前",
+                "5日前",
         };
 
         // ちょっと冗長的ですが分かり易くするために
         private static final int[] photos = {
-                R.drawable.changedesign,
-                R.drawable.october,
-                R.drawable.muji,
+                R.drawable.usericon,
+                R.drawable.usericon,
+                R.drawable.usericon,
         };
 
 
@@ -119,8 +119,8 @@ public class ListViewAdapter extends BaseAdapter {
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
 
-            ListView listView = (ListView) view.findViewById(R.id.list);
-            adapter = new ListViewAdapter(this.getContext(), R.layout.part_book_list, scenes, authors, photos);
+            ListView listView = (ListView) view.findViewById(R.id.info_list_view);
+            adapter = new InfoListViewAdapter (this.getContext(), R.layout.part_info_list, info, date, photos);
 
             // ListViewにadapterをセット
             listView.setAdapter(adapter);
@@ -135,7 +135,7 @@ public class ListViewAdapter extends BaseAdapter {
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
             Intent intent = new Intent(this.getContext(), SelectedBooksActivity.class);
             // clickされたpositionのtextとphotoのID
-            String selectedText = scenes[position];
+            String selectedText = info[position];
             int selectedPhoto = photos[position];
             // インテントにセット
             intent.putExtra("Text", selectedText);

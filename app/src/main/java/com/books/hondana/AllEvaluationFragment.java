@@ -80,7 +80,7 @@ public class AllEvaluationFragment extends Fragment
             super.onViewCreated(view, savedInstanceState);
 
             ListView listView = (ListView) view.findViewById(R.id.list);
-            adapter = new ListViewAdapter2(this.getContext(), R.layout.part_evaluation_list, scenes, authors, comments, date, photos);
+            adapter = new EvaluationListViewAdapter (this.getContext(), R.layout.part_evaluation_list, scenes, authors, comments, date, photos);
 
             // ListViewにadapterをセット
             listView.setAdapter(adapter);

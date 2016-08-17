@@ -15,32 +15,26 @@ import android.widget.TextView;
 
 import com.books.hondana.activity.SelectedBooksActivity;
 
-public class ListViewAdapter2 extends BaseAdapter {
+public class TodoListViewAdapter extends BaseAdapter {
 
     static class ViewHolder {
         TextView textView;
         TextView textView2;
-        TextView textView3;
-        TextView textView4;
         ImageView imageView;
     }
 
     private LayoutInflater inflater;
     private int itemLayoutId;
-    private String[] titles;
-    private String[] authors;
-    private String[] comments;
     private String[] date;
+    private String[] todo;
     private int[] ids;
 
-    public ListViewAdapter2(Context context, int itemLayoutId, String[] scenes, String[] authors, String[] comments,  String[] date,int[] photos) {
+    public TodoListViewAdapter(Context context, int itemLayoutId, String[] date, String[] todo, int[] photos) {
         super();
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.itemLayoutId = itemLayoutId;
-        this.titles = scenes;
-        this.authors = authors;
-        this.comments = comments;
         this.date = date;
+        this.todo = todo;
         this.ids = photos;
     }
 
@@ -55,8 +49,6 @@ public class ListViewAdapter2 extends BaseAdapter {
             holder = new ViewHolder();
             holder.textView = (TextView) convertView.findViewById(R.id.textView);
             holder.textView2 = (TextView) convertView.findViewById(R.id.textView2);
-            holder.textView3 = (TextView) convertView.findViewById(R.id.textView3);
-            holder.textView4 = (TextView) convertView.findViewById(R.id.textView4);
             holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
             convertView.setTag(holder);
         }
@@ -68,10 +60,9 @@ public class ListViewAdapter2 extends BaseAdapter {
         // holder の imageView にセット
         holder.imageView.setImageResource(ids[position]);
         // 現在の position にあるファイル名リストを holder の textView にセット
-        holder.textView.setText(titles[position]);
-        holder.textView2.setText(authors[position]);
-        holder.textView3.setText(comments[position]);
-        holder.textView4.setText(date[position]);
+        holder.textView.setText(date[position]);
+        holder.textView2.setText(todo[position]);
+
 
         return convertView;
     }
@@ -79,7 +70,7 @@ public class ListViewAdapter2 extends BaseAdapter {
     @Override
     public int getCount() {
         // texts 配列の要素数
-        return titles.length;
+        return todo.length;
     }
 
     @Override
@@ -92,24 +83,11 @@ public class ListViewAdapter2 extends BaseAdapter {
         return 0;
     }
 
-    public static class AllEvaluationFragment extends Fragment
+    public static class PassedRequestFragment extends Fragment
             implements AdapterView.OnItemClickListener {
         private BaseAdapter adapter;
         // Isle of Wight in U.K.
-        private static final String[] scenes = {
-                // Scenes of Isle of Wight
-                "デザイン思考は世界を変える",
-                "十月の旅人",
-                "無印良品は仕組みが９割",
-        };
-
-        private static final String[] authors = {
-                // Scenes of Isle of Wight
-                "ティム・ブラウン",
-                "レイ・ブラッドベリ",
-                "松井忠三",
-        };
-        private static final String[] comments = {
+        private static final String[] todo = {
                 // Scenes of Isle of Wight
                 "本日届きました。ありがとうございました。",
                 "ほげ",
@@ -132,18 +110,11 @@ public class ListViewAdapter2 extends BaseAdapter {
 
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            // Inflate the layout for this fragment
-            return inflater.inflate(R.layout.fragment_passed_books, container, false);
-        }
-
-        @Override
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
 
-            ListView listView = (ListView) view.findViewById(R.id.list);
-            adapter = new ListViewAdapter2(this.getContext(), R.layout.part_book_list, scenes, authors, comments, date, photos);
+            ListView listView = (ListView) view.findViewById(R.id.todo_list_view);
+            adapter = new TodoListViewAdapter (this.getContext(), R.layout.part_todo_list, date, todo, photos);
 
             // ListViewにadapterをセット
             listView.setAdapter(adapter);
@@ -158,7 +129,7 @@ public class ListViewAdapter2 extends BaseAdapter {
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
             Intent intent = new Intent(this.getContext(), SelectedBooksActivity.class);
             // clickされたpositionのtextとphotoのID
-            String selectedText = scenes[position];
+            String selectedText = todo[position];
             int selectedPhoto = photos[position];
             // インテントにセット
             intent.putExtra("Text", selectedText);

@@ -24,7 +24,7 @@
             android:layout_below="@+id/toolbar">
                 <ListView
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    android:id="@+id/list_view3"
+                    android:id="@+id/todo_list_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
         </FrameLayout>

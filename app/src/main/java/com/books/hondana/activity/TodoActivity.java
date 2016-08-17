@@ -11,8 +11,8 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import com.books.hondana.ListViewAdapter3;
 import com.books.hondana.R;
+import com.books.hondana.TodoListViewAdapter;
 
 public class TodoActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener {
@@ -60,11 +60,11 @@ public class TodoActivity extends AppCompatActivity
         }
 
         // ListViewのインスタンスを生成
-        ListView listView = (ListView) findViewById (R.id.list_view3);
+        ListView listView = (ListView) findViewById (R.id.todo_list_view);
 
         // BaseAdapter を継承したadapterのインスタンスを生成
 
-        adapter = new ListViewAdapter3 (this.getApplicationContext (), R.layout.part_todo_list, date, todo, photos);
+        adapter = new TodoListViewAdapter (this.getApplicationContext (), R.layout.part_todo_list, date, todo, photos);
 
         // ListViewにadapterをセット
         listView.setAdapter (adapter);

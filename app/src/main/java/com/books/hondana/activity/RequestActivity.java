@@ -107,17 +107,17 @@ public class RequestActivity extends AppCompatActivity
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        Tab2ViewPagerAdapter adapter = new Tab2ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new PassedRequestFragment(), "リクエスト送信中");
         adapter.addFragment(new ReceivedRequestFragment(), "リクエスト受信中");
         viewPager.setAdapter(adapter);
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    class Tab2ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public ViewPagerAdapter(FragmentManager manager) {
+        public Tab2ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
 

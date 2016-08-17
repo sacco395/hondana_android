@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import com.books.hondana.ListViewAdapter4;
+import com.books.hondana.InfoListViewAdapter;
 import com.books.hondana.R;
 
 public class InfoActivity extends AppCompatActivity
@@ -59,11 +59,11 @@ public class InfoActivity extends AppCompatActivity
         }
 
         // ListViewのインスタンスを生成
-        ListView listView = (ListView) findViewById (R.id.list_view4);
+        ListView listView = (ListView) findViewById (R.id.info_list_view);
 
         // BaseAdapter を継承したadapterのインスタンスを生成
 
-        adapter = new ListViewAdapter4 (this.getApplicationContext (), R.layout.part_info_list, info ,date, photos);
+        adapter = new InfoListViewAdapter (this.getApplicationContext (), R.layout.part_info_list, info ,date, photos);
 
         // ListViewにadapterをセット
         listView.setAdapter (adapter);
