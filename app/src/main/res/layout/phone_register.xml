@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" android:id="@+id/main_phone_register">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingBottom="13dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="16dip" >
+
+        <EditText
+            android:id="@+id/phone_field"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dip"
+            android:gravity="left|center_vertical"
+            android:hint="電話番号"
+            android:background="@drawable/editor_background"
+            android:inputType="textPhonetic"
+            android:minWidth="250dip"
+            android:paddingBottom="2dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="2dip"
+            android:paddingTop="2dip"
+            android:scrollHorizontally="true"
+            android:singleLine="true" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ログインはこちらから"
+            android:id="@+id/to_login"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bottom_bar"
+        android:minHeight="54dip"
+        android:orientation="horizontal"
+        android:paddingTop="2dip" >
+
+
+        <Button
+            android:id="@+id/sync_sign_up_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_margin="4dip"
+            android:layout_weight="1"
+            android:background="@drawable/signup_button_background"
+            android:minWidth="100dip"
+            android:onClick="handleSignUp"
+            android:padding="2dip"
+            android:text="会員登録"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

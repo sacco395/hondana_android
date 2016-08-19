@@ -17,7 +17,7 @@
         <service android:name="com.kii.cloud.analytics.EventUploadService" />
 
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_MyActivity"
             android:theme="@style/AppTheme.NoActionBar">
