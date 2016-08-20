@@ -67,6 +67,7 @@ public class PhoneAuthActivity extends Activity {
                                 BookMainActivity.class);
                         PhoneAuthActivity.this.startActivity(myIntent);
 
+                        finish();
                     }
 
                     // otherwise, something bad happened in the request

@@ -88,6 +88,9 @@ public class RegisterActivity extends Activity {
                         Log.v(TAG, "Registered: " + user.toString());
                         showToast("User registered!");
 
+                        //SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
+                        //pref.edit().putString(getString(R.string.save_token), user.getAccessToken()).apply();
+
                         Intent myIntent = new Intent(RegisterActivity.this,
                                 PhoneAuthActivity.class);
                         RegisterActivity.this.startActivity(myIntent);
