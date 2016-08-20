@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" android:id="@+id/main_phone_register">
+    android:orientation="vertical" android:id="@+id/main_phone_auth">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -15,14 +15,14 @@
         android:paddingTop="16dip" >
 
         <EditText
-            android:id="@+id/phone_field"
+            android:id="@+id/code_field"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dip"
             android:gravity="left|center_vertical"
-            android:hint="電話番号"
+            android:hint="認証コードを入力してください"
             android:background="@drawable/editor_background"
-            android:inputType="textPhonetic"
+            android:inputType="number"
             android:minWidth="250dip"
             android:paddingBottom="2dip"
             android:paddingLeft="10dip"
@@ -31,16 +31,6 @@
             android:scrollHorizontally="true"
             android:singleLine="true" >
         </EditText>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ログインはこちらから"
-            android:id="@+id/to_login"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
 
     </LinearLayout>
 
@@ -55,7 +45,7 @@
 
 
         <Button
-            android:id="@+id/sync_sign_up_button"
+            android:id="@+id/sync_phone_auth_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
@@ -63,7 +53,7 @@
             android:layout_weight="1"
             android:background="@drawable/signup_button_background"
             android:minWidth="100dip"
-            android:onClick="handleSignUp"
+            android:onClick="handleAuth"
             android:padding="2dip"
             android:text="会員登録"
             android:textColor="@android:color/white"

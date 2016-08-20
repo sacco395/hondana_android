@@ -21,6 +21,7 @@ package com.books.hondana.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,7 +37,7 @@ public class RegisterActivity extends Activity {
     private static final String TAG = "RegisterActivity";
 
     // define our UI elements
-    private TextView mEmailField;
+    private TextView mPhoneField;
     private TextView mUsernameField;
     private TextView mPasswordField;
     private ProgressDialog mProgress;
@@ -48,7 +49,7 @@ public class RegisterActivity extends Activity {
         setContentView(R.layout.register);
 
         // link our variables to UI elements
-        mEmailField = (TextView) findViewById(R.id.email_field);
+        mPhoneField = (TextView) findViewById(R.id.phone_field);
         mUsernameField = (TextView) findViewById(R.id.username_field);
         mPasswordField = (TextView) findViewById(R.id.password_field);
 
@@ -62,14 +63,14 @@ public class RegisterActivity extends Activity {
                 "Signing up...", true);
 
         // get the username/password combination from the UI
-        String email = mEmailField.getText().toString();
+        String phone = mPhoneField.getText().toString();
         String username = mUsernameField.getText().toString();
         String password = mPasswordField.getText().toString();
         Log.v(TAG, "Registering: " + username + ":" + password);
 
         // create a KiiUser object
         try {
-            KiiUser user = KiiUser.createWithEmail(username, email);
+            KiiUser user = KiiUser.createWithPhone(username, phone);
             // register the user asynchronously
             user.register(new KiiUserCallBack() {
 
@@ -86,6 +87,10 @@ public class RegisterActivity extends Activity {
                         // tell the console and the user it was a success!
                         Log.v(TAG, "Registered: " + user.toString());
                         showToast("User registered!");
+
+                        Intent myIntent = new Intent(RegisterActivity.this,
+                                PhoneAuthActivity.class);
+                        RegisterActivity.this.startActivity(myIntent);
 
 
                     }
