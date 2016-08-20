@@ -41,6 +41,7 @@ public class RegisterActivity extends Activity {
     private TextView mUsernameField;
     private TextView mPasswordField;
     private ProgressDialog mProgress;
+    private String country = "JP";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class RegisterActivity extends Activity {
         // create a KiiUser object
         try {
             KiiUser user = KiiUser.createWithPhone(username, phone);
+            user.setCountry(country);
             // register the user asynchronously
             user.register(new KiiUserCallBack() {
 
@@ -86,7 +88,7 @@ public class RegisterActivity extends Activity {
 
                         // tell the console and the user it was a success!
                         Log.v(TAG, "Registered: " + user.toString());
-                        showToast("User registered!");
+                        showToast("登録ありがとうございます！");
 
                         //SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
                         //pref.edit().putString(getString(R.string.save_token), user.getAccessToken()).apply();
