@@ -10,7 +10,7 @@ import com.kii.cloud.storage.KiiObject;
  */
 public class Member extends KiiDataObj implements Parcelable {
 
-    public static final String LOGIN_NAME = "login_name";
+    public static final String USER_ID = "user_id";
     public static final String NAME = "name";
     public static final String NICKNAME = "nickname";
     public static final String BIRTHDAY = "birthday";

@@ -68,6 +68,7 @@ public class BookDetailActivity extends AppCompatActivity	{
 		btnAddKiiCloud.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				// KiiBook bKobj = new KiiBook()
 				KiiBook bKobj = targetBook;
 				// Dummy Data
 				bKobj.set(KiiBook.BOOK_ID, "2");  // 適当すぎる！

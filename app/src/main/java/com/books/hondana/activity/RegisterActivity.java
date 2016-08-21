@@ -23,13 +23,19 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.Model.KiiCloudBucket;
+import com.books.hondana.Model.Member;
 import com.books.hondana.R;
+import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
+import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.kii.cloud.storage.callback.KiiUserCallBack;
 
 public class RegisterActivity extends Activity {
@@ -78,26 +84,13 @@ public class RegisterActivity extends Activity {
 
                 // catch the callback's "done" request
                 public void onRegisterCompleted(int token, KiiUser user,
-                                                Exception e) {
-
-                    // hide our progress UI element
-                    mProgress.cancel();
-
+                                                final Exception e) {
                     // check for an exception (successful request if e==null)
                     if (e == null) {
 
                         // tell the console and the user it was a success!
                         Log.v(TAG, "Registered: " + user.toString());
-                        showToast("登録ありがとうございます！");
-
-                        //SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
-                        //pref.edit().putString(getString(R.string.save_token), user.getAccessToken()).apply();
-
-                        Intent myIntent = new Intent(RegisterActivity.this,
-                                PhoneAuthActivity.class);
-                        RegisterActivity.this.startActivity(myIntent);
-
-
+                        createMember (user);
                     }
 
                     // otherwise, something bad happened in the request
@@ -117,6 +110,55 @@ public class RegisterActivity extends Activity {
             mProgress.cancel();
             showToast("Error signing up: " + e.getLocalizedMessage());
         }
+
+    }
+
+    private void createMember(KiiUser user) {
+        // 普通にインスタンス化
+        Member member = new Member ();
+        // KiiCloud の Member バケツのオブジェクトだと宣言
+        member.kiiDataInitialize(KiiCloudBucket.MEMBERS);
+
+        // 登録したい値をセット
+        member.set (Member.USER_ID, user.getID ());
+
+        // サーバにポスト
+        member.save (new KiiObjectCallBack () {
+            @Override
+            public void onSaveCompleted(int token, @NonNull KiiObject object, @Nullable Exception exception) {
+                super.onSaveCompleted (token, object, exception);
+
+
+                // hide our progress UI element
+                mProgress.cancel();
+
+                // check for an exception (successful request if e==null)
+                if (exception == null) {
+
+                    // tell the console and the user it was a success!
+                    Log.v(TAG, "Registered: " + object.toString());
+                    showToast("登録ありがとうございます！");
+
+                    //SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
+                    //pref.edit().putString(getString(R.string.save_token), user.getAccessToken()).apply();
+
+                    Intent myIntent = new Intent(RegisterActivity.this,
+                            PhoneAuthActivity.class);
+                    RegisterActivity.this.startActivity(myIntent);
+
+
+                }
+
+                // otherwise, something bad happened in the request
+                else {
+
+                    // tell the console and the user there was a failure
+                    Log.v(TAG, "Error registering: " + exception.getLocalizedMessage());
+                    showToast("Error Registering: " + exception.getLocalizedMessage());
+
+                }
+            }
+        });
 
     }
 
