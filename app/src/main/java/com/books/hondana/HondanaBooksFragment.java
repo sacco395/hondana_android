@@ -108,8 +108,8 @@ public class HondanaBooksFragment extends Fragment {
             dataLists = savedInstanceState.getParcelableArrayList(DATA_LIST);
         }
         // Inflate the layout for this fragment
-        View v =inflater.inflate(R.layout.fragment_kii_books, container, false);
-        mGridView = (GridView)v.findViewById(R.id.gridView);
+        View v = inflater.inflate(R.layout.fragment_kii_books, container, false);
+        mGridView = (GridView) v.findViewById(R.id.gridView);
         mGridView.setAdapter(mListAdapter);
 
         return v;

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
-android:orientation="vertical" android:id="@+id/main_login">
+android:orientation="vertical" android:id="@+id/main_register">
 
 <LinearLayout
     android:layout_width="fill_parent"
@@ -15,14 +15,14 @@ android:orientation="vertical" android:id="@+id/main_login">
     android:paddingTop="16dip" >
 
     <EditText
-        android:id="@+id/email_field"
+        android:id="@+id/phone_field"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dip"
         android:gravity="left|center_vertical"
-        android:hint="メールアドレス"
+        android:hint="電話番号"
         android:background="@drawable/editor_background"
-        android:inputType="textEmailAddress"
+        android:inputType="phone"
         android:minWidth="250dip"
         android:paddingBottom="2dip"
         android:paddingLeft="10dip"
@@ -57,7 +57,7 @@ android:orientation="vertical" android:id="@+id/main_login">
         android:gravity="left|center_vertical"
         android:hint="ニックネーム"
         android:background="@drawable/editor_background"
-        android:inputType="textEmailAddress"
+        android:inputType="textPersonName"
         android:minWidth="250dip"
         android:paddingBottom="2dip"
         android:paddingLeft="10dip"
@@ -66,16 +66,6 @@ android:orientation="vertical" android:id="@+id/main_login">
         android:scrollHorizontally="true"
         android:singleLine="true" >
     </EditText>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ログインはこちらから"
-        android:id="@+id/to_login"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
 
 </LinearLayout>
 
@@ -100,10 +90,11 @@ android:orientation="vertical" android:id="@+id/main_login">
         android:minWidth="100dip"
         android:onClick="handleSignUp"
         android:padding="2dip"
-        android:text="会員登録"
+        android:text="認証登録へ"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
+
 
 </LinearLayout>
 

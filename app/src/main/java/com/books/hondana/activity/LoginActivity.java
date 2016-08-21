@@ -119,7 +119,7 @@ public class LoginActivity extends Activity {
                 "Signing in...", true);
 
         // get the username/password combination from the UI
-        String mail = mEmailField.getText().toString();
+        String Email = mEmailField.getText().toString();
         String username = mUsernameField.getText().toString();
         String password = mPasswordField.getText().toString();
         Log.v(TAG, "Logging in: " + username + ":" + password);
