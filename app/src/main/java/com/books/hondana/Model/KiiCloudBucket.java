@@ -8,7 +8,7 @@ public enum KiiCloudBucket {
     /** 列挙定数の定義 */
     BOOKS("appbooks", 1, ""),
     MEMBERS("members",2,""),
-    COLLECTIONS("collections",3,""),
+    USERBOOKS("userbooks",3,""),
     EVALUATIONS("evaluations",4,""),
     LINKS("links",5,""),
     GENRES("genres",6,"");

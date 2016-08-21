@@ -16,7 +16,7 @@ public class Tab4ViewPagerAdapter extends FragmentPagerAdapter {
             return new AllEvaluationFragment();
         } else if (position == 1) {
             return new GoodEvaluationFragment();
-        } else if (position == 1) {
+        } else if (position == 2) {
             return new NeutralEvaluationFragment();
         } else return new BadEvaluationFragment();
     }

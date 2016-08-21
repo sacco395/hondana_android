@@ -125,7 +125,11 @@
         <activity
             android:name=".activity.SimpleScannerActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.InfoActivity"
+        <activity
+            android:name=".activity.InfoActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".activity.StartActivity"
                   android:screenOrientation="portrait">
         </activity>
     </application>
