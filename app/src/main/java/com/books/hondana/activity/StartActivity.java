@@ -30,7 +30,7 @@ public class StartActivity extends AppCompatActivity
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_start);
 
-
+        findViewById(R.id.buttonLogin).setOnClickListener(this);
         findViewById(R.id.buttonRegistration).setOnClickListener(this);
         findViewById(R.id.skip).setOnClickListener(this);
 
@@ -83,12 +83,13 @@ public class StartActivity extends AppCompatActivity
             switch (v.getId()) {
                 case R.id.buttonLogin:
                     // クリック処理
-                    finish();
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
                     break;
 
                 case R.id.buttonRegistration:
                     // クリック処理
-                    Intent intent = new Intent(this, RegisterActivity.class);
+                    intent = new Intent (this, RegisterActivity.class);
                     startActivity(intent);
                     break;
 
