@@ -23,14 +23,23 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.Model.KiiCloudBucket;
+import com.books.hondana.Model.Member;
 import com.books.hondana.R;
+import com.kii.cloud.storage.Kii;
+import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
+import com.kii.cloud.storage.callback.KiiQueryCallBack;
 import com.kii.cloud.storage.callback.KiiUserCallBack;
+import com.kii.cloud.storage.query.KiiClause;
+import com.kii.cloud.storage.query.KiiQuery;
+import com.kii.cloud.storage.query.KiiQueryResult;
 
 public class LoginActivity extends Activity {
 
@@ -139,6 +148,32 @@ public class LoginActivity extends Activity {
                 if (e == null) {
                     showToast("User authenticated!");
 
+                    // Member の user_id が user.getID() と等しいものが欲しい
+                    KiiQuery query = new KiiQuery (KiiClause.equals (Member.USER_ID, user.getID ()));
+
+//                    KiiQuery allQuery = new KiiQuery ();
+
+                    // 帰ってくる結果の上限
+                    query.setLimit (1);
+
+                    Kii.bucket (KiiCloudBucket.MEMBERS.getName ()).query (new KiiQueryCallBack<KiiObject> () {
+                        @Override
+                        public void onQueryCompleted(int token, @Nullable KiiQueryResult<KiiObject> result, @Nullable Exception exception) {
+                            super.onQueryCompleted (token, result, exception);
+                            if (exception == null) {
+                                // Success!
+                                if (result != null && result.getResult () != null) {
+                                    KiiObject memberObj = result.getResult ().get (0);
+                                    Member member = new Member (memberObj);
+                                    Log.d (TAG, "onQueryCompleted: " + member.toString ());
+                                } else {
+                                    // Result is null! エラー処理
+                                }
+                            } else {
+                                // エラー処理
+                            }
+                        }
+                    }, query);
 
                     Intent myIntent = new Intent(LoginActivity.this,
                             BookMainActivity.class);

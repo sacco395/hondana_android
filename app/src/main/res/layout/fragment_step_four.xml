@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.books.hondana.StepTwoFragment">
+             tools:context="com.books.hondana.StepThreeFragment">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -10,31 +10,30 @@
 
 
         <ImageView
-            android:id="@+id/step02"
+            android:id="@+id/step04"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/step02"
+            android:src="@drawable/step04"
             android:layout_weight="1"/>
 
         <TextView
-            android:id="@+id/step02_text01"
+            android:id="@+id/step03_text01"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="本を登録して\nブク（ポイント）をもらおう"
+            android:text="さあ、はじめよう！"
             android:textStyle="bold"
             android:textColor="#52AE93"
             android:gravity="center"
             android:layout_weight="1"
-            android:lineSpacingMultiplier="1.5"
             android:textSize="22sp"/>
 
 
         <TextView
-            android:id="@+id/step02_text02"
+            android:id="@+id/step03_text02"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="10冊本を登録するごとに、\n交換に必要なポイント「ブク」がもらえます。"
+            android:text="さっそく登録して読みたい本を\n探してみよう！"
             android:textColor="#52AE93"
             android:gravity="center|top"
             android:textSize="18sp"

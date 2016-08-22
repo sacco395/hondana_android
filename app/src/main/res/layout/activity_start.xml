@@ -31,16 +31,33 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_above="@+id/skip">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ログイン" />
+            android:text="ログイン"
+            android:id="@+id/buttonLogin"
+            android:textColor="#52AE93"
+            android:background="#4b4b4b"
+            android:layout_margin="5dp"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="新規登録" />
+            android:text="新規登録"
+            android:id="@+id/buttonRegistration"
+            android:background="#52AE93"
+            android:layout_margin="5dp" />
     </LinearLayout>
+        <TextView
+            android:id="@+id/skip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="スキップする"
+            android:textColor="#52AE93"
+            android:textSize="18sp"
+            android:gravity="center_horizontal"
+            android:padding="20dp"
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

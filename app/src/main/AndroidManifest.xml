@@ -16,7 +16,7 @@
         <service android:name="com.kii.cloud.analytics.EventUploadService"/>
 
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name=".activity.StartActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_MyActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -132,7 +132,7 @@
             android:name=".activity.InfoActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.StartActivity"
+        <activity android:name=".activity.RegisterActivity"
                   android:screenOrientation="portrait">
         </activity>
     </application>
