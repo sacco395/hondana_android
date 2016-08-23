@@ -15,14 +15,14 @@
         android:paddingTop="16dip" >
 
         <EditText
-            android:id="@+id/email_field"
+            android:id="@+id/phone_field"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dip"
             android:gravity="left|center_vertical"
-            android:hint="メールアドレス"
+            android:hint="登録された電話番号"
             android:background="@drawable/editor_background"
-            android:inputType="textEmailAddress"
+            android:inputType="phone"
             android:minWidth="250dip"
             android:paddingBottom="2dip"
             android:paddingLeft="10dip"
@@ -49,24 +49,6 @@
             android:scrollHorizontally="true"
             android:singleLine="true" />
 
-        <EditText
-            android:id="@+id/username_field"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dip"
-            android:gravity="left|center_vertical"
-            android:hint="ニックネーム"
-            android:background="@drawable/editor_background"
-            android:inputType="textEmailAddress"
-            android:minWidth="250dip"
-            android:paddingBottom="2dip"
-            android:paddingLeft="10dip"
-            android:paddingRight="2dip"
-            android:paddingTop="2dip"
-            android:scrollHorizontally="true"
-            android:singleLine="true" >
-        </EditText>
-
 
     </LinearLayout>
 
@@ -90,23 +72,7 @@
             android:minWidth="100dip"
             android:onClick="handleLogin"
             android:padding="2dip"
-            android:text="Log In"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/sync_sign_up_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_margin="4dip"
-            android:layout_weight="1"
-            android:background="@drawable/signup_button_background"
-            android:minWidth="100dip"
-            android:onClick="handleSignUp"
-            android:padding="2dip"
-            android:text="Sign Up"
+            android:text="ログイン"
             android:textColor="@android:color/white"
             android:textSize="15sp"
             android:textStyle="bold" />

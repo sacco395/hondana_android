@@ -46,10 +46,10 @@ public class LoginActivity extends Activity {
     private static final String TAG = "LoginActivity";
 
     // define our UI elements
-    private TextView mEmailField;
-    private TextView mUsernameField;
+    private TextView mPhoneField;
     private TextView mPasswordField;
     private ProgressDialog mProgress;
+    private String country = "JP";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,65 +58,8 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.login);
 
         // link our variables to UI elements
-        mEmailField = (TextView) findViewById(R.id.email_field);
-        mUsernameField = (TextView) findViewById(R.id.username_field);
+        mPhoneField = (TextView) findViewById(R.id.phone_field);
         mPasswordField = (TextView) findViewById(R.id.password_field);
-
-    }
-
-    // called by the 'Sign Up' button on the UI
-    public void handleSignUp(View v) {
-
-        // show a loading progress dialog
-        mProgress = ProgressDialog.show(LoginActivity.this, "",
-                "Signing up...", true);
-
-        // get the username/password combination from the UI
-        String email = mEmailField.getText().toString();
-        String username = mUsernameField.getText().toString();
-        String password = mPasswordField.getText().toString();
-        Log.v(TAG, "Registering: " + username + ":" + password);
-
-        // create a KiiUser object
-        try {
-            KiiUser user = KiiUser.createWithEmail(username, email);
-            // register the user asynchronously
-            user.register(new KiiUserCallBack() {
-
-                // catch the callback's "done" request
-                public void onRegisterCompleted(int token, KiiUser user,
-                                                Exception e) {
-
-                    // hide our progress UI element
-                    mProgress.cancel();
-
-                    // check for an exception (successful request if e==null)
-                    if (e == null) {
-
-                        // tell the console and the user it was a success!
-                        Log.v(TAG, "Registered: " + user.toString());
-                        showToast("User registered!");
-
-
-                    }
-
-                    // otherwise, something bad happened in the request
-                    else {
-
-                        // tell the console and the user there was a failure
-                        Log.v(TAG, "Error registering: " + e.getLocalizedMessage());
-                        showToast("Error Registering: " + e.getLocalizedMessage());
-
-                    }
-
-                }
-
-            }, password);
-
-        } catch (Exception e) {
-            mProgress.cancel();
-            showToast("Error signing up: " + e.getLocalizedMessage());
-        }
 
     }
 
@@ -128,15 +71,14 @@ public class LoginActivity extends Activity {
                 "Signing in...", true);
 
         // get the username/password combination from the UI
-        String Email = mEmailField.getText().toString();
-        String username = mUsernameField.getText().toString();
+        String phone = mPhoneField.getText().toString();
         String password = mPasswordField.getText().toString();
-        Log.v(TAG, "Logging in: " + username + ":" + password);
+        Log.v(TAG, "Logging in: " + phone + ":" + password);
 
         boolean result = false;
 
         // authenticate the user asynchronously
-        KiiUser.logIn(new KiiUserCallBack() {
+        KiiUser.logInWithLocalPhone(new KiiUserCallBack() {
 
             // catch the callback's "done" request
             public void onLoginCompleted(int token, KiiUser user, Exception e) {
@@ -186,7 +128,7 @@ public class LoginActivity extends Activity {
                     ;
                 }
             }
-        }, username, password);
+        }, phone, password, country);
     }
 
     private void showToast(String message) {
