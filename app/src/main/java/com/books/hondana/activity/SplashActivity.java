@@ -28,7 +28,7 @@ public class SplashActivity extends Activity {
         String token = pref.getString(getString(R.string.save_token), "");//保存されていない時は""
 
         //tokenがないとき。
-        if(token == "") {
+        if(token.equals("")){
             //画面を作る
             // 2秒したらMainActivityを呼び出してSplashActivityを終了する
             mHandler.postDelayed(new Runnable() {
@@ -54,7 +54,7 @@ public class SplashActivity extends Activity {
                             @Override
                             public void run() {
                                 // 2秒したらBookMainActivityを呼び出してSplashActivityを終了する
-                                // BoolMainActivityを呼び出す
+                                // BookMainActivityを呼び出す
                                 Intent intent = new Intent(getApplicationContext(),
                                         BookMainActivity.class);
                                 startActivity(intent);
