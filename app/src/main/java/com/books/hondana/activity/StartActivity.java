@@ -1,6 +1,8 @@
 package com.books.hondana.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,9 @@ import com.books.hondana.StepFourFragment;
 import com.books.hondana.StepOneFragment;
 import com.books.hondana.StepThreeFragment;
 import com.books.hondana.StepTwoFragment;
+import com.kii.cloud.storage.KiiCallback;
+import com.kii.cloud.storage.KiiUser;
+import com.kii.cloud.storage.callback.KiiUserCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,19 +32,58 @@ public class StartActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate (savedInstanceState);
-        setContentView (R.layout.activity_start);
+        super.onCreate(savedInstanceState);
 
-        findViewById(R.id.buttonLogin).setOnClickListener(this);
-        findViewById(R.id.buttonRegistration).setOnClickListener(this);
-        findViewById(R.id.skip).setOnClickListener(this);
+        //SharePreferences prefは自動ログインのため保存されているaccess tokenを読み出す。tokenがあればログインできる
+        //紫色は定数
+        SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
+        String token = pref.getString(getString(R.string.save_token), "");//保存されていない時は""
+        //tokenがないとき。
+        if (token != "") {
+            //画面を作る
+            setContentView(R.layout.activity_start);
+            findViewById(R.id.buttonLogin).setOnClickListener(this);
+            findViewById(R.id.buttonRegistration).setOnClickListener(this);
+            findViewById(R.id.skip).setOnClickListener(this);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
+            viewPager = (ViewPager) findViewById(R.id.viewpager);
+            setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+            tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(viewPager);
+
+        } else {
+            //自動ログインをする。
+            //KiiCloudのAccessTokenによるログイン処理。完了すると結果がcallback関数として実行される。
+            KiiUser.loginWithStoredCredentials(new KiiCallback<KiiUser>() {
+                @Override
+                public void onComplete(KiiUser user, Exception exception) {
+                    if (exception != null) {
+                        Intent myIntent = new Intent(StartActivity.this,
+                                BookMainActivity.class);
+                        StartActivity.this.startActivity(myIntent);
+
+                        finish();
+                        // Error handling
+                        return;
+                    }
+                    user.refresh(new KiiUserCallBack() {
+                        @Override
+                        public void onRefreshCompleted(int token, Exception exception) {
+                            if (exception != null) {
+                                // Error handling
+                                return;
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+
+
     }
+
 
     private void setupViewPager(ViewPager viewPager) {
         Tab3ViewPagerAdapter adapter = new Tab3ViewPagerAdapter(getSupportFragmentManager());
