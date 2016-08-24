@@ -99,6 +99,10 @@ public class RegisterActivity extends Activity {
                         pref.edit().putString(getString(R.string.save_token), user.getAccessToken()).apply();
 
                         createMember (user);
+
+                        Intent myIntent = new Intent(RegisterActivity.this,
+                                PhoneAuthActivity.class);
+                        RegisterActivity.this.startActivity(myIntent);
                     }
 
                     // otherwise, something bad happened in the request
