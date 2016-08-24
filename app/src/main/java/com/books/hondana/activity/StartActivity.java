@@ -27,19 +27,20 @@ public class StartActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate (savedInstanceState);
-        setContentView (R.layout.activity_start);
+        super.onCreate(savedInstanceState);
 
-        findViewById(R.id.buttonLogin).setOnClickListener(this);
-        findViewById(R.id.buttonRegistration).setOnClickListener(this);
-        findViewById(R.id.skip).setOnClickListener(this);
+            setContentView(R.layout.activity_start);
+            findViewById(R.id.buttonLogin).setOnClickListener(this);
+            findViewById(R.id.buttonRegistration).setOnClickListener(this);
+            findViewById(R.id.skip).setOnClickListener(this);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
+            viewPager = (ViewPager) findViewById(R.id.viewpager);
+            setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+            tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(viewPager);
     }
+
 
     private void setupViewPager(ViewPager viewPager) {
         Tab3ViewPagerAdapter adapter = new Tab3ViewPagerAdapter(getSupportFragmentManager());

@@ -21,7 +21,9 @@ package com.books.hondana.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -90,6 +92,12 @@ public class RegisterActivity extends Activity {
 
                         // tell the console and the user it was a success!
                         Log.v(TAG, "Registered: " + user.toString());
+
+                        //自動ログイン(ログイン前)のためにSharedPreferenceに保存。アプリのストレージ。参考：http://qiita.com/Yuki_Yamada/items/f8ea90a7538234add288
+                        //.apply()で保存
+                        SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
+                        pref.edit().putString(getString(R.string.save_token), user.getAccessToken()).apply();
+
                         createMember (user);
                     }
 
@@ -146,6 +154,8 @@ public class RegisterActivity extends Activity {
                             PhoneAuthActivity.class);
                     RegisterActivity.this.startActivity(myIntent);
 
+                    finish();
+
 
                 }
 
@@ -166,4 +176,3 @@ public class RegisterActivity extends Activity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
-
