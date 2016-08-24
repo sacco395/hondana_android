@@ -120,6 +120,8 @@ public class LoginActivity extends Activity {
                     Intent myIntent = new Intent(LoginActivity.this,
                             BookMainActivity.class);
                     LoginActivity.this.startActivity(myIntent);
+
+                    //=finish();
                 }
                 // otherwise, something bad happened in the request
                 else {

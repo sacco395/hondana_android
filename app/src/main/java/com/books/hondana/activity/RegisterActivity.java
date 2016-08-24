@@ -103,6 +103,9 @@ public class RegisterActivity extends Activity {
 
                     // otherwise, something bad happened in the request
                     else {
+                        Intent myIntent = new Intent(RegisterActivity.this,
+                                StartActivity.class);
+                        RegisterActivity.this.startActivity(myIntent);
 
                         // tell the console and the user there was a failure
                         Log.v(TAG, "Error registering: " + e.getLocalizedMessage());
