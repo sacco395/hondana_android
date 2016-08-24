@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.StartActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/next_step_button"/>
+
+
+    <LinearLayout
+        android:id="@+id/next_step_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_above="@+id/skip">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ログイン"
+            android:id="@+id/buttonLogin"
+            android:textColor="#52AE93"
+            android:background="#4b4b4b"
+            android:layout_margin="5dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新規登録"
+            android:id="@+id/buttonRegistration"
+            android:background="#52AE93"
+            android:layout_margin="5dp" />
+    </LinearLayout>
+        <TextView
+            android:id="@+id/skip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="スキップする"
+            android:textColor="#52AE93"
+            android:textSize="18sp"
+            android:gravity="center_horizontal"
+            android:padding="20dp"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,46 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.books.hondana.StepThreeFragment">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+
+        <ImageView
+            android:id="@+id/step04"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/step04"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/step03_text01"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="さあ、はじめよう！"
+            android:textStyle="bold"
+            android:textColor="#52AE93"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="22sp"/>
+
+
+        <TextView
+            android:id="@+id/step03_text02"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="さっそく登録して読みたい本を\n探してみよう！"
+            android:textColor="#52AE93"
+            android:gravity="center|top"
+            android:textSize="18sp"
+            android:lineSpacingMultiplier="1.5"
+            android:layout_weight="2"/>
+
+
+    </LinearLayout>
+
+</FrameLayout>

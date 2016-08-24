@@ -84,5 +84,9 @@
 
     <string name="msg_toroku">ホンダナに登録</string>
 
+    //SharedPreferences用//
+    <string name="save_data_name">DataSave</string>
+    <string name="save_token">save_token</string>
+
 
 </resources>

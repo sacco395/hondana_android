@@ -1,0 +1,58 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.books.hondana.StepOneFragment">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+        android:id="@+id/step01_text01"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="ようこそホンダナへ！"
+        android:textStyle="bold"
+        android:textColor="#52AE93"
+        android:gravity="center"
+        android:layout_weight="0.5"
+        android:textSize="22sp"/>
+
+    <ImageView
+        android:id="@+id/step01"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/step01"
+        android:layout_weight="0.5"/>
+
+
+    <TextView
+        android:id="@+id/step01_text02"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="ここは本の交換プラットフォーム"
+        android:textStyle="bold"
+        android:textColor="#52AE93"
+        android:gravity="center"
+        android:layout_weight="0.5"
+        android:lineSpacingMultiplier="1.5"
+        android:textSize="22sp"/>
+
+
+    <TextView
+        android:id="@+id/step01_text03"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="お手持ちの本を\nよみたい本と交換できます。"
+        android:textColor="#52AE93"
+        android:gravity="center|top"
+        android:layout_weight="2"
+        android:textSize="18sp"
+        android:lineSpacingMultiplier="1.5"/>
+
+
+    </LinearLayout>
+
+</FrameLayout>

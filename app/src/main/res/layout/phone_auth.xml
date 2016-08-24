@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" android:id="@+id/main_login">
+    android:orientation="vertical" android:id="@+id/main_phone_auth">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -15,14 +15,14 @@
         android:paddingTop="16dip" >
 
         <EditText
-            android:id="@+id/phone_field"
+            android:id="@+id/code_field"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dip"
             android:gravity="left|center_vertical"
-            android:hint="登録された電話番号"
+            android:hint="認証コードを入力してください"
             android:background="@drawable/editor_background"
-            android:inputType="phone"
+            android:inputType="number"
             android:minWidth="250dip"
             android:paddingBottom="2dip"
             android:paddingLeft="10dip"
@@ -31,24 +31,6 @@
             android:scrollHorizontally="true"
             android:singleLine="true" >
         </EditText>
-
-        <EditText
-            android:id="@+id/password_field"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dip"
-            android:gravity="left|center_vertical"
-            android:hint="パスワード"
-            android:inputType="textPassword"
-            android:minWidth="250dip"
-            android:background="@drawable/editor_background"
-            android:paddingBottom="2dip"
-            android:paddingLeft="10dip"
-            android:paddingRight="2dip"
-            android:paddingTop="2dip"
-            android:scrollHorizontally="true"
-            android:singleLine="true" />
-
 
     </LinearLayout>
 
@@ -61,20 +43,21 @@
         android:orientation="horizontal"
         android:paddingTop="2dip" >
 
+
         <Button
-            android:id="@+id/sync_login_ok_button"
+            android:id="@+id/sync_phone_auth_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_margin="4dip"
             android:layout_weight="1"
-            android:background="@drawable/login_button_background"
+            android:background="@drawable/signup_button_background"
             android:minWidth="100dip"
-            android:onClick="handleLogin"
+            android:onClick="handleAuth"
             android:padding="2dip"
-            android:text="ログイン"
+            android:text="会員登録"
             android:textColor="@android:color/white"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>

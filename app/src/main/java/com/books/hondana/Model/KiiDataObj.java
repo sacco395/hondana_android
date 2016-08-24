@@ -36,8 +36,8 @@ public class KiiDataObj implements Parcelable {
             kiiBucket = Kii.bucket((KiiCloudBucket.MEMBERS.getName()));
             kiiObject = kiiBucket.object();
 
-        } else if (kiiCloudBucket == KiiCloudBucket.COLLECTIONS ) {
-            kiiBucket = Kii.bucket((KiiCloudBucket.COLLECTIONS.getName()));
+        } else if (kiiCloudBucket == KiiCloudBucket.USERBOOKS) {
+            kiiBucket = Kii.bucket((KiiCloudBucket.USERBOOKS.getName()));
             kiiObject = kiiBucket.object();
 
         } else if (kiiCloudBucket == KiiCloudBucket.EVALUATIONS ){
@@ -141,14 +141,4 @@ public class KiiDataObj implements Parcelable {
         this.map = in.readHashMap(HashMap.class.getClassLoader());
     }
 
-    // これは定型文なのでそのまま使える。
-    public static final Creator<KiiDataObj> CREATOR = new Creator<KiiDataObj>() {
-        public KiiDataObj createFromParcel(Parcel in) {
-            return new KiiDataObj(in);
-        }
-
-        public KiiDataObj[] newArray(int size) {
-            return new KiiDataObj[size];
-        }
-    };
 }
