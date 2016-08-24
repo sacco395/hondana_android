@@ -130,6 +130,8 @@ public class RegisterActivity extends Activity {
         // 登録したい値をセット
         member.set (Member.USER_ID, user.getID ());
 
+        member.set (Member.NAME,user.getUsername());
+
         // サーバにポスト
         member.save (new KiiObjectCallBack () {
             @Override
