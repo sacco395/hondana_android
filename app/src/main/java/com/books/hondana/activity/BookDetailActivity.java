@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -95,6 +96,7 @@ public class BookDetailActivity extends AppCompatActivity	{
 
 						if (exception != null) {
 							// Error handling
+							Log.w("BookDetailActivity", exception);
 							return;
 						}
 					}
