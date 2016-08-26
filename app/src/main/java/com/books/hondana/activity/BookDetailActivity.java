@@ -79,6 +79,7 @@ public class BookDetailActivity extends AppCompatActivity	{
 				bKobj.set(KiiBook.WIDTH, "0.0"); // Dummy
 				bKobj.set(KiiBook.DEPTH, "0.0"); // Dummy
 				bKobj.set(KiiBook.WEIGHT, "0.0"); // Dummy
+				bKobj.set(KiiBook.USER_ID, "");
 
 				// show a progress dialog to the user
 				mProgress = ProgressDialog.show( BookDetailActivity.this, "登録中", "しばらくお待ちください",	true);

@@ -10,8 +10,11 @@ public enum KiiCloudBucket {
     MEMBERS("members",2,""),
     USERBOOKS("userbooks",3,""),
     EVALUATIONS("evaluations",4,""),
-    LINKS("links",5,""),
-    GENRES("genres",6,"");
+    LIKES("links",5,""),
+    GENRES("genres",6,""),
+    NOTICES("notices",7,""),
+    COMMENTS("comments",8,""),
+    TRANSACTIONS("transactions",9,"");
 
     /** フィールド変数 */
     private String name;
