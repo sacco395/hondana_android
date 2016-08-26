@@ -72,11 +72,14 @@ public class HondanaBooksFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-
-
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -90,7 +93,7 @@ public class HondanaBooksFragment extends Fragment {
         // create an empty object adapter
         mListAdapter = new HondanaBookAdapter( getActivity(), new ArrayList<KiiBook>());
 
-        kickLoadHondanaBooks();
+
 
     }
 
@@ -124,14 +127,9 @@ public class HondanaBooksFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+    public void onResume() {
+        super.onResume();
+        kickLoadHondanaBooks();
     }
 
     @Override
