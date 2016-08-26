@@ -79,12 +79,68 @@
     <string name="buttonTransmission">"送信"</string>
 
     <string name="cloud_name">Kii Cloud</string>
+
     <string name="app_service_name">ホンダナ</string>
+
     <string name="msg_toroku">ホンダナに登録</string>
 
     //SharedPreferences用//
     <string name="save_data_name">DataSave</string>
     <string name="save_token">save_token</string>
+
+
+    <!--本の詳細画面に使用-->
+    <string name="textViewBookDetailTitle">タイトル</string>
+
+    <string name="textViewBookDetailAuthor">著者名</string>
+
+    <string name="textViewBookDetailLike">いいね</string>
+
+
+    <string name="textViewBookDetailInfo">本の情報</string>
+
+    <string name="textViewBookDetailITitle">タイトル</string>
+
+    <string name="textViewBookDetailIAuthor">著者名</string>
+
+    <string name="textViewBookDetailIPublisher">出版社</string>
+
+    <string name="textViewBookDetailIRelease">発売日</string>
+
+    <string name="textViewBookDetailIIsbn">ISBNコード</string>
+
+    <string name="textViewBookDetailIContents">内容</string>
+
+    <string name="textViewBookOwnerList">本を持っている人</string>
+
+    <string name="buttonRegistration">本を登録する</string>
+
+    <string name="buttonPreRequest">本を交換する</string>
+
+
+
+
+
+    <string name="textBookOwnerListName">ユーザー名</string>
+
+    <string name="textBookOwnerListCondition">評価</string>
+
+    <string name="buttonBookOwnerList">交換する</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </resources>
