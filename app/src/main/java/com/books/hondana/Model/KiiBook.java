@@ -22,7 +22,7 @@ public class KiiBook extends KiiDataObj implements Parcelable {
     public static final String HEIGHT = "height"; // double
     public static final String WIDTH = "width";   // double
     public static final String DEPTH = "depth";   // double
-    public static final String WEIGHT = "weight"; // doubble
+    public static final String WEIGHT = "weight"; // double
     public static final String GENRE_1 = "genre_1";
     public static final String GENRE_2 = "genre_2";
     public static final String GENRE_3 = "genre_3";

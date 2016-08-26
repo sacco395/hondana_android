@@ -6,13 +6,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.books.hondana.R;
-import com.kii.cloud.storage.KiiCallback;
 import com.kii.cloud.storage.KiiUser;
 import com.kii.cloud.storage.callback.KiiUserCallBack;
 
 public class SplashActivity extends Activity {
+
+    private static final String TAG = SplashActivity.class.getSimpleName();
 
     Handler mHandler = new Handler();
 
@@ -25,7 +28,7 @@ public class SplashActivity extends Activity {
         //SharePreferences prefは自動ログインのため保存されているaccess tokenを読み出す。tokenがあればログインできる
         //紫色は定数
         SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
-        String token = pref.getString(getString(R.string.save_token), "");//保存されていない時は""
+        final String token = pref.getString(getString(R.string.save_token), "");//保存されていない時は""
 
         //tokenがないとき。
         if(token.equals("")){
@@ -46,36 +49,38 @@ public class SplashActivity extends Activity {
 
         else {
             //自動ログインをする。
-            KiiUser.loginWithStoredCredentials(new KiiCallback<KiiUser>() {
+            KiiUser.loginWithToken(new KiiUserCallBack() {
                 @Override
-                public void onComplete(KiiUser user, Exception exception) {
-                    if (exception != null) {
-                        mHandler.postDelayed(new Runnable() {
+                public void onLoginCompleted(int token, @Nullable KiiUser user, @Nullable Exception exception) {
+                    super.onLoginCompleted(token, user, exception);
+                    if (user != null) {
+                        user.refresh(new KiiUserCallBack() {
                             @Override
-                            public void run() {
-                                // 2秒したらBookMainActivityを呼び出してSplashActivityを終了する
-                                // BookMainActivityを呼び出す
-                                Intent intent = new Intent(getApplicationContext(),
-                                        BookMainActivity.class);
-                                startActivity(intent);
-                                // SplashActivityを終了する
-                                SplashActivity.this.finish();
+                            public void onRefreshCompleted(int token, Exception exception) {
+                                if (exception != null) {
+                                    // Error handling
+                                    Log.e(TAG, "onRefreshCompleted: ", exception);
+                                    return;
+                                }
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // 2秒したらBookMainActivityを呼び出してSplashActivityを終了する
+                                        // BookMainActivityを呼び出す
+                                        Intent intent = new Intent(getApplicationContext(),
+                                                BookMainActivity.class);
+                                        startActivity(intent);
+                                        // SplashActivityを終了する
+                                        SplashActivity.this.finish();
+                                    }
+                                }, 2 * 1000); // 2000ミリ秒後（2秒後）に実行
                             }
-                        }, 2 * 1000); // 2000ミリ秒後（2秒後）に実行
-                        // Error handling
-                        return;
+                        });
+                    } else {
+                        Log.e(TAG, "onLoginCompleted: ", exception);
                     }
-                    user.refresh(new KiiUserCallBack() {
-                        @Override
-                        public void onRefreshCompleted(int token, Exception exception) {
-                            if (exception != null) {
-                                // Error handling
-                                return;
-                            }
-                        }
-                    });
                 }
-            });
+            }, token);
         }
     }
 }
