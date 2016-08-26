@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
@@ -71,6 +72,10 @@ public class BookDetailActivity extends AppCompatActivity	{
 			public void onClick(View v) {
 				// KiiBook bKobj = new KiiBook()
 				KiiBook bKobj = targetBook;
+				// 確認 by 奥山 2016/08/26
+				Toast.makeText(BookDetailActivity.this,"ISBN:"+targetBook.get(KiiBook.ISBN),
+						Toast.LENGTH_SHORT).show();
+				//
 				// Dummy Data
 				bKobj.set(KiiBook.BOOK_ID, "2");  // 適当すぎる！
 				bKobj.set(KiiBook.LANGUAGE, "日本"); // Dummy
