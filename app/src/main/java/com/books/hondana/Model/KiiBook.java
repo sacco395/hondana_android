@@ -28,6 +28,7 @@ public class KiiBook extends KiiDataObj implements Parcelable {
     public static final String GENRE_3 = "genre_3";
     public static final String GENRE_4 = "genre_4";
     public static final String GENRE_5 = "genre_5";
+    public static final String USER_ID = "user_id";
 
     public static final String DESCRIPTION = "description";
 
