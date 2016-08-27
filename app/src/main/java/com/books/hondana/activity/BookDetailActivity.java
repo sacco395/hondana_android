@@ -73,6 +73,10 @@ public class BookDetailActivity extends AppCompatActivity	{
 				// KiiBook bKobj = new KiiBook()
 				KiiBook bKobj = targetBook;
 				// 確認 by 奥山 2016/08/26
+				if (targetBook.get(KiiBook.ISBN)==null || targetBook.get(KiiBook.ISBN).length()<=0 ){
+					Toast.makeText(BookDetailActivity.this,"BookDetailActivity targetBook空だよ！",
+							Toast.LENGTH_LONG).show();
+				}
 				Toast.makeText(BookDetailActivity.this,"ISBN:"+targetBook.get(KiiBook.ISBN),
 						Toast.LENGTH_SHORT).show();
 				//

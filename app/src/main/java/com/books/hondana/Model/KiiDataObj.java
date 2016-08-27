@@ -23,6 +23,18 @@ public class KiiDataObj implements Parcelable {
     /* package */  HashMap<String, String> map = null;
     //protected KiiQueryResult<KiiObject> result=null;
 
+    public static final Creator<KiiDataObj> CREATOR = new Creator<KiiDataObj>() {
+        @Override
+        public KiiDataObj createFromParcel(Parcel in) {
+            return new KiiDataObj(in);
+        }
+
+        @Override
+        public KiiDataObj[] newArray(int size) {
+            return new KiiDataObj[size];
+        }
+    };
+
     // KiiCloudの初期化
     public void kiiDataInitialize(KiiCloudBucket kiiCloudBucket) {
         this.kiiCloudBucket = kiiCloudBucket;
