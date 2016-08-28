@@ -2,10 +2,11 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="176dp"
+    android:layout_width="190dp"
     android:padding="10dp"
     android:layout_height="wrap_content"
-    android:background="#FFF">
+    android:background="#FFF"
+    android:weightSum="1">
 
 
     <LinearLayout
@@ -13,40 +14,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--本の画像-->
         <ImageView
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:id="@+id/imgTitle"
             android:adjustViewBounds="false"
             android:scaleType="fitCenter"
-            android:layout_margin="4dp" />
+            android:layout_margin="4dp"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="1"
-        android:layout_margin="4dp">
+        android:layout_margin="2dp">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="130dp"
             android:layout_height="wrap_content">
 
+            <!--本のタイトル-->
             <TextView
-                android:layout_width="130dp"
-                android:layout_height="28dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Small"
                 android:text="Medium Text"
                 android:id="@+id/rowTextTitle"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:ellipsize="end"
                 android:focusable="true"
-                android:minLines="2" />
+                android:minLines="2"
+                android:maxLines="2"
+                android:textColor="#737373"
+                android:textStyle="bold" />
 
+            <!--著者-->
             <TextView
-                android:layout_width="130dp"
+                android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:textAppearance="@android:style/TextAppearance.Small"
                 android:text="Medium Text"
@@ -58,26 +65,22 @@
 
         </LinearLayout>
 
+        <!--本へのいいね！-->
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView2"
-            android:src="@android:drawable/btn_star_big_on" />
+            android:src="@drawable/abc_btn_rating_star_off_mtrl_alpha"
+            android:tint="#FDC44F"
+            android:layout_gravity="right" />
+
 
     </LinearLayout>
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dip"
-        android:background="#CCCCCC"
-        android:layout_marginLeft="6dip"
-        android:layout_marginRight="6dip"
-        android:layout_marginTop="6dip"
-        android:layout_marginBottom="12dip" />
 
     <LinearLayout
                   android:orientation="horizontal"
                   android:gravity="center_vertical"
-                  android:layout_width="match_parent"
+                  android:layout_width="wrap_content"
                   android:layout_height="match_parent">
 
         <ImageView
@@ -90,13 +93,22 @@
             android:layout_height="30dp"
             android:src="@drawable/usericon" />
 
+            <!--ユーザーアイコン-->
             <TextView
                 android:id="@+id/book_condition"
-                android:text="本の状態 良い"
+                android:text="ユーザー名"
                 android:layout_marginLeft="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"/>
 
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/imageView3"
+        android:src="@drawable/hondana_book_icon1"
+        android:layout_marginLeft="36dp"
+        android:tint="#737373" />
     </LinearLayout>
+
 </LinearLayout>
