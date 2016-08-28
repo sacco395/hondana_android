@@ -36,8 +36,7 @@ import java.util.ArrayList;
  * Use the {@link HondanaBooksFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HondanaBooksFragment extends Fragment//ListFragmentに変更
-        implements AdapterView.OnItemClickListener {
+public class HondanaBooksFragment extends Fragment {
 
     private static final String TAG = HondanaBooksFragment.class.getSimpleName();
 
@@ -163,21 +162,21 @@ public class HondanaBooksFragment extends Fragment//ListFragmentに変更
     };
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        Intent intent = new Intent(this.getContext(), BookInfoActivity.class);
-
-        // クリックされた position から KiiObject を取得
-        KiiObject selectedObj = dataLists.get(position);
-        // KiiObject -> KiiBook
-        KiiBook selected = new KiiBook(selectedObj);
-        // キーに Object#class.getSimpleName() を使うと、別に定数を作らなくていいのでいいです
-        intent.putExtra(KiiBook.class.getSimpleName(), selected);
-
-        Log.d(TAG, "onItemClick: " + selected);
-        // Activity をスイッチする
-        startActivity(intent);
-
-
+//    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+//        Intent intent = new Intent(this.getContext(), BookInfoActivity.class);
+//
+//        // クリックされた position から KiiObject を取得
+//        KiiObject selectedObj = dataLists.get(position);
+//        // KiiObject -> KiiBook
+//        KiiBook selected = new KiiBook(selectedObj);
+//        // キーに Object#class.getSimpleName() を使うと、別に定数を作らなくていいのでいいです
+//        intent.putExtra(KiiBook.class.getSimpleName(), selected);
+//
+//        Log.d(TAG, "onItemClick: " + selected);
+//        // Activity をスイッチする
+//        startActivity(intent);
+//
+//
 //        // Get the URL of the existing object.
 //        Uri uri = object.toUri();
 //        // Instantiate an object.
@@ -211,7 +210,7 @@ public class HondanaBooksFragment extends Fragment//ListFragmentに変更
 //                boolean premiumUser = object.getBoolean("premiumUser");
 //            }
 //        });
-    }
+//    }
 
 
     @Override
