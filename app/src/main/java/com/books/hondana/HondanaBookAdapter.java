@@ -21,11 +21,13 @@ public class HondanaBookAdapter extends BaseAdapter {
     private ArrayList<KiiBook> list;
     private Context context;
     private LayoutInflater layoutInflater = null;
+    private BookItemClickListener listener;
 
-    public HondanaBookAdapter(Context context, ArrayList<KiiBook> list) {
+    public HondanaBookAdapter(Context context, ArrayList<KiiBook> list, BookItemClickListener listener) {
         this.context = context;
         this.list = list;
         this.layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.listener = listener;
     }
 
     public void clear(){
@@ -51,8 +53,15 @@ public class HondanaBookAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = layoutInflater.inflate(R.layout.row,parent,false);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KiiBook book = list.get(position);
+                listener.onClick(book);
+            }
+        });
 
         // 画像データのダウンロードと設定
         ImageLoader imageLoader = ImageLoader.getInstance();
@@ -64,5 +73,9 @@ public class HondanaBookAdapter extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.rowTextTitle)).setText(list.get(position).get(KiiBook.TITLE));
         ((TextView)convertView.findViewById(R.id.rowTextAuthor)).setText(list.get(position).get(KiiBook.AUTHOR));
         return convertView;
+    }
+
+    public interface BookItemClickListener {
+        void onClick(KiiBook book);
     }
 }

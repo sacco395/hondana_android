@@ -36,8 +36,10 @@ import java.util.ArrayList;
  * Use the {@link HondanaBooksFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HondanaBooksFragment extends ListFragment//ListFragmentに変更
+public class HondanaBooksFragment extends Fragment//ListFragmentに変更
         implements AdapterView.OnItemClickListener {
+
+    private static final String TAG = HondanaBooksFragment.class.getSimpleName();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -101,7 +103,18 @@ public class HondanaBooksFragment extends ListFragment//ListFragmentに変更
         }
 
         // create an empty object adapter
-        mListAdapter = new HondanaBookAdapter(getActivity(), new ArrayList<KiiBook>());
+        mListAdapter = new HondanaBookAdapter(getActivity(), new ArrayList<KiiBook>(), new HondanaBookAdapter.BookItemClickListener() {
+            @Override
+            public void onClick(KiiBook book) {
+                Intent intent = new Intent(getContext(), BookInfoActivity.class);
+                // キーに Object#class.getSimpleName() を使うと、別に定数を作らなくていいのでいいです
+                intent.putExtra(KiiBook.class.getSimpleName(), book);
+
+                Log.d(TAG, "onItemClick: " + book);
+                // Activity をスイッチする
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -123,7 +136,6 @@ public class HondanaBooksFragment extends ListFragment//ListFragmentに変更
         // Inflate the layout for this fragment
         mGridView = (GridView) view.findViewById(R.id.gridView);
         mGridView.setAdapter(mListAdapter);
-        mGridView.setOnItemClickListener(this);
 
         // SwipeRefreshLayoutの設定
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
@@ -150,53 +162,55 @@ public class HondanaBooksFragment extends ListFragment//ListFragmentに変更
         }
     };
 
-
     // TODO: Rename method, update argument and hook method into UI event
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         Intent intent = new Intent(this.getContext(), BookInfoActivity.class);
-        // clickされたpositionのtextとphotoのID
-        String selectedText = context[position];
-        int selectedPhoto = photos[position];
-        // インテントにセット
-        intent.putExtra("Text", selectedText);
-        intent.putExtra("Photo", selectedPhoto);
+
+        // クリックされた position から KiiObject を取得
+        KiiObject selectedObj = dataLists.get(position);
+        // KiiObject -> KiiBook
+        KiiBook selected = new KiiBook(selectedObj);
+        // キーに Object#class.getSimpleName() を使うと、別に定数を作らなくていいのでいいです
+        intent.putExtra(KiiBook.class.getSimpleName(), selected);
+
+        Log.d(TAG, "onItemClick: " + selected);
         // Activity をスイッチする
         startActivity(intent);
 
 
-        // Get the URL of the existing object.
-        Uri uri = object.toUri();
-        // Instantiate an object.
-                KiiObject object = KiiObject.createByUri(uri);
-
-        // Refresh the object to retrieve the latest data from Kii Cloud.
-        object.refresh(new KiiObjectCallBack() {
-            @Override
-            public void onRefreshCompleted(int token, KiiObject object, Exception exception) {
-                if (exception != null) {
-                    // Error handling
-                    return;
-                }
-            }
-        });
-        // Retrieve an object.
-        Uri objUri = Uri.parse("appbooks");
-        KiiObject object = KiiObject.createByUri(objUri);
-
-        // Refresh and fetch the latest key-value pairs from Kii Cloud.
-        object.refresh(new KiiObjectCallBack() {
-            @Override
-            public void onRefreshCompleted(int token, KiiObject object, Exception exception) {
-                if (exception != null) {
-                    // Error handling
-                    return;
-                }
-                // Get key-value pairs.
-                String BOOK_ID = object.getString("book_id");
-                String TITLE = object.getString("title");
-                boolean premiumUser = object.getBoolean("premiumUser");
-            }
-        });
+//        // Get the URL of the existing object.
+//        Uri uri = object.toUri();
+//        // Instantiate an object.
+//                KiiObject object = KiiObject.createByUri(uri);
+//
+//        // Refresh the object to retrieve the latest data from Kii Cloud.
+//        object.refresh(new KiiObjectCallBack() {
+//            @Override
+//            public void onRefreshCompleted(int token, KiiObject object, Exception exception) {
+//                if (exception != null) {
+//                    // Error handling
+//                    return;
+//                }
+//            }
+//        });
+//        // Retrieve an object.
+//        Uri objUri = Uri.parse("appbooks");
+//        KiiObject object = KiiObject.createByUri(objUri);
+//
+//        // Refresh and fetch the latest key-value pairs from Kii Cloud.
+//        object.refresh(new KiiObjectCallBack() {
+//            @Override
+//            public void onRefreshCompleted(int token, KiiObject object, Exception exception) {
+//                if (exception != null) {
+//                    // Error handling
+//                    return;
+//                }
+//                // Get key-value pairs.
+//                String BOOK_ID = object.getString("book_id");
+//                String TITLE = object.getString("title");
+//                boolean premiumUser = object.getBoolean("premiumUser");
+//            }
+//        });
     }
 
 
