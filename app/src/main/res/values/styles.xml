@@ -40,8 +40,15 @@
         <item name="android:textColorSecondary">@color/toolbar_icon</item>
         <item name="android:textColor">#404040</item>
     </style>
+
     <style name="BaseAppTheme" parent="android:Theme.Material">
         <item name="android:windowExitTransition">@android:transition/explode</item>
     </style>
+
+    <string-array name="color">
+        <item>red</item>
+        <item>green</item>
+        <item>blue</item>
+    </string-array>
 
 </resources>

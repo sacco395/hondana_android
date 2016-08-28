@@ -21,7 +21,9 @@ package com.books.hondana.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -88,6 +90,9 @@ public class LoginActivity extends Activity {
 
                 // check for an exception (successful request if e==null)
                 if (e == null) {
+
+                    SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
+                    pref.edit().putString(getString(R.string.save_token), user.getAccessToken()).apply();//保存されていない時は""
                     showToast("User authenticated!");
 
                     // Member の user_id が user.getID() と等しいものが欲しい
