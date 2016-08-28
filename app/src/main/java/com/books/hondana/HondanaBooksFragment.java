@@ -7,13 +7,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -23,7 +21,6 @@ import com.books.hondana.Model.KiiBook;
 import com.books.hondana.Model.KiiCloudBucket;
 import com.books.hondana.activity.BookInfoActivity;
 import com.kii.cloud.storage.KiiObject;
-import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.kii.cloud.storage.query.KiiQueryResult;
 
 import java.util.ArrayList;
@@ -36,8 +33,7 @@ import java.util.ArrayList;
  * Use the {@link HondanaBooksFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HondanaBooksFragment extends Fragment//ListFragmentに変更
-        implements AdapterView.OnItemClickListener {
+public class HondanaBooksFragment extends Fragment {
 
     private static final String TAG = HondanaBooksFragment.class.getSimpleName();
 
@@ -162,56 +158,7 @@ public class HondanaBooksFragment extends Fragment//ListFragmentに変更
         }
     };
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        Intent intent = new Intent(this.getContext(), BookInfoActivity.class);
 
-        // クリックされた position から KiiObject を取得
-        KiiObject selectedObj = dataLists.get(position);
-        // KiiObject -> KiiBook
-        KiiBook selected = new KiiBook(selectedObj);
-        // キーに Object#class.getSimpleName() を使うと、別に定数を作らなくていいのでいいです
-        intent.putExtra(KiiBook.class.getSimpleName(), selected);
-
-        Log.d(TAG, "onItemClick: " + selected);
-        // Activity をスイッチする
-        startActivity(intent);
-
-
-//        // Get the URL of the existing object.
-//        Uri uri = object.toUri();
-//        // Instantiate an object.
-//                KiiObject object = KiiObject.createByUri(uri);
-//
-//        // Refresh the object to retrieve the latest data from Kii Cloud.
-//        object.refresh(new KiiObjectCallBack() {
-//            @Override
-//            public void onRefreshCompleted(int token, KiiObject object, Exception exception) {
-//                if (exception != null) {
-//                    // Error handling
-//                    return;
-//                }
-//            }
-//        });
-//        // Retrieve an object.
-//        Uri objUri = Uri.parse("appbooks");
-//        KiiObject object = KiiObject.createByUri(objUri);
-//
-//        // Refresh and fetch the latest key-value pairs from Kii Cloud.
-//        object.refresh(new KiiObjectCallBack() {
-//            @Override
-//            public void onRefreshCompleted(int token, KiiObject object, Exception exception) {
-//                if (exception != null) {
-//                    // Error handling
-//                    return;
-//                }
-//                // Get key-value pairs.
-//                String BOOK_ID = object.getString("book_id");
-//                String TITLE = object.getString("title");
-//                boolean premiumUser = object.getBoolean("premiumUser");
-//            }
-//        });
-    }
 
 
     @Override
