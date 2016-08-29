@@ -87,11 +87,11 @@
         android:layout_weight="0.1">
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="@string/msg_toroku"
             android:id="@+id/btnAddKiiBook"
-            android:layout_weight="0.05" />
+            android:background="@drawable/shape_rounded_corners"/>
 
     </LinearLayout>
 
