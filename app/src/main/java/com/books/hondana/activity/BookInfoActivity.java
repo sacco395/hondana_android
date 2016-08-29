@@ -1,7 +1,7 @@
+//本の詳細ページ
 package com.books.hondana.activity;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.BaseAdapter;
