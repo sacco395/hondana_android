@@ -1,4 +1,4 @@
-package com.books.hondana;
+/*package com.books.hondana;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -156,4 +156,4 @@ public class BookInfoListViewAdapter extends BaseAdapter {
 //            startActivity(intent);
         }
     }
-}
+}*/

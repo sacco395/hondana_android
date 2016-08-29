@@ -3,8 +3,8 @@ package com.books.hondana.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
@@ -15,7 +15,7 @@ public class BookInfoActivity extends AppCompatActivity {
 
     private static final String TAG = BookInfoActivity.class.getSimpleName();
 
-    private BaseAdapter adapter;
+    //private BaseAdapter adapter;
 
     private KiiBook kiiBook;
 
@@ -51,6 +51,21 @@ public class BookInfoActivity extends AppCompatActivity {
             ImageView imgView = (ImageView)findViewById(R.id.imageViewBookInfo);
             imageLoader.displayImage(imgUrl,imgView);
         }
+
+        TextView tv_title = (TextView) findViewById(R.id.textViewBookInfoTitle);
+        tv_title.setText(kiiBook.get(KiiBook.TITLE));
+        TextView tv_author = (TextView) findViewById(R.id.textViewBookInfoAuthor);
+        tv_author.setText(kiiBook.get(KiiBook.AUTHOR));
+        TextView tv_isbn = (TextView)findViewById(R.id.textViewBookInfoIsbn);
+        tv_isbn.setText(kiiBook.get(KiiBook.ISBN));
+        TextView tv_publisher = (TextView)findViewById(R.id.textViewBookInfoPublisher);
+        tv_publisher.setText(kiiBook.get(KiiBook.PUBLISHER));
+        TextView tv_issueDate = (TextView)findViewById(R.id.textViewBookInfoDataOfIssue);
+        tv_issueDate.setText(kiiBook.get(KiiBook.ISSUE_DATE));
+        TextView tv_large_title = (TextView) findViewById(R.id.textViewBookInfoLargeTitle);
+        tv_large_title.setText(kiiBook.get(KiiBook.TITLE));
+        TextView tv_large_author = (TextView) findViewById(R.id.textViewBookInfoLargeAuthor);
+        tv_large_author.setText(kiiBook.get(KiiBook.AUTHOR));
 
         /*// ListViewのインスタンスを生成
         ListView listViewBookOwner = (ListView) findViewById(R.id.listViewBookOwner);

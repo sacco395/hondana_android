@@ -23,15 +23,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/textViewBookDetailTitle"
-            android:id="@+id/textViewBookDetailTitle" />
+            android:text="@string/textViewBookInfoLargeTitle"
+            android:id="@+id/textViewBookInfoLargeTitle"
+            android:textSize="20dp" />
 
         <!--著者-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/textViewBookDetailAuthor"
-            android:id="@+id/textViewBookDetailAuthor" />
+            android:text="@string/textViewBookInfoLargeAuthor"
+            android:id="@+id/textViewBookInfoLargeAuthor"
+            android:textSize="20dp" />
 
         <!--いいね-->
         <TextView
@@ -40,7 +42,7 @@
             android:paddingLeft="6dip"
             android:paddingRight="6dip"
             android:paddingBottom="6dip"
-            android:id="@+id/textViewBookDetailLike"
+            android:id="@+id/textViewBookInfoLike"
             android:text="@string/textViewBookDetailLike" />
 
 
@@ -60,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/textViewBookDetailInfo"
+            android:text="@string/textViewBookInfo"
             android:id="@+id/textViewBookDetailInfo" />
 
 
@@ -68,74 +70,38 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/textViewBookDetailITitle"
-            android:id="@+id/textViewBookDetailITitle" />
+            android:text="@string/textViewBookInfoTitle"
+            android:id="@+id/textViewBookInfoTitle" />
 
         <!--著者名-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/textViewBookDetailIAuthor"
-            android:id="@+id/textViewBookDetailIAuthor" />
+            android:text="@string/textViewBookInfoAuthor"
+            android:id="@+id/textViewBookInfoAuthor" />
 
         <!--出版社-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/textViewBookDetailIPublisher"
-            android:id="@+id/textViewBookDetailIPublisher" />
+            android:text="@string/textViewBookInfoPublisher"
+            android:id="@+id/textViewBookInfoPublisher" />
 
 
         <!--発売日-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/textViewBookDetailIRelease"
-            android:id="@+id/textViewBookDetailIRelease" />
+            android:text="@string/textViewBookInfoDateOfIssue"
+            android:id="@+id/textViewBookInfoDataOfIssue" />
 
 
         <!--ISBNコード-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/textViewBookDetailIIsbn"
-            android:id="@+id/textViewBookDetailIIsbn" />
-
-        <!--内容-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="@string/textViewBookDetailIContents"
-            android:id="@+id/textViewBookDetailIContents" />
-
-
-
-
-        <!--区切り線-->
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="#ff106510"
-            android:layout_marginLeft="6dip"
-            android:layout_marginRight="6dip"
-            android:layout_marginTop="6dip"
-            android:layout_marginBottom="12dip" />
-
-
-        <!--本を持っている人-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/textViewBookOwnerList"
-            android:id="@+id/textViewBookOwnerList" />
-
-
-        <!--本を持っている人のリストビュー-->
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/listViewBookOwner" />
+            android:text="@string/textViewBookInfoIsbn"
+            android:id="@+id/textViewBookInfoIsbn" />
 
 
         <LinearLayout
@@ -144,16 +110,6 @@
             android:background="@android:drawable/bottom_bar"
             android:gravity="center_vertical">
 
-
-            <!--下部に固定された登録ボタン-->
-            <Button
-                android:layout_width="0dip"
-                android:layout_weight="1.0"
-                android:layout_height="wrap_content"
-                android:id="@+id/buttonRegistration"
-                android:text="@string/buttonRegistration"
-                android:textColor="#00a497"
-                android:background="#180614"/>
 
             <!--下部に固定された交換ボタン-->
             <Button
