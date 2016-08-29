@@ -316,7 +316,7 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Intent intent = new Intent(this, BookMainActivity.class);
+            Intent intent = new Intent(this, IconPostActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_like) {

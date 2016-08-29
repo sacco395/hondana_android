@@ -140,18 +140,19 @@
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.StartActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".activity.StartActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
-
         <activity
             android:name=".activity.BookInfoActivity"
             android:screenOrientation="portrait">
         </activity>
-
-
+        <activity
+            android:name=".activity.IconPostActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

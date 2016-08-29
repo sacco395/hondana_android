@@ -116,29 +116,20 @@
     <string name="buttonPreRequest">本を交換を申請する</string>
 
 
-
-
-
     <string name="textBookOwnerListName">ユーザー名</string>
 
     <string name="textBookOwnerListCondition">評価</string>
 
     <string name="buttonBookOwnerList">交換する</string>
 
+    <!-- Postで追加ここから-->
+    <string name="attach_button">ImageAttach</string>
+    <string name="attach_camera_button">CameraAttach</string>
+    <string name="post_button">Post</string>
+    <string name="no_data_message">No Data</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Postで追加ここまで-->
 
 </resources>
