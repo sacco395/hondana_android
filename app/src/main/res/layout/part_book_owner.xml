@@ -16,23 +16,21 @@
         android:layout_width="90dp"
         android:layout_height="40dp"
         android:text="@string/textBookOwnerListName"
-        android:id="@+id/textBookOwnerListName"
-        android:textColor="#52AE93" />
+        android:id="@+id/textBookOwnerListName" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/textBookOwnerListCondition"
         android:id="@+id/textBookOwnerListCondition"
-        android:layout_weight="0.5"
-        android:textColor="#52AE93" />
+        android:layout_weight="0.5" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/buttonBookOwnerList"
         android:id="@+id/button"
-        android:background="#52AE93"
+        android:background="@drawable/shape_rounded_corners"
         android:layout_weight="0.5" />
 
 </LinearLayout>

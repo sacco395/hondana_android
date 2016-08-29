@@ -38,14 +38,14 @@
             android:text="ログイン"
             android:id="@+id/buttonLogin"
             android:textColor="#52AE93"
-            android:background="#4b4b4b"
+            android:background="@drawable/shape_rouded_corners_brown"
             android:layout_margin="5dp"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="新規登録"
             android:id="@+id/buttonRegistration"
-            android:background="#52AE93"
+            android:background="@drawable/shape_rounded_corners"
             android:layout_margin="5dp" />
     </LinearLayout>
         <TextView

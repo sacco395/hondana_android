@@ -44,14 +44,14 @@
             android:text="@string/buttonDownload"
             android:id="@+id/buttonDownload"
             android:layout_gravity="center_horizontal"
-            android:background="#52AE93"/>
+            android:background="@drawable/shape_rounded_corners"/>
 
 
         <!--区切り線-->
         <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="#666"
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#F1F0EE"
             android:layout_marginLeft="6dip"
             android:layout_marginRight="6dip"
             android:layout_marginTop="6dip"
@@ -82,9 +82,9 @@
 
         <!--区切り線-->
         <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="#666"
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#F1F0EE"
             android:layout_marginLeft="6dip"
             android:layout_marginRight="6dip"
             android:layout_marginTop="6dip"
@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/buttonSending"
                 android:text="@string/buttonSending"
-                android:background="#52AE93" />
+                android:background="#2FCDB4" />
 
 
         </LinearLayout>
