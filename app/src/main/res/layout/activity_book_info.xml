@@ -16,9 +16,8 @@
         <ImageView
             android:layout_width="350dp"
             android:layout_height="350dp"
-            android:id="@+id/imageViewBookDetail"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/s_is_for_space" />
+            android:id="@+id/imageViewBookInfo"
+            android:layout_gravity="center_horizontal" />
 
         <!--タイトル-->
         <TextView

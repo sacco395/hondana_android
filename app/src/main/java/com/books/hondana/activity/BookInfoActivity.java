@@ -1,15 +1,14 @@
 package com.books.hondana.activity;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
+import android.widget.ImageView;
 
-import com.books.hondana.BookInfoListViewAdapter;
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 
 public class BookInfoActivity extends AppCompatActivity {
@@ -21,7 +20,7 @@ public class BookInfoActivity extends AppCompatActivity {
     private KiiBook kiiBook;
 
 
-    private static final String[] username = {
+    /*private static final String[] username = {
             // Scenes of Isle of Wight
             "ユーザー名",
             "ユーザー名",
@@ -33,7 +32,7 @@ public class BookInfoActivity extends AppCompatActivity {
             "評価",
             "評価",
             "評価",
-    };
+    };*/
 
 
 
@@ -43,9 +42,17 @@ public class BookInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_info);
 
         kiiBook = getIntent().getParcelableExtra(KiiBook.class.getSimpleName());
+        String imgUrl =kiiBook.get(KiiBook.IMAGE_URL);
         Log.d(TAG, "onCreate: " + kiiBook.get(KiiBook.TITLE));
 
-        // ListViewのインスタンスを生成
+        if( (imgUrl != null) && (imgUrl.length() > 0)){
+            // 画像データのダウンロードと設定
+            ImageLoader imageLoader = ImageLoader.getInstance();
+            ImageView imgView = (ImageView)findViewById(R.id.imageViewBookInfo);
+            imageLoader.displayImage(imgUrl,imgView);
+        }
+
+        /*// ListViewのインスタンスを生成
         ListView listViewBookOwner = (ListView) findViewById(R.id.listViewBookOwner);
 
         // BaseAdapter を継承したadapterのインスタンスを生成
@@ -56,7 +63,7 @@ public class BookInfoActivity extends AppCompatActivity {
         listViewBookOwner.setAdapter(adapter);
 
         // 後で使います
-//        listViewBookOwner.setOnItemClickListener(this);
+//        listViewBookOwner.setOnItemClickListener(this);*/
 
 
 

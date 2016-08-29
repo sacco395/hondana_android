@@ -40,7 +40,7 @@ public class BookDetailActivity extends AppCompatActivity	{
 		//HashMap<String,String> bookInfo = (HashMap<String, String>) getIntent().getSerializableExtra("Book");
 		//targetBook.setUpMap(bookInfo);
 
-		targetBook = (KiiBook)getIntent().getParcelableExtra("Book");
+		targetBook = getIntent().getParcelableExtra("Book");
 		String imgUrl = targetBook.get(KiiBook.IMAGE_URL);
 
 		if( (imgUrl != null) && (imgUrl.length() > 0)){
