@@ -2,6 +2,7 @@
 package com.books.hondana.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,7 +21,7 @@ import android.widget.TextView;
 import com.books.hondana.R;
 
 public class InquiryActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
 
     private static final String TAG = "InquiryActivity";
 
@@ -31,6 +32,8 @@ public class InquiryActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("お問い合わせ");
         setSupportActionBar(toolbar);
+
+        findViewById(R.id.buttonMail).setOnClickListener(this);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -53,6 +56,29 @@ public class InquiryActivity extends AppCompatActivity
 
         // binding.navView.setNavigationItemSelectedListener(this);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v != null) {
+            switch (v.getId()) {
+                case R.id.buttonMail:
+                    // クリック処理
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_SENDTO);
+                    intent.setData(Uri.parse("mailto:info@spica-travel.com"));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "ホンダナへのお問い合わせ");
+                    intent.putExtra(Intent.EXTRA_TEXT, "お問い合わせ内容を記入してください");
+                    //createChooserを使うと選択ダイアログのタイトルを変更する事ができます。
+                    startActivity(Intent.createChooser(intent,"どちらで送信するか選んでください"));
+                    //通常のブラウザ起動です。
+                    //startActivity(intent);
+
+
+                default:
+                    break;
+            }
+        }
     }
 
     @Override

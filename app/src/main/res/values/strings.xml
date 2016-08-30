@@ -116,29 +116,15 @@
     <string name="buttonPreRequest">本を交換を申請する</string>
 
 
-
-
-
     <string name="textBookOwnerListName">ユーザー名</string>
 
     <string name="textBookOwnerListCondition">評価</string>
 
     <string name="buttonBookOwnerList">交換する</string>
 
+    //メール問い合わせ//
+    <string name="Mail">"ドメイン指定受信をしていると返答が届きませんのでご注意ください。\n【ドメイン指定】 @spica-travel.com"</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <string name="buttonMail">"メールで問い合わせる"</string>
 
 </resources>
