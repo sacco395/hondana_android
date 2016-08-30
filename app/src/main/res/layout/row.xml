@@ -67,11 +67,12 @@
 
         <!--本へのいいね！-->
         <ImageView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView2"
             android:src="@drawable/abc_btn_rating_star_off_mtrl_alpha"
-            android:tint="#FDC44F"
+            android:tint="#C8C8C8"
             android:layout_gravity="right" />
 
 
@@ -103,12 +104,12 @@
                 android:textSize="12sp"/>
 
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:id="@+id/imageView3"
-        android:src="@drawable/hondana_book_icon1"
-        android:layout_marginLeft="36dp"
-        android:tint="#737373" />
+        android:src="@drawable/book_icon_excellent"
+        android:layout_marginLeft="32dp"
+        android:tint="#f9588b" />
     </LinearLayout>
 
 </LinearLayout>
