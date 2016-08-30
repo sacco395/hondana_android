@@ -1,3 +1,4 @@
+//ユーザーの編集
 package com.books.hondana.activity;
 
 import android.content.ContentValues;
@@ -30,7 +31,7 @@ import com.kii.cloud.storage.resumabletransfer.KiiUploader;
 import java.io.File;
 import java.io.FileOutputStream;
 
-public class IconPostActivity extends AppCompatActivity {
+public class UserEditActivity extends AppCompatActivity {
     //今回使用するインテントの結果の番号。適当な値でOK.
     private static final int IMAGE_CHOOSER_RESULTCODE = 1;
     //画像のパスを保存しておく
@@ -45,7 +46,7 @@ public class IconPostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_icon_post);
+        setContentView(R.layout.activity_user_edit);
         //画像ボタンにクリックイベントを追加しています。
         Button attachBtn = (Button) findViewById(R.id.attach_button);
         attachBtn.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +126,7 @@ public class IconPostActivity extends AppCompatActivity {
                 result = data.getData();
             }else {
                 result = mImageUri;
-                Log.d("mogi:mImageUri:",result.toString());
+                Log.d("hondana:mImageUri:",result.toString());
             }
             //画面に画像を表示
             ImageView iv = (ImageView) findViewById(R.id.image_view1);
@@ -227,7 +228,7 @@ public class IconPostActivity extends AppCompatActivity {
     //投稿処理。画像のUploadがうまくいったときは、urlに公開のURLがセットされる
     public void postMessages(String url) {
         //バケット名を設定。バケット＝DBのテーブルみたいなもの。Excelのシートみたいなもの。
-        KiiBucket bucket = Kii.bucket("MEMBERS");
+        KiiBucket bucket = Kii.bucket("members");
         KiiObject object = bucket.object();
         //Json形式でKeyのcommentをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
         object.set("profile", selfIntroduction);
@@ -284,7 +285,7 @@ public class IconPostActivity extends AppCompatActivity {
                                 object.publishBody(new KiiObjectPublishCallback() {
                                     @Override
                                     public void onPublishCompleted(String url, KiiObject kiiObject, Exception e) {
-                                        Log.d("mogiurl", url);
+                                        Log.d("hondanaurl", url);
                                         //画像のURL付きでmessagesに投稿する。
                                         postMessages(url);
                                     }

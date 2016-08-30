@@ -150,7 +150,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.IconPostActivity"
+            android:name=".activity.UserEditActivity"
             android:screenOrientation="portrait">
         </activity>
     </application>

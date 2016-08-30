@@ -109,7 +109,7 @@
         android:id="@+id/imageView3"
         android:src="@drawable/book_icon_excellent"
         android:layout_marginLeft="32dp"
-        android:tint="#f9588b" />
+        android:tint="#F26964" />
     </LinearLayout>
 
 </LinearLayout>
