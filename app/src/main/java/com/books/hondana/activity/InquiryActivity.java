@@ -1,3 +1,4 @@
+//お問い合わせ
 package com.books.hondana.activity;
 
 import android.content.Intent;

@@ -1,3 +1,4 @@
+//あなたへのお知らせ
 package com.books.hondana.activity;
 
 import android.content.Intent;
