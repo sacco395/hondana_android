@@ -38,7 +38,7 @@ public class IconPostActivity extends AppCompatActivity {
     //UPした画像のKiiObject
     private KiiObject mKiiImageObject = null;
     //入力したコメント
-    private String comment;
+    private String 	selfIntroduction;
     //カメラで撮影した画像のuri
     private Uri mImageUri;
 
@@ -55,15 +55,15 @@ public class IconPostActivity extends AppCompatActivity {
                 onAttachFileButtonClicked(v);
             }
         });
-        //カメラボタンにクリックイベントを追加しています。
-        Button attachCameraBtn = (Button) findViewById(R.id.attach_camera_button);
-        attachCameraBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //クリックした時はカメラ起動する
-                onAttachCameraFileButtonClicked(v);
-            }
-        });
+//        //カメラボタンにクリックイベントを追加しています。
+//        Button attachCameraBtn = (Button) findViewById(R.id.attach_camera_button);
+//        attachCameraBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //クリックした時はカメラ起動する
+//                onAttachCameraFileButtonClicked(v);
+//            }
+//        });
         //投稿ボタンにクリックイベントを追加しています。
         Button postBtn = (Button) findViewById(R.id.post_button);
         postBtn.setOnClickListener(new View.OnClickListener() {
@@ -207,10 +207,10 @@ public class IconPostActivity extends AppCompatActivity {
     public void onPostButtonClicked(View v) {
         //入力文字を得る
         EditText mCommentField = (EditText) (findViewById(R.id.comment_field));
-        comment = mCommentField.getText().toString();
+        selfIntroduction = mCommentField.getText().toString();
         //Log.d("mogi comment", ":" + comment + ":");
         //未入力の時はエラー.""は文字が空
-        if (comment.equals("")) {
+        if (selfIntroduction.equals("")) {
             //ダイアログを表示
 //            showAlert(getString(R.string.no_data_message));
 //            return;
@@ -230,7 +230,7 @@ public class IconPostActivity extends AppCompatActivity {
         KiiBucket bucket = Kii.bucket("messages");
         KiiObject object = bucket.object();
         //Json形式でKeyのcommentをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
-        object.set("comment", comment);
+        object.set("selfIntroduction", selfIntroduction);
         //画像があるときだけセット
         if(url != null) {
             object.set("imageUrl", url);
