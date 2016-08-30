@@ -1,4 +1,6 @@
+//交換リクエストが届きました・宛名ダウンロード・発送完了
 package com.books.hondana.activity;
+
 
 import android.content.Intent;
 import android.os.Bundle;

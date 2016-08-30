@@ -8,13 +8,13 @@ import android.widget.TextView;
 
 import com.books.hondana.R;
 
-public class SetActivity_02 extends Activity {
+public class SettingActivity_02 extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String str = "";
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_02);
+        setContentView(R.layout.activity_setting_02);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

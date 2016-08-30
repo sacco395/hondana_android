@@ -1,3 +1,4 @@
+//評価一覧
 package com.books.hondana.activity;
 
 import android.Manifest;
@@ -110,8 +111,8 @@ public class EvaluationActivity extends AppCompatActivity {
 
 
     private void setupViewPager(ViewPager viewPager) {
-        Tab4ViewPagerAdapter adapter
-                = new Tab4ViewPagerAdapter(getSupportFragmentManager());
+        EvaluationTabAdapter adapter
+                = new EvaluationTabAdapter(getSupportFragmentManager());
         adapter.addFragment(new AllEvaluationFragment(), "すべて");
         adapter.addFragment(new GoodEvaluationFragment(), "良い");
         adapter.addFragment(new NeutralEvaluationFragment(), "普通");
@@ -119,11 +120,11 @@ public class EvaluationActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    class Tab4ViewPagerAdapter extends FragmentPagerAdapter {
+    class EvaluationTabAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public Tab4ViewPagerAdapter(FragmentManager manager) {
+        public EvaluationTabAdapter(FragmentManager manager) {
             super(manager);
         }
 

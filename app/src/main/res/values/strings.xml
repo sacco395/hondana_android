@@ -122,6 +122,7 @@
 
     <string name="buttonBookOwnerList">交換する</string>
 
+
     <!-- Postで追加ここから-->
     <string name="attach_button">ImageAttach</string>
     <string name="attach_camera_button">CameraAttach</string>
@@ -131,5 +132,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Postで追加ここまで-->
+    //メール問い合わせ//
+    <string name="Mail">"ドメイン指定受信をしていると返答が届きませんのでご注意ください。\n【ドメイン指定】 @spica-travel.com"</string>
 
+    <string name="buttonMail">"メールで問い合わせる"</string>
 </resources>

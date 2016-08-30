@@ -43,18 +43,18 @@ public class StartActivity extends AppCompatActivity
 
 
     private void setupViewPager(ViewPager viewPager) {
-        Tab3ViewPagerAdapter adapter = new Tab3ViewPagerAdapter(getSupportFragmentManager());
+        StartViewPagerAdapter adapter = new StartViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new StepOneFragment (), "Step1");
         adapter.addFrag(new StepTwoFragment (), "Step2");
         adapter.addFrag(new StepThreeFragment (), "Step3");
         adapter.addFrag(new StepFourFragment (), "Step4");
         viewPager.setAdapter(adapter);
     }
-    class Tab3ViewPagerAdapter extends FragmentPagerAdapter {
+    class StartViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public Tab3ViewPagerAdapter(FragmentManager manager) {
+        public StartViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
 
