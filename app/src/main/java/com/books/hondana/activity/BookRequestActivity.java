@@ -22,7 +22,7 @@ public class BookRequestActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.buttonRequest).setOnClickListener(this);
 
 
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -48,7 +48,7 @@ public class BookRequestActivity extends AppCompatActivity implements View.OnCli
 
                 case R.id.buttonRequest:
                     // クリック処理
-                    Intent intent = new Intent(this, PassedActivity.class);
+                    Intent intent = new Intent(this, BookMainActivity.class);
                     startActivity(intent);
                     break;
 

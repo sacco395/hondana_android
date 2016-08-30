@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#f9f9f9</color>
     <color name="colorPrimaryDark">#787878</color>
-    <color name="colorAccent">#52AE93</color>
+    <color name="colorAccent">#2FCDB4</color>
     <!--新しく設定したより明るいミントグリーン-->
     <!--<color name="colorAccent2">#2FCDB4</color>-->
     <color name="toolbar_title">#4b4b4b</color>

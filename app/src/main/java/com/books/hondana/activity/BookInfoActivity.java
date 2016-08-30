@@ -1,8 +1,11 @@
+//本の詳細ページ
 package com.books.hondana.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,7 +14,8 @@ import com.books.hondana.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 
-public class BookInfoActivity extends AppCompatActivity {
+public class BookInfoActivity extends AppCompatActivity implements View.OnClickListener {
+
 
     private static final String TAG = BookInfoActivity.class.getSimpleName();
 
@@ -67,6 +71,9 @@ public class BookInfoActivity extends AppCompatActivity {
         TextView tv_large_author = (TextView) findViewById(R.id.textViewBookInfoLargeAuthor);
         tv_large_author.setText(kiiBook.get(KiiBook.AUTHOR));
 
+
+        findViewById(R.id.buttonPreRequest).setOnClickListener(this);
+
         /*// ListViewのインスタンスを生成
         ListView listViewBookOwner = (ListView) findViewById(R.id.listViewBookOwner);
 
@@ -79,8 +86,21 @@ public class BookInfoActivity extends AppCompatActivity {
 
         // 後で使います
 //        listViewBookOwner.setOnItemClickListener(this);*/
+    }
+    @Override
+    public void onClick(View v) {
+        if (v != null) {
+            switch (v.getId()) {
+                case R.id.buttonPreRequest:
+                    // クリック処理
+                    Intent intent = new Intent(this, BookRequestActivity.class);
+                    startActivity(intent);
+                    break;
 
+                default:
+                    break;
 
-
+            }
+        }
     }
 }
