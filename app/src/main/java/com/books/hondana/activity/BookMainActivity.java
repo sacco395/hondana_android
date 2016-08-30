@@ -1,22 +1,4 @@
-//
-//
-// Copyright 2012 Kii Corporation
-// http://kii.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-//
-
+//トップページ
 package com.books.hondana.activity;
 
 import android.Manifest;
@@ -54,6 +36,7 @@ import com.books.hondana.Connection.QueryParamSet;
 import com.books.hondana.HondanaBooksFragment;
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
+import com.squareup.picasso.Picasso;
 
 public class BookMainActivity extends AppCompatActivity
 implements HondanaBooksFragment.OnFragmentInteractionListener,
@@ -132,13 +115,17 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        // 戻るボタン
-//        btnReturn = (Button)findViewById(R.id.btnReturn);
-//        btnReturn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                finish();// 戻る
-//            }
-//        });
+        //navigationViewにアイコンここから
+        View header = navigationView.getHeaderView(0);
+        ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
+        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: User click!");
+            }
+        });
+        //navigationViewにアイコンここまで
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter( new BookMainFragmentPagerAdapter( getSupportFragmentManager()));
@@ -332,7 +319,7 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
             startActivity(intent);
 
         } else if (id == R.id.nav_set) {
-            Intent intent = new Intent(this, SetActivity.class);
+            Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_guide) {

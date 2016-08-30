@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.books.hondana.R;
 
@@ -48,6 +49,7 @@ public class BookRequestActivity extends AppCompatActivity implements View.OnCli
 
                 case R.id.buttonRequest:
                     // クリック処理
+                    Toast.makeText(getApplicationContext(), "本のリクエストを完了しました", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(this, BookMainActivity.class);
                     startActivity(intent);
                     break;

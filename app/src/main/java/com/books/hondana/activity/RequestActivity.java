@@ -1,3 +1,4 @@
+//取引中の本
 package com.books.hondana.activity;
 
 import android.Manifest;
@@ -32,6 +33,7 @@ import com.books.hondana.Model.KiiBook;
 import com.books.hondana.PassedRequestFragment;
 import com.books.hondana.R;
 import com.books.hondana.ReceivedRequestFragment;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +97,18 @@ public class RequestActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //navigationViewにアイコンここから
+        View header = navigationView.getHeaderView(0);
+        ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
+        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: User click!");
+            }
+        });
+        //navigationViewにアイコンここまで
 
         // binding.navView.setNavigationItemSelectedListener(this);
 
@@ -282,7 +296,7 @@ public class RequestActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_set) {
-            Intent intent = new Intent(this, SetActivity.class);
+            Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_guide) {
