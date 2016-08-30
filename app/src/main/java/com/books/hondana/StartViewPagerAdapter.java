@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-public class TutorialViewPagerAdapter extends FragmentPagerAdapter {
+public class StartViewPagerAdapter extends FragmentPagerAdapter {
 
-    public TutorialViewPagerAdapter(FragmentManager fm) {
+    public StartViewPagerAdapter(FragmentManager fm) {
         super (fm);
     }
 
