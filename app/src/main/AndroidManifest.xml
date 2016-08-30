@@ -68,15 +68,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".activity.SetActivity"
+            android:name=".activity.SettingActivity"
             android:label="@string/title_activity_set"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".activity.SetActivity_01"
+            android:name=".activity.SettingActivity_01"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.SetActivity_02"
+            android:name=".activity.SettingActivity_02"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.EvaluationActivity"

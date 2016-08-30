@@ -1,3 +1,4 @@
+//設定
 package com.books.hondana.activity;
 
 import android.content.Intent;
@@ -20,17 +21,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.books.hondana.R;
+import com.squareup.picasso.Picasso;
 
-public class SetActivity extends AppCompatActivity
+public class SettingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "SetActivity";
+    private static final String TAG = "SettingActivity";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set);
+        setContentView(R.layout.activity_setting);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("設定");
         setSupportActionBar(toolbar);
@@ -53,6 +55,18 @@ public class SetActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //navigationViewにアイコンここから
+        View header = navigationView.getHeaderView(0);
+        ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
+        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: User click!");
+            }
+        });
+        //navigationViewにアイコンここまで
+
         // binding.navView.setNavigationItemSelectedListener(this);
 
         ListView list = (ListView) findViewById(R.id.list_view);
@@ -71,10 +85,10 @@ public class SetActivity extends AppCompatActivity
 
                 switch (position) {
                     case 0:
-                        intent.setClass(SetActivity.this, SetActivity_01.class);
+                        intent.setClass(SettingActivity.this, SettingActivity_01.class);
                         break;
                     case 1:
-                        intent.setClass(SetActivity.this, SetActivity_02.class);
+                        intent.setClass(SettingActivity.this, SettingActivity_02.class);
                         break;
                 }
                 intent.putExtra("SELECTED_DATA", strData);
@@ -138,7 +152,7 @@ public class SetActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_set) {
-            Intent intent = new Intent(this, SetActivity.class);
+            Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_guide) {
@@ -168,7 +182,7 @@ public class SetActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick");
-                Intent intent = new Intent(SetActivity.this, UserpageActivity.class);
+                Intent intent = new Intent(SettingActivity.this, UserpageActivity.class);
                 startActivity(intent);
             }
         });

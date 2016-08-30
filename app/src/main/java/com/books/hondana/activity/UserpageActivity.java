@@ -84,6 +84,7 @@ public class UserpageActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //navigationViewにアイコンここから
         View header = navigationView.getHeaderView(0);
         ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
         Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
@@ -93,6 +94,7 @@ public class UserpageActivity extends AppCompatActivity
                 Log.d(TAG, "onClick: User click!");
             }
         });
+        //navigationViewにアイコンここまで
 
         LinearLayout Evaluation = (LinearLayout)findViewById(R.id.evaluation);
 
@@ -246,7 +248,7 @@ public class UserpageActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_set) {
-            Intent intent = new Intent(this, SetActivity.class);
+            Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_guide) {
