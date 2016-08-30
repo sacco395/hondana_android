@@ -227,10 +227,10 @@ public class IconPostActivity extends AppCompatActivity {
     //投稿処理。画像のUploadがうまくいったときは、urlに公開のURLがセットされる
     public void postMessages(String url) {
         //バケット名を設定。バケット＝DBのテーブルみたいなもの。Excelのシートみたいなもの。
-        KiiBucket bucket = Kii.bucket("messages");
+        KiiBucket bucket = Kii.bucket("MEMBERS");
         KiiObject object = bucket.object();
         //Json形式でKeyのcommentをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
-        object.set("selfIntroduction", selfIntroduction);
+        object.set("profile", selfIntroduction);
         //画像があるときだけセット
         if(url != null) {
             object.set("imageUrl", url);

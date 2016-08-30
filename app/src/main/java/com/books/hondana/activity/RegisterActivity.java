@@ -139,6 +139,8 @@ public class RegisterActivity extends Activity {
 
         member.set (Member.NAME,user.getUsername());
 
+        member.set (Member.PROFILE,"");
+
         // サーバにポスト
         member.save (new KiiObjectCallBack () {
             @Override
