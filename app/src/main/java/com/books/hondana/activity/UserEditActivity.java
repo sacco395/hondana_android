@@ -218,26 +218,26 @@ public class UserEditActivity extends AppCompatActivity {
 //            showAlert(getString(R.string.no_data_message));
 //            return;
         }
-        //画像をUPしてからmessagesに投稿。
+        //画像をUPしてからusersに投稿。
         if (mImagePath != null) {
-            //ファイルをUP、完了した時にpostMessagesを実行している。
+            //ファイルをUP、完了した時にpostImagesを実行している。
             uploadFile(mImagePath);
         }else {
             //画像がないときはcommentだけ登録
-            postMembers(null);
+            postImages(null);
         }
     }
     //投稿処理。画像のUploadがうまくいったときは、urlに公開のURLがセットされる
-    public void postMembers(String url) {
-        //バケット名を設定。バケット＝DBのテーブルみたいなもの。Excelのシートみたいなもの。
-        KiiBucket bucket = Kii.bucket("members");
+    public void postImages(String url) {
+        //バケット名を設定。
+        KiiBucket bucket = Kii.bucket("users");
         KiiObject object = bucket.object();
         //Json形式でKeyのcommentをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
         object.set("profile", profile);
 
         //画像があるときだけセット
         if(url != null) {
-            object.set("imageUrl", url);
+            object.set("image_Url", url);
         }
         //データをKiiCloudに保存
         object.save(new KiiObjectCallBack() {
@@ -265,10 +265,10 @@ public class UserEditActivity extends AppCompatActivity {
     }
     //画像をKiiCloudのimagesにUPする。参考：チュートリアル、http://www.riaxdnp.jp/?p=6775
     private void uploadFile(String path) {
-        //イメージを保存するバケット名を設定。すべてここに保存してmessageにはそのhttpパスを設定する。バケット＝DBのテーブルみたいなもの。Excelのシートみたいなもの。
+        //イメージを保存するバケット名を設定。すべてここに保存してusersにはそのhttpパスを設定する。
         KiiBucket bucket = Kii.bucket("images");
         KiiObject object = bucket.object();
-        object.set("title", "profile_img");
+        object.set("title", "");
         object.save(new KiiObjectCallBack() {
             @Override
             public void onSaveCompleted(int token, KiiObject object, Exception exception) {
@@ -301,8 +301,8 @@ public class UserEditActivity extends AppCompatActivity {
                                     @Override
                                     public void onPublishCompleted(String url, KiiObject kiiObject, Exception e) {
                                         Log.d("hondanaurl", url);
-                                        //画像のURL付きでmessagesに投稿する。
-                                        postMembers(url);
+                                        //画像のURL付きでusersに投稿する。
+                                        postImages(url);
                                     }
                                 });
                             }

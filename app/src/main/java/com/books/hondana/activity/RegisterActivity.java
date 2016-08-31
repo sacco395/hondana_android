@@ -81,6 +81,14 @@ public class RegisterActivity extends Activity {
         try {
             KiiUser user = KiiUser.createWithPhone(username, phone);
             user.setCountry(country);
+            user.set("point",1);
+            user.set("image_Url","");
+            user.set("profile","");
+            user.set("address","");
+            user.set("birthday","");
+            user.set("favorite_author1","");
+            user.set("favorite_author2","");
+            user.set("favorite_author3","");
             // register the user asynchronously
             user.register(new KiiUserCallBack() {
 
