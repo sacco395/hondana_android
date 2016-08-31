@@ -64,6 +64,10 @@ public class KiiDataObj implements Parcelable {
             kiiBucket = Kii.bucket(KiiCloudBucket.GENRES.getName());
             kiiObject = kiiBucket.object();
         }
+
+        } else if (kiiCloudBucket == KiiCloudBucket.IMAGES ){
+        kiiBucket = Kii.bucket(KiiCloudBucket.IMAGES.getName());
+        kiiObject = kiiBucket.object();
     }
 
     public KiiDataObj(){

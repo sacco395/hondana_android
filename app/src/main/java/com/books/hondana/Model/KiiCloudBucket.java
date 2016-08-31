@@ -14,7 +14,8 @@ public enum KiiCloudBucket {
     GENRES("genres",6,""),
     NOTICES("notices",7,""),
     COMMENTS("comments",8,""),
-    TRANSACTIONS("transactions",9,"");
+    TRANSACTIONS("transactions",9,""),
+    IMAGES("images",10,"");
 
     /** フィールド変数 */
     private String name;
