@@ -32,6 +32,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 public class UserEditActivity extends AppCompatActivity {
+
+    private static final String TAG = "UserEditActivity";
     //今回使用するインテントの結果の番号。適当な値でOK.
     private static final int IMAGE_CHOOSER_RESULTCODE = 1;
     //画像のパスを保存しておく
@@ -39,7 +41,7 @@ public class UserEditActivity extends AppCompatActivity {
     //UPした画像のKiiObject
     private KiiObject mKiiImageObject = null;
     //入力したコメント
-    private String 	selfIntroduction;
+    private String 	profile;
     //カメラで撮影した画像のuri
     private Uri mImageUri;
 
@@ -208,10 +210,10 @@ public class UserEditActivity extends AppCompatActivity {
     public void onPostButtonClicked(View v) {
         //入力文字を得る
         EditText mCommentField = (EditText) (findViewById(R.id.comment_field));
-        selfIntroduction = mCommentField.getText().toString();
-        //Log.d("mogi comment", ":" + comment + ":");
+        profile = mCommentField.getText().toString();
+        Log.d("comment", ":" + profile + ":");
         //未入力の時はエラー.""は文字が空
-        if (selfIntroduction.equals("")) {
+        if (profile.equals("")) {
             //ダイアログを表示
 //            showAlert(getString(R.string.no_data_message));
 //            return;
@@ -231,7 +233,7 @@ public class UserEditActivity extends AppCompatActivity {
         KiiBucket bucket = Kii.bucket("members");
         KiiObject object = bucket.object();
         //Json形式でKeyのcommentをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
-        object.set("profile", selfIntroduction);
+        object.set("profile", profile);
         //画像があるときだけセット
         if(url != null) {
             object.set("imageUrl", url);
@@ -248,6 +250,7 @@ public class UserEditActivity extends AppCompatActivity {
                     //Activityを終了します。
                     finish();
                 } else {
+                    Log.d(TAG,"投稿されません。。。");
 //                    //eがKiiCloud特有のクラスを継承している時
 //                    if (exception instanceof CloudExecutionException)
 //                        //KiiCloud特有のエラーメッセージを表示。フォーマットが違う
@@ -262,8 +265,19 @@ public class UserEditActivity extends AppCompatActivity {
     //画像をKiiCloudのimagesにUPする。参考：チュートリアル、http://www.riaxdnp.jp/?p=6775
     private void uploadFile(String path) {
         //イメージを保存するバケット名を設定。すべてここに保存してmessageにはそのhttpパスを設定する。バケット＝DBのテーブルみたいなもの。Excelのシートみたいなもの。
-        KiiBucket bucket = Kii.bucket("images");
-        KiiObject object = bucket.object();
+        KiiBucket appbucket = Kii.bucket("images");
+        KiiObject object = appbucket.object();
+        object.set("title", "profile_img");
+        object.save(new KiiObjectCallBack() {
+            @Override
+            public void onSaveCompleted(int token, KiiObject object, Exception exception) {
+                if (exception != null) {
+                    // Error handling
+                    return;
+                }
+            }
+        });
+
         //Up後に公開設定するので保存
         mKiiImageObject = object;
         File f = new File(path);
@@ -296,6 +310,7 @@ public class UserEditActivity extends AppCompatActivity {
 
 
                 } else {
+                    Log.d(TAG,("投稿されません。。。"));
 //                    //失敗の時
 //                    Throwable cause = e.getCause();
 //                    if (cause instanceof CloudExecutionException)

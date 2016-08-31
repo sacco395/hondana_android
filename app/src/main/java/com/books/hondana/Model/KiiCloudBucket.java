@@ -10,7 +10,7 @@ public enum KiiCloudBucket {
     MEMBERS("members",2,""),
     USERBOOKS("userbooks",3,""),
     EVALUATIONS("evaluations",4,""),
-    LIKES("links",5,""),
+    LIKES("likes",5,""),
     GENRES("genres",6,""),
     NOTICES("notices",7,""),
     COMMENTS("comments",8,""),

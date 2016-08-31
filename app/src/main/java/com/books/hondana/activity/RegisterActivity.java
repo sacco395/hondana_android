@@ -135,11 +135,16 @@ public class RegisterActivity extends Activity {
         member.kiiDataInitialize(KiiCloudBucket.MEMBERS);
 
         // 登録したい値をセット
-        member.set (Member.USER_ID, user.getID ());
-
-        member.set (Member.NAME,user.getUsername());
-
+        member.set (Member.NAME, user.getUsername());
         member.set (Member.PROFILE,"");
+        member.set (Member.IMAGE_URL, "");
+        member.set (Member.ADDRESS,"");
+        member.set (Member.BIRTHDAY,"");
+        member.set (Member.POINT,"");
+        member.set (Member.FAVORITE_AUTHOR1,"");
+        member.set (Member.FAVORITE_AUTHOR2,"");
+        member.set (Member.FAVORITE_AUTHOR3,"");
+
 
         // サーバにポスト
         member.save (new KiiObjectCallBack () {
