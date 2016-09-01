@@ -46,8 +46,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/user_edit">
                 <ImageView
+                    android:id="@+id/user_icon"
                     android:src="@drawable/usericon"
                     android:scaleType="centerCrop"
                     android:layout_width="wrap_content"
@@ -58,6 +60,7 @@
                     android:orientation="vertical" >
                     <TextView
                         android:text="User"
+                        android:id="@+id/user_name"
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_gravity="center_vertical"
@@ -76,15 +79,15 @@
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="#000" />
-                    <TextView
-                        android:text="（うち期限付きブク：4ブク）"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:textColor="#000" />
+                    <!--<TextView-->
+                        <!--android:text="（うち期限付きブク：4ブク）"-->
+                        <!--android:layout_marginTop="5dp"-->
+                        <!--android:layout_marginLeft="20dp"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="12sp"-->
+                        <!--android:textColor="#000" />-->
                 </LinearLayout>
             </LinearLayout>
 
@@ -92,6 +95,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="@dimen/activity_vertical_margin"
                 android:id="@+id/evaluation">
 
                 <TextView

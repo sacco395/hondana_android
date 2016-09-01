@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.books.hondana.Connection.QueryParamSet;
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
+import com.kii.cloud.storage.KiiUser;
 import com.squareup.picasso.Picasso;
 
 public class UserpageActivity extends AppCompatActivity
@@ -52,8 +53,11 @@ public class UserpageActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userpage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("User さん");
+        KiiUser user = KiiUser.getCurrentUser();
+        toolbar.setTitle(user.getUsername ().toString() + "さん");
         setSupportActionBar(toolbar);
+
+
 
 
         //カメラボタン
@@ -81,6 +85,11 @@ public class UserpageActivity extends AppCompatActivity
         // binding.drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
+        // ログインしてる名前を表示する
+        TextView Username = (TextView)findViewById(R.id.user_name);
+        Username.setText(user.getUsername ().toString());
+        //
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -94,9 +103,21 @@ public class UserpageActivity extends AppCompatActivity
                 Log.d(TAG, "onClick: User click!");
             }
         });
+        TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
+        userName.setText(user.getUsername ().toString());
         //navigationViewにアイコンここまで
 
+        LinearLayout UserEdit = (LinearLayout)findViewById(R.id.user_edit);
         LinearLayout Evaluation = (LinearLayout)findViewById(R.id.evaluation);
+
+        UserEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick");
+                Intent intent = new Intent(UserpageActivity.this, UserEditActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Evaluation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +127,9 @@ public class UserpageActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+        ImageView userIcon2 = (ImageView)findViewById(R.id.user_icon);
+        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon2);
         // binding.navView.setNavigationItemSelectedListener(this);
     }
 

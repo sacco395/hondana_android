@@ -147,6 +147,9 @@
         <activity android:name=".activity.GuideRegisterActivity" />
         <activity android:name=".activity.GuideBukuActivity" />
         <activity android:name=".activity.GuideSendingActivity"></activity>
-    </application>
+        <activity
+            android:name=".activity.UserEditActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
 </manifest>

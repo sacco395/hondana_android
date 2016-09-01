@@ -40,29 +40,29 @@ public class KiiDataObj implements Parcelable {
         this.kiiCloudBucket = kiiCloudBucket;
         KiiBucket kiiBucket;
         //Application Scopeに所属するBucketを定義
-        if (kiiCloudBucket == KiiCloudBucket.BOOKS){
-            kiiBucket = Kii.bucket(KiiCloudBucket.BOOKS.getName());
-            kiiObject =  kiiBucket.object();
+        if (kiiCloudBucket == KiiCloudBucket.BOOKS) {
+            kiiBucket = Kii.bucket (KiiCloudBucket.BOOKS.getName ());
+            kiiObject = kiiBucket.object ();
 
-        } else if (kiiCloudBucket == KiiCloudBucket.MEMBERS ){
-            kiiBucket = Kii.bucket((KiiCloudBucket.MEMBERS.getName()));
-            kiiObject = kiiBucket.object();
+        } else if (kiiCloudBucket == KiiCloudBucket.MEMBERS) {
+            kiiBucket = Kii.bucket ((KiiCloudBucket.MEMBERS.getName ()));
+            kiiObject = kiiBucket.object ();
 
         } else if (kiiCloudBucket == KiiCloudBucket.USERBOOKS) {
-            kiiBucket = Kii.bucket((KiiCloudBucket.USERBOOKS.getName()));
-            kiiObject = kiiBucket.object();
+            kiiBucket = Kii.bucket ((KiiCloudBucket.USERBOOKS.getName ()));
+            kiiObject = kiiBucket.object ();
 
-        } else if (kiiCloudBucket == KiiCloudBucket.EVALUATIONS ){
-            kiiBucket = Kii.bucket(KiiCloudBucket.EVALUATIONS.getName());
-            kiiObject = kiiBucket.object();
+        } else if (kiiCloudBucket == KiiCloudBucket.EVALUATIONS) {
+            kiiBucket = Kii.bucket (KiiCloudBucket.EVALUATIONS.getName ());
+            kiiObject = kiiBucket.object ();
 
-        } else if (kiiCloudBucket == KiiCloudBucket.LIKES ){
-            kiiBucket = Kii.bucket(KiiCloudBucket.LIKES.getName());
-            kiiObject = kiiBucket.object();
+        } else if (kiiCloudBucket == KiiCloudBucket.LIKES) {
+            kiiBucket = Kii.bucket (KiiCloudBucket.LIKES.getName ());
+            kiiObject = kiiBucket.object ();
 
-        } else if (kiiCloudBucket == KiiCloudBucket.GENRES ){
-            kiiBucket = Kii.bucket(KiiCloudBucket.GENRES.getName());
-            kiiObject = kiiBucket.object();
+        } else if (kiiCloudBucket == KiiCloudBucket.GENRES) {
+            kiiBucket = Kii.bucket (KiiCloudBucket.GENRES.getName ());
+            kiiObject = kiiBucket.object ();
         }
     }
 
