@@ -69,6 +69,7 @@ public class GuideActivity extends AppCompatActivity
 
         // binding.navView.setNavigationItemSelectedListener(this);
 
+//        ガイドページの項目のリストビュー
         ListView list = (ListView) findViewById(R.id.list_view);
         String[] item01 = getResources().getStringArray(R.array.array01);
 
@@ -85,10 +86,10 @@ public class GuideActivity extends AppCompatActivity
 
                 switch (position) {
                     case 0:
-                        intent.setClass(GuideActivity.this, GuideActivity_01.class);
+                        intent.setClass(GuideActivity.this, GuideFirstActivity.class);
                         break;
                     case 1:
-                        intent.setClass(GuideActivity.this, GuideActivity_02.class);
+                        intent.setClass(GuideActivity.this, GuidePassActivity.class);
                         break;
                 }
                 intent.putExtra("SELECTED_DATA", strData);

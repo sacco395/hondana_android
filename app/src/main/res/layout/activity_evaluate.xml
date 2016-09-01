@@ -53,14 +53,14 @@
 
 
     <!--区切り線-->
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="20dip"
-        android:background="#F1F0EE"
-        android:layout_marginLeft="6dip"
-        android:layout_marginRight="6dip"
-        android:layout_marginTop="6dip"
-        android:layout_marginBottom="12dip" />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#F1F0EE"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="6dip"
+            android:layout_marginBottom="12dip" />
     </LinearLayout>
 
     <!--ラジオボタンの評価アイコン-->

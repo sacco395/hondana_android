@@ -8,8 +8,11 @@
     <string name="title_MyActivity">ホンダナ</string>
     <string name="search">本を探す</string>
     <string-array name="array01">
-        <item>初めての方へ</item>
-        <item>交換するには</item>
+        <item>はじめてガイド</item>
+        <item>本を交換する</item>
+        <item>本を登録する</item>
+        <item>ブクについて</item>
+        <item>発送について</item>
     </string-array>
 
     <string-array name="array02">
@@ -29,7 +32,7 @@
     <string name="title_activity_evaluation">EvaluationActivity</string>
     <string name="title_activity_userpage">UserpageActivity</string>
 
-    //本のリクエストページに使用//
+    <!--本のリクエストページに使用-->
     <string name="requestText01">"交換をリクエストします"</string>
     <string name="requestText02">"1.クリックポストで宛名ラベルを作成しましょう。"</string>
     <string name="buttonClickPost">"クリックポストへ"</string>
@@ -45,7 +48,7 @@
     <string name="buttonRequest">"リクエスト完了"</string>
 
 
-    //本の発送ページに使用//
+    <!--本の発送ページに使用-->
     <string name="passedText01">"交換リクエストが届きました"</string>
     <string name="passedText02">"1.届いた宛名ラベルをダウンロードしましょう。"</string>
     <string name="buttonDownload">"ダウンロードする"</string>
@@ -61,7 +64,7 @@
     <string name="buttonSending">"発送完了"</string>
 
 
-    //評価ページに使用//
+    <!--評価ページに使用-->
     <string name="evaluateText01">"受け取り評価をしてください"</string>
 
     <string name="evaluateText02">"本が発送されました。\n本が到着したら、出品者の評価をしてください。"</string>
@@ -84,12 +87,12 @@
 
     <string name="msg_toroku">ホンダナに登録</string>
 
-    //SharedPreferences用//
+    <!--SharedPreferences用-->
     <string name="save_data_name">DataSave</string>
     <string name="save_token">save_token</string>
 
 
-    <!--本の詳細画面に使用-->
+    <!--本の詳細ページに使用-->
     <string name="textViewBookInfoLargeTitle">タイトル</string>
 
     <string name="textViewBookInfoLargeAuthor">著者名</string>
@@ -122,9 +125,11 @@
 
     <string name="buttonBookOwnerList">交換する</string>
 
-    //メール問い合わせ//
+    <!--メール問い合わせ-->
     <string name="Mail">"ドメイン指定受信をしていると返答が届きませんのでご注意ください。\n【ドメイン指定】 @spica-travel.com"</string>
 
     <string name="buttonMail">"メールで問い合わせる"</string>
+
+    <!--ガイドページに使用-->
 
 </resources>
