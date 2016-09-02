@@ -91,6 +91,15 @@ public class GuideActivity extends AppCompatActivity
                     case 1:
                         intent.setClass(GuideActivity.this, GuidePassActivity.class);
                         break;
+                    case 2:
+                        intent.setClass(GuideActivity.this, GuideRegisterActivity.class);
+                        break;
+                    case 3:
+                        intent.setClass(GuideActivity.this, GuideBukuActivity.class);
+                        break;
+                    case 4:
+                        intent.setClass(GuideActivity.this, GuideSendingActivity.class);
+                        break;
                 }
                 intent.putExtra("SELECTED_DATA", strData);
                 startActivity(intent);

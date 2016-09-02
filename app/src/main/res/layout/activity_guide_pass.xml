@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="#F1F0EE" >
 
-    <!--本を交換する-->
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:id="@+id/imageView5"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/step02" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:text="ホンダナは、お家に眠っている本を登録することで\nもらえるポイント「ブク」を使って\n読みたい本と交換することができます。"
-        android:id="@+id/textView19" />
+        android:text="ホンダナは、お家に眠っている本を登録することで\nもらえるポイント「ブク」を使って\n読みたい本と交換することができるアプリです。"
+        android:id="@+id/textViewGuidePass"
+        android:layout_gravity="center_horizontal" />
 
     <!--区切り線-->
     <View
@@ -23,14 +33,15 @@
         android:layout_marginTop="12dip"
         android:layout_marginBottom="12dip" />
 
+    <!--1.まずは本を登録-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="1.まずは本を登録しましょう"
-        android:layout_marginTop="10dp"
+        android:text="1.まずは本を登録"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
-        android:id="@+id/textView16"
+        android:id="@+id/textViewGuidePass1_1"
         android:textColor="#F26964"
         android:textStyle="bold"
         android:textSize="24sp" />
@@ -39,9 +50,76 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginLeft="10dp"
         android:text="お手持ちの本を登録してみましょう。\n交換に使うポイント「ブク」がもらえます。\n\n最初の1冊目を登録すると、\nホンダナから皆様に1ブクを\nプレゼントしています。\n以降は10冊登録するごとに1ブクがもらえます。"
-        android:id="@+id/textView17"
+        android:id="@+id/textViewGuidePass1_2"
+        android:textSize="17sp" />
+
+    <!--区切り線-->
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="20dip"
+        android:background="#E6E5E1"
+        android:layout_marginLeft="6dip"
+        android:layout_marginRight="6dip"
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="12dip" />
+
+    <!--2.交換をリクエスト-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="2.交換をリクエスト"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/textViewGuidePass2_1"
+        android:textColor="#F26964"
+        android:textStyle="bold"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="10dp"
+        android:text="ほしい本が見つかったら、交換相手のユーザーに\n交換リクエストをしましょう。"
+        android:id="@+id/textViewGuidePass2_2"
+        android:textSize="17sp" />
+
+    <!--区切り線-->
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="20dip"
+        android:background="#E6E5E1"
+        android:layout_marginLeft="6dip"
+        android:layout_marginRight="6dip"
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="12dip" />
+
+    <!--3.クリックポストで自分の宛名ラベルを作る-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="3.クリックポストで\n自分の宛名ラベルを作る"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/textViewGuidePass3_1"
+        android:textColor="#F26964"
+        android:textStyle="bold"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="10dp"
+        android:text="配送には、日本郵便のサービス\n「クリックポスト」を使います。\nクリックポストで自分の（本を送ってほしい住所）\nの宛名ラベルを作ります。\nデータができたら保存してください。"
+        android:id="@+id/textViewGuidePass3_2"
         android:textSize="17sp" />
 
     <!--区切り線-->
@@ -58,10 +136,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="2.交換をリクエストしましょう"
-        android:layout_marginTop="20dp"
+        android:text="4.宛名ラベルをアップロード"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
-        android:id="@+id/textView18"
+        android:id="@+id/textViewGuidePass4_1"
         android:textColor="#F26964"
         android:textStyle="bold"
         android:textSize="24sp" />
@@ -70,10 +148,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginLeft="10dp"
-        android:text="お手持ちの本を登録してみましょう。\n交換に使うポイント「ブク」がもらえます。\n\n最初の1冊目を登録すると、\nホンダナから皆様に1ブクを\nプレゼントしています。\n以降は10冊登録するごとに1ブクがもらえます。"
-        android:id="@+id/textView20"
+        android:text="交換リクエストページで宛名ラベルを\nアップロードしてください。\n\nこれで交換リクエストは完了です！\n配送状況については宛名ラベルの\nお問い合わせ番号で確認できます。"
+        android:id="@+id/textViewGuidePass4_2"
         android:textSize="17sp" />
 
+    <!--区切り線-->
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="20dip"
+        android:background="#E6E5E1"
+        android:layout_marginLeft="6dip"
+        android:layout_marginRight="6dip"
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="12dip" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="5.本が届いたら"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/textViewGuidePass5_1"
+        android:textColor="#F26964"
+        android:textStyle="bold"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="10dp"
+        android:text="本を送ってくれた相手のユーザーを\n評価してください。\n「受け取り完了」ボタンをタップすると\n交換冊数分のブクがプレゼントされます。\n\nこれで交換完了です！"
+        android:id="@+id/textViewGuidePass5_2"
+        android:textSize="17sp" />
 
 </LinearLayout>
+    </ScrollView>

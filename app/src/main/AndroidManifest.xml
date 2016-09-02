@@ -144,12 +144,17 @@
         <activity
             android:name=".activity.BookInfoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.GuideRegisterActivity" />
-        <activity android:name=".activity.GuideBukuActivity" />
-        <activity android:name=".activity.GuideSendingActivity"></activity>
+        <activity android:name=".activity.GuideRegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.GuideBukuActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.GuideSendingActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".activity.UserEditActivity"
             android:screenOrientation="portrait">
         </activity>
+    </application>
 
 </manifest>

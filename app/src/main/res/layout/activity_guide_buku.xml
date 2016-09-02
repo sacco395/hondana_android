@@ -1,26 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F1F0EE" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-    <!--ブクについて-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ブクって何？"
-        android:id="@+id/textView16"
-        android:textColor="#F26964"
-        android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="#F1F0EE" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:text="説明"
-        android:id="@+id/textView17" />
-</LinearLayout>
+        <!--ブクについて-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="ブクについて"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/textViewGuideBuku1_1"
+            android:textColor="#F26964"
+            android:textStyle="bold"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="10dp"
+            android:text="「ブク」とは、ホンダナで本を交換する時に\n必要なポイントです。\nホンダナにお手持ちの本を登録すると、\n10冊ごとに1ブクがもらえます。\n\nホンダナにはユーザーが登録した\nたくさんの本が集まっているので\nほしい本を見つけたら\n1冊につき1ブクで交換リクエストを\n送ることができます。\n\nなお、最初の1冊目を登録すると、\nホンダナから皆様に1ブクを\nプレゼントしています！\n\nまずは1冊から本を登録してみましょう。\n"
+            android:id="@+id/textViewGuideBuku1_2"
+            android:textSize="17sp" />
+
+        <!--区切り線-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#E6E5E1"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="12dip" />
+
+        <!--ブクの有効期限-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="ブクの有効期限"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/textViewGuideBuku2_1"
+            android:textColor="#F26964"
+            android:textStyle="bold"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="10dp"
+            android:text="ブクには有効期限はありません。"
+            android:id="@+id/textViewGuideBuku2_2"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+</ScrollView>
