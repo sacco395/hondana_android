@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -153,8 +152,7 @@ public class UserEditActivity extends AppCompatActivity {
                 Bitmap bmp = MediaStore.Images.Media.getBitmap(
                         this.getContentResolver(), selectedFileUri);
                 //一時保存するディレクトリ。アプリに応じてgsappの部分を変更したほうが良い
-                String cacheDir = Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() + File.separator + "hondana";
+                String cacheDir = getCacheDir() + File.separator + "hondana";
                 //ディレクトリ作成
                 File createDir = new File(cacheDir);
                 if (!createDir.exists()) {
@@ -170,6 +168,7 @@ public class UserEditActivity extends AppCompatActivity {
                 fos.getFD().sync();
             } catch (Exception e) {//エラーの時
                 filePath = null;
+                Log.e(TAG,"投稿されません",new Throwable());
             } finally {//かならず最後に閉じる実行する処理
                 if (fos != null) {
                     try {
@@ -230,7 +229,7 @@ public class UserEditActivity extends AppCompatActivity {
     //投稿処理。画像のUploadがうまくいったときは、urlに公開のURLがセットされる
     public void postImages(String url) {
         //バケット名を設定。
-        KiiBucket bucket = Kii.bucket("users");
+        KiiBucket bucket = Kii.bucket("members");
         KiiObject object = bucket.object();
         //Json形式でKeyのcommentをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
         object.set("profile", profile);
@@ -251,7 +250,7 @@ public class UserEditActivity extends AppCompatActivity {
                     //Activityを終了します。
                     finish();
                 } else {
-                    Log.d(TAG,"投稿されません。。。");
+                    Log.d(TAG,"投稿されません。。。",exception);
 //                    //eがKiiCloud特有のクラスを継承している時
 //                    if (exception instanceof CloudExecutionException)
 //                        //KiiCloud特有のエラーメッセージを表示。フォーマットが違う
