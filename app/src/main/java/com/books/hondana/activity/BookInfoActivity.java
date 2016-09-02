@@ -44,32 +44,31 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
     };*/
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_info);
 
         kiiBook = getIntent().getParcelableExtra(KiiBook.class.getSimpleName());
-        String imgUrl =kiiBook.get(KiiBook.IMAGE_URL);
+        String imgUrl = kiiBook.get(KiiBook.IMAGE_URL);
         Log.d(TAG, "onCreate: " + kiiBook.get(KiiBook.TITLE));
 
-        if( (imgUrl != null) && (imgUrl.length() > 0)){
+        if ((imgUrl != null) && (imgUrl.length() > 0)) {
             // 画像データのダウンロードと設定
             ImageLoader imageLoader = ImageLoader.getInstance();
-            ImageView imgView = (ImageView)findViewById(R.id.imageViewBookInfo);
-            imageLoader.displayImage(imgUrl,imgView);
+            ImageView imgView = (ImageView) findViewById(R.id.imageViewBookInfo);
+            imageLoader.displayImage(imgUrl, imgView);
         }
 
         TextView tv_title = (TextView) findViewById(R.id.textViewBookInfoTitle);
         tv_title.setText(kiiBook.get(KiiBook.TITLE));
         TextView tv_author = (TextView) findViewById(R.id.textViewBookInfoAuthor);
         tv_author.setText(kiiBook.get(KiiBook.AUTHOR));
-        TextView tv_isbn = (TextView)findViewById(R.id.textViewBookInfoIsbn);
+        TextView tv_isbn = (TextView) findViewById(R.id.textViewBookInfoIsbn);
         tv_isbn.setText(kiiBook.get(KiiBook.ISBN));
-        TextView tv_publisher = (TextView)findViewById(R.id.textViewBookInfoPublisher);
+        TextView tv_publisher = (TextView) findViewById(R.id.textViewBookInfoPublisher);
         tv_publisher.setText(kiiBook.get(KiiBook.PUBLISHER));
-        TextView tv_issueDate = (TextView)findViewById(R.id.textViewBookInfoDataOfIssue);
+        TextView tv_issueDate = (TextView) findViewById(R.id.textViewBookInfoDataOfIssue);
         tv_issueDate.setText(kiiBook.get(KiiBook.ISSUE_DATE));
         TextView tv_large_title = (TextView) findViewById(R.id.textViewBookInfoLargeTitle);
         tv_large_title.setText(kiiBook.get(KiiBook.TITLE));
@@ -96,13 +95,13 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
     /**
      * ログインしてKiiUserのデータをフィールドに残すだけで他には何もしない
      */
-    private void checkCurrentUser() {
-        Log.d(TAG,(""),new Throwable());
-        KiiUser user = KiiUser.getCurrentUser();
+    private void getCurrentUser() {
 
-        user.refresh(new KiiUserCallBack () {
+        Log.d(TAG, (""), new Throwable());
+        KiiUser.getCurrentUser();
 
-            public void onRefreshCompleted(int token,final KiiUser user,Exception exception) {
+        kiiUser.refresh(new KiiUserCallBack() {
+            public void onRefreshCompleted(int token, KiiUser user, Exception exception) {
                 if (exception != null) {
                     // Error handling
                     return;
@@ -117,10 +116,10 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         if (kiiUser != null) {
             Intent intent = new Intent(this, BookRequestActivity.class);
             startActivity(intent);
-        }else {
+        } else {
             Intent intent = new Intent(this, StartActivity.class);
             startActivity(intent);
-            Log.d(TAG,(""),new Throwable());
+            Log.d(TAG, (""), new Throwable());
             showToast("会員登録をお願いします！");
         }
     }
