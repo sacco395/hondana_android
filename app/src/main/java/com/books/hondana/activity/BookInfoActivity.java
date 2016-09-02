@@ -8,9 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
+import com.kii.cloud.storage.KiiUser;
+import com.kii.cloud.storage.callback.KiiUserCallBack;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 
@@ -18,6 +21,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
 
     private static final String TAG = BookInfoActivity.class.getSimpleName();
+
+    KiiUser kiiUser;
 
     //private BaseAdapter adapter;
 
@@ -87,20 +92,40 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         // 後で使います
 //        listViewBookOwner.setOnItemClickListener(this);*/
     }
+
+    /**
+     * ログインしてKiiUserのデータをフィールドに残すだけで他には何もしない
+     */
+    private void checkCurrentUser() {
+        Log.d(TAG,(""),new Throwable());
+        KiiUser user = KiiUser.getCurrentUser();
+
+        user.refresh(new KiiUserCallBack () {
+
+            public void onRefreshCompleted(int token,final KiiUser user,Exception exception) {
+                if (exception != null) {
+                    // Error handling
+                    return;
+                }
+                kiiUser = user; // インスタンス変数に保持する
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
-        if (v != null) {
-            switch (v.getId()) {
-                case R.id.buttonPreRequest:
-                    // クリック処理
-                    Intent intent = new Intent(this, BookRequestActivity.class);
-                    startActivity(intent);
-                    break;
-
-                default:
-                    break;
-
-            }
+        if (kiiUser != null) {
+            Intent intent = new Intent(this, BookRequestActivity.class);
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
+            Log.d(TAG,(""),new Throwable());
+            showToast("会員登録をお願いします！");
         }
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
