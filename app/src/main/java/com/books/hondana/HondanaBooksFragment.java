@@ -189,7 +189,7 @@ public class HondanaBooksFragment extends Fragment {
         // show a progress dialog to the user
         mProgress = ProgressDialog.show( getActivity(), "", "Loading...",  true);
 
-        kiiCloudConnection.loadHondanaBooksByGenres(1, searchFinishListener );
+        this.kiiCloudConnection.loadHondanaBooksByGenres(1, searchFinishListener );
     }
 
     // ホンダナへの問い合わせ完了時の処理

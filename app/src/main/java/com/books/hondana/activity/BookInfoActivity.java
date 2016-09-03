@@ -101,8 +101,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         LogUtil.d (TAG, "kiiUser: " + kiiUser);
 
         if (kiiUser != null) {
-            Intent intent = new Intent(this, BookRequestActivity.class);
-            startActivity(intent);
+            startActivity(BookRequestActivity.createIntent (this, kiiBook));
         } else {
             Intent intent = new Intent(this, StartActivity.class);
             startActivity(intent);

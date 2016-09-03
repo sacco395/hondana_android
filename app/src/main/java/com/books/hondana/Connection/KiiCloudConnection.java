@@ -34,6 +34,10 @@ public class KiiCloudConnection {
         this.kiiCloudBucket= kiiCloudBucket;
     }
 
+    public KiiCloudConnection(KiiCloudBucket kiiCloudBucket) {
+        this.kiiCloudBucket = kiiCloudBucket;
+    }
+
     public void loadHondanaBooksByGenres(final int index, final SearchFinishListener searchFinishListener) {
 
         int gCount = queryParamSet.genreTbl.length;
