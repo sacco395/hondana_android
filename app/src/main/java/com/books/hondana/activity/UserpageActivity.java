@@ -13,7 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import com.books.hondana.util.LogUtil;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +24,7 @@ import android.widget.Toast;
 import com.books.hondana.Connection.QueryParamSet;
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
+import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.squareup.picasso.Picasso;
 
@@ -53,8 +53,8 @@ public class UserpageActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userpage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        KiiUser user = KiiUser.getCurrentUser();
-        toolbar.setTitle(user.getUsername ().toString() + "さん");
+        //KiiUser user = KiiUser.getCurrentUser();
+        //toolbar.setTitle(user.getUsername ().toString() + "さん");
         setSupportActionBar(toolbar);
 
 
@@ -86,8 +86,8 @@ public class UserpageActivity extends AppCompatActivity
         toggle.syncState();
 
         // ログインしてる名前を表示する
-        TextView Username = (TextView)findViewById(R.id.user_name);
-        Username.setText(user.getUsername ().toString());
+        //TextView Username = (TextView)findViewById(R.id.user_name);
+        //Username.setText(user.getUsername ().toString());
         //
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -101,10 +101,27 @@ public class UserpageActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 LogUtil.d(TAG, "onClick: User click!");
+
+                KiiUser kiiUser = KiiUser.getCurrentUser ();
+
+                LogUtil.d (TAG, "kiiUser: " + kiiUser);
+
+                if (kiiUser != null) {
+                    Intent intent = new Intent(UserpageActivity.this,
+                            UserpageActivity.class);
+                    UserpageActivity.this.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(UserpageActivity.this,
+                            StartActivity.class);
+                    UserpageActivity.this.startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
             }
+
         });
-        TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
-        userName.setText(user.getUsername ().toString());
+
+        //TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
+        //userName.setText(user.getUsername ().toString());
         //navigationViewにアイコンここまで
 
         LinearLayout UserEdit = (LinearLayout)findViewById(R.id.user_edit);
@@ -306,6 +323,10 @@ public class UserpageActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
 
