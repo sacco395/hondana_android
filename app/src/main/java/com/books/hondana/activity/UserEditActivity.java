@@ -250,7 +250,7 @@ public class UserEditActivity extends AppCompatActivity {
                     //Activityを終了します。
                     finish();
                 } else {
-                    LogUtil.e(TAG, "投稿されません。。。", exception);
+                    LogUtil.e(TAG, "投稿されません。。。", new Throwable());
 //                    //eがKiiCloud特有のクラスを継承している時
 //                    if (exception instanceof CloudExecutionException)
 //                        //KiiCloud特有のエラーメッセージを表示。フォーマットが違う
@@ -299,7 +299,7 @@ public class UserEditActivity extends AppCompatActivity {
                                 object.publishBody(new KiiObjectPublishCallback() {
                                     @Override
                                     public void onPublishCompleted(String url, KiiObject kiiObject, Exception e) {
-                                        LogUtil.d("hondanaurl", url);
+                                        LogUtil.d(TAG,("投稿されました！"));
                                         //画像のURL付きでusersに投稿する。
                                         postImages(url);
                                     }
