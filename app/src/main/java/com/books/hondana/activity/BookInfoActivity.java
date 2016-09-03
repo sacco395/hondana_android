@@ -4,7 +4,6 @@ package com.books.hondana.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,8 +11,8 @@ import android.widget.Toast;
 
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
+import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.callback.KiiUserCallBack;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 
@@ -21,8 +20,6 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
 
     private static final String TAG = BookInfoActivity.class.getSimpleName();
-
-    KiiUser kiiUser;
 
     //private BaseAdapter adapter;
 
@@ -48,10 +45,11 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_info);
+        LogUtil.d (TAG, "onCreate");
 
         kiiBook = getIntent().getParcelableExtra(KiiBook.class.getSimpleName());
         String imgUrl = kiiBook.get(KiiBook.IMAGE_URL);
-        Log.d(TAG, "onCreate: " + kiiBook.get(KiiBook.TITLE));
+        LogUtil.d(TAG, kiiBook.get(KiiBook.TITLE));
 
         if ((imgUrl != null) && (imgUrl.length() > 0)) {
             // 画像データのダウンロードと設定
@@ -78,6 +76,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
         findViewById(R.id.buttonPreRequest).setOnClickListener(this);
 
+//        getCurrentUser();
+
         /*// ListViewのインスタンスを生成
         ListView listViewBookOwner = (ListView) findViewById(R.id.listViewBookOwner);
 
@@ -92,34 +92,20 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 //        listViewBookOwner.setOnItemClickListener(this);*/
     }
 
-    /**
-     * ログインしてKiiUserのデータをフィールドに残すだけで他には何もしない
-     */
-    private void getCurrentUser() {
-
-        Log.d(TAG, (""), new Throwable());
-        KiiUser.getCurrentUser();
-
-        kiiUser.refresh(new KiiUserCallBack() {
-            public void onRefreshCompleted(int token, KiiUser user, Exception exception) {
-                if (exception != null) {
-                    // Error handling
-                    return;
-                }
-                kiiUser = user; // インスタンス変数に保持する
-            }
-        });
-    }
-
     @Override
     public void onClick(View v) {
+        LogUtil.d(TAG, "onClick");
+
+        KiiUser kiiUser = KiiUser.getCurrentUser ();
+
+        LogUtil.d (TAG, "kiiUser: " + kiiUser);
+
         if (kiiUser != null) {
             Intent intent = new Intent(this, BookRequestActivity.class);
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, StartActivity.class);
             startActivity(intent);
-            Log.d(TAG, (""), new Throwable());
             showToast("会員登録をお願いします！");
         }
     }
