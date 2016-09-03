@@ -27,7 +27,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +34,7 @@ import android.widget.Toast;
 import com.books.hondana.Model.KiiCloudBucket;
 import com.books.hondana.Model.Member;
 import com.books.hondana.R;
+import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
@@ -75,7 +75,7 @@ public class RegisterActivity extends Activity {
         String phone = mPhoneField.getText().toString();
         String username = mUsernameField.getText().toString();
         String password = mPasswordField.getText().toString();
-        Log.v(TAG, "Registering: " + username + ":" + password);
+        LogUtil.d(TAG, "Registering: " + username + ":" + password);
 
         // create a KiiUser object
         try {
@@ -99,7 +99,7 @@ public class RegisterActivity extends Activity {
                     if (e == null) {
 
                         // tell the console and the user it was a success!
-                        Log.v(TAG, "Registered: " + user.toString());
+                        LogUtil.d(TAG, "Registered: " + user.toString());
 
                         //自動ログイン(ログイン前)のためにSharedPreferenceに保存。アプリのストレージ。参考：http://qiita.com/Yuki_Yamada/items/f8ea90a7538234add288
                         //.apply()で保存
@@ -120,7 +120,7 @@ public class RegisterActivity extends Activity {
                         RegisterActivity.this.startActivity(myIntent);
 
                         // tell the console and the user there was a failure
-                        Log.v(TAG, "Error registering: " + e.getLocalizedMessage());
+                        LogUtil.d(TAG, "Error registering: " + e.getLocalizedMessage());
                         showToast("Error Registering: " + e.getLocalizedMessage());
 
                     }
@@ -168,7 +168,7 @@ public class RegisterActivity extends Activity {
                 if (exception == null) {
 
                     // tell the console and the user it was a success!
-                    Log.v(TAG, "Registered: " + object.toString());
+                    LogUtil.d(TAG, "Registered: " + object.toString());
                     showToast("登録ありがとうございます！");
 
                     //SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
@@ -187,7 +187,7 @@ public class RegisterActivity extends Activity {
                 else {
 
                     // tell the console and the user there was a failure
-                    Log.v(TAG, "Error registering: " + exception.getLocalizedMessage());
+                    LogUtil.d(TAG, "Error registering: " + exception.getLocalizedMessage());
                     showToast("Error Registering: " + exception.getLocalizedMessage());
 
                 }

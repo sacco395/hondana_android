@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
+import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -106,7 +106,7 @@ public class BookDetailActivity extends AppCompatActivity	{
 
 						if (exception != null) {
 							// Error handling
-							Log.w("BookDetailActivity", exception);
+							LogUtil.w("BookDetailActivity", exception);
 							return;
 						}
 					}

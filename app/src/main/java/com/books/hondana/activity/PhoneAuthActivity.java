@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.R;
+import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.kii.cloud.storage.callback.KiiUserCallBack;
 
@@ -44,7 +44,7 @@ public class PhoneAuthActivity extends Activity {
 
         // get the code from the UI
         String code = mCodeField.getText().toString();
-        Log.v(TAG, "Authentication: " + code );
+        LogUtil.d(TAG, "Authentication: " + code );
 
         try {
             final KiiUser user = KiiUser.getCurrentUser();
@@ -60,7 +60,7 @@ public class PhoneAuthActivity extends Activity {
                     // check for an exception (successful request if e==null)
                     if (e == null) {
                         // tell the console and the user it was a success!
-                        Log.v(TAG, "Registered: " + user.toString());
+                        LogUtil.d(TAG, "Registered: " + user.toString());
                         showToast("User registered!");
 
                         Intent myIntent = new Intent(PhoneAuthActivity.this,
@@ -73,7 +73,7 @@ public class PhoneAuthActivity extends Activity {
                     // otherwise, something bad happened in the request
                     else {
                         // tell the console and the user there was a failure
-                        Log.v(TAG, "Error registering: " + e.getLocalizedMessage());
+                        LogUtil.d(TAG, "Error registering: " + e.getLocalizedMessage());
                         showToast("Error Registering: " + e.getLocalizedMessage());
                     }
                 }

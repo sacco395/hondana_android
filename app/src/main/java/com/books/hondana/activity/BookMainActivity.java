@@ -20,7 +20,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +35,7 @@ import com.books.hondana.Connection.QueryParamSet;
 import com.books.hondana.HondanaBooksFragment;
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
+import com.books.hondana.util.LogUtil;
 import com.squareup.picasso.Picasso;
 
 public class BookMainActivity extends AppCompatActivity
@@ -122,7 +122,7 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: User click!");
+                LogUtil.d(TAG, "onClick: User click!");
             }
         });
         //navigationViewにアイコンここまで
@@ -349,7 +349,7 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
         llUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick");
+                LogUtil.d(TAG, "onClick");
                 Intent intent = new Intent(BookMainActivity.this, UserpageActivity.class);
                 startActivity(intent);
             }

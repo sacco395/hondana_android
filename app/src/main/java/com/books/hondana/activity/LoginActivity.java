@@ -26,7 +26,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +33,7 @@ import android.widget.Toast;
 import com.books.hondana.Model.KiiCloudBucket;
 import com.books.hondana.Model.Member;
 import com.books.hondana.R;
+import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
@@ -75,7 +75,7 @@ public class LoginActivity extends Activity {
         // get the username/password combination from the UI
         String phone = mPhoneField.getText().toString();
         String password = mPasswordField.getText().toString();
-        Log.v(TAG, "Logging in: " + phone + ":" + password);
+        LogUtil.d(TAG, "Logging in: " + phone + ":" + password);
 
         boolean result = false;
 
@@ -112,7 +112,7 @@ public class LoginActivity extends Activity {
                                 if (result != null && result.getResult () != null) {
                                     KiiObject memberObj = result.getResult ().get (0);
                                     Member member = new Member (memberObj);
-                                    Log.d (TAG, "onQueryCompleted: " + member.toString ());
+                                    LogUtil.d (TAG, "onQueryCompleted: " + member.toString ());
                                 } else {
                                     // Result is null! エラー処理
                                 }

@@ -13,7 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import com.books.hondana.util.LogUtil;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -100,7 +100,7 @@ public class UserpageActivity extends AppCompatActivity
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: User click!");
+                LogUtil.d(TAG, "onClick: User click!");
             }
         });
         TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
@@ -113,7 +113,7 @@ public class UserpageActivity extends AppCompatActivity
         UserEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick");
+                LogUtil.d(TAG, "onClick");
                 Intent intent = new Intent(UserpageActivity.this, UserEditActivity.class);
                 startActivity(intent);
             }
@@ -122,7 +122,7 @@ public class UserpageActivity extends AppCompatActivity
         Evaluation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick");
+                LogUtil.d(TAG, "onClick");
                 Intent intent = new Intent(UserpageActivity.this, EvaluationActivity.class);
                 startActivity(intent);
             }
@@ -301,7 +301,7 @@ public class UserpageActivity extends AppCompatActivity
         llUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick");
+                LogUtil.d(TAG, "onClick");
                 Intent intent = new Intent(UserpageActivity.this, UserpageActivity.class);
                 startActivity(intent);
             }

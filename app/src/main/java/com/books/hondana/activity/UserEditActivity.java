@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.books.hondana.R;
+import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;
@@ -127,7 +127,7 @@ public class UserEditActivity extends AppCompatActivity {
                 result = data.getData();
             }else {
                 result = mImageUri;
-                Log.d("hondana:mImageUri:",result.toString());
+                LogUtil.d("hondana:mImageUri:",result.toString());
             }
             //画面に画像を表示
             ImageView iv = (ImageView) findViewById(R.id.image_view1);
@@ -168,7 +168,7 @@ public class UserEditActivity extends AppCompatActivity {
                 fos.getFD().sync();
             } catch (Exception e) {//エラーの時
                 filePath = null;
-                Log.e(TAG,"投稿されません",new Throwable());
+                LogUtil.e(TAG, "投稿されません", e);
             } finally {//かならず最後に閉じる実行する処理
                 if (fos != null) {
                     try {
@@ -209,7 +209,7 @@ public class UserEditActivity extends AppCompatActivity {
         //入力文字を得る
         EditText mCommentField = (EditText) (findViewById(R.id.comment_field));
         profile = mCommentField.getText().toString();
-        Log.d("comment", ":" + profile + ":");
+        LogUtil.d("comment", ":" + profile + ":");
 
         //未入力の時はエラー.""は文字が空
         if (profile.equals("")) {
@@ -250,7 +250,7 @@ public class UserEditActivity extends AppCompatActivity {
                     //Activityを終了します。
                     finish();
                 } else {
-                    Log.d(TAG,"投稿されません。。。",exception);
+                    LogUtil.e(TAG, "投稿されません。。。", exception);
 //                    //eがKiiCloud特有のクラスを継承している時
 //                    if (exception instanceof CloudExecutionException)
 //                        //KiiCloud特有のエラーメッセージを表示。フォーマットが違う
@@ -299,7 +299,7 @@ public class UserEditActivity extends AppCompatActivity {
                                 object.publishBody(new KiiObjectPublishCallback() {
                                     @Override
                                     public void onPublishCompleted(String url, KiiObject kiiObject, Exception e) {
-                                        Log.d("hondanaurl", url);
+                                        LogUtil.d("hondanaurl", url);
                                         //画像のURL付きでusersに投稿する。
                                         postImages(url);
                                     }
@@ -310,7 +310,7 @@ public class UserEditActivity extends AppCompatActivity {
 
 
                 } else {
-                    Log.d(TAG,("投稿されません。。。"));
+                    LogUtil.d(TAG,("投稿されません。。。"));
 //                    //失敗の時
 //                    Throwable cause = e.getCause();
 //                    if (cause instanceof CloudExecutionException)

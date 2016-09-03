@@ -19,7 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import com.books.hondana.util.LogUtil;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -105,7 +105,7 @@ public class RequestActivity extends AppCompatActivity
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: User click!");
+                LogUtil.d(TAG, "onClick: User click!");
             }
         });
         //navigationViewにアイコンここまで
@@ -325,7 +325,7 @@ public class RequestActivity extends AppCompatActivity
         llUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick");
+                LogUtil.d(TAG, "onClick");
                 Intent intent = new Intent(RequestActivity.this, UserpageActivity.class);
                 startActivity(intent);
             }

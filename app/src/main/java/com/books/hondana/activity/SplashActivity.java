@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import com.books.hondana.util.LogUtil;
 
 import com.books.hondana.R;
 import com.kii.cloud.storage.KiiUser;
@@ -59,7 +59,7 @@ public class SplashActivity extends Activity {
                             public void onRefreshCompleted(int token, Exception exception) {
                                 if (exception != null) {
                                     // Error handling
-                                    Log.e(TAG, "onRefreshCompleted: ", exception);
+                                    LogUtil.e(TAG, "onRefreshCompleted: ", exception);
                                     return;
                                 }
                                 mHandler.postDelayed(new Runnable() {
@@ -77,7 +77,7 @@ public class SplashActivity extends Activity {
                             }
                         });
                     } else {
-                        Log.e(TAG, "onLoginCompleted: ", exception);
+                        LogUtil.e(TAG, "onLoginCompleted: ", exception);
                     }
                 }
             }, token);

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import com.books.hondana.Connection.QueryParamSet;
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.Model.KiiCloudBucket;
 import com.books.hondana.activity.BookInfoActivity;
+import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.query.KiiQueryResult;
 
@@ -106,7 +106,7 @@ public class HondanaBooksFragment extends Fragment {
                 // キーに Object#class.getSimpleName() を使うと、別に定数を作らなくていいのでいいです
                 intent.putExtra(KiiBook.class.getSimpleName(), book);
 
-                Log.d(TAG, "onItemClick: " + book);
+                LogUtil.d(TAG, "onItemClick: " + book);
                 // Activity をスイッチする
                 startActivity(intent);
             }
@@ -209,7 +209,7 @@ public class HondanaBooksFragment extends Fragment {
             }
             else {
                 Toast.makeText( getActivity(), "エラーが発生しました",Toast.LENGTH_LONG).show();
-                Log.w("HondanaBooksFragment", e);
+                LogUtil.w("HondanaBooksFragment", e);
             }
         }
     };

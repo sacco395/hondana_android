@@ -2,7 +2,7 @@ package com.books.hondana.Connection;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.util.Log;
+import com.books.hondana.util.LogUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,13 +64,13 @@ public class HttpAsyncLoader extends AsyncTaskLoader<JSONObject> {
 			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-			Log.d(TAG, e.getMessage());
+			LogUtil.d(TAG, e.getMessage());
 		} catch (ProtocolException e) {
 			e.printStackTrace();
-			Log.d(TAG, e.getMessage());
+			LogUtil.d(TAG, e.getMessage());
 		} catch (IOException e) {
 			e.printStackTrace();
-			Log.d(TAG, e.getMessage());
+			LogUtil.d(TAG, e.getMessage());
 		} finally {
 			if (conn != null) {
 				conn.disconnect();
