@@ -148,7 +148,7 @@ public class HondanaBooksFragment extends Fragment {
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            // 2秒待機
+            // 1秒待機
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -157,9 +157,6 @@ public class HondanaBooksFragment extends Fragment {
             }, 1000);
         }
     };
-
-
-
 
     @Override
     public void onResume() {

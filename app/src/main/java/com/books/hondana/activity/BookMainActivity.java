@@ -36,6 +36,7 @@ import com.books.hondana.HondanaBooksFragment;
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.KiiUser;
 import com.squareup.picasso.Picasso;
 
 public class BookMainActivity extends AppCompatActivity
@@ -95,7 +96,21 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchSimpleActivity(v);
+                LogUtil.d(TAG, "onClick");
+
+                KiiUser kiiUser = KiiUser.getCurrentUser ();
+
+                LogUtil.d (TAG, "kiiUser: " + kiiUser);
+
+                if (kiiUser != null) {
+                    launchSimpleActivity(v);
+
+                } else {
+                    Intent intent = new Intent(BookMainActivity.this,
+                            StartActivity.class);
+                    BookMainActivity.this.startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
             }
         });
 
@@ -354,5 +369,8 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
                 startActivity(intent);
             }
         });
+    }
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
