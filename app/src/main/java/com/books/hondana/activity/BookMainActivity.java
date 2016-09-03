@@ -36,6 +36,7 @@ import com.books.hondana.HondanaBooksFragment;
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.KiiUser;
 import com.squareup.picasso.Picasso;
 
 public class BookMainActivity extends AppCompatActivity
@@ -95,7 +96,20 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchSimpleActivity(v);
+
+                LogUtil.d(TAG, "onClick");
+                KiiUser kiiUser = KiiUser.getCurrentUser ();
+                LogUtil.d (TAG, "kiiUser: " + kiiUser);
+
+                if (kiiUser != null) {
+                    launchSimpleActivity(v);
+
+                } else {
+                    Intent intent = new Intent(BookMainActivity.this,
+                            StartActivity.class);
+                    BookMainActivity.this.startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
             }
         });
 
@@ -160,24 +174,48 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        LogUtil.d(TAG, "onClick");
+        KiiUser kiiUser = KiiUser.getCurrentUser ();
+        LogUtil.d (TAG, "kiiUser: " + kiiUser);
+
         switch (id) {
             case R.id.nav_search:{
-                Intent intent = new Intent(this, SearchActivity.class);
-                startActivity(intent,
-                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-            }
-            break;
-            case R.id.nav_notifications: {
-                Intent intent = new Intent(this, InfoActivity.class);
-                startActivity(intent,
-                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-
+                if (kiiUser != null) {
+                    Intent intent = new Intent(this, SearchActivity.class);
+                    startActivity(intent,
+                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    Intent intent = new Intent(this, StartActivity.class);
+                    startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
                 break;
             }
+
+
+            case R.id.nav_notifications: {
+                if (kiiUser != null) {
+                    Intent intent = new Intent(this, InfoActivity.class);
+                    startActivity(intent,
+                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    Intent intent = new Intent(this, StartActivity.class);
+                    startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
+                break;
+            }
+
             case R.id.nav_todo:{
-                Intent intent = new Intent(this, TodoActivity.class);
-                startActivity(intent,
-                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                if (kiiUser != null) {
+                    Intent intent = new Intent(this, TodoActivity.class);
+                    startActivity(intent,
+                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    Intent intent = new Intent(this, StartActivity.class);
+                    startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
 
                 break;
             }
@@ -302,25 +340,56 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
 
         int id = item.getItemId();
 
+        LogUtil.d(TAG, "onClick");
+        KiiUser kiiUser = KiiUser.getCurrentUser ();
+        LogUtil.d (TAG, "kiiUser: " + kiiUser);
+
         if (id == R.id.nav_home) {
             Intent intent = new Intent(this, BookMainActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_like) {
-            Intent intent = new Intent(this, LikesActivity.class);
-            startActivity(intent);
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, LikesActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
 
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(this, SwapBookActivity.class);
-            startActivity(intent);
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, SwapBookActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
+
 
         } else if (id == R.id.nav_transaction) {
-            Intent intent = new Intent(this, RequestActivity.class);
-            startActivity(intent);
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, RequestActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
+
 
         } else if (id == R.id.nav_set) {
-            Intent intent = new Intent(this, SettingActivity.class);
-            startActivity(intent);
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
+
 
         } else if (id == R.id.nav_guide) {
             Intent intent = new Intent(this, GuideActivity.class);
@@ -354,5 +423,8 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
                 startActivity(intent);
             }
         });
+    }
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
