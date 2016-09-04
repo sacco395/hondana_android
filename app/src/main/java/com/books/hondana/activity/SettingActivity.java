@@ -64,23 +64,13 @@ public class SettingActivity extends AppCompatActivity
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.d(TAG, "onClick");
-                KiiUser kiiUser = KiiUser.getCurrentUser();
-                LogUtil.d(TAG, "kiiUser: " + kiiUser);
 
-                if (kiiUser != null) {
                     Intent intent = new Intent(SettingActivity.this,
                             UserpageActivity.class);
                     SettingActivity.this.startActivity(intent);
-                    ;
 
-                } else {
-                    Intent intent = new Intent(SettingActivity.this,
-                            StartActivity.class);
-                    SettingActivity.this.startActivity(intent);
-                    showToast("会員登録をお願いします！");
+
                 }
-            }
         });
         //navigationViewにアイコンここまで
 
