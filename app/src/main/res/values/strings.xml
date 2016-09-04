@@ -61,7 +61,7 @@
     <string name="buttonSending">"発送完了"</string>
 
 
-    //評価ページに使用//
+    //発送者への評価ページに使用//
     <string name="evaluateText01">"受け取り評価をしてください"</string>
 
     <string name="evaluateText02">"本が発送されました。\n本が到着したら、出品者の評価をしてください。"</string>
@@ -136,4 +136,12 @@
     <string name="Mail">"ドメイン指定受信をしていると返答が届きませんのでご注意ください。\n【ドメイン指定】 @spica-travel.com"</string>
 
     <string name="buttonMail">"メールで問い合わせる"</string>
+
+    //受取相手への評価ページに使用//
+    <string name="evaluatedText01">"送付相手の評価をしてください"</string>
+
+    <string name="evaluatedText02">"送付相手が本が受け取りました。\n評価をしてブクを受け取りましょう。"</string>
+
+    <string name="evaluatedText03">"本を受け取った相手に評価のコメントを送信しましょう。\n(例)ありがとうございました。またよろしくお願いします。"</string>
+
 </resources>

@@ -103,7 +103,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         if (kiiUser != null) {
 
             //kiiBookのデータを持って、BookRequestActivityにintentする
-            startActivity(BookRequestActivity.createIntent (this, kiiBook));
+            startActivity(EvaluatedActivity.createIntent (this, kiiBook));
         } else {
             Intent intent = new Intent(this, StartActivity.class);
             startActivity(intent);

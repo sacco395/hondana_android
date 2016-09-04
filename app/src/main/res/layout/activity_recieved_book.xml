@@ -161,7 +161,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/buttonTransmission"
-        android:id="@+id/buttonDownload"
+        android:id="@+id/buttonReceived"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/shape_rounded_corners"
         android:layout_alignParentBottom="true"

@@ -80,11 +80,11 @@ public class TodoActivity extends AppCompatActivity
 
         switch (position) {
             case 0:
-                intent = new Intent (TodoActivity.this, PassedActivity.class);
+                intent = new Intent (TodoActivity.this, SendBookActivity.class);
                 startActivity (intent);
                 break;
             case 1:
-                intent = new Intent (TodoActivity.this, EvaluateActivity.class);
+                intent = new Intent (TodoActivity.this, ReceivedBookActivity.class);
                 startActivity (intent);
                 break;
         }
