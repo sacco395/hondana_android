@@ -40,7 +40,7 @@ public class BookRequestActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_request);
 
-//BookInfoActivityからkiiBookの情報を受け取るためcreateIntentを使う
+//上記のcreateIntentでデータを受け取る
         kiiBook = getIntent ().getParcelableExtra (EXTRA_KII_BOOK);
 //kiiBookがないのはおかしいのでcreateIntentを使うように怒る
         if (kiiBook == null) {
@@ -97,6 +97,7 @@ public class BookRequestActivity extends AppCompatActivity implements View.OnCli
         return super.onOptionsItemSelected(item);
     }
 
+    //kiiBookに本の交換申請日時を記録して保存する
     private void saveRequestDate() {
         Date date = new Date ();
 
@@ -108,6 +109,8 @@ public class BookRequestActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onSaveCompleted(int token, @NonNull KiiObject object, @Nullable Exception exception) {
                 Toast.makeText(getApplicationContext(), "本のリクエストを完了しました", Toast.LENGTH_LONG).show();
+
+                //暫定的にTOPページにintentする
                 Intent intent = new Intent(BookRequestActivity.this, BookMainActivity.class);
                 startActivity(intent);
             }
