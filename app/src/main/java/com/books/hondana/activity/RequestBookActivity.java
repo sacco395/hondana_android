@@ -112,7 +112,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         LogUtil.d(TAG, "kiiUser: " + user);
 
         kiiBook.set ("request_date", dateString);
-        kiiBook.set ("request_userId",user.getID());
+        //kiiBook.set ("request_userId",user.getID());
 
         kiiBook.save (new KiiObjectCallBack () {
             @Override
