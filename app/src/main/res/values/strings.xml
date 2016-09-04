@@ -104,19 +104,23 @@
 
     <string name="textViewBookInfoTitle">タイトル</string>
 
+    <string name="textViewBookInfoAuthorLead">著者名</string>
     <string name="textViewBookInfoAuthor">著者名</string>
 
+    <string name="textViewBookInfoPublisherLead">出版社</string>
     <string name="textViewBookInfoPublisher">出版社</string>
 
+    <string name="textViewBookInfoDateOfIssueLead">発売日</string>
     <string name="textViewBookInfoDateOfIssue">発売日</string>
 
+    <string name="textViewBookInfoIsbnLead">ISBNコード</string>
     <string name="textViewBookInfoIsbn">ISBNコード</string>
 
     <string name="textViewBookInfoContents">内容</string>
 
     <string name="textViewBookOwnerList">本を持っている人</string>
 
-    <string name="buttonPreRequest">本を交換を申請する</string>
+    <string name="buttonPreRequest">本の交換をリクエストする</string>
 
 
     <string name="textBookOwnerListName">ユーザー名</string>
@@ -130,9 +134,6 @@
 
     <string name="buttonMail">"メールで問い合わせる"</string>
 
-    <!--ガイドページに使用-->
-
-
     <!-- Postで追加ここから-->
     <string name="attach_button">ImageAttach</string>
     <string name="attach_camera_button">CameraAttach</string>
@@ -142,4 +143,64 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Postで追加ここまで-->
+
+    <!--ガイドページに使用-->
+    <!--本の交換について-->
+    <string name="textViewGuidePassTitle">交換について</string>
+
+    <string name="textViewGuidePass">ホンダナは、お家に眠っている本を登録することで\nもらえるポイント「ブク」を使って\n読みたい本と交換することができるアプリです。</string>
+
+    <string name="textViewGuidePass1_1">1.まずは本を登録</string>
+
+    <string name="textViewGuidePass1_2">お手持ちの本を登録してみましょう。\n交換に使うポイント「ブク」がもらえます。\n\n最初の1冊目を登録すると、\nホンダナから皆様に1ブクを\nプレゼントしています。\n以降は10冊登録するごとに1ブクがもらえます。</string>
+
+    <string name="textViewGuidePass2_1">2.交換をリクエスト</string>
+
+    <string name="textViewGuidePass2_2">ほしい本が見つかったら、交換相手のユーザーに\n交換リクエストをしましょう。</string>
+
+    <string name="textViewGuidePass3_1">3.クリックポストで\n自分の宛名ラベルを作る</string>
+
+    <string name="textViewGuidePass3_2">配送には、日本郵便のサービス\n「クリックポスト」を使います。\nクリックポストで自分の（本を送ってほしい住所）\nの宛名ラベルを作ります。\nデータができたら保存してください。</string>
+
+    <string name="textViewGuidePass4_1">4.宛名ラベルをアップロード</string>
+
+    <string name="textViewGuidePass4_2">交換リクエストページで宛名ラベルを\nアップロードしてください。\n\nこれで交換リクエストは完了です！\n配送状況については宛名ラベルの\nお問い合わせ番号で確認できます。</string>
+
+    <string name="textViewGuidePass5_1">5.本が届いたら</string>
+
+    <string name="textViewGuidePass5_2">本を送ってくれた相手のユーザーを\n評価してください。\n「受け取り完了」ボタンをタップすると\n交換相手に冊数分のブクがプレゼントされます。\n\nこれで交換完了です！</string>
+
+    <!--本の登録について-->
+    <string name="textViewGuideRegisterTitle">本の登録について</string>
+
+    <string name="textViewGuideRegister1_1">バーコードリーダーで\nかんたんに登録</string>
+
+    <string name="textViewGuideRegister1_2">ホンダナでは、本のバーコード(上段の方)に\nスマホカメラをかざすだけで\nかんたんに本の登録ができます。\n\n次に他のユーザーに\n手に取ってもらった時のために\n登録時に本の状態をチェックしてから\n登録しましょう。</string>
+
+    <!--ブクについて-->
+    <string name="textViewGuideBukuTitle">ブクについて</string>
+
+    <string name="textViewGuideBuku1_1">ブクって何？</string>
+
+    <string name="textViewGuideBuku1_2">「ブク」とは、ホンダナで本を交換する時に\n必要なポイントです。\nホンダナにお手持ちの本を登録すると、\n10冊ごとに1ブクがもらえます。\n\nホンダナにはユーザーが登録した\nたくさんの本が集まっているので\nほしい本を見つけたら\n1冊につき1ブクで交換リクエストを\n送ることができます。\n\nなお、最初の1冊目を登録すると、\nホンダナから皆様に1ブクを\nプレゼントしています！\n\nまずは1冊から本を登録してみましょう。</string>
+
+    <string name="textViewGuideBuku2_1">ブクの有効期限</string>
+
+    <string name="textViewGuideBuku2_2">ブクには有効期限はありません。</string>
+
+    <!--発送・梱包方法について-->
+    <string name="textViewGuideSendingTitle">本の発送・梱包方法について</string>
+
+    <string name="textViewGuideSending1_1">1.クリックポストについて</string>
+
+    <string name="textViewGuideSending1_2">ホンダナでは、日本郵便の配送サービス\n「クリックポスト」を利用しています。\n全国一律164円で\n重さ1kg、厚さ3cm、A4サイズまでの荷物を\n送ることができます。</string>
+
+    <string name="textViewGuideSending2_1">2.宛名ラベルをつくる</string>
+
+    <string name="textViewGuideSending2_2">本を受けとる人は、交換リクエスト時に\n自分の住所を記載したクリックポストの\n宛名ラベルを作り、交換相手の人に\n送信しましょう。\n\n宛名ラベルはクリックポストのHPで\nかんたんに作ることができます。\n(送料は本を受けとる人が負担します)</string>
+
+    <string name="textViewGuideSending3_1">3.宛名ラベルを貼って本を発送する</string>
+
+    <string name="textViewGuideSending3_2">本を手渡す人は、交換リクエストと一緒に届く\n相手の宛名ラベルを印刷し、\n梱包した本に貼り付けて発送しましょう。</string>
+
 </resources>

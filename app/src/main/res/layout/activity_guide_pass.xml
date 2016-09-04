@@ -16,10 +16,20 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/step02" />
 
+    <!--交換について-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ホンダナは、お家に眠っている本を登録することで\nもらえるポイント「ブク」を使って\n読みたい本と交換することができるアプリです。"
+        android:text="@string/textViewGuidePassTitle"
+        android:id="@+id/textViewGuidePassTitle"
+        android:layout_gravity="center_horizontal"
+        android:textSize="24sp"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textViewGuidePass"
         android:id="@+id/textViewGuidePass"
         android:layout_gravity="center_horizontal" />
 
@@ -38,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="1.まずは本を登録"
+        android:text="@string/textViewGuidePass1_1"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/textViewGuidePass1_1"
@@ -52,7 +62,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="10dp"
-        android:text="お手持ちの本を登録してみましょう。\n交換に使うポイント「ブク」がもらえます。\n\n最初の1冊目を登録すると、\nホンダナから皆様に1ブクを\nプレゼントしています。\n以降は10冊登録するごとに1ブクがもらえます。"
+        android:text="@string/textViewGuidePass1_2"
         android:id="@+id/textViewGuidePass1_2"
         android:textSize="17sp" />
 
@@ -71,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="2.交換をリクエスト"
+        android:text="@string/textViewGuidePass2_1"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/textViewGuidePass2_1"
@@ -85,7 +95,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="10dp"
-        android:text="ほしい本が見つかったら、交換相手のユーザーに\n交換リクエストをしましょう。"
+        android:text="@string/textViewGuidePass2_2"
         android:id="@+id/textViewGuidePass2_2"
         android:textSize="17sp" />
 
@@ -104,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="3.クリックポストで\n自分の宛名ラベルを作る"
+        android:text="@string/textViewGuidePass3_1"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/textViewGuidePass3_1"
@@ -118,7 +128,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="10dp"
-        android:text="配送には、日本郵便のサービス\n「クリックポスト」を使います。\nクリックポストで自分の（本を送ってほしい住所）\nの宛名ラベルを作ります。\nデータができたら保存してください。"
+        android:text="@string/textViewGuidePass3_2"
         android:id="@+id/textViewGuidePass3_2"
         android:textSize="17sp" />
 
@@ -136,7 +146,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="4.宛名ラベルをアップロード"
+        android:text="@string/textViewGuidePass4_1"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/textViewGuidePass4_1"
@@ -150,7 +160,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="10dp"
-        android:text="交換リクエストページで宛名ラベルを\nアップロードしてください。\n\nこれで交換リクエストは完了です！\n配送状況については宛名ラベルの\nお問い合わせ番号で確認できます。"
+        android:text="@string/textViewGuidePass4_2"
         android:id="@+id/textViewGuidePass4_2"
         android:textSize="17sp" />
 
@@ -168,7 +178,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="5.本が届いたら"
+        android:text="@string/textViewGuidePass5_1"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/textViewGuidePass5_1"
@@ -182,7 +192,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="10dp"
-        android:text="本を送ってくれた相手のユーザーを\n評価してください。\n「受け取り完了」ボタンをタップすると\n交換冊数分のブクがプレゼントされます。\n\nこれで交換完了です！"
+        android:text="@string/textViewGuidePass5_2"
         android:id="@+id/textViewGuidePass5_2"
         android:textSize="17sp" />
 

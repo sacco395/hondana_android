@@ -17,13 +17,15 @@
             android:layout_gravity="center_horizontal"
             android:src="@drawable/step01" />
 
+        <!--本の登録について-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="本の登録について"
+            android:text="@string/textViewGuideRegisterTitle"
             android:layout_marginTop="20dp"
-            android:id="@+id/textViewGuideRegister"
-            android:layout_gravity="center_horizontal" />
+            android:id="@+id/textViewGuideRegisterTitle"
+            android:layout_gravity="center_horizontal"
+            android:textSize="24sp"/>
 
         <!--区切り線-->
         <View
@@ -40,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="バーコードリーダーで\nかんたんに登録"
+            android:text="@string/textViewGuideRegister1_1"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="10dp"
             android:id="@+id/textViewGuideRegister1_1"
@@ -55,7 +57,7 @@
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="10dp"
             android:id="@+id/textViewGuideRegister1_2"
-            android:text="ホンダナでは、本のバーコード(上段の方)に\nスマホカメラをかざすだけで\nかんたんに本の登録ができます。\n\n次に他のユーザーに手に取ってもらった時のために\n登録時に本の状態をチェックしましょう。"
+            android:text="@string/textViewGuideRegister1_2"
             android:textSize="17sp" />
 
     </LinearLayout>
