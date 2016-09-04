@@ -2,7 +2,8 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.books.hondana.StepThreeFragment">
+             tools:context="com.books.hondana.StepThreeFragment"
+             android:background="#F1F0EE">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
