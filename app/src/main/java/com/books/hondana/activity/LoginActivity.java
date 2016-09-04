@@ -131,7 +131,7 @@ public class LoginActivity extends Activity {
                 // otherwise, something bad happened in the request
                 else {
                     // tell the console and the user there was a failure
-                    //Log.v(TAG, "Logged in: " + username);
+                    showToast("ログインできません。もう一度やり直して下さい。");
                     ;
                 }
             }

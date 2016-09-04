@@ -61,7 +61,7 @@ public class PhoneAuthActivity extends Activity {
                     if (e == null) {
                         // tell the console and the user it was a success!
                         LogUtil.d(TAG, "Registered: " + user.toString());
-                        showToast("User registered!");
+                        showToast("認証されました！ホンダナをお楽しみください^^");
 
                         Intent myIntent = new Intent(PhoneAuthActivity.this,
                                 BookMainActivity.class);
