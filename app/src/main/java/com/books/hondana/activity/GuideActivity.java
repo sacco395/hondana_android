@@ -18,9 +18,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.KiiUser;
 import com.squareup.picasso.Picasso;
 
 public class GuideActivity extends AppCompatActivity
@@ -62,7 +64,22 @@ public class GuideActivity extends AppCompatActivity
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.d(TAG, "onClick: User click!");
+                LogUtil.d(TAG, "onClick");
+                KiiUser kiiUser = KiiUser.getCurrentUser();
+                LogUtil.d(TAG, "kiiUser: " + kiiUser);
+
+                if (kiiUser != null) {
+                    Intent intent = new Intent(GuideActivity.this,
+                            UserpageActivity.class);
+                    GuideActivity.this.startActivity(intent);
+                    ;
+
+                } else {
+                    Intent intent = new Intent(GuideActivity.this,
+                            StartActivity.class);
+                    GuideActivity.this.startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
             }
         });
         //navigationViewにアイコンここまで
@@ -135,25 +152,56 @@ public class GuideActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        LogUtil.d(TAG, "onClick");
+        KiiUser kiiUser = KiiUser.getCurrentUser ();
+        LogUtil.d (TAG, "kiiUser: " + kiiUser);
+
         if (id == R.id.nav_home) {
             Intent intent = new Intent(this, BookMainActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_like) {
-            Intent intent = new Intent(this, LikesActivity.class);
-            startActivity(intent);
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, LikesActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
 
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(this, SwapBookActivity.class);
-            startActivity(intent);
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, SwapBookActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
+
 
         } else if (id == R.id.nav_transaction) {
-            Intent intent = new Intent(this, RequestActivity.class);
-            startActivity(intent);
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, RequestActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
+
 
         } else if (id == R.id.nav_set) {
-            Intent intent = new Intent(this, SettingActivity.class);
-            startActivity(intent);
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
+
 
         } else if (id == R.id.nav_guide) {
             Intent intent = new Intent(this, GuideActivity.class);
@@ -186,5 +234,8 @@ public class GuideActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+    }
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

@@ -250,7 +250,7 @@ public class UserEditActivity extends AppCompatActivity {
                     //Activityを終了します。
                     finish();
                 } else {
-                    LogUtil.e(TAG, "投稿されません。。。", new Throwable());
+                    LogUtil.e(TAG, "投稿されません。。。", exception);
 //                    //eがKiiCloud特有のクラスを継承している時
 //                    if (exception instanceof CloudExecutionException)
 //                        //KiiCloud特有のエラーメッセージを表示。フォーマットが違う
@@ -310,7 +310,7 @@ public class UserEditActivity extends AppCompatActivity {
 
 
                 } else {
-                    LogUtil.d(TAG,("投稿されません。。。"));
+                    LogUtil.d(TAG,("投稿されないっす"));
 //                    //失敗の時
 //                    Throwable cause = e.getCause();
 //                    if (cause instanceof CloudExecutionException)
