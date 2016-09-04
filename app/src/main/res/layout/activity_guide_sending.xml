@@ -16,12 +16,14 @@
             android:layout_gravity="center_horizontal"
             android:src="@drawable/step03" />
 
+        <!--本の発送・梱包方法について-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="本の発送・梱包方法について"
-            android:id="@+id/textViewGuideSending"
-            android:layout_gravity="center_horizontal" />
+            android:text="@string/textViewGuideSendingTitle"
+            android:id="@+id/textViewGuideSendingTitle"
+            android:layout_gravity="center_horizontal"
+            android:textSize="24sp"/>
 
         <!--区切り線-->
         <View
@@ -38,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="1.クリックポストについて"
+            android:text="@string/textViewGuideSending1_1"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="10dp"
             android:id="@+id/textViewGuideSending1_1"
@@ -52,7 +54,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="10dp"
-            android:text="ホンダナでは、日本郵便の配送サービス\n「クリックポスト」を利用しています。\n全国一律164円で\n重さ1kg、厚さ3cm、A4サイズまでの荷物を\n送ることができます。"
+            android:text="@string/textViewGuideSending1_2"
             android:id="@+id/textViewGuideSending1_2"
             android:textSize="17sp" />
 
@@ -71,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="2.宛名ラベルをつくる"
+            android:text="@string/textViewGuideSending2_1"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="10dp"
             android:id="@+id/textViewGuideSending2_1"
@@ -85,7 +87,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="10dp"
-            android:text="本を受けとる人は、交換リクエスト時に\n自分の住所を記載したクリックポストの\n宛名ラベルを作り、交換相手の人に\n送信しましょう。\n\n宛名ラベルはクリックポストのHPで\nかんたんに作ることができます。\n(送料は本を受けとる人が負担します)"
+            android:text="@string/textViewGuideSending2_2"
             android:id="@+id/textViewGuideSending2_2"
             android:textSize="17sp" />
 
@@ -104,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="3.宛名ラベルを貼って本を発送する"
+            android:text="@string/textViewGuideSending3_1"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="10dp"
             android:id="@+id/textViewGuideSending3_1"
@@ -118,7 +120,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="10dp"
-            android:text="本を手渡す人は、交換リクエストと一緒に届く\n相手の宛名ラベルを印刷し、\n梱包した本に貼り付けて発送しましょう。"
+            android:text="@string/textViewGuideSending3_2"
             android:id="@+id/textViewGuideSending3_2"
             android:textSize="17sp" />
 
