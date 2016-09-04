@@ -97,7 +97,6 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
             @Override
             public void onClick(View v) {
 
-                LogUtil.d(TAG, "onClick");
                 KiiUser kiiUser = KiiUser.getCurrentUser ();
                 LogUtil.d (TAG, "kiiUser: " + kiiUser);
 
@@ -136,7 +135,21 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.d(TAG, "onClick: User click!");
+                KiiUser kiiUser = KiiUser.getCurrentUser();
+                LogUtil.d(TAG, "kiiUser: " + kiiUser);
+
+                if (kiiUser != null) {
+                    Intent intent = new Intent(BookMainActivity.this,
+                            UserpageActivity.class);
+                    BookMainActivity.this.startActivity(intent);
+                    ;
+
+                } else {
+                    Intent intent = new Intent(BookMainActivity.this,
+                            StartActivity.class);
+                    BookMainActivity.this.startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
             }
         });
         //navigationViewにアイコンここまで
@@ -339,8 +352,6 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
         // Handle navigation view item clicks here.
 
         int id = item.getItemId();
-
-        LogUtil.d(TAG, "onClick");
         KiiUser kiiUser = KiiUser.getCurrentUser ();
         LogUtil.d (TAG, "kiiUser: " + kiiUser);
 
@@ -415,14 +426,14 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
         TextView tvUserName = (TextView) drawerView.findViewById(R.id.tv_user_name);
         ImageView ivUserIcon = (ImageView) drawerView.findViewById(R.id.iv_user_icon);
 
-        llUserContainer.setOnClickListener(new View.OnClickListener() {
+        /*llUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.d(TAG, "onClick");
+                LogUtil.d(TAG, "kiiUser: " + kiiUser);
                 Intent intent = new Intent(BookMainActivity.this, UserpageActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();

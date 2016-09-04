@@ -68,10 +68,10 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         tv_publisher.setText(kiiBook.get(KiiBook.PUBLISHER));
         TextView tv_issueDate = (TextView) findViewById(R.id.textViewBookInfoDataOfIssue);
         tv_issueDate.setText(kiiBook.get(KiiBook.ISSUE_DATE));
-        TextView tv_large_title = (TextView) findViewById(R.id.textViewBookInfoLargeTitle);
-        tv_large_title.setText(kiiBook.get(KiiBook.TITLE));
-        TextView tv_large_author = (TextView) findViewById(R.id.textViewBookInfoLargeAuthor);
-        tv_large_author.setText(kiiBook.get(KiiBook.AUTHOR));
+//        TextView tv_large_title = (TextView) findViewById(R.id.textViewBookInfoLargeTitle);
+//        tv_large_title.setText(kiiBook.get(KiiBook.TITLE));
+//        TextView tv_large_author = (TextView) findViewById(R.id.textViewBookInfoLargeAuthor);
+//        tv_large_author.setText(kiiBook.get(KiiBook.AUTHOR));
 
 
         findViewById(R.id.buttonPreRequest).setOnClickListener(this);

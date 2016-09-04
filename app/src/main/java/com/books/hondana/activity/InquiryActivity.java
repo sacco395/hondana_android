@@ -64,7 +64,6 @@ public class InquiryActivity extends AppCompatActivity
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.d(TAG, "onClick");
                 KiiUser kiiUser = KiiUser.getCurrentUser();
                 LogUtil.d(TAG, "kiiUser: " + kiiUser);
 
@@ -149,7 +148,6 @@ public class InquiryActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        LogUtil.d(TAG, "onClick");
         KiiUser kiiUser = KiiUser.getCurrentUser ();
         LogUtil.d (TAG, "kiiUser: " + kiiUser);
 
@@ -223,14 +221,14 @@ public class InquiryActivity extends AppCompatActivity
         TextView tvUserName = (TextView) drawerView.findViewById(R.id.tv_user_name);
         ImageView ivUserIcon = (ImageView) drawerView.findViewById(R.id.iv_user_icon);
 
-        llUserContainer.setOnClickListener(new View.OnClickListener() {
+        /*llUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LogUtil.d(TAG, "onClick");
                 Intent intent = new Intent(InquiryActivity.this, UserpageActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();

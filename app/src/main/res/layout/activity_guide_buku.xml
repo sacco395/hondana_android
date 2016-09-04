@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="#F1F0EE" >
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:id="@+id/imageView4"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/step04"
+            android:layout_marginTop="20dp" />
+
+        <!--ブクについて-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewGuideBukuTitle"
+            android:id="@+id/textViewGuideBukuTitle"
+            android:layout_gravity="center_horizontal"
+            android:textSize="24sp"/>
+
+        <!--区切り線-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#E6E5E1"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="12dip"
+            android:layout_marginBottom="12dip" />
+
+        <!--ブクって何？-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/textViewGuideBuku1_1"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/textViewGuideBuku1_1"
+            android:textColor="#F26964"
+            android:textStyle="bold"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/textViewGuideBuku1_2"
+            android:id="@+id/textViewGuideBuku1_2"
+            android:textSize="17sp" />
+
+        <!--区切り線-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#E6E5E1"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="12dip" />
+
+        <!--ブクの有効期限-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/textViewGuideBuku2_1"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/textViewGuideBuku2_1"
+            android:textColor="#F26964"
+            android:textStyle="bold"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/textViewGuideBuku2_2"
+            android:id="@+id/textViewGuideBuku2_2"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+</ScrollView>

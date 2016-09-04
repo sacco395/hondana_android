@@ -64,7 +64,6 @@ public class GuideActivity extends AppCompatActivity
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.d(TAG, "onClick");
                 KiiUser kiiUser = KiiUser.getCurrentUser();
                 LogUtil.d(TAG, "kiiUser: " + kiiUser);
 
@@ -86,6 +85,7 @@ public class GuideActivity extends AppCompatActivity
 
         // binding.navView.setNavigationItemSelectedListener(this);
 
+//        ガイドページの項目のリストビュー
         ListView list = (ListView) findViewById(R.id.list_view);
         String[] item01 = getResources().getStringArray(R.array.array01);
 
@@ -102,10 +102,19 @@ public class GuideActivity extends AppCompatActivity
 
                 switch (position) {
                     case 0:
-                        intent.setClass(GuideActivity.this, GuideActivity_01.class);
+                        intent.setClass(GuideActivity.this, GuideFirstActivity.class);
                         break;
                     case 1:
-                        intent.setClass(GuideActivity.this, GuideActivity_02.class);
+                        intent.setClass(GuideActivity.this, GuidePassActivity.class);
+                        break;
+                    case 2:
+                        intent.setClass(GuideActivity.this, GuideRegisterActivity.class);
+                        break;
+                    case 3:
+                        intent.setClass(GuideActivity.this, GuideBukuActivity.class);
+                        break;
+                    case 4:
+                        intent.setClass(GuideActivity.this, GuideSendingActivity.class);
                         break;
                 }
                 intent.putExtra("SELECTED_DATA", strData);
@@ -152,7 +161,6 @@ public class GuideActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        LogUtil.d(TAG, "onClick");
         KiiUser kiiUser = KiiUser.getCurrentUser ();
         LogUtil.d (TAG, "kiiUser: " + kiiUser);
 
@@ -226,14 +234,14 @@ public class GuideActivity extends AppCompatActivity
         TextView tvUserName = (TextView) drawerView.findViewById(R.id.tv_user_name);
         ImageView ivUserIcon = (ImageView) drawerView.findViewById(R.id.iv_user_icon);
 
-        llUserContainer.setOnClickListener(new View.OnClickListener() {
+        /*llUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LogUtil.d(TAG, "onClick");
                 Intent intent = new Intent(GuideActivity.this, UserpageActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();

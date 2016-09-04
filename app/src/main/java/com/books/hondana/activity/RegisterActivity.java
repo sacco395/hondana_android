@@ -82,7 +82,7 @@ public class RegisterActivity extends Activity {
             KiiUser user = KiiUser.createWithPhone(username, phone);
             user.setCountry(country);
             user.set("point",1);
-            user.set("image_Url","");
+            //user.set("image_Url","");
             user.set("profile","");
             user.set("address","");
             user.set("birthday","");
@@ -143,9 +143,10 @@ public class RegisterActivity extends Activity {
         member.kiiDataInitialize(KiiCloudBucket.MEMBERS);
 
         // 登録したい値をセット
+        member.set (Member.USER_ID, user.getID());
         member.set (Member.NAME, user.getUsername());
         member.set (Member.PROFILE,"");
-        member.set (Member.IMAGE_URL, "");
+        //member.set (Member.IMAGE_URL, "");
         member.set (Member.ADDRESS,"");
         member.set (Member.BIRTHDAY,"");
         member.set (Member.POINT,"");

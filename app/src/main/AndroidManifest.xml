@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.books.hondana">
+    package="com.books.hondana">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".HelloKii"
@@ -13,7 +13,7 @@
         android:label="@string/title_MyActivity"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name="com.kii.cloud.analytics.EventUploadService"/>
+        <service android:name="com.kii.cloud.analytics.EventUploadService" />
 
         <activity
             android:name=".activity.SplashActivity"
@@ -21,84 +21,85 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.PhoneAuthActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BookMainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.GuideActivity_01"
-            android:screenOrientation="portrait"/>
+            android:name=".activity.GuideFirstActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.GuideActivity_02"
-            android:screenOrientation="portrait"/>
+            android:name=".activity.GuidePassActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.InquiryActivity"
             android:label="@string/title_activity_inquiry"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.LikesActivity"
             android:label="@string/title_activity_likes"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SelectedBooksActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SwapBookActivity"
             android:label="@string/title_activity_swap_book"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.RequestActivity"
             android:label="@string/title_activity_request"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.GuideActivity"
             android:label="@string/title_activity_guide"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SettingActivity"
             android:label="@string/title_activity_set"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SettingActivity_01"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SettingActivity_02"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.EvaluationActivity"
             android:label="@string/title_activity_evaluation"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.UserpageActivity"
             android:label="@string/title_activity_userpage"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SearchActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.SEARCH"/>
+                <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
         <activity
+
             android:name=".activity.RequestBookActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -107,46 +108,49 @@
         <activity
             android:name=".activity.ReceivedBookActivity"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activity.BaseScannerActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BookDetailActivity"
             android:label="@string/title_activity_swap_book"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <!-- <activity -->
         <!-- android:name=".activity.BookMainActivity" -->
         <!-- android:label="@string/title_activity_swap_book" -->
         <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity
             android:name=".activity.TodoActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BookSearchListActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SimpleScannerActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.InfoActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.RegisterActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.StartActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.BookInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.GuideRegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.GuideBukuActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.GuideSendingActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity

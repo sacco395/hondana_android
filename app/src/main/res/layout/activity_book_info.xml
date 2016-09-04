@@ -6,126 +6,262 @@
     android:layout_height="fill_parent"
     android:fillViewport="true" >
 
-
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:weightSum="1">
 
         <!--本の画像-->
         <ImageView
-            android:layout_width="350dp"
-            android:layout_height="350dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:id="@+id/imageViewBookInfo"
-            android:layout_gravity="center_horizontal" />
-
-        <!--タイトル-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/textViewBookInfoLargeTitle"
-            android:id="@+id/textViewBookInfoLargeTitle"
-            android:textSize="20dp" />
-
-        <!--著者-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/textViewBookInfoLargeAuthor"
-            android:id="@+id/textViewBookInfoLargeAuthor"
-            android:textSize="20dp" />
-
-        <!--いいね-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="6dip"
-            android:paddingRight="6dip"
-            android:paddingBottom="6dip"
-            android:id="@+id/textViewBookInfoLike"
-            android:text="@string/textViewBookDetailLike" />
-
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"/>
 
         <!--区切り線-->
         <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="#ff106510"
-            android:layout_marginLeft="6dip"
-            android:layout_marginRight="6dip"
-            android:layout_marginTop="6dip"
-            android:layout_marginBottom="12dip" />
-
-
-        <!--本の情報-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/textViewBookInfo"
-            android:id="@+id/textViewBookDetailInfo" />
-
+        android:layout_width="wrap_content"
+        android:layout_height="20dip"
+        android:background="#E6E5E1"
+        android:layout_marginTop="12dip" />
 
         <!--タイトル-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textViewBookInfoTitle"
-            android:id="@+id/textViewBookInfoTitle" />
+            android:id="@+id/textViewBookInfoTitle"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <!--本へのいいね-->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView7"
+            android:src="@drawable/abc_btn_rating_star_off_mtrl_alpha"
+            android:tint="#C8C8C8"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp" />
+
+        <!--著者名リード-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewBookInfoAuthorLead"
+            android:id="@+id/textViewBookInfoAuthorLead"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="#2FCDB4"/>
 
         <!--著者名-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textViewBookInfoAuthor"
-            android:id="@+id/textViewBookInfoAuthor" />
+            android:id="@+id/textViewBookInfoAuthor"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"/>
+
+        <!--細い区切り線-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dip"
+            android:layout_marginTop="5dp"
+            android:background="#E6E5E1" />
+
+
+        <!--出版社リード-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewBookInfoPublisherLead"
+            android:id="@+id/textViewBookInfoPublisherLead"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="#2FCDB4"/>
 
         <!--出版社-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textViewBookInfoPublisher"
-            android:id="@+id/textViewBookInfoPublisher" />
+            android:id="@+id/textViewBookInfoPublisher"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"/>
 
+        <!--細い区切り線-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dip"
+            android:layout_marginTop="5dp"
+            android:background="#E6E5E1" />
+
+        <!--発売日リード-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewBookInfoDateOfIssueLead"
+            android:id="@+id/textViewBookInfoDataOfIssueLead"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="#2FCDB4"/>
 
         <!--発売日-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textViewBookInfoDateOfIssue"
-            android:id="@+id/textViewBookInfoDataOfIssue" />
+            android:id="@+id/textViewBookInfoDataOfIssue"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"/>
 
+        <!--細い区切り線-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dip"
+            android:layout_marginTop="5dp"
+            android:background="#E6E5E1" />
+
+        <!--ISBNコードリード-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewBookInfoIsbnLead"
+            android:id="@+id/textViewBookInfoIsbnLeadLead"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="#2FCDB4"/>
 
         <!--ISBNコード-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textViewBookInfoIsbn"
-            android:id="@+id/textViewBookInfoIsbn" />
+            android:id="@+id/textViewBookInfoIsbn"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"/>
 
+        <!--区切り線-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#E6E5E1"
+            android:layout_marginTop="12dip" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/bottom_bar"
-            android:gravity="center_vertical">
+            android:layout_weight="0.15">
 
-
-            <!--下部に固定された交換ボタン-->
-            <Button
-                android:layout_width="0dip"
-                android:layout_weight="1.0"
+            <!--ユーザーアイコン-->
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/buttonPreRequest"
-                android:text="@string/buttonPreRequest"
-                android:background="#00a497" />
+                android:id="@+id/imageView6"
+                android:src="@drawable/usericon"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp" />
 
+            <!--ユーザー名-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ユーザー名"
+                android:id="@+id/textViewBookInfoUserName"
+                android:layout_alignTop="@+id/textViewBookInfoUser"
+                android:layout_alignLeft="@+id/textViewBookInfoStateLead"
+                android:layout_alignStart="@+id/textViewBookInfoStateLead"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
 
+            <!--本の状態リード-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本の状態"
+                android:id="@+id/textViewBookInfoStateLead"
+                android:layout_centerVertical="true"
+                android:layout_alignLeft="@+id/textViewBookInfoRemarksLead"
+                android:layout_alignStart="@+id/textViewBookInfoRemarksLead"
+                android:textStyle="bold"
+                android:textColor="#2FCDB4"/>
+
+            <!--本の状態-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本の状態"
+                android:id="@+id/textViewBookInfoState"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/textViewBookInfoStateLead"
+                android:layout_toEndOf="@+id/textViewBookInfoStateLead"
+                android:layout_marginLeft="10dp" />
+
+            <!--備考リード-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="備考"
+                android:id="@+id/textViewBookInfoRemarksLead"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="40dp"
+                android:layout_alignBottom="@+id/imageView6"
+                android:layout_toRightOf="@+id/imageView6"
+                android:layout_toEndOf="@+id/imageView6"
+                android:textStyle="bold"
+                android:textColor="#2FCDB4"/>
+
+            <!--備考-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="備考"
+                android:id="@+id/textViewBookInfoRemarks"
+                android:layout_alignTop="@+id/textViewBookInfoRemarksLead"
+                android:layout_toRightOf="@+id/textViewBookInfoRemarksLead"
+                android:layout_toEndOf="@+id/textViewBookInfoRemarksLead"
+                android:layout_marginLeft="10dp" />
+
+            <!--本の状態アイコン-->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/imageView8"
+                android:src="@drawable/book_icon_good"
+                android:layout_alignTop="@+id/imageView6"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="27dp"
+                android:layout_marginEnd="27dp"
+                android:tint="#FFD464"/>
+        </RelativeLayout>
+
+        <!--区切り線-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#E6E5E1" />
+
+        <!--交換リクエストボタン-->
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonPreRequest"
+            android:id="@+id/buttonPreRequest"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_rounded_corners"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"/>
         </LinearLayout>
-
-
-    </LinearLayout>
-
-
 </ScrollView>
