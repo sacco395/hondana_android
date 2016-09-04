@@ -10,15 +10,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import com.books.hondana.util.LogUtil;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.books.hondana.R;
+import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.KiiUser;
 import com.squareup.picasso.Picasso;
 
 public class InquiryActivity extends AppCompatActivity
@@ -62,7 +64,22 @@ public class InquiryActivity extends AppCompatActivity
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.d(TAG, "onClick: User click!");
+                LogUtil.d(TAG, "onClick");
+                KiiUser kiiUser = KiiUser.getCurrentUser();
+                LogUtil.d(TAG, "kiiUser: " + kiiUser);
+
+                if (kiiUser != null) {
+                    Intent intent = new Intent(InquiryActivity.this,
+                            UserpageActivity.class);
+                    InquiryActivity.this.startActivity(intent);
+
+
+                } else {
+                    Intent intent = new Intent(InquiryActivity.this,
+                            StartActivity.class);
+                    InquiryActivity.this.startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
             }
         });
         //navigationViewにアイコンここまで
@@ -132,25 +149,56 @@ public class InquiryActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        LogUtil.d(TAG, "onClick");
+        KiiUser kiiUser = KiiUser.getCurrentUser ();
+        LogUtil.d (TAG, "kiiUser: " + kiiUser);
+
         if (id == R.id.nav_home) {
             Intent intent = new Intent(this, BookMainActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_like) {
-            Intent intent = new Intent(this, LikesActivity.class);
-            startActivity(intent);
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, LikesActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
 
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(this, SwapBookActivity.class);
-            startActivity(intent);
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, SwapBookActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
+
 
         } else if (id == R.id.nav_transaction) {
-            Intent intent = new Intent(this, RequestActivity.class);
-            startActivity(intent);
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, RequestActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
+
 
         } else if (id == R.id.nav_set) {
-            Intent intent = new Intent(this, SettingActivity.class);
-            startActivity(intent);
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
+
 
         } else if (id == R.id.nav_guide) {
             Intent intent = new Intent(this, GuideActivity.class);
@@ -183,5 +231,8 @@ public class InquiryActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+    }
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
