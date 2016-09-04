@@ -1,4 +1,3 @@
-//本の交換申請（ラベルアップロード）
 package com.books.hondana.activity;
 
 import android.content.Context;
@@ -15,7 +14,9 @@ import android.widget.Toast;
 
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
+import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
+import com.kii.cloud.storage.KiiUser;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
 
 import java.text.SimpleDateFormat;
@@ -24,7 +25,9 @@ import java.util.Locale;
 
 public class RequestBookActivity extends AppCompatActivity implements View.OnClickListener {
 
-//BookInfoActivityからkiiBookの情報を受け取るためcreateIntentを使う
+    private static final String TAG = "BookRequestActivity";
+
+    //BookInfoActivityからkiiBookの情報を受け取るためcreateIntentを使う
     private static final String EXTRA_KII_BOOK = "extra_kii_book";
 
     public static Intent createIntent(Context context, KiiBook kiiBook) {
@@ -78,7 +81,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                     break;
 
                 case R.id.buttonRequest:
-                    // クリック処理
+                    // クリック処理（交換リクエストの日時とユーザーIDを保存）
                     saveRequestDate ();
                     break;
 
@@ -98,14 +101,19 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         return super.onOptionsItemSelected(item);
     }
 
-    //kiiBookに本の交換申請日時を記録して保存する
+    //kiiBookに交換リクエストの日時と申請したユーザーIDを保存
     private void saveRequestDate() {
         Date date = new Date ();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss", Locale.JAPAN);
         String dateString = simpleDateFormat.format (date); // 2016-09-03 17:24:33
 
+        KiiUser user = KiiUser.getCurrentUser();
+        LogUtil.d(TAG, "kiiUser: " + user);
+
         kiiBook.set ("request_date", dateString);
+        kiiBook.set ("request_userId",user.getID());
+
         kiiBook.save (new KiiObjectCallBack () {
             @Override
             public void onSaveCompleted(int token, @NonNull KiiObject object, @Nullable Exception exception) {
