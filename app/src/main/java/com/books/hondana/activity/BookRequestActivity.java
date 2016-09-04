@@ -23,6 +23,7 @@ import java.util.Locale;
 
 public class BookRequestActivity extends AppCompatActivity implements View.OnClickListener {
 
+
     private static final String EXTRA_KII_BOOK = "extra_kii_book";
 
     public static Intent createIntent(Context context, KiiBook kiiBook) {
