@@ -23,7 +23,7 @@ import java.util.Locale;
 
 public class BookRequestActivity extends AppCompatActivity implements View.OnClickListener {
 
-
+//BookInfoActivityからkiiBookの情報を受け取るためcreateIntentを使う
     private static final String EXTRA_KII_BOOK = "extra_kii_book";
 
     public static Intent createIntent(Context context, KiiBook kiiBook) {
@@ -34,13 +34,15 @@ public class BookRequestActivity extends AppCompatActivity implements View.OnCli
 
     KiiBook kiiBook;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_request);
 
+//BookInfoActivityからkiiBookの情報を受け取るためcreateIntentを使う
         kiiBook = getIntent ().getParcelableExtra (EXTRA_KII_BOOK);
-
+//kiiBookがないのはおかしいのでcreateIntentを使うように怒る
         if (kiiBook == null) {
             throw new IllegalArgumentException ("createIntentを使ってください");
         }
