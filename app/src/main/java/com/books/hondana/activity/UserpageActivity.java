@@ -53,8 +53,8 @@ public class UserpageActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userpage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //KiiUser user = KiiUser.getCurrentUser();
-        //toolbar.setTitle(user.getUsername ().toString() + "さん");
+        KiiUser user = KiiUser.getCurrentUser();
+        toolbar.setTitle(user.getUsername ().toString() + "さん");
         setSupportActionBar(toolbar);
 
 
@@ -86,8 +86,8 @@ public class UserpageActivity extends AppCompatActivity
         toggle.syncState();
 
         // ログインしてる名前を表示する
-        //TextView Username = (TextView)findViewById(R.id.user_name);
-        //Username.setText(user.getUsername ().toString());
+        TextView Username = (TextView)findViewById(R.id.user_name);
+        Username.setText(user.getUsername ().toString());
         //
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -120,8 +120,8 @@ public class UserpageActivity extends AppCompatActivity
 
         });
 
-        //TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
-        //userName.setText(user.getUsername ().toString());
+        TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
+        userName.setText(user.getUsername ().toString());
         //navigationViewにアイコンここまで
 
         LinearLayout UserEdit = (LinearLayout)findViewById(R.id.user_edit);
