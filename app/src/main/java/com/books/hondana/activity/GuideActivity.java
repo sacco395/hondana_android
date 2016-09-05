@@ -71,7 +71,6 @@ public class GuideActivity extends AppCompatActivity
                     Intent intent = new Intent(GuideActivity.this,
                             UserpageActivity.class);
                     GuideActivity.this.startActivity(intent);
-                    ;
 
                 } else {
                     Intent intent = new Intent(GuideActivity.this,
