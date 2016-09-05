@@ -61,6 +61,25 @@ public class BookDetailActivity extends AppCompatActivity	{
 		TextView tv_issueDate = (TextView)findViewById(R.id.textView_issueDate);
 		tv_issueDate.setText(targetBook.get(KiiBook.ISSUE_DATE));
 
+////本の状態ここから
+//		((RadioGroup)findViewById(R.id.rCondition)).setOnCheckedChangeListener
+//				(new RadioGroup.OnCheckedChangeListener () {
+//			public void onCheckedChanged(RadioGroup group, int checkedId) {
+//				if(checkedId == R.id.cond_excellent){
+//					//１つめを選択
+//					targetBook.set ("condition","1");
+//				} else if(checkedId == R.id.cond_good){
+//					//２つめを選択
+//					targetBook.set ("condition","2");
+//				}else if(checkedId == R.id.cond_bad){
+//					//３つめを選択
+//					targetBook.set ("condition","3");
+//				}
+//			}
+//
+//		});
+////本の状態ここまで
+
 		btnAddKiiCloud = (Button)findViewById(R.id.btnAddKiiBook);
 		// ボタンにフォーカスを移動させる
 		btnAddKiiCloud.setFocusable(true);

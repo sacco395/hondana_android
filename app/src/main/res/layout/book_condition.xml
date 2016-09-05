@@ -36,39 +36,45 @@
                     <!--android:textSize="11dp"-->
                     <!--android:textColor="@android:color/black" />-->
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="非常に良い"
-                    android:id="@+id/cond_verygood"
-                    android:singleLine="false"
-                    android:textSize="11dp"
-                    android:textColor="@android:color/black" />
+                <!--<RadioButton-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="非常に良い"-->
+                    <!--android:id="@+id/cond_verygood"-->
+                    <!--android:singleLine="false"-->
+                    <!--android:textSize="11dp"-->
+                    <!--android:textColor="@android:color/black" />-->
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="良い"
-                    android:id="@+id/cond_good"
+                    android:id="@+id/cond_excellent"
                     android:textSize="11dp"
-                    android:checked="true"
-                    android:textColor="@android:color/black" />
+                    android:paddingRight="20dp"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@drawable/book_icon_excellent"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="普通"
-                    android:id="@+id/cond_normal"
+                    android:id="@+id/cond_good"
+                    android:checked="true"
                     android:textSize="11dp"
-                    android:textColor="@android:color/black" />
+                    android:paddingRight="20dp"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@drawable/book_icon_good" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="汚れあり"
-                    android:id="@+id/cond_tainted"
+                    android:id="@+id/cond_bad"
                     android:textSize="11dp"
-                    android:textColor="@android:color/black" />
+                    android:paddingRight="20dp"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@drawable/book_icon_bad" />
             </RadioGroup>
         </LinearLayout>
 
@@ -129,7 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="たばこ臭"
-                android:id="@+id/chkCigerSmell"
+                android:id="@+id/chkCigarSmell"
                 android:textSize="11dp"
                 android:layout_weight="0.3"
                 android:textColor="@android:color/black" />
