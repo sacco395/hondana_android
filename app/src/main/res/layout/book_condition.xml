@@ -9,14 +9,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp">
-
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="本の状態"
             android:id="@+id/textView2"
             android:textStyle="bold" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="必須"
+            android:textSize="11dp"
+            android:paddingLeft="10dp"
+            android:id="@+id/required"
+            android:textColor="#F26964"
+            android:textStyle="bold" />
+        </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -60,7 +72,6 @@
                     android:layout_height="wrap_content"
                     android:text="普通"
                     android:id="@+id/cond_good"
-                    android:checked="true"
                     android:textSize="11dp"
                     android:paddingRight="20dp"
                     android:drawablePadding="5dp"
@@ -105,7 +116,7 @@
                 android:id="@+id/chkBand"
                 android:textSize="11dp"
                 android:layout_weight="0.3"
-                android:textColor="@android:color/black" />
+                android:onClick="onCheckboxClicked" />
 
             <CheckBox
                 android:layout_width="wrap_content"
@@ -114,7 +125,7 @@
                 android:id="@+id/chkSunburned"
                 android:textSize="11dp"
                 android:layout_weight="0.4"
-                android:textColor="@android:color/black" />
+                android:onClick="onCheckboxClicked"/>
 
             <CheckBox
                 android:layout_width="wrap_content"
@@ -123,7 +134,7 @@
                 android:id="@+id/chkScratched"
                 android:textSize="11dp"
                 android:layout_weight="0.3"
-                android:textColor="@android:color/black" />
+                android:onClick="onCheckboxClicked" />
         </LinearLayout>
 
         <LinearLayout
@@ -138,7 +149,7 @@
                 android:id="@+id/chkCigarSmell"
                 android:textSize="11dp"
                 android:layout_weight="0.3"
-                android:textColor="@android:color/black" />
+                android:onClick="onCheckboxClicked" />
 
             <CheckBox
                 android:layout_width="wrap_content"
@@ -147,7 +158,7 @@
                 android:id="@+id/chkPetSmell"
                 android:textSize="11dp"
                 android:layout_weight="0.4"
-                android:textColor="@android:color/black" />
+                android:onClick="onCheckboxClicked" />
 
             <CheckBox
                 android:layout_width="wrap_content"
@@ -156,7 +167,7 @@
                 android:id="@+id/chkMoldSmell"
                 android:textSize="11dp"
                 android:layout_weight="0.3"
-                android:textColor="@android:color/black" />
+                android:onClick="onCheckboxClicked" />
         </LinearLayout>
 
     </LinearLayout>

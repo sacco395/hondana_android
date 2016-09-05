@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -69,7 +70,7 @@ public class BookDetailActivity extends AppCompatActivity	{
 				if(checkedId == R.id.cond_excellent){
 					//１つめを選択
 					targetBook.set ("condition","1");
-				} else if(checkedId == R.id.cond_good){
+				}else if(checkedId == R.id.cond_good){
 					//２つめを選択
 					targetBook.set ("condition","2");
 				}else if(checkedId == R.id.cond_bad){
@@ -79,6 +80,46 @@ public class BookDetailActivity extends AppCompatActivity	{
 			}
 
 		});
+
+		public void onCheckboxClicked(View view) {
+			// チェックボックスのチェック状態を取得
+			CheckBox checkBox = (CheckBox) view;
+			boolean checked = checkBox.isChecked();
+			// CheckBox.getId()でチェックボックスを識別し、チェックボックスごとの処理を行う
+			switch (checkBox.getId()) {
+				case R.id.chkBand:
+					if (checked) {
+						targetBook.set ("band","帯あり");
+					}
+					break;
+				case R.id.chkSunburned:
+					if (checked) {
+						targetBook.set ("sunburned","焼け");
+					}
+					break;
+				case R.id.chkScratched:
+					if (checked) {
+						targetBook.set ("sunburned","日焼け");
+					}
+					break;
+				case R.id.chkCigarSmell:
+					if (checked) {
+						Toast.makeText(getApplicationContext(), "Option2を選択状態にしました。", Toast.LENGTH_SHORT).show();
+					}
+					break;
+				case R.id.chkPetSmell:
+					if (checked) {
+						Toast.makeText(getApplicationContext(), "Option2を選択状態にしました。", Toast.LENGTH_SHORT).show();
+					}
+					break;
+				case R.id.chkMoldSmell:
+					if (checked) {
+						Toast.makeText(getApplicationContext(), "Option2を選択状態にしました。", Toast.LENGTH_SHORT).show();
+					}
+					break;
+			}
+		}
+
 //本の状態ここまで
 
 		btnAddKiiCloud = (Button)findViewById(R.id.btnAddKiiBook);
