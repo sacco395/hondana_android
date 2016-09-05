@@ -159,6 +159,8 @@
         </activity>
         <activity android:name=".activity.EvaluatedActivity">
         </activity>
+        <activity android:name=".activity.UploadPdfActivity">
+        </activity>
     </application>
 
 </manifest>

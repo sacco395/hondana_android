@@ -1,0 +1,53 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    tools:context=".activity.UploadPdfActivity"
+    >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/comment_field"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            >
+        </EditText>
+        <ImageView
+            android:id="@+id/image_view1"
+            android:layout_width="200dip"
+            android:layout_height="200dip"
+            android:scaleType="fitCenter">
+        </ImageView>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal" >
+            <Button
+                android:id="@+id/attach_button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/attach_button"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            <!--<Button-->
+            <!--android:id="@+id/attach_camera_button"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/attach_camera_button"-->
+            <!--android:textSize="15sp"-->
+            <!--android:textStyle="bold" />-->
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/post_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/post_button"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

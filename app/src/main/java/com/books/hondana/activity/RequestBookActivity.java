@@ -54,6 +54,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.buttonClickPost).setOnClickListener(this);
         findViewById(R.id.buttonCancel).setOnClickListener(this);
         findViewById(R.id.buttonRequest).setOnClickListener(this);
+        findViewById(R.id.buttonSelectFile).setOnClickListener(this);
 
 
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -73,6 +74,13 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                     Uri uri = Uri.parse("http://www.post.japanpost.jp/service/clickpost/index.html");
                     Intent i = new Intent(Intent.ACTION_VIEW, uri);
                     startActivity(i);
+                    break;
+
+                case R.id.buttonSelectFile:
+                    // クリック処理
+                    Intent intent = new Intent(this, UploadPdfActivity.class);
+                    startActivity(intent);
+                    finish();
                     break;
 
                 case R.id.buttonCancel:
