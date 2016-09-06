@@ -209,4 +209,9 @@
     <string name="textViewGuideSending3_1">3.宛名ラベルを貼って本を発送する</string>
 
     <string name="textViewGuideSending3_2">本を手渡す人は、交換リクエストと一緒に届く\n相手の宛名ラベルを印刷し、\n梱包した本に貼り付けて発送しましょう。</string>
+
+    <!--宛名ラベルのアップロードページに使用-->
+    <string name="textViewattach_button2">宛名ラベルを選択</string>
+
+    <string name="textViewpost_button2">アップロードする</string>
 </resources>

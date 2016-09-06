@@ -2,36 +2,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="fill_parent"
     android:layout_width="fill_parent"
-    tools:context=".activity.UploadPdfActivity"
-    >
+    tools:context=".activity.UploadPdfActivity" >
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/comment_field"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            >
-        </EditText>
+        <!--選択した画像を表示-->
         <ImageView
             android:id="@+id/image_view1"
             android:layout_width="200dip"
             android:layout_height="200dip"
             android:scaleType="fitCenter">
         </ImageView>
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
+
+            <!--宛名ラベルを選択ボタン-->
             <Button
                 android:id="@+id/attach_button2"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="@string/attach_button"
+                android:text="@string/textViewattach_button2"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/shape_rounded_corners"/>
             <!--<Button-->
             <!--android:id="@+id/attach_camera_button"-->
             <!--android:layout_width="wrap_content"-->
@@ -41,13 +40,16 @@
             <!--android:textStyle="bold" />-->
         </LinearLayout>
 
+        <!--宛名ラベルをアップロードするボタン-->
         <Button
             android:id="@+id/post_button2"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/post_button"
+            android:text="@string/textViewpost_button2"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_rounded_corners"/>
 
     </LinearLayout>
 </ScrollView>
