@@ -42,7 +42,9 @@
                 android:textSize="15sp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/shape_rounded_corners"
+                android:focusableInTouchMode="true"
                 android:layout_marginTop="30dp" />
+            <requestFocus />
             <!--<Button-->
             <!--android:id="@+id/attach_camera_button"-->
             <!--android:layout_width="wrap_content"-->
