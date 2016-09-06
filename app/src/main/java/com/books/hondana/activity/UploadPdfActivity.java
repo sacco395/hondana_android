@@ -208,6 +208,7 @@ public class UploadPdfActivity extends AppCompatActivity {
     public void onPostButtonClicked(View v) {
         //入力文字を得る
         EditText mCommentField = (EditText) (findViewById(R.id.comment_field));
+        mCommentField.clearFocus();
         message = mCommentField.getText().toString();
         LogUtil.d("comment", ":" + message + ":");
 
