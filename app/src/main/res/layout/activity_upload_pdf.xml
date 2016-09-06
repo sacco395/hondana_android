@@ -26,7 +26,7 @@
             android:text="@string/requestTextUpload"
             android:id="@+id/requestTextUpload"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp" />
+            android:layout_marginTop="30dp" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -42,7 +42,7 @@
                 android:textSize="15sp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/shape_rounded_corners"
-                android:layout_marginTop="40dp" />
+                android:layout_marginTop="30dp" />
             <!--<Button-->
             <!--android:id="@+id/attach_camera_button"-->
             <!--android:layout_width="wrap_content"-->
@@ -62,6 +62,16 @@
             android:layout_marginTop="20dip"
             android:layout_marginBottom="20dip" />
 
+        <!--ひとことメッセージのテキストエディタ-->
+        <EditText
+            android:id="@+id/comment_field"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="ひとことメッセージをどうぞ(20文字まで)\n（相手は返信できません）"
+            android:layout_margin="15dp"
+            android:maxLength="20">
+        </EditText>
+
         <!--宛名ラベルをアップロードするボタン-->
         <Button
             android:id="@+id/post_button2"
@@ -70,7 +80,8 @@
             android:text="@string/textViewpost_button2"
             android:textSize="15sp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/shape_rounded_corners" />
+            android:background="@drawable/shape_rounded_corners"
+            android:layout_marginTop="30dp" />
 
     </LinearLayout>
 </ScrollView>
