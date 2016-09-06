@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
+import com.books.hondana.util.DateUtil;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
@@ -124,6 +125,13 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
 		});
 //本の状態ここまで
+
+		// 2016/09/06 Okuyama Upadate
+		if ( !DateUtil.isOneYearAfter(targetBook.get(KiiBook.ISSUE_DATE)) ) {
+			Toast.makeText(BookDetailActivity.this,"一年前以上に発行された書籍ではありません。",
+					Toast.LENGTH_LONG).show();
+		}
+		//////////////////////////////////////////////
 
 		btnAddKiiCloud = (Button)findViewById(R.id.btnAddKiiBook);
 		// ボタンにフォーカスを移動させる
