@@ -99,14 +99,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.BookRequestActivity"
-            android:screenOrientation="portrait" />
+
+            android:name=".activity.RequestBookActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.PassedActivity"
-            android:screenOrientation="portrait" />
+            android:name=".activity.SendBookActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.EvaluateActivity"
-            android:screenOrientation="portrait" />
+            android:name=".activity.ReceivedBookActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activity.BaseScannerActivity"
             android:screenOrientation="portrait" />
@@ -154,6 +156,10 @@
         <activity
             android:name=".activity.UserEditActivity"
             android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".activity.EvaluatedActivity">
+        </activity>
+        <activity android:name=".activity.UploadPdfActivity">
         </activity>
     </application>
 

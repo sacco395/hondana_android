@@ -1,0 +1,76 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    tools:context=".activity.UploadPdfActivity" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <!--選択した画像を表示-->
+        <ImageView
+            android:id="@+id/image_view1"
+            android:layout_width="200dip"
+            android:layout_height="200dip"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_picture_as_pdf_black_36px">
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/requestTextUpload"
+            android:id="@+id/requestTextUpload"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <!--宛名ラベルを選択ボタン-->
+            <Button
+                android:id="@+id/attach_button2"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/textViewattach_button2"
+                android:textSize="15sp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/shape_rounded_corners"
+                android:layout_marginTop="40dp" />
+            <!--<Button-->
+            <!--android:id="@+id/attach_camera_button"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/attach_camera_button"-->
+            <!--android:textSize="15sp"-->
+            <!--android:textStyle="bold" />-->
+        </LinearLayout>
+
+        <!--区切り線-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#F1F0EE"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="20dip"
+            android:layout_marginBottom="20dip" />
+
+        <!--宛名ラベルをアップロードするボタン-->
+        <Button
+            android:id="@+id/post_button2"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewpost_button2"
+            android:textSize="15sp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_rounded_corners" />
+
+    </LinearLayout>
+</ScrollView>

@@ -38,8 +38,7 @@
     <string name="buttonClickPost">"クリックポストへ"</string>
 
     <string name="requestText03">"2.宛名ラベルのデータをアップロードしましょう。"</string>
-    <string name="buttonSelectFile">"ファイルを選択"</string>
-    <string name="buttonUpload">"アップロード"</string>
+    <string name="buttonSelectFile">"アップロード画面へ"</string>
 
     <string name="requestText04">"3.同梱を希望する場合はチェックを入れてください。"</string>
     <string name="checkBoxBundle">"同梱希望"</string>
@@ -47,6 +46,10 @@
     <string name="buttonCancel">"キャンセル"</string>
     <string name="buttonRequest">"リクエスト完了"</string>
 
+    <!--宛名ラベルのアップロードページに使用-->
+    <string name="requestTextUpload">つくった宛名ラベルをアップロードしましょう。</string>
+    <string name="textViewattach_button2">宛名ラベルを選択</string>
+    <string name="textViewpost_button2">アップロードする</string>
 
     <!--本の発送ページに使用-->
     <string name="passedText01">"交換リクエストが届きました"</string>
@@ -64,7 +67,7 @@
     <string name="buttonSending">"発送完了"</string>
 
 
-    <!--評価ページに使用-->
+    //発送者への評価ページに使用//
     <string name="evaluateText01">"受け取り評価をしてください"</string>
 
     <string name="evaluateText02">"本が発送されました。\n本が到着したら、出品者の評価をしてください。"</string>
@@ -129,10 +132,6 @@
 
     <string name="buttonBookOwnerList">交換する</string>
 
-    <!--メール問い合わせ-->
-    <string name="Mail">"ドメイン指定受信をしていると返答が届きませんのでご注意ください。\n【ドメイン指定】 @spica-travel.com"</string>
-
-    <string name="buttonMail">"メールで問い合わせる"</string>
 
     <!-- Postで追加ここから-->
     <string name="attach_button">イメージを変更</string>
@@ -143,6 +142,17 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Postで追加ここまで-->
+
+    <!--メール問い合わせ-->
+    <string name="Mail">"ドメイン指定受信をしていると返答が届きませんのでご注意ください。\n【ドメイン指定】 @spica-travel.com"</string>
+    <string name="buttonMail">"メールで問い合わせる"</string>
+
+    //受取相手への評価ページに使用//
+    <string name="evaluatedText01">"送付相手の評価をしてください"</string>
+
+    <string name="evaluatedText02">"送付相手が本が受け取りました。\n評価をしてブクを受け取りましょう。"</string>
+
+    <string name="evaluatedText03">"本を受け取った相手に評価のコメントを送信しましょう。\n(例)ありがとうございました。またよろしくお願いします。"</string>
 
     <!--ガイドページに使用-->
     <!--本の交換について-->

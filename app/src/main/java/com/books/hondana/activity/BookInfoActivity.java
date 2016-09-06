@@ -97,13 +97,17 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         LogUtil.d(TAG, "onClick");
 
         KiiUser kiiUser = KiiUser.getCurrentUser ();
-
+        kiiBook.set ("request_userId",kiiUser.getID());
         LogUtil.d (TAG, "kiiUser: " + kiiUser);
+//        String owner = kiiBook.get("_owner");
+//        LogUtil.d(TAG, "owner: " + owner);
+//
+//
+//        if ((kiiUser != null) && (KiiUser != owner)) {
 
-        if (kiiUser != null) {
-
+        if(kiiUser != null){
             //kiiBookのデータを持って、BookRequestActivityにintentする
-            startActivity(BookRequestActivity.createIntent (this, kiiBook));
+            startActivity(RequestBookActivity.createIntent (this, kiiBook));
         } else {
             Intent intent = new Intent(this, StartActivity.class);
             startActivity(intent);
