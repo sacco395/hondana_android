@@ -49,7 +49,8 @@ public class HondanaBookAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return Integer.parseInt(list.get(position).get(KiiBook.BOOK_ID));
+        //  (Bug!)      return Integer.parseInt(list.get(position).get(KiiBook.BOOK_ID));
+        return position;
     }
 
     @Override
