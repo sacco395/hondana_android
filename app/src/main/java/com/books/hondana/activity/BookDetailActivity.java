@@ -39,6 +39,8 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 	private CheckBox mCheckBoxPet;
 	private CheckBox mCheckBoxMold;
 
+	private String Note;
+
 	// define the UI elements
 	private ProgressDialog mProgress=null;
 
@@ -169,12 +171,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 				});
 //ページの折れラジオボタンここまで
 
-//備考欄のテキストここから
-		EditText editText = (EditText)findViewById(R.id.edtNote);
-		// 入力された文字を取得
-		String text = editText.getText().toString();
-		targetBook.set ("notes",text);
-//備考欄のテキストここまで
+
 
 		// 2016/09/06 Okuyama Upadate
 		if ( !DateUtil.isOneYearAfter(targetBook.get(KiiBook.ISSUE_DATE)) ) {
@@ -192,6 +189,14 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 		btnAddKiiCloud.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+		//備考欄のテキストここから
+				EditText noteField = (EditText) (findViewById (R.id.edtNote));
+				assert noteField != null;
+				Note = noteField.getText ().toString ();
+				// 入力された文字を取得して保存
+				targetBook.set ("notes",Note);
+		//備考欄のテキストここまで
+
 				// KiiBook bKobj = new KiiBook()
 				KiiBook bKobj = targetBook;
 				// 確認 by 奥山 2016/08/26
