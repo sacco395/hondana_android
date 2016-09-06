@@ -107,7 +107,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 		TextView tv_issueDate = (TextView)findViewById(R.id.textView_issueDate);
 		tv_issueDate.setText(targetBook.get(KiiBook.ISSUE_DATE));
 
-//本の状態ここから
+//本の状態ラジオボタンここから（1=良い/2=普通/3=汚れあり）
 		((RadioGroup)findViewById(R.id.rCondition)).setOnCheckedChangeListener
 				(new RadioGroup.OnCheckedChangeListener () {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -124,7 +124,50 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 			}
 
 		});
-//本の状態ここまで
+//本の状態ラジオボタンここまで
+//書き込み線ラジオボタンここから
+		((RadioGroup)findViewById(R.id.rLined)).setOnCheckedChangeListener
+				(new RadioGroup.OnCheckedChangeListener () {
+					public void onCheckedChanged(RadioGroup group, int checkedId) {
+						if(checkedId == R.id.rLine_no){
+							//１つめを選択
+							targetBook.set ("line0","1");
+						}else if(checkedId == R.id.rLine_5){
+							//２つめを選択
+							targetBook.set ("line5","1");
+						}else if(checkedId == R.id.rLine_5_10){
+							//３つめを選択
+							targetBook.set ("line_5_10","1");
+						}else if(checkedId == R.id.rLine_10over){
+							//３つめを選択
+							targetBook.set ("line_10","1");
+						}
+					}
+
+				});
+//書き込み線ラジオボタンここまで
+//ページの折れラジオボタンここから
+		((RadioGroup)findViewById(R.id.rBroken)).setOnCheckedChangeListener
+				(new RadioGroup.OnCheckedChangeListener () {
+					public void onCheckedChanged(RadioGroup group, int checkedId) {
+						if(checkedId == R.id.rBroken_no){
+							//１つめを選択
+							targetBook.set ("Broken0","1");
+						}else if(checkedId == R.id.rBroken_5){
+							//２つめを選択
+							targetBook.set ("line5","1");
+						}else if(checkedId == R.id.rLine_5_10){
+							//３つめを選択
+							targetBook.set ("line_5_10","1");
+						}else if(checkedId == R.id.rLine_10over){
+							//３つめを選択
+							targetBook.set ("line_10","1");
+						}
+					}
+
+				});
+//ページの折れラジオボタンここまで
+
 
 		// 2016/09/06 Okuyama Upadate
 		if ( !DateUtil.isOneYearAfter(targetBook.get(KiiBook.ISSUE_DATE)) ) {
