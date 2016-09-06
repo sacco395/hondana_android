@@ -169,18 +169,14 @@ public class UserpageActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
-        return super.onOptionsItemSelected(item);
+        int id = item.getItemId ();
+        if (id == R.id.nav_edit) {
+            Intent intent = new Intent (this, UserEditActivity.class);
+            startActivity (intent);
+        }
+        return super.onOptionsItemSelected (item);
     }
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //  Barcode Scanner 起動関連
     public void launchSimpleActivity(View v) {
@@ -266,6 +262,8 @@ public class UserpageActivity extends AppCompatActivity
         startActivityForResult(intent, ACT_BOOK_DETAIL_TO_ADD);
     }
 
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -328,5 +326,6 @@ public class UserpageActivity extends AppCompatActivity
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
+
 }
 

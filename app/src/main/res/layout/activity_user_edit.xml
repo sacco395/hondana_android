@@ -1,53 +1,99 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            tools:context=".activity.UserEditActivity"
-    >
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              tools:context=".activity.TodoActivity">
 
-        <EditText
-            android:id="@+id/comment_field"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            >
-        </EditText>
-        <ImageView
-            android:id="@+id/image_view1"
-            android:layout_width="200dip"
-            android:layout_height="200dip"
-            android:scaleType="fitCenter">
-        </ImageView>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:elevation="4dp"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+    </android.support.v7.widget.Toolbar>
+
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="horizontal" >
-            <Button
-                android:id="@+id/attach_button"
-                android:layout_width="wrap_content"
+            android:orientation="vertical" >
+            <!--ユーザーアイコン-->
+            <ImageView
+                android:id="@+id/image_view1"
+                android:layout_width="100dip"
+                android:layout_height="100dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/usericon"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp">
+            </ImageView>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/attach_button"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-            <!--<Button-->
+                android:orientation="vertical">
+
+                <!--カメラを起動して画像を選択するボタン-->
+                <Button
+                    android:id="@+id/attach_button"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/attach_button"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/shape_rounded_corners"
+                    android:layout_marginTop="20dp" />
+                <!--<Button-->
                 <!--android:id="@+id/attach_camera_button"-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:text="@string/attach_camera_button"-->
                 <!--android:textSize="15sp"-->
                 <!--android:textStyle="bold" />-->
+            </LinearLayout>
+
+            <!--区切り線-->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dip"
+                android:background="#F1F0EE"
+                android:layout_marginLeft="6dip"
+                android:layout_marginRight="6dip"
+                android:layout_marginTop="20dip"
+                android:layout_marginBottom="20dip" />
+
+            <!--ユーザープロフィールのテキストエディト-->
+            <EditText
+                android:id="@+id/comment_field"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="プロフィールを編集しましょう。\n(500文字まで)\n\n(例)こんにちは！好きな本のジャンルは\n歴史小説とエッセイです。\n面白かった本をたくさん出品していきますのでよろしくお願いします。"
+                android:maxLength="500"
+                android:layout_margin="10dp"
+                android:background="@drawable/edittext_style">
+            </EditText>
+
+            <!--投稿ボタン-->
+            <Button
+                android:id="@+id/post_button"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="@string/post_button"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginTop="100dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/shape_rounded_corners"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/post_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/post_button"
-            android:textSize="15sp"
-            android:textStyle="bold" />
 
-    </LinearLayout>
-</ScrollView>
+
+
+</LinearLayout>
+
