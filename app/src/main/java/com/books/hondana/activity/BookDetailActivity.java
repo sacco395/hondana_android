@@ -22,12 +22,20 @@ import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class BookDetailActivity extends AppCompatActivity	{
+public class BookDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
 	final static String TAG = BookDetailActivity.class.getSimpleName();
 
 	private KiiBook targetBook;
 	private Button btnAddKiiCloud;
+
+	//メンバー変数
+	private CheckBox mCheckBoxBand;
+	private CheckBox mCheckBoxSunburned;
+	private CheckBox mCheckBoxScratched;
+	private CheckBox mCheckBoxCigar;
+	private CheckBox mCheckBoxPet;
+	private CheckBox mCheckBoxMold;
 
 	// define the UI elements
 	private ProgressDialog mProgress=null;
@@ -37,6 +45,41 @@ public class BookDetailActivity extends AppCompatActivity	{
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_book_detail);
+
+
+		//CheckBoxBandとcheckboxBandを結び付ける
+		mCheckBoxBand = (CheckBox) findViewById(R.id.chkBand);
+		//チェックボックスの状態を設定
+		mCheckBoxBand.setChecked(false);
+		//チェックボックスがクリックされた時に呼び出されるコールバックリスナーを登録
+		mCheckBoxBand.setOnClickListener(this);
+
+		//同様に、CheckBoxSunburned
+		mCheckBoxSunburned = (CheckBox) findViewById(R.id.chkSunburned);
+		mCheckBoxSunburned.setChecked(false);
+		mCheckBoxSunburned.setOnClickListener(this);
+
+		//同様に、CheckBoxScratched
+		mCheckBoxScratched = (CheckBox) findViewById(R.id.chkScratched);
+		mCheckBoxScratched.setChecked(false);
+		mCheckBoxScratched.setOnClickListener(this);
+
+		//同様に、CheckBoxCigar
+		mCheckBoxCigar = (CheckBox) findViewById(R.id.chkCigarSmell);
+		mCheckBoxCigar.setChecked(false);
+		mCheckBoxCigar.setOnClickListener(this);
+
+		//同様に、CheckBoxPet
+		mCheckBoxPet = (CheckBox) findViewById(R.id.chkPetSmell);
+		mCheckBoxPet.setChecked(false);
+		mCheckBoxPet.setOnClickListener(this);
+
+		//同様に、CheckBoxMold
+		mCheckBoxMold = (CheckBox) findViewById(R.id.chkMoldSmell);
+		mCheckBoxMold.setChecked(false);
+		mCheckBoxMold.setOnClickListener(this);
+
+
 
 		//targetBook = new KiiBook();
 		//HashMap<String,String> bookInfo = (HashMap<String, String>) getIntent().getSerializableExtra("Book");
@@ -80,46 +123,6 @@ public class BookDetailActivity extends AppCompatActivity	{
 			}
 
 		});
-
-		public void onCheckboxClicked(View view) {
-			// チェックボックスのチェック状態を取得
-			CheckBox checkBox = (CheckBox) view;
-			boolean checked = checkBox.isChecked();
-			// CheckBox.getId()でチェックボックスを識別し、チェックボックスごとの処理を行う
-			switch (checkBox.getId()) {
-				case R.id.chkBand:
-					if (checked) {
-						targetBook.set ("band","帯あり");
-					}
-					break;
-				case R.id.chkSunburned:
-					if (checked) {
-						targetBook.set ("sunburned","焼け");
-					}
-					break;
-				case R.id.chkScratched:
-					if (checked) {
-						targetBook.set ("sunburned","日焼け");
-					}
-					break;
-				case R.id.chkCigarSmell:
-					if (checked) {
-						Toast.makeText(getApplicationContext(), "Option2を選択状態にしました。", Toast.LENGTH_SHORT).show();
-					}
-					break;
-				case R.id.chkPetSmell:
-					if (checked) {
-						Toast.makeText(getApplicationContext(), "Option2を選択状態にしました。", Toast.LENGTH_SHORT).show();
-					}
-					break;
-				case R.id.chkMoldSmell:
-					if (checked) {
-						Toast.makeText(getApplicationContext(), "Option2を選択状態にしました。", Toast.LENGTH_SHORT).show();
-					}
-					break;
-			}
-		}
-
 //本の状態ここまで
 
 		btnAddKiiCloud = (Button)findViewById(R.id.btnAddKiiBook);
@@ -175,6 +178,46 @@ public class BookDetailActivity extends AppCompatActivity	{
 			}
 		});
 	}
+	//本のその他の状態ここから
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+			case R.id.chkBand:		//帯付きの場合
+				if(mCheckBoxBand.isChecked() == true){	// チェックされている場合
+					targetBook.set ("band", "1");
+				}
+				break;
+			case R.id.chkSunburned:	//日焼けの場合
+				if(mCheckBoxSunburned.isChecked() == true){	// チェックされている場合
+					targetBook.set ("sunburned", "1");
+				}
+				break;
+			case R.id.chkScratched:		//スレ・傷の場合
+				if(mCheckBoxScratched.isChecked() == true){	// チェックされている場合
+					targetBook.set ("scratched", "1");
+				}
+				break;
+			case R.id.chkCigarSmell:	//たばこ臭の場合
+				if(mCheckBoxCigar.isChecked() == true){	// チェックされている場合
+					targetBook.set ("cigar_smell", "1");
+				}
+				break;
+			case R.id.chkPetSmell:	//ペットを飼ってる場合
+				if(mCheckBoxPet.isChecked() == true){	// チェックされている場合
+					targetBook.set ("pet_smell", "1");
+				}
+				break;
+			case R.id.chkMoldSmell:	//カビ臭の場合
+				if(mCheckBoxMold.isChecked() == true){	// チェックされている場合
+					targetBook.set ("mold_smell", "1");
+				}
+				break;
+
+			default:
+				break;
+		}
+	}
+//本のその他の状態ここまで
 
 //	@Override
 //	public Loader<Bitmap> onCreateLoader(int arg0, Bundle arg1) {
