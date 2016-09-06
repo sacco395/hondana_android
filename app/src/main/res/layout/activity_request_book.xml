@@ -80,15 +80,6 @@
             android:layout_marginBottom="15dp"
             android:background="@drawable/shape_rounded_corners" />
 
-        <!--アップロードボタン-->
-        <Button
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="@string/buttonUpload"
-            android:id="@+id/buttonUpload"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/shape_rounded_corners" />
-
         <!--区切り線-->
         <View
             android:layout_width="wrap_content"
@@ -117,7 +108,8 @@
             android:layout_height="wrap_content"
             android:text="@string/checkBoxBundle"
             android:id="@+id/checkBoxBundle"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp" />
 
         <LinearLayout
             android:layout_width="fill_parent"
