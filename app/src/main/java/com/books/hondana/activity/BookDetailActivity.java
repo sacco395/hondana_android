@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -140,7 +141,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 							targetBook.set ("line_5_10","1");
 						}else if(checkedId == R.id.rLine_10over){
 							//３つめを選択
-							targetBook.set ("line_10","1");
+							targetBook.set ("line_10over","1");
 						}
 					}
 
@@ -152,22 +153,28 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
 						if(checkedId == R.id.rBroken_no){
 							//１つめを選択
-							targetBook.set ("Broken0","1");
+							targetBook.set ("broken0","1");
 						}else if(checkedId == R.id.rBroken_5){
 							//２つめを選択
-							targetBook.set ("line5","1");
-						}else if(checkedId == R.id.rLine_5_10){
+							targetBook.set ("broken_5","1");
+						}else if(checkedId == R.id.rBroken_5_10){
 							//３つめを選択
-							targetBook.set ("line_5_10","1");
-						}else if(checkedId == R.id.rLine_10over){
+							targetBook.set ("broken_5_10","1");
+						}else if(checkedId == R.id.rBroken_10over){
 							//３つめを選択
-							targetBook.set ("line_10","1");
+							targetBook.set ("broken_10over","1");
 						}
 					}
 
 				});
 //ページの折れラジオボタンここまで
 
+//備考欄のテキストここから
+		EditText editText = (EditText)findViewById(R.id.edtNote);
+		// 入力された文字を取得
+		String text = editText.getText().toString();
+		targetBook.set ("notes",text);
+//備考欄のテキストここまで
 
 		// 2016/09/06 Okuyama Upadate
 		if ( !DateUtil.isOneYearAfter(targetBook.get(KiiBook.ISSUE_DATE)) ) {
