@@ -12,11 +12,13 @@
         <!--選択した画像を表示-->
         <ImageView
             android:id="@+id/image_view1"
-            android:layout_width="200dip"
-            android:layout_height="200dip"
+            android:layout_width="170dip"
+            android:layout_height="170dip"
             android:scaleType="fitCenter"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_picture_as_pdf_black_36px"
+            android:tint="#F1F0EE">
         </ImageView>
 
         <TextView
@@ -24,7 +26,8 @@
             android:layout_height="wrap_content"
             android:text="@string/requestTextUpload"
             android:id="@+id/requestTextUpload"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -68,8 +71,7 @@
             android:text="@string/textViewpost_button2"
             android:textSize="15sp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/shape_rounded_corners"
-            android:layout_marginTop="10dp" />
+            android:background="@drawable/shape_rounded_corners" />
 
     </LinearLayout>
 </ScrollView>
