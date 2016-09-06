@@ -135,9 +135,9 @@
     <string name="buttonMail">"メールで問い合わせる"</string>
 
     <!-- Postで追加ここから-->
-    <string name="attach_button">ImageAttach</string>
+    <string name="attach_button">イメージを変更</string>
     <string name="attach_camera_button">CameraAttach</string>
-    <string name="post_button">Post</string>
+    <string name="post_button">変更する</string>
     <string name="no_data_message">No Data</string>
 
     <!-- TODO: Remove or change this placeholder text -->
