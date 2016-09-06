@@ -186,7 +186,7 @@
                 <EditText
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/editText"
+                    android:id="@+id/Height"
                     android:inputType="numberDecimal"
                     android:numeric="decimal" />
 
@@ -200,7 +200,7 @@
                 <EditText
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/editText2"
+                    android:id="@+id/Wide"
                     android:inputType="numberDecimal"
                     android:numeric="decimal" />
 
@@ -214,7 +214,7 @@
                 <EditText
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/editText3"
+                    android:id="@+id/Depth"
                     android:inputType="numberDecimal"
                     android:numeric="decimal" />
 
@@ -251,7 +251,7 @@
                 <EditText
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/editText4"
+                    android:id="@+id/Weight"
                     android:inputType="numberDecimal"
                     android:numeric="decimal" />
 

@@ -40,6 +40,10 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 	private CheckBox mCheckBoxMold;
 
 	private String Note;
+	private String Height;
+	private String Wide;
+	private String Depth;
+	private String Weight;
 
 	// define the UI elements
 	private ProgressDialog mProgress=null;
@@ -196,6 +200,32 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 				// 入力された文字を取得して保存
 				targetBook.set ("notes",Note);
 		//備考欄のテキストここまで
+
+		//本のサイズここから
+				EditText HeightField = (EditText) (findViewById (R.id.Height));
+				assert HeightField != null;
+				Height = HeightField.getText ().toString ();
+		// 入力された文字を取得して保存
+				targetBook.set ("size_height",Height);
+
+				EditText WideField = (EditText) (findViewById (R.id.Wide));
+				assert HeightField != null;
+				Wide = WideField.getText ().toString ();
+				// 入力された文字を取得して保存
+				targetBook.set ("size_height",Wide);
+
+				EditText DepthField = (EditText) (findViewById (R.id.Depth));
+				assert DepthField != null;
+				Depth = DepthField.getText ().toString ();
+				// 入力された文字を取得して保存
+				targetBook.set ("size_depth",Depth);
+
+				EditText WeightField = (EditText) (findViewById (R.id.Weight));
+				assert WeightField != null;
+				Weight = HeightField.getText ().toString ();
+				// 入力された文字を取得して保存
+				targetBook.set ("size_weight",Weight);
+		//本のサイズここまで
 
 				// KiiBook bKobj = new KiiBook()
 				KiiBook bKobj = targetBook;
