@@ -16,20 +16,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.Connection.QueryParamSet;
 import com.books.hondana.Model.KiiBook;
+import com.books.hondana.PRBookListViewAdapter;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.squareup.picasso.Picasso;
 
 public class UserpageActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        AdapterView.OnItemClickListener {
 
     private static final String TAG = "UserpageActivity";
 
@@ -47,6 +52,31 @@ public class UserpageActivity extends AppCompatActivity
 
     //    private String search_Keyword;
     private FloatingActionButton mFab;
+
+    private BaseAdapter adapter;
+
+    // Isle of Wight in U.K.
+//    登録した本のリストビュー
+    private static final String[] titles = {
+            // Scenes of Isle of Wight
+            "デザイン思考は世界を変える",
+            "十月の旅人",
+            "無印良品は仕組みが９割",
+    };
+
+    private static final String[] authors = {
+            // Scenes of Isle of Wight
+            "ティム・ブラウン",
+            "レイ・ブラッドベリ",
+            "松井忠三",
+    };
+
+    // ちょっと冗長的ですが分かり易くするために
+    private static final int[] photos = {
+            R.drawable.changedesign,
+            R.drawable.october,
+            R.drawable.muji,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +178,37 @@ public class UserpageActivity extends AppCompatActivity
         ImageView userIcon2 = (ImageView)findViewById(R.id.user_icon);
         Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon2);
         // binding.navView.setNavigationItemSelectedListener(this);
+
+
+
+        // ListViewのインスタンスを生成
+        ListView listView = (ListView) findViewById(R.id.list_view);
+
+        // BaseAdapter を継承したadapterのインスタンスを生成
+
+        adapter = new PRBookListViewAdapter(this.getApplicationContext(), R.layout.part_book_list, titles,authors, photos);
+
+        // ListViewにadapterをセット
+        listView.setAdapter(adapter);
+
+        // 後で使います
+        listView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+        Intent intent = new Intent(this.getApplicationContext(), SelectedBooksActivity.class);
+        // clickされたpositionのtextとphotoのID
+        String selectedText = titles[position];
+        int selectedPhoto = photos[position];
+        // インテントにセット
+        intent.putExtra("Text", selectedText);
+        intent.putExtra("Photo", selectedPhoto);
+        // Activity をスイッチする
+        startActivity(intent);
+    }
+
+
 
     @Override
     public void onBackPressed() {
