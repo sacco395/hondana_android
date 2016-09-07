@@ -87,10 +87,9 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                     // クリック処理
                     // Create an object in an application-scope bucket.
                     KiiObject object = Kii.bucket("pdf").object();
-
-// Set key-value pairs.
+                    // Set key-value pairs.
                     object.set("pdf", "");
-// Save KiiObject
+                    // Save KiiObject
                     object.save(new KiiObjectCallBack() {
                         @Override
                         public void onSaveCompleted(int token, KiiObject object, Exception exception) {
@@ -131,6 +130,10 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     //Activityを起動
                     startActivityForResult(Intent.createChooser(intent, "Select Pdf"), IMAGE_CHOOSER_RESULTCODE);
+
+                    Toast.makeText(RequestBookActivity.this,"PDFが投稿されました！",
+                            Toast.LENGTH_LONG).show();
+                    LogUtil.d (TAG, ("投稿されました"));
 
                     finish();
                     break;
