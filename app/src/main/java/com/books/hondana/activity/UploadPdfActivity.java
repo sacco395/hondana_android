@@ -1,7 +1,6 @@
 //ユーザーの編集
 package com.books.hondana.activity;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -81,13 +80,13 @@ public class UploadPdfActivity extends AppCompatActivity {
         //ギャラリーを開くインテントを作成して起動する。
         Intent intent = new Intent();
         //フアイルのタイプを設定
-        intent.setType("image/*");
+        intent.setType("application/pdf");
         //画像のインテント
         intent.setAction(Intent.ACTION_GET_CONTENT);
         //Activityを起動
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), IMAGE_CHOOSER_RESULTCODE);
     }
-    //カメラの添付ボタンをおした時の処理
+    /*//カメラの添付ボタンをおした時の処理
     public void onAttachCameraFileButtonClicked(View v) {
         //カメラは機種依存が大きく、いろいろサンプルを見たほうが良い
         //コメントはXperia用に作ったもの。不要。
@@ -110,7 +109,8 @@ public class UploadPdfActivity extends AppCompatActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);//画像の保存先
         //インテント起動
         startActivityForResult(intent, IMAGE_CHOOSER_RESULTCODE);
-    }
+    }*/
+
     //画像を選択した後に実行されるコールバック関数。インテントの実行された後にコールバックされる。自動的に実行されます。
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
