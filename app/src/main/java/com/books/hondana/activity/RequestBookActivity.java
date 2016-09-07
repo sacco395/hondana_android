@@ -93,12 +93,6 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     //Activityを起動
                     startActivityForResult(Intent.createChooser(intent, "Select Pdf"), IMAGE_CHOOSER_RESULTCODE);
-
-                    Toast.makeText(RequestBookActivity.this,"PDFが投稿されました！",
-                            Toast.LENGTH_LONG).show();
-                    LogUtil.d (TAG, ("投稿されました"));
-
-                    finish();
                     break;
 
                 case R.id.buttonCancel:
@@ -160,6 +154,10 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                                 // Error handling
                                 return;
                             }
+                            
+                            Toast.makeText(RequestBookActivity.this,"PDFが投稿されました！",
+                                    Toast.LENGTH_LONG).show();
+                            LogUtil.d (TAG, ("投稿されました"));
                         }
                     });
                 }
