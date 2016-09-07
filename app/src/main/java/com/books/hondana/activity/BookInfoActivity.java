@@ -80,6 +80,12 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         Drawable conditionDrawable = ResourcesCompat.getDrawable(getResources(), resId, null);
         iv_bookCondition.setImageDrawable(conditionDrawable);
 
+        TextView tv_bookLine = (TextView) findViewById(R.id.bookInfoLine);
+        tv_bookLine.setText(kiiBook.get(KiiBook.LINE));
+
+        TextView tv_bookBroken = (TextView) findViewById(R.id.bookInfoBroken);
+        tv_bookBroken.setText(kiiBook.get(KiiBook.BROKEN));
+
         TextView tv_bookNotes = (TextView) findViewById(R.id.bookInfoNotes);
         tv_bookNotes.setText(kiiBook.get(KiiBook.NOTES));
 //        TextView tv_large_title = (TextView) findViewById(R.id.textViewBookInfoLargeTitle);

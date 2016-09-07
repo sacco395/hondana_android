@@ -114,7 +114,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 		TextView tv_issueDate = (TextView)findViewById(R.id.textView_issueDate);
 		tv_issueDate.setText(targetBook.get(KiiBook.ISSUE_DATE));
 
-//本の状態ラジオボタンここから（1=良い/2=普通/3=汚れあり）
+//本の状態ラジオボタンここから
 		((RadioGroup)findViewById(R.id.rCondition)).setOnCheckedChangeListener
 				(new RadioGroup.OnCheckedChangeListener () {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -138,16 +138,16 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
 						if(checkedId == R.id.rLine_no){
 							//１つめを選択
-							targetBook.set ("line0","1");
+							targetBook.set ("line","なし");
 						}else if(checkedId == R.id.rLine_5){
 							//２つめを選択
-							targetBook.set ("line5","1");
+							targetBook.set ("line","5P未満");
 						}else if(checkedId == R.id.rLine_5_10){
 							//３つめを選択
-							targetBook.set ("line_5_10","1");
+							targetBook.set ("line","5P以上10P未満");
 						}else if(checkedId == R.id.rLine_10over){
 							//３つめを選択
-							targetBook.set ("line_10over","1");
+							targetBook.set ("line","10P以上");
 						}
 					}
 
@@ -159,16 +159,16 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
 						if(checkedId == R.id.rBroken_no){
 							//１つめを選択
-							targetBook.set ("broken0","1");
+							targetBook.set ("broken","なし");
 						}else if(checkedId == R.id.rBroken_5){
 							//２つめを選択
-							targetBook.set ("broken_5","1");
+							targetBook.set ("broken","5P未満");
 						}else if(checkedId == R.id.rBroken_5_10){
 							//３つめを選択
-							targetBook.set ("broken_5_10","1");
+							targetBook.set ("broken","5P以上10P未満");
 						}else if(checkedId == R.id.rBroken_10over){
 							//３つめを選択
-							targetBook.set ("broken_10over","1");
+							targetBook.set ("broken","10P以上");
 						}
 					}
 
