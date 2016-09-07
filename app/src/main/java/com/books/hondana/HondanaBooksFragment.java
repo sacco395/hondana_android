@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -96,6 +98,12 @@ public class HondanaBooksFragment extends Fragment {
         if ( getArguments() != null) {
             queryParamSet = (QueryParamSet)getArguments().get(ARG_QUERYPARAMS);
             tabPage = getArguments().getInt(ARG_PAGE);
+            Log.d(TAG, "onCreate: query=" + queryParamSet);
+        }
+
+        if (queryParamSet == null) {
+            queryParamSet = new QueryParamSet();
+
         }
 
         // create an empty object adapter
@@ -136,6 +144,27 @@ public class HondanaBooksFragment extends Fragment {
         // SwipeRefreshLayoutの設定
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
         mSwipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
+
+        // Footer を追加
+        mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                // 本当はいらないけど、オーバライドしないと怒られるから空メソッドを作る
+            }
+
+            // ロード中を示すフラグ。無限ロードを防ぐため。
+            boolean isLoading = false;
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (isLoading) {
+                    return;
+                }
+                if ((totalItemCount - visibleItemCount) != firstVisibleItem) {
+                    return;
+                }
+            }
+        });
 
         // GridViewにデータをセットする
         //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(self, R.array.color, android.R.layout.simple_list_item_1);
