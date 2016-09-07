@@ -85,43 +85,6 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
 
                 case R.id.buttonSelectFile:
                     // クリック処理
-                    // Create an object in an application-scope bucket.
-                    KiiObject object = Kii.bucket("pdf").object();
-                    // Set key-value pairs.
-                    object.set("pdf", "");
-                    // Save KiiObject
-                    object.save(new KiiObjectCallBack() {
-                        @Override
-                        public void onSaveCompleted(int token, KiiObject object, Exception exception) {
-                            if (exception != null) {
-                                // Error handling
-                                return;
-                            }
-                            // Prepare file to upload.
-                            File localFile = new File(Environment.getExternalStorageDirectory(),
-                                    "myPdf.pdf");
-
-                            // Start uploading
-                            object.uploadBody(localFile, "application/pdf", new KiiObjectBodyCallback() {
-                                @Override
-                                public void onTransferStart(KiiObject kiiObject) {
-                                }
-
-                                @Override
-                                public void onTransferProgress(KiiObject object, long completedInBytes, long totalSizeinBytes) { /* compiled code */
-                                    float progress = (float) completedInBytes / (float) totalSizeinBytes * 100.0f;
-                                }
-
-                                @Override
-                                public void onTransferCompleted(KiiObject object, Exception exception) {
-                                    if (exception != null) {
-                                        // Error handling
-                                        return;
-                                    }
-                                }
-                            });
-                        }
-                    });
                     //ギャラリーを開くインテントを作成して起動する。
                     Intent intent = new Intent();
                     //フアイルのタイプを設定
@@ -130,12 +93,6 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     //Activityを起動
                     startActivityForResult(Intent.createChooser(intent, "Select Pdf"), IMAGE_CHOOSER_RESULTCODE);
-
-                    Toast.makeText(RequestBookActivity.this,"PDFが投稿されました！",
-                            Toast.LENGTH_LONG).show();
-                    LogUtil.d (TAG, ("投稿されました"));
-
-                    finish();
                     break;
 
                 case R.id.buttonCancel:
@@ -155,7 +112,58 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IMAGE_CHOOSER_RESULTCODE) {
+            if (resultCode != RESULT_OK) {
+                // Error!
+                return;
+            }
 
+            // Create an object in an application-scope bucket.
+            KiiObject object = Kii.bucket("pdf").object();
+            // Set key-value pairs.
+            object.set("pdf", "");
+            // Save KiiObject
+            object.save(new KiiObjectCallBack() {
+                @Override
+                public void onSaveCompleted(int token, KiiObject object, Exception exception) {
+                    if (exception != null) {
+                        // Error handling
+                        return;
+                    }
+                    // Prepare file to upload.
+                    File localFile = new File(Environment.getExternalStorageDirectory(),
+                            "myPdf.pdf");
+
+                    // Start uploading
+                    object.uploadBody(localFile, "application/pdf", new KiiObjectBodyCallback() {
+                        @Override
+                        public void onTransferStart(KiiObject kiiObject) {
+                        }
+
+                        @Override
+                        public void onTransferProgress(KiiObject object, long completedInBytes, long totalSizeinBytes) { /* compiled code */
+                            float progress = (float) completedInBytes / (float) totalSizeinBytes * 100.0f;
+                        }
+
+                        @Override
+                        public void onTransferCompleted(KiiObject object, Exception exception) {
+                            if (exception != null) {
+                                // Error handling
+                                return;
+                            }
+                            
+                            Toast.makeText(RequestBookActivity.this,"PDFが投稿されました！",
+                                    Toast.LENGTH_LONG).show();
+                            LogUtil.d (TAG, ("投稿されました"));
+                        }
+                    });
+                }
+            });
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
