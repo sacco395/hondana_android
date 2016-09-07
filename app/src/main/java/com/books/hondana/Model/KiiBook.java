@@ -30,6 +30,7 @@ public class KiiBook extends KiiDataObj implements Parcelable {
     public static final String GENRE_5 = "genre_5";
     public static final String USER_ID = "user_id";
     public static final String CONDITION = "condition";
+    public static final String NOTES = "notes";
     public static final String BAND = "band";
     public static final String SUNBURNED = "sunburned";
     public static final String SCRATCHED = "scratched";

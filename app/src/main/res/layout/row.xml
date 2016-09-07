@@ -96,7 +96,7 @@
 
             <!--ユーザーアイコン-->
             <TextView
-                android:id="@+id/book_condition"
+                android:id="@+id/book_owner"
                 android:text="ユーザー名"
                 android:layout_marginLeft="8dp"
                 android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:id="@+id/imageView3"
+        android:id="@+id/book_condition"
         android:src="@drawable/book_icon_excellent"
         android:layout_marginLeft="32dp"
         android:tint="#F26964" />

@@ -120,13 +120,13 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				if(checkedId == R.id.cond_excellent){
 					//１つめを選択
-					targetBook.set ("condition","1");
+					targetBook.set ("condition","良い");
 				}else if(checkedId == R.id.cond_good){
 					//２つめを選択
-					targetBook.set ("condition","2");
+					targetBook.set ("condition","普通");
 				}else if(checkedId == R.id.cond_bad){
 					//３つめを選択
-					targetBook.set ("condition","3");
+					targetBook.set ("condition","汚れあり");
 				}
 			}
 

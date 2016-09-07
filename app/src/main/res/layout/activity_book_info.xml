@@ -42,7 +42,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView7"
+            android:id="@+id/bookInfoLike"
             android:src="@drawable/abc_btn_rating_star_off_mtrl_alpha"
             android:tint="#C8C8C8"
             android:layout_gravity="right"
@@ -167,7 +167,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView6"
+                android:id="@+id/bookInfoUserIcon"
                 android:src="@drawable/usericon"
                 android:layout_marginLeft="25dp"
                 android:layout_marginBottom="10dp"
@@ -180,8 +180,8 @@
                 android:text="ユーザー名"
                 android:id="@+id/textViewBookInfoUserName"
                 android:layout_alignTop="@+id/textViewBookInfoUser"
-                android:layout_alignLeft="@+id/textViewBookInfoStateLead"
-                android:layout_alignStart="@+id/textViewBookInfoStateLead"
+                android:layout_alignLeft="@+id/bookInfoConditionLead"
+                android:layout_alignStart="@+id/bookInfoConditionLead"
                 android:textSize="18sp"
                 android:layout_marginTop="8dp" />
 
@@ -190,10 +190,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="本の状態"
-                android:id="@+id/textViewBookInfoStateLead"
+                android:id="@+id/bookInfoConditionLead"
                 android:layout_centerVertical="true"
-                android:layout_alignLeft="@+id/textViewBookInfoRemarksLead"
-                android:layout_alignStart="@+id/textViewBookInfoRemarksLead"
+                android:layout_alignLeft="@+id/bookInfoNotesLead"
+                android:layout_alignStart="@+id/bookInfoNotesLead"
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"/>
 
@@ -202,10 +202,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="本の状態"
-                android:id="@+id/textViewBookInfoState"
+                android:id="@+id/bookInfoCondition"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/textViewBookInfoStateLead"
-                android:layout_toEndOf="@+id/textViewBookInfoStateLead"
+                android:layout_toRightOf="@+id/bookInfoConditionLead"
+                android:layout_toEndOf="@+id/bookInfoConditionLead"
                 android:layout_marginLeft="10dp" />
 
             <!--備考リード-->
@@ -213,12 +213,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="備考"
-                android:id="@+id/textViewBookInfoRemarksLead"
+                android:id="@+id/bookInfoNotesLead"
                 android:layout_marginLeft="5dp"
                 android:layout_marginStart="40dp"
-                android:layout_alignBottom="@+id/imageView6"
-                android:layout_toRightOf="@+id/imageView6"
-                android:layout_toEndOf="@+id/imageView6"
+                android:layout_alignBottom="@+id/bookInfoUserIcon"
+                android:layout_toRightOf="@+id/bookInfoUserIcon"
+                android:layout_toEndOf="@+id/bookInfoUserIcon"
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"/>
 
@@ -227,19 +227,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="備考"
-                android:id="@+id/textViewBookInfoRemarks"
-                android:layout_alignTop="@+id/textViewBookInfoRemarksLead"
-                android:layout_toRightOf="@+id/textViewBookInfoRemarksLead"
-                android:layout_toEndOf="@+id/textViewBookInfoRemarksLead"
+                android:id="@+id/bookInfoNotes"
+                android:layout_alignTop="@+id/bookInfoNotesLead"
+                android:layout_toRightOf="@+id/bookInfoNotesLead"
+                android:layout_toEndOf="@+id/bookInfoNotesLead"
                 android:layout_marginLeft="10dp" />
 
             <!--本の状態アイコン-->
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/imageView8"
+                android:id="@+id/bookInfoBookConditionIcon"
                 android:src="@drawable/book_icon_good"
-                android:layout_alignTop="@+id/imageView6"
+                android:layout_alignTop="@+id/bookInfoUserIcon"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="27dp"
