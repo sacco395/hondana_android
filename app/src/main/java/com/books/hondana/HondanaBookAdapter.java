@@ -1,6 +1,8 @@
 package com.books.hondana;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,14 +58,22 @@ public class HondanaBookAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = layoutInflater.inflate(R.layout.row,parent,false);
+
+        final KiiBook book = list.get(position);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                KiiBook book = list.get(position);
                 listener.onClick(book);
             }
         });
 
+        ImageView iv_bookCondition = ((ImageView) convertView.findViewById(R.id.MainBookConditionIcon));
+        int resId = book.getConditionDrawableResId();
+        if (resId != 0) {
+            Context context = convertView.getContext();
+            Drawable conditionDrawable = ResourcesCompat.getDrawable(context.getResources(), resId, null);
+            iv_bookCondition.setImageDrawable(conditionDrawable);
+        }
         // 画像データのダウンロードと設定
         ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -71,11 +81,14 @@ public class HondanaBookAdapter extends BaseAdapter {
         ImageView imgView = ((ImageView)convertView.findViewById(R.id.imgTitle));
         imageLoader.displayImage(imgUrl,imgView);
 
-        ((TextView) convertView.findViewById(R.id.rowTextTitle)).setText(list.get(position).get(KiiBook.TITLE));
+        ((TextView)convertView.findViewById(R.id.rowTextTitle)).setText(list.get(position).get(KiiBook.TITLE));
         ((TextView)convertView.findViewById(R.id.rowTextAuthor)).setText(list.get(position).get(KiiBook.AUTHOR));
 
         return convertView;
     }
+
+
+
 
     public interface BookItemClickListener {
         void onClick(KiiBook book);
