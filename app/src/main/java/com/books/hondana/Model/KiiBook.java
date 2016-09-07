@@ -3,6 +3,7 @@ package com.books.hondana.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.books.hondana.R;
 import com.kii.cloud.storage.KiiObject;
 
 /**
@@ -37,8 +38,6 @@ public class KiiBook extends KiiDataObj implements Parcelable {
     public static final String CIGAR_SMELL = "cigar_smell";
     public static final String PET_SMELL = "pet_smell";
     public static final String MOLD_SMELL = "mold_smell";
-
-
     public static final String DESCRIPTION = "description";
 
     // Constructor
@@ -77,6 +76,20 @@ public class KiiBook extends KiiDataObj implements Parcelable {
             return new KiiBook[size];
         }
     };
+
+    public int getConditionDrawableResId() {
+        String condition = get (CONDITION);
+        switch (condition) {
+            case "良い":
+                return R.drawable.book_icon_excellent;
+            case "普通":
+                return R.drawable.book_icon_good;
+            case "汚れあり":
+                return R.drawable.book_icon_bad;
+            default:
+                return 0;
+        }
+    }
 }
 
 
