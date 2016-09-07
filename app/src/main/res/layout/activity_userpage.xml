@@ -27,7 +27,6 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
-
         </android.support.design.widget.AppBarLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -94,7 +93,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:id="@+id/evaluation">
 
@@ -129,6 +128,14 @@
                     android:text="悪い : 1"
                     />
             </LinearLayout>
+
+            <!--ユーザーが登録した本のリストビュー-->
+            <ListView
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:id="@+id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
@@ -141,7 +148,6 @@
             android:src="@drawable/ic_add_a_photo_white_48dp" />
 
     </android.support.design.widget.CoordinatorLayout>
-
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
