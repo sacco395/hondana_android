@@ -73,6 +73,7 @@ public class HondanaBookAdapter extends BaseAdapter {
 
         ((TextView) convertView.findViewById(R.id.rowTextTitle)).setText(list.get(position).get(KiiBook.TITLE));
         ((TextView)convertView.findViewById(R.id.rowTextAuthor)).setText(list.get(position).get(KiiBook.AUTHOR));
+
         return convertView;
     }
 

@@ -106,10 +106,8 @@
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:id="@+id/book_condition"
-        android:src="@drawable/book_icon_excellent"
-        android:layout_marginLeft="32dp"
-        android:tint="#F26964" />
+        android:id="@+id/MainBookConditionIcon"
+        android:layout_marginLeft="32dp"/>
     </LinearLayout>
 
 </LinearLayout>

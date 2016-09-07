@@ -209,7 +209,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 				targetBook.set ("size_height",Height);
 
 				EditText WideField = (EditText) (findViewById (R.id.Wide));
-				assert HeightField != null;
+				assert WideField != null;
 				Wide = WideField.getText ().toString ();
 				// 入力された文字を取得して保存
 				targetBook.set ("size_height",Wide);

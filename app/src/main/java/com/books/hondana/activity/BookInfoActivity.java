@@ -2,7 +2,9 @@
 package com.books.hondana.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -71,6 +73,13 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
         TextView tv_bookCondition = (TextView) findViewById(R.id.bookInfoCondition);
         tv_bookCondition.setText(kiiBook.get(KiiBook.CONDITION));
+
+        ImageView iv_bookCondition = (ImageView) findViewById(R.id.bookInfoBookConditionIcon);
+        int resId = kiiBook.getConditionDrawableResId();
+        if (resId == 0) return;
+        Drawable conditionDrawable = ResourcesCompat.getDrawable(getResources(), resId, null);
+        iv_bookCondition.setImageDrawable(conditionDrawable);
+
         TextView tv_bookNotes = (TextView) findViewById(R.id.bookInfoNotes);
         tv_bookNotes.setText(kiiBook.get(KiiBook.NOTES));
 //        TextView tv_large_title = (TextView) findViewById(R.id.textViewBookInfoLargeTitle);
