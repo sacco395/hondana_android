@@ -166,14 +166,26 @@
 
             <!--ユーザーアイコン-->
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
                 android:id="@+id/bookInfoUserIcon"
                 android:src="@drawable/usericon"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp" />
 
+            <!--ユーザー名リード-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本を持っている人"
+                android:id="@+id/BookInfoUserNameLead"
+                android:textStyle="bold"
+                android:textColor="#2FCDB4"
+                android:layout_alignTop="@+id/bookInfoUserIcon"
+                android:layout_alignLeft="@+id/bookInfoConditionLead"
+                android:layout_alignStart="@+id/bookInfoConditionLead"/>
             <!--ユーザー名-->
             <TextView
                 android:layout_width="wrap_content"
@@ -181,8 +193,12 @@
                 android:text="ユーザー名"
                 android:id="@+id/textViewBookInfoUserName"
                 android:textSize="18sp"
-                android:layout_alignTop="@+id/bookInfoUserIcon"
-                android:layout_alignLeft="@+id/bookInfoConditionLead"/>
+                android:layout_alignBottom="@+id/BookInfoUserNameLead"
+                android:layout_toRightOf="@+id/bookInfoCondition"
+                android:layout_toEndOf="@id/BookInfoUserNameLead"
+                android:layout_alignParentEnd="false"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentRight="false"/>
 
             <!--本の状態リード-->
             <TextView
@@ -209,15 +225,14 @@
 
             <!--本の状態アイコン-->
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/bookInfoBookConditionIcon"
                 android:src="@drawable/book_icon_good"
-                android:layout_alignTop="@+id/bookInfoUserIcon"
+                android:layout_below="@+id/textViewBookInfoUserName"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="27dp"
-                android:layout_marginEnd="27dp"/>
+                android:layout_marginRight="10dp"/>
 
             <!--その他の状態リード-->
             <TextView
@@ -228,7 +243,7 @@
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
                 android:layout_gravity="center_horizontal"
-                android:layout_below="@+id/bookInfoConditionLead"
+                android:layout_alignBottom="@+id/bookInfoUserIcon"
                 android:layout_alignLeft="@+id/bookInfoConditionLead"
                 android:layout_alignStart="@+id/bookInfoConditionLead"/>
             <!--その他の状態-->
@@ -238,9 +253,9 @@
                 android:text="その他状態"
                 android:id="@+id/bookInfoEtc"
                 android:layout_gravity="center_horizontal"
-                android:layout_below="@+id/bookInfoCondition"
-                android:layout_toRightOf="@+id/bookInfoEtcLead"
-                android:layout_toEndOf="@+id/bookInfoEtcLead"
+                android:layout_alignTop="@+id/bookInfoEtcLead"
+                android:layout_toRightOf="@+id/bookInfoLine"
+                android:layout_toEndOf="@id/bookInfoEtcLead"
                 android:layout_marginLeft="10dp"/>
 
             <!--書き込み線リード-->
@@ -262,9 +277,9 @@
                 android:text="書き込み線"
                 android:id="@+id/bookInfoLine"
                 android:layout_gravity="center_horizontal"
-                android:layout_below="@+id/bookInfoWeight"
-                android:layout_alignRight="@+id/textViewBookInfoUserName"
-                android:layout_alignEnd="@+id/textViewBookInfoUserName"/>
+                android:layout_above="@+id/bookInfoBrokenLead"
+                android:layout_toRightOf="@+id/bookInfoBrokenLead"
+                android:layout_toEndOf="@+id/bookInfoBrokenLead"/>
 
 
             <!--ページの折れリード-->
@@ -287,6 +302,7 @@
                 android:id="@+id/bookInfoBroken"
                 android:layout_gravity="center_horizontal"
                 android:layout_below="@+id/bookInfoLine"
+                android:layout_marginLeft="10dp"
                 android:layout_alignLeft="@+id/bookInfoLine"
                 android:layout_alignStart="@+id/bookInfoLine"/>
 
@@ -325,7 +341,7 @@
                 android:layout_below="@+id/bookInfoSizeLead"
                 android:layout_alignLeft="@+id/bookInfoSizeLead"
                 android:layout_alignStart="@+id/bookInfoSizeLead"/>
-            <!--重さリード-->
+            <!--重さ-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -342,7 +358,7 @@
                 android:id="@+id/bookInfoNotesLead"
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
-                android:layout_alignBottom="@+id/bookInfoNotes"
+                android:layout_below="@+id/bookInfoBrokenLead"
                 android:layout_alignLeft="@+id/bookInfoBrokenLead"
                 android:layout_alignStart="@+id/bookInfoBrokenLead"/>
 
@@ -353,8 +369,8 @@
                 android:text="備考"
                 android:id="@+id/bookInfoNotes"
                 android:layout_below="@+id/bookInfoBrokenLead"
-                android:layout_alignLeft="@+id/bookInfoLine"
-                android:layout_alignStart="@+id/bookInfoLine"/>
+                android:layout_toRightOf="@+id/bookInfoLineLead"
+                android:layout_toEndOf="@+id/bookInfoLineLead"/>
 
 
         </RelativeLayout>

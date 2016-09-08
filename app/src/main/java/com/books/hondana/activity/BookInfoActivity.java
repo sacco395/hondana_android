@@ -1,21 +1,30 @@
 //本の詳細ページ
 package com.books.hondana.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.Connection.KiiCloudConnection;
 import com.books.hondana.Model.KiiBook;
+import com.books.hondana.Model.KiiCloudBucket;
+import com.books.hondana.Model.Member;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
+import com.kii.cloud.storage.query.KiiQueryResult;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.List;
 
 
 public class BookInfoActivity extends AppCompatActivity implements View.OnClickListener {
@@ -26,6 +35,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
     //private BaseAdapter adapter;
 
     private KiiBook kiiBook;
+
+    final ImageLoader imageLoader = ImageLoader.getInstance();
 
 
     /*private static final String[] username = {
@@ -43,6 +54,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
     };*/
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,13 +100,69 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
         TextView tv_bookNotes = (TextView) findViewById(R.id.bookInfoNotes);
         tv_bookNotes.setText(kiiBook.get(KiiBook.NOTES));
-//        TextView tv_large_title = (TextView) findViewById(R.id.textViewBookInfoLargeTitle);
-//        tv_large_title.setText(kiiBook.get(KiiBook.TITLE));
-//        TextView tv_large_author = (TextView) findViewById(R.id.textViewBookInfoLargeAuthor);
-//        tv_large_author.setText(kiiBook.get(KiiBook.AUTHOR));
 
+//本のその他の状態
+        TextView tv_bookEtc = (TextView) findViewById(R.id.bookInfoEtc);
+        tv_bookEtc.setText(kiiBook.get(KiiBook.BAND));
+
+        TextView tv_bookEtc2 = (TextView) findViewById(R.id.bookInfoEtc);
+        tv_bookEtc2.setText(kiiBook.get(KiiBook.SUNBURNED));
+
+        TextView tv_bookEtc3 = (TextView) findViewById(R.id.bookInfoEtc);
+        tv_bookEtc3.setText(kiiBook.get(KiiBook.SCRATCHED));
+
+        TextView tv_bookEtc4 = (TextView) findViewById(R.id.bookInfoEtc);
+        tv_bookEtc4.setText(kiiBook.get(KiiBook.CIGAR_SMELL));
+
+        TextView tv_bookEtc5 = (TextView) findViewById(R.id.bookInfoEtc);
+        tv_bookEtc5.setText(kiiBook.get(KiiBook.PET_SMELL));
+
+        TextView tv_bookEtc6 = (TextView) findViewById(R.id.bookInfoEtc);
+        tv_bookEtc6.setText(kiiBook.get(KiiBook.MOLD_SMELL));
+//本のその他の状態ここまで
+
+        //本のサイズここから
+        TextView tv_bookInfoSize = (TextView) findViewById(R.id.bookInfoSize);
+        tv_bookInfoSize.setText("縦"+kiiBook.get(KiiBook.HEIGHT)+"cm × 横"+kiiBook.get(KiiBook.WIDE)+"cm × 厚さ"+kiiBook.get(KiiBook.DEPTH) +"cm");
+
+
+        TextView tv_bookInfoWeight = (TextView) findViewById(R.id.bookInfoWeight);
+        tv_bookInfoWeight.setText(kiiBook.get(KiiBook.WEIGHT)+"g");
+
+        //本のサイズここまで
 
         findViewById(R.id.buttonPreRequest).setOnClickListener(this);
+
+        final TextView bookOwner = (TextView) findViewById(R.id.textViewBookInfoUserName);
+        final ImageView userIcon = (ImageView) findViewById(R.id.bookInfoUserIcon);
+
+        final String userId = kiiBook.get(KiiBook.USER_ID);
+        final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
+        membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
+            @Override
+            public void didFinish(int token, KiiQueryResult<KiiObject> result, Exception e) {
+                Log.d(TAG, "didFinish(result: " + result + ")");
+                if (result == null) {
+                    Log.w(TAG, e);
+                    return;
+                }
+
+                final List<KiiObject> kiiObjects = result.getResult();
+                Log.d(TAG, "members.size: " + kiiObjects.size());
+                if (kiiObjects != null && kiiObjects.size() > 0) {
+                    final KiiObject kiiObject = kiiObjects.get(0);// ひとつしか来ていないはずなので0番目だけ使う
+                    final Member member = new Member(kiiObject);
+
+                    final String name = member.get(Member.NAME);
+                    Log.d(TAG, "name: " + name);
+                    bookOwner.setText(name);
+
+                    final String imageUrl = member.get(Member.IMAGE_URL);
+                    Log.d(TAG, "imageUrl: " + imageUrl);
+                    imageLoader.displayImage(imageUrl, userIcon);
+                }
+            }
+        });
 
 //        getCurrentUser();
 

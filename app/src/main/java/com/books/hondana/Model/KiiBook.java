@@ -20,10 +20,10 @@ public class KiiBook extends KiiDataObj implements Parcelable {
     public static final String ISSUE_DATE = "issue_date";  // Date
     public static final String IMAGE = "image";  // Image
     public static final String IMAGE_URL = "image_url";
-    public static final String HEIGHT = "height"; // double
-    public static final String WIDTH = "width";   // double
-    public static final String DEPTH = "depth";   // double
-    public static final String WEIGHT = "weight"; // double
+    public static final String HEIGHT = "size_height"; // double
+    public static final String WIDE = "size_wide";   // double
+    public static final String DEPTH = "size_depth";   // double
+    public static final String WEIGHT = "size_weight"; // double
     public static final String GENRE_1 = "genre_1";
     public static final String GENRE_2 = "genre_2";
     public static final String GENRE_3 = "genre_3";
