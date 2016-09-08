@@ -1,23 +1,21 @@
 package com.books.hondana;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.books.hondana.Connection.KiiCloudConnection;
-import com.books.hondana.Connection.QueryParamSet;
+import com.books.hondana.Connection.KiiBookConnection;
+import com.books.hondana.Model.Genre;
 import com.books.hondana.Model.KiiBook;
-import com.books.hondana.Model.KiiCloudBucket;
 import com.books.hondana.activity.BookInfoActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
@@ -25,99 +23,50 @@ import com.kii.cloud.storage.query.KiiQueryResult;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HondanaBooksFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HondanaBooksFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HondanaBooksFragment extends Fragment {
 
     private static final String TAG = HondanaBooksFragment.class.getSimpleName();
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    public static final String ARG_PAGE = "ARG_PAGE";
-    public static final String ARG_QUERYPARAMS = "ARG_QUERYPARAMS";
-    public static final String DATA_LIST ="DATA_LIST";
+    private static final int LOAD_BOOKS_COUNT_LIMIT = 20;
 
-    private int tabPage;
-    private QueryParamSet queryParamSet;
-
-    // define the UI elements
-    private ProgressDialog mProgress;
-
-    // define the list
-    private ArrayList<KiiObject> dataLists = null;
     private GridView mGridView;
-    private HondanaBookAdapter mListAdapter;
+    private HondanaBookAdapter mGridAdapter;
 
-    private KiiCloudConnection kiiCloudConnection;
-    private OnFragmentInteractionListener mListener;
+    private KiiBookConnection mConnection;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    public HondanaBooksFragment() {
-        // Required empty public constructor
-    }
+    // ロード中を示すフラグ。無限ロードを防ぐため。
+    private boolean mIsLoading = false;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment KiiBooksFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HondanaBooksFragment newInstance( int tabPage, QueryParamSet queryParamSet) {
+    public HondanaBooksFragment() {}
+
+    public static HondanaBooksFragment newInstance(Genre genre) {
         HondanaBooksFragment fragment = new HondanaBooksFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_QUERYPARAMS, queryParamSet);
-        args.putInt(ARG_PAGE, tabPage);
+        args.putSerializable(Genre.class.getSimpleName(), genre);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if ( getArguments() != null) {
-            queryParamSet = (QueryParamSet)getArguments().get(ARG_QUERYPARAMS);
-            tabPage = getArguments().getInt(ARG_PAGE);
+        if (getArguments() != null) {
+            Genre genre = (Genre) getArguments().getSerializable(Genre.class.getSimpleName());
+            mConnection = new KiiBookConnection(genre);
         }
 
-        // create an empty object adapter
-        mListAdapter = new HondanaBookAdapter(getActivity(), new ArrayList<KiiBook>(), new HondanaBookAdapter.BookItemClickListener() {
+        mGridAdapter = new HondanaBookAdapter(new ArrayList<KiiBook>(), new HondanaBookAdapter.BookItemClickListener() {
             @Override
             public void onClick(KiiBook book) {
                 Intent intent = new Intent(getContext(), BookInfoActivity.class);
-                // キーに Object#class.getSimpleName() を使うと、別に定数を作らなくていいのでいいです
                 intent.putExtra(KiiBook.class.getSimpleName(), book);
 
                 LogUtil.d(TAG, "onItemClick: " + book);
-                // Activity をスイッチする
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putParcelableArrayList(DATA_LIST,dataLists);
     }
 
     @Override
@@ -125,22 +74,41 @@ public class HondanaBooksFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_kii_books, container, false);
 
-        if (savedInstanceState != null) {
-            dataLists = savedInstanceState.getParcelableArrayList(DATA_LIST);
-        }
-
         // Inflate the layout for this fragment
         mGridView = (GridView) view.findViewById(R.id.gridView);
-        mGridView.setAdapter(mListAdapter);
+        mGridView.setAdapter(mGridAdapter);
 
         // SwipeRefreshLayoutの設定
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
         mSwipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
 
-        // GridViewにデータをセットする
-        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(self, R.array.color, android.R.layout.simple_list_item_1);
-        //GridView gridView = (GridView) view.findViewById(R.id.gridView);
-        //gridView.setAdapter(adapter);
+        mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (mIsLoading) {
+                    Log.d(TAG, "onScroll: isLoading");
+                    return;
+                }
+
+                if ((firstVisibleItem + visibleItemCount) == totalItemCount) {
+                    KiiBook last = mGridAdapter.getLastItem();
+                    if (last == null) {
+                        kickLoadHondanaBooks(0);
+                        return;
+                    }
+                    // FIXME: 9/9/16 Kii これかなりイケてないのでなんかいい感じにしたい。
+                    if (last.createdAt <= 1470909532550L) {
+                        // サーバにこれ以上本がない
+                        return;
+                    }
+                    kickLoadHondanaBooks(last.createdAt);
+                }
+            }
+        });
 
         return view;
     }
@@ -148,66 +116,59 @@ public class HondanaBooksFragment extends Fragment {
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            // 1秒待機
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            }, 1000);
+            refresh();
         }
     };
 
     @Override
     public void onResume() {
         super.onResume();
-        kickLoadHondanaBooks();
+        refresh();
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    private void refresh() {
+        kickLoadHondanaBooks(0);
+        mGridAdapter.clear();
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+    /**
+     * ホンダナへの問い合わせ
+     * @param from ページネーションのための、作成日時の UNIX 時間 (ミリ秒)
+     *             この時間以前に作成された KiiBook を取ってくる
+     *             0 を指定したら、リフレッシュ
+     */
+    private void kickLoadHondanaBooks(long from) {
+        mIsLoading = true;
 
-    // ホンダナへの問い合わせ
-    private void kickLoadHondanaBooks() {
-
-        // default to an empty adapter
-        mListAdapter.clear();
-
-        kiiCloudConnection = new KiiCloudConnection( getActivity(), queryParamSet, KiiCloudBucket.BOOKS);
-
-        // show a progress dialog to the user
-        mProgress = ProgressDialog.show( getActivity(), "", "Loading...",  true);
-
-        this.kiiCloudConnection.loadHondanaBooksByGenres(1, searchFinishListener );
-    }
-
-    // ホンダナへの問い合わせ完了時の処理
-    KiiCloudConnection.SearchFinishListener searchFinishListener = new KiiCloudConnection.SearchFinishListener(){
-
-        @Override
-        public void didFinish(int token, KiiQueryResult<KiiObject> result, Exception e) {
-            mProgress.dismiss();
-            // check for an exception (successful request if e==null)
-            if (e == null) {
-                // add the objects to the adapter (adding to the listview)
-               dataLists = (ArrayList)result.getResult();
-                for (KiiObject kObj : dataLists) {
-                    mListAdapter.add( new KiiBook(kObj) );
-                }
-                mListAdapter.notifyDataSetChanged();
-            }
-            else {
-                Toast.makeText( getActivity(), "エラーが発生しました",Toast.LENGTH_LONG).show();
-                LogUtil.w("HondanaBooksFragment", e);
-            }
+        if (mConnection == null) {
+            mConnection = new KiiBookConnection(Genre.ALL);
         }
-    };
+
+        mConnection.fetch(from, LOAD_BOOKS_COUNT_LIMIT, new KiiBookConnection.Callback() {
+            @Override
+            public void success(int token, KiiQueryResult<KiiObject> result) {
+                finishLoadingView();
+                if (result.getResult() == null) {
+                    Log.e(TAG, "The result is null!");
+                    return;
+                }
+                for (KiiObject kiiObject : result.getResult()) {
+                    mGridAdapter.add(new KiiBook(kiiObject));
+                }
+                mGridAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void failure(@Nullable Exception e) {
+                finishLoadingView();
+                Toast.makeText(getActivity(), "エラーが発生しました", Toast.LENGTH_LONG).show();
+                LogUtil.w(TAG, e);
+            }
+        });
+    }
+
+    private void finishLoadingView() {
+        mSwipeRefreshLayout.setRefreshing(false);
+        mIsLoading = false;
+    }
 }

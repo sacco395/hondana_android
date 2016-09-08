@@ -42,6 +42,8 @@ public class KiiBook extends KiiDataObj implements Parcelable {
     public static final String MOLD_SMELL = "mold_smell";
     public static final String DESCRIPTION = "description";
 
+    public long createdAt = -1L;
+
     // Constructor
     public KiiBook() {
         super();
@@ -51,6 +53,7 @@ public class KiiBook extends KiiDataObj implements Parcelable {
 
     public KiiBook( KiiObject kiiObject){
         super(kiiObject);
+        createdAt = kiiObject.getCreatedTime();
     }
 
     protected KiiBook(Parcel in) {
