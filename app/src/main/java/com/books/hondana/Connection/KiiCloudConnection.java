@@ -86,6 +86,6 @@ public class KiiCloudConnection {
                 super.onQueryCompleted(token, result, exception);
                 searchFinishListener.didFinish(token, result, exception);
             }
-        }, new KiiQuery(KiiClause.equals("_id", userId)));
+        }, new KiiQuery(KiiClause.equals("_owner", userId)));
     }
 }
