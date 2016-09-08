@@ -1,6 +1,8 @@
 package com.books.hondana.Connection;
 
 import android.app.Activity;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.Model.KiiCloudBucket;
@@ -49,7 +51,7 @@ public class KiiCloudConnection {
             defaultIsbn = "###";  // ジャンル指定ありなら、DefaultはNothing
         }
         // Dummy
-       KiiClause kiiClause=KiiClause.startsWith(KiiBook.ISBN, defaultIsbn);
+        KiiClause kiiClause=KiiClause.startsWith(KiiBook.ISBN, defaultIsbn);
         for ( int i=0; i<gCount; i++ ) {
             KiiClause kc1 = KiiClause.startsWith(KiiBook.GENRE_1, queryParamSet.genreTbl[i]);
             KiiClause kc2 = KiiClause.startsWith(KiiBook.GENRE_2, queryParamSet.genreTbl[i]);
@@ -65,13 +67,25 @@ public class KiiCloudConnection {
 
         KiiBucket kiiBucket = Kii.bucket(this.kiiCloudBucket.getName());
         kiiBucket.query(
-            new KiiQueryCallBack<KiiObject>() {
+                new KiiQueryCallBack<KiiObject>() {
 
-                // catch the callback's "done" request
-                public void onQueryCompleted(int token, KiiQueryResult<KiiObject> result, Exception e) {
-                     searchFinishListener.didFinish(token, result, e);
-                }
-            },
-         query);
+                    // catch the callback's "done" request
+                    public void onQueryCompleted(int token, KiiQueryResult<KiiObject> result, Exception e) {
+                        searchFinishListener.didFinish(token, result, e);
+                    }
+                },
+                query);
+    }
+
+    public void loadMember(String userId, final SearchFinishListener searchFinishListener) {
+        Log.d("KiiCloudConnection", "loadMember(userId: " + userId + ")");
+        final KiiBucket kiiBucket = Kii.bucket(kiiCloudBucket.getName());
+        kiiBucket.query(new KiiQueryCallBack<KiiObject>() {
+            @Override
+            public void onQueryCompleted(int token, @Nullable KiiQueryResult<KiiObject> result, @Nullable Exception exception) {
+                super.onQueryCompleted(token, result, exception);
+                searchFinishListener.didFinish(token, result, exception);
+            }
+        }, new KiiQuery(KiiClause.equals("_owner", userId)));
     }
 }

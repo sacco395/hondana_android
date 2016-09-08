@@ -79,10 +79,11 @@
     </LinearLayout>
 
     <LinearLayout
-                  android:orientation="horizontal"
-                  android:gravity="center_vertical"
-                  android:layout_width="wrap_content"
-                  android:layout_height="match_parent">
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        >
 
         <ImageView
             android:id="@+id/user_icon"
@@ -92,7 +93,8 @@
             android:layout_marginBottom="5dp"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/usericon" />
+            android:src="@drawable/usericon"
+            android:layout_marginRight="0dp"/>
 
             <!--ユーザーアイコン-->
             <TextView
@@ -106,10 +108,10 @@
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:id="@+id/book_condition"
-        android:src="@drawable/book_icon_excellent"
-        android:layout_marginLeft="32dp"
-        android:tint="#F26964" />
+        android:id="@+id/MainBookConditionIcon"
+        android:src="@drawable/book_icon_good"
+        android:gravity="right"
+        android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
 </LinearLayout>

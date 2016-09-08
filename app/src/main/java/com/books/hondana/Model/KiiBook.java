@@ -3,6 +3,7 @@ package com.books.hondana.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.books.hondana.R;
 import com.kii.cloud.storage.KiiObject;
 
 /**
@@ -19,10 +20,10 @@ public class KiiBook extends KiiDataObj implements Parcelable {
     public static final String ISSUE_DATE = "issue_date";  // Date
     public static final String IMAGE = "image";  // Image
     public static final String IMAGE_URL = "image_url";
-    public static final String HEIGHT = "height"; // double
-    public static final String WIDTH = "width";   // double
-    public static final String DEPTH = "depth";   // double
-    public static final String WEIGHT = "weight"; // double
+    public static final String HEIGHT = "size_height"; // double
+    public static final String WIDE = "size_wide";   // double
+    public static final String DEPTH = "size_depth";   // double
+    public static final String WEIGHT = "size_weight"; // double
     public static final String GENRE_1 = "genre_1";
     public static final String GENRE_2 = "genre_2";
     public static final String GENRE_3 = "genre_3";
@@ -30,6 +31,8 @@ public class KiiBook extends KiiDataObj implements Parcelable {
     public static final String GENRE_5 = "genre_5";
     public static final String USER_ID = "user_id";
     public static final String CONDITION = "condition";
+    public static final String LINE = "line";
+    public static final String BROKEN = "broken";
     public static final String NOTES = "notes";
     public static final String BAND = "band";
     public static final String SUNBURNED = "sunburned";
@@ -37,7 +40,6 @@ public class KiiBook extends KiiDataObj implements Parcelable {
     public static final String CIGAR_SMELL = "cigar_smell";
     public static final String PET_SMELL = "pet_smell";
     public static final String MOLD_SMELL = "mold_smell";
-
     public static final String DESCRIPTION = "description";
 
     public long createdAt = -1L;
@@ -79,6 +81,90 @@ public class KiiBook extends KiiDataObj implements Parcelable {
             return new KiiBook[size];
         }
     };
+
+    public int getConditionDrawableResId() {
+        String condition = get (CONDITION);
+        if (condition == null) {
+            return 0;
+        }
+        switch (condition) {
+            case "良い":
+                return R.drawable.book_icon_excellent;
+            case "普通":
+                return R.drawable.book_icon_good;
+            case "汚れあり":
+                return R.drawable.book_icon_bad;
+            default:
+                return 0;
+        }
+    }
+    public String getBandText() {
+        String band = get(BAND);
+        if (band == null) {
+            return "";
+        }
+        switch (band) {
+            case "帯あり": return "帯あり";
+            default: return "";
+        }
+    }
+
+    public String getSunburnedText() {
+        String sunburned = get(SUNBURNED);
+        if (sunburned == null) {
+            return "";
+        }
+        switch (sunburned) {
+            case "日焼け・変色": return "日焼け・変色";
+            default: return "";
+        }
+    }
+
+    public String getScratchedText() {
+        String scratched = get(SCRATCHED);
+        if (scratched == null) {
+            return "";
+        }
+        switch (scratched) {
+            case "スレ・傷など": return "スレ・傷など";
+            default: return "";
+        }
+    }
+
+    public String getCigarSmellText() {
+        String cigar_smell = get(CIGAR_SMELL);
+        if (cigar_smell == null) {
+            return "";
+        }
+        switch (cigar_smell) {
+            case "ペットを飼っている": return "ペットを飼っている";
+            default: return "";
+        }
+    }
+
+    public String getPetSmellText() {
+        String pet_smell = get(PET_SMELL);
+        if (pet_smell == null) {
+            return "";
+        }
+        switch (pet_smell) {
+            case "ペットを飼っている": return "ペットを飼っている";
+            default: return "";
+        }
+    }
+
+    public String getMoldSmellText() {
+        String mold_smell = get(MOLD_SMELL);
+        if (mold_smell == null) {
+            return "";
+        }
+        switch (mold_smell) {
+            case "カビ臭": return "カビ臭";
+            default: return "";
+        }
+    }
+
+
 }
 
 
