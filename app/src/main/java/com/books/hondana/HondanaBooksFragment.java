@@ -1,11 +1,7 @@
 package com.books.hondana;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,27 +14,20 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.books.hondana.Connection.KiiBookConnection;
-import com.books.hondana.Connection.KiiCloudConnection;
-import com.books.hondana.Connection.QueryParamSet;
 import com.books.hondana.Model.Genre;
 import com.books.hondana.Model.KiiBook;
-import com.books.hondana.Model.KiiCloudBucket;
 import com.books.hondana.activity.BookInfoActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.query.KiiQueryResult;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HondanaBooksFragment extends Fragment {
 
     private static final String TAG = HondanaBooksFragment.class.getSimpleName();
 
     private static final int LOAD_BOOKS_COUNT_LIMIT = 20;
-
-    // define the UI elements
-    private ProgressDialog mProgress;
 
     private GridView mGridView;
     private HondanaBookAdapter mGridAdapter;
@@ -135,7 +124,6 @@ public class HondanaBooksFragment extends Fragment {
     public void onResume() {
         super.onResume();
         refresh();
-        mProgress = ProgressDialog.show(getContext(), "", "Loading...",  true);
     }
 
     private void refresh() {
@@ -182,8 +170,5 @@ public class HondanaBooksFragment extends Fragment {
     private void finishLoadingView() {
         mSwipeRefreshLayout.setRefreshing(false);
         mIsLoading = false;
-        if (mProgress != null) {
-            mProgress.dismiss();
-        }
     }
 }
