@@ -95,6 +95,73 @@ public class KiiBook extends KiiDataObj implements Parcelable {
                 return 0;
         }
     }
+    public String getBandText() {
+        String band = get(BAND);
+        if (band == null) {
+            return "";
+        }
+        switch (band) {
+            case "帯あり": return "帯あり";
+            default: return "";
+        }
+    }
+
+    public String getSunburnedText() {
+        String sunburned = get(SUNBURNED);
+        if (sunburned == null) {
+            return "";
+        }
+        switch (sunburned) {
+            case "日焼け・変色": return "日焼け・変色";
+            default: return "";
+        }
+    }
+
+    public String getScratchedText() {
+        String scratched = get(SCRATCHED);
+        if (scratched == null) {
+            return "";
+        }
+        switch (scratched) {
+            case "スレ・傷など": return "スレ・傷など";
+            default: return "";
+        }
+    }
+
+    public String getCigarSmellText() {
+        String cigar_smell = get(CIGAR_SMELL);
+        if (cigar_smell == null) {
+            return "";
+        }
+        switch (cigar_smell) {
+            case "ペットを飼っている": return "ペットを飼っている";
+            default: return "";
+        }
+    }
+
+    public String getPetSmellText() {
+        String pet_smell = get(PET_SMELL);
+        if (pet_smell == null) {
+            return "";
+        }
+        switch (pet_smell) {
+            case "ペットを飼っている": return "ペットを飼っている";
+            default: return "";
+        }
+    }
+
+    public String getMoldSmellText() {
+        String mold_smell = get(MOLD_SMELL);
+        if (mold_smell == null) {
+            return "";
+        }
+        switch (mold_smell) {
+            case "カビ臭": return "カビ臭";
+            default: return "";
+        }
+    }
+
+
 }
 
 

@@ -229,9 +229,9 @@
                 android:layout_height="40dp"
                 android:id="@+id/bookInfoBookConditionIcon"
                 android:src="@drawable/book_icon_good"
-                android:layout_below="@+id/textViewBookInfoUserName"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/BookInfoUserNameLead"
+                android:layout_alignRight="@+id/bookInfoEtc"
+                android:layout_alignEnd="@+id/bookInfoEtc"
                 android:layout_marginRight="10dp"/>
 
             <!--その他の状態リード-->
@@ -248,7 +248,7 @@
                 android:layout_alignStart="@+id/bookInfoConditionLead"/>
             <!--その他の状態-->
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="その他状態"
                 android:id="@+id/bookInfoEtc"
@@ -256,7 +256,8 @@
                 android:layout_alignTop="@+id/bookInfoEtcLead"
                 android:layout_toRightOf="@+id/bookInfoLine"
                 android:layout_toEndOf="@id/bookInfoEtcLead"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_alignBottom="@+id/bookInfoSize"/>
 
             <!--書き込み線リード-->
             <TextView

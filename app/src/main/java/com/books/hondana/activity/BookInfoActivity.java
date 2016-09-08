@@ -24,6 +24,7 @@ import com.kii.cloud.storage.KiiUser;
 import com.kii.cloud.storage.query.KiiQueryResult;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 
@@ -102,28 +103,55 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         tv_bookNotes.setText(kiiBook.get(KiiBook.NOTES));
 
 //本のその他の状態
+        // 空の文字列を作成
+        String etcText = "";
+        // 日焼け情報を追加
+        String band = kiiBook.getBandText();
+        // sunburned が空の文字列でなければ、読点を挿入（ここは趣味で）
+        if (!band.equals("")) {
+            band += "／";
+        }
+        etcText += band;
+
+        String sunburned = kiiBook.getSunburnedText();
+        // sunburned が空の文字列でなければ、読点を挿入（ここは趣味で）
+        if (!sunburned.equals("")) {
+            sunburned += "／";
+        }
+        etcText += sunburned;
+
+        String scratched = kiiBook.getScratchedText();
+        if (!scratched.equals("")) {
+            scratched += "／";
+        }
+        etcText += scratched;
+
+        String cigar_smell = kiiBook.getCigarSmellText();
+        if (!cigar_smell.equals("")) {
+            cigar_smell += "／";
+        }
+        etcText += cigar_smell;
+
+        String petSmell = kiiBook.getPetSmellText();
+        if (!petSmell.equals("")) {
+            petSmell += "／";
+        }
+        etcText += petSmell;
+
+        String mold_smell = kiiBook.getMoldSmellText();
+        if (!mold_smell.equals("")) {
+            mold_smell += "／";
+        }
+        etcText += mold_smell;
+
+
         TextView tv_bookEtc = (TextView) findViewById(R.id.bookInfoEtc);
-        tv_bookEtc.setText(kiiBook.get(KiiBook.BAND));
-
-        TextView tv_bookEtc2 = (TextView) findViewById(R.id.bookInfoEtc);
-        tv_bookEtc2.setText(kiiBook.get(KiiBook.SUNBURNED));
-
-        TextView tv_bookEtc3 = (TextView) findViewById(R.id.bookInfoEtc);
-        tv_bookEtc3.setText(kiiBook.get(KiiBook.SCRATCHED));
-
-        TextView tv_bookEtc4 = (TextView) findViewById(R.id.bookInfoEtc);
-        tv_bookEtc4.setText(kiiBook.get(KiiBook.CIGAR_SMELL));
-
-        TextView tv_bookEtc5 = (TextView) findViewById(R.id.bookInfoEtc);
-        tv_bookEtc5.setText(kiiBook.get(KiiBook.PET_SMELL));
-
-        TextView tv_bookEtc6 = (TextView) findViewById(R.id.bookInfoEtc);
-        tv_bookEtc6.setText(kiiBook.get(KiiBook.MOLD_SMELL));
+        tv_bookEtc.setText(etcText);
 //本のその他の状態ここまで
 
         //本のサイズここから
         TextView tv_bookInfoSize = (TextView) findViewById(R.id.bookInfoSize);
-        tv_bookInfoSize.setText("縦"+kiiBook.get(KiiBook.HEIGHT)+"cm × 横"+kiiBook.get(KiiBook.WIDE)+"cm × 厚さ"+kiiBook.get(KiiBook.DEPTH) +"cm");
+        tv_bookInfoSize.setText(MessageFormat.format ("縦{0}cm × 横{1}cm × 厚さ{2}cm", kiiBook.get (KiiBook.HEIGHT), kiiBook.get (KiiBook.WIDE), kiiBook.get (KiiBook.DEPTH)));
 
 
         TextView tv_bookInfoWeight = (TextView) findViewById(R.id.bookInfoWeight);
