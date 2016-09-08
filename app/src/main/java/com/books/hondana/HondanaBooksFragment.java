@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -16,8 +17,10 @@ import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.books.hondana.Connection.KiiBookConnection;
 import com.books.hondana.Connection.KiiCloudConnection;
 import com.books.hondana.Connection.QueryParamSet;
+import com.books.hondana.Model.Genre;
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.Model.KiiCloudBucket;
 import com.books.hondana.activity.BookInfoActivity;
@@ -26,27 +29,15 @@ import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.query.KiiQueryResult;
 
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HondanaBooksFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HondanaBooksFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HondanaBooksFragment extends Fragment {
 
     private static final String TAG = HondanaBooksFragment.class.getSimpleName();
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    public static final String ARG_PAGE = "ARG_PAGE";
-    public static final String ARG_QUERYPARAMS = "ARG_QUERYPARAMS";
     public static final String DATA_LIST ="DATA_LIST";
 
-    private int tabPage;
-    private QueryParamSet queryParamSet;
+    private Genre mGenre;
 
     // define the UI elements
     private ProgressDialog mProgress;
@@ -54,68 +45,37 @@ public class HondanaBooksFragment extends Fragment {
     // define the list
     private ArrayList<KiiObject> dataLists = null;
     private GridView mGridView;
-    private HondanaBookAdapter mListAdapter;
+    private HondanaBookAdapter mGridAdapter;
 
-    private KiiCloudConnection kiiCloudConnection;
-    private OnFragmentInteractionListener mListener;
+    private KiiBookConnection mConnection;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    public HondanaBooksFragment() {
-        // Required empty public constructor
-    }
+    public HondanaBooksFragment() {}
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment KiiBooksFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HondanaBooksFragment newInstance( int tabPage, QueryParamSet queryParamSet) {
+    public static HondanaBooksFragment newInstance(Genre genre) {
         HondanaBooksFragment fragment = new HondanaBooksFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_QUERYPARAMS, queryParamSet);
-        args.putInt(ARG_PAGE, tabPage);
+        args.putSerializable(Genre.class.getSimpleName(), genre);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if ( getArguments() != null) {
-            queryParamSet = (QueryParamSet)getArguments().get(ARG_QUERYPARAMS);
-            tabPage = getArguments().getInt(ARG_PAGE);
-            Log.d(TAG, "onCreate: query=" + queryParamSet);
+        if (getArguments() != null) {
+            mGenre = (Genre) getArguments().getSerializable(Genre.class.getSimpleName());
+            mConnection = new KiiBookConnection(mGenre);
         }
 
-        if (queryParamSet == null) {
-            queryParamSet = new QueryParamSet();
-
-        }
-
-        // create an empty object adapter
-        mListAdapter = new HondanaBookAdapter(getActivity(), new ArrayList<KiiBook>(), new HondanaBookAdapter.BookItemClickListener() {
+        mGridAdapter = new HondanaBookAdapter(new ArrayList<KiiBook>(), new HondanaBookAdapter.BookItemClickListener() {
             @Override
             public void onClick(KiiBook book) {
                 Intent intent = new Intent(getContext(), BookInfoActivity.class);
-                // キーに Object#class.getSimpleName() を使うと、別に定数を作らなくていいのでいいです
                 intent.putExtra(KiiBook.class.getSimpleName(), book);
 
                 LogUtil.d(TAG, "onItemClick: " + book);
-                // Activity をスイッチする
                 startActivity(intent);
             }
         });
@@ -139,7 +99,7 @@ public class HondanaBooksFragment extends Fragment {
 
         // Inflate the layout for this fragment
         mGridView = (GridView) view.findViewById(R.id.gridView);
-        mGridView.setAdapter(mListAdapter);
+        mGridView.setAdapter(mGridAdapter);
 
         // SwipeRefreshLayoutの設定
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
@@ -166,11 +126,6 @@ public class HondanaBooksFragment extends Fragment {
             }
         });
 
-        // GridViewにデータをセットする
-        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(self, R.array.color, android.R.layout.simple_list_item_1);
-        //GridView gridView = (GridView) view.findViewById(R.id.gridView);
-        //gridView.setAdapter(adapter);
-
         return view;
     }
 
@@ -193,12 +148,6 @@ public class HondanaBooksFragment extends Fragment {
         kickLoadHondanaBooks();
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
@@ -208,35 +157,32 @@ public class HondanaBooksFragment extends Fragment {
     private void kickLoadHondanaBooks() {
 
         // default to an empty adapter
-        mListAdapter.clear();
-
-        kiiCloudConnection = new KiiCloudConnection( getActivity(), queryParamSet, KiiCloudBucket.BOOKS);
+        mGridAdapter.clear();
 
         // show a progress dialog to the user
         mProgress = ProgressDialog.show( getActivity(), "", "Loading...",  true);
 
-        this.kiiCloudConnection.loadHondanaBooksByGenres(1, searchFinishListener );
-    }
+        mConnection.fetch(0, 0, new KiiBookConnection.Callback() {
 
-    // ホンダナへの問い合わせ完了時の処理
-    KiiCloudConnection.SearchFinishListener searchFinishListener = new KiiCloudConnection.SearchFinishListener(){
-
-        @Override
-        public void didFinish(int token, KiiQueryResult<KiiObject> result, Exception e) {
-            mProgress.dismiss();
-            // check for an exception (successful request if e==null)
-            if (e == null) {
-                // add the objects to the adapter (adding to the listview)
-               dataLists = (ArrayList)result.getResult();
-                for (KiiObject kObj : dataLists) {
-                    mListAdapter.add( new KiiBook(kObj) );
+            @Override
+            public void success(int token, KiiQueryResult<KiiObject> result) {
+                mProgress.dismiss();
+                if (result.getResult() == null) {
+                    Log.e(TAG, "The result is null!");
+                    return;
                 }
-                mListAdapter.notifyDataSetChanged();
+                for (KiiObject kiiObject : result.getResult()) {
+                    mGridAdapter.add(new KiiBook(kiiObject));
+                }
+                mGridAdapter.notifyDataSetChanged();
             }
-            else {
-                Toast.makeText( getActivity(), "エラーが発生しました",Toast.LENGTH_LONG).show();
-                LogUtil.w("HondanaBooksFragment", e);
+
+            @Override
+            public void failure(@Nullable Exception e) {
+                mProgress.dismiss();
+                Toast.makeText(getActivity(), "エラーが発生しました", Toast.LENGTH_LONG).show();
+                LogUtil.w(TAG, e);
             }
-        }
-    };
+        });
+    }
 }
