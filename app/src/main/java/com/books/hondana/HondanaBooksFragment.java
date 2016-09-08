@@ -35,15 +35,11 @@ public class HondanaBooksFragment extends Fragment {
 
     private static final String TAG = HondanaBooksFragment.class.getSimpleName();
 
-    public static final String DATA_LIST ="DATA_LIST";
-
-    private Genre mGenre;
+    private static final int LOAD_BOOKS_COUNT_LIMIT = 20;
 
     // define the UI elements
     private ProgressDialog mProgress;
 
-    // define the list
-    private ArrayList<KiiObject> dataLists = null;
     private GridView mGridView;
     private HondanaBookAdapter mGridAdapter;
 
@@ -65,8 +61,8 @@ public class HondanaBooksFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mGenre = (Genre) getArguments().getSerializable(Genre.class.getSimpleName());
-            mConnection = new KiiBookConnection(mGenre);
+            Genre genre = (Genre) getArguments().getSerializable(Genre.class.getSimpleName());
+            mConnection = new KiiBookConnection(genre);
         }
 
         mGridAdapter = new HondanaBookAdapter(new ArrayList<KiiBook>(), new HondanaBookAdapter.BookItemClickListener() {
@@ -82,20 +78,9 @@ public class HondanaBooksFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putParcelableArrayList(DATA_LIST,dataLists);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_kii_books, container, false);
-
-        if (savedInstanceState != null) {
-            dataLists = savedInstanceState.getParcelableArrayList(DATA_LIST);
-        }
 
         // Inflate the layout for this fragment
         mGridView = (GridView) view.findViewById(R.id.gridView);
@@ -104,7 +89,7 @@ public class HondanaBooksFragment extends Fragment {
         // SwipeRefreshLayoutの設定
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
         mSwipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
-
+        
         // Footer を追加
         mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -145,25 +130,25 @@ public class HondanaBooksFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        kickLoadHondanaBooks();
+        kickLoadHondanaBooks(0);
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+    /**
+     * ホンダナへの問い合わせ
+     * @param from ページネーションのための、作成日時の UNIX 時間 (ミリ秒)
+     *             この時間以前に作成された KiiBook を取ってくる
+     *             0 を指定したら、最新のものから
+     */
+    private void kickLoadHondanaBooks(long from) {
 
-    // ホンダナへの問い合わせ
-    private void kickLoadHondanaBooks() {
-
-        // default to an empty adapter
-        mGridAdapter.clear();
+        if (mConnection == null) {
+            mConnection = new KiiBookConnection(Genre.ALL);
+        }
 
         // show a progress dialog to the user
-        mProgress = ProgressDialog.show( getActivity(), "", "Loading...",  true);
+        mProgress = ProgressDialog.show(getContext(), "", "Loading...",  true);
 
-        mConnection.fetch(0, 0, new KiiBookConnection.Callback() {
-
+        mConnection.fetch(from, LOAD_BOOKS_COUNT_LIMIT, new KiiBookConnection.Callback() {
             @Override
             public void success(int token, KiiQueryResult<KiiObject> result) {
                 mProgress.dismiss();
