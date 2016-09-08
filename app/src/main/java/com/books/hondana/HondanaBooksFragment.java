@@ -95,14 +95,14 @@ public class HondanaBooksFragment extends Fragment {
                 }
 
                 if ((firstVisibleItem + visibleItemCount) == totalItemCount) {
-                    Log.d(TAG, "onScroll: loadmore");
                     KiiBook last = mGridAdapter.getLastItem();
                     if (last == null) {
                         kickLoadHondanaBooks(0);
                         return;
                     }
-                    Log.d(TAG, "onScroll: " + last.createdAt);
+                    // FIXME: 9/9/16 Kii これかなりイケてないのでなんかいい感じにしたい。
                     if (last.createdAt <= 1470909532550L) {
+                        // サーバにこれ以上本がない
                         return;
                     }
                     kickLoadHondanaBooks(last.createdAt);
