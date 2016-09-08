@@ -107,6 +107,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/MainBookConditionIcon"
+        android:src="@drawable/book_icon_good"
         android:layout_marginLeft="32dp"/>
     </LinearLayout>
 
