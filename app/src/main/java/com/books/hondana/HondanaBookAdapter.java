@@ -2,6 +2,7 @@ package com.books.hondana;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import java.util.List;
  */
 public class HondanaBookAdapter extends BaseAdapter {
 
+    private static final String TAG = HondanaBookAdapter.class.getSimpleName();
+
     private ArrayList<KiiBook> mBooks;
     private BookItemClickListener mListener;
 
@@ -34,6 +37,7 @@ public class HondanaBookAdapter extends BaseAdapter {
 
     public void add(KiiBook book) {
         mBooks.add(book);
+        Log.d(TAG, "add: " + mBooks.size());
     }
 
     @Nullable

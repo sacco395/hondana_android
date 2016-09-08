@@ -93,16 +93,13 @@ public class HondanaBooksFragment extends Fragment {
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
         mSwipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
 
-        // Footer を追加
         mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                // 本当はいらないけど、オーバライドしないと怒られるから空メソッドを作る
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                Log.d(TAG, "onScroll: ");
                 if (mIsLoading) {
                     Log.d(TAG, "onScroll: isLoading");
                     return;
@@ -113,6 +110,10 @@ public class HondanaBooksFragment extends Fragment {
                     KiiBook last = mGridAdapter.getLastItem();
                     if (last == null) {
                         kickLoadHondanaBooks(0);
+                        return;
+                    }
+                    Log.d(TAG, "onScroll: " + last.createdAt);
+                    if (last.createdAt <= 1470909532550L) {
                         return;
                     }
                     kickLoadHondanaBooks(last.createdAt);
@@ -126,27 +127,27 @@ public class HondanaBooksFragment extends Fragment {
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            // 1秒待機
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            }, 1000);
+            refresh();
         }
     };
 
     @Override
     public void onResume() {
         super.onResume();
+        refresh();
+        mProgress = ProgressDialog.show(getContext(), "", "Loading...",  true);
+    }
+
+    private void refresh() {
         kickLoadHondanaBooks(0);
+        mGridAdapter.clear();
     }
 
     /**
      * ホンダナへの問い合わせ
      * @param from ページネーションのための、作成日時の UNIX 時間 (ミリ秒)
      *             この時間以前に作成された KiiBook を取ってくる
-     *             0 を指定したら、最新のものから
+     *             0 を指定したら、リフレッシュ
      */
     private void kickLoadHondanaBooks(long from) {
         mIsLoading = true;
@@ -155,14 +156,10 @@ public class HondanaBooksFragment extends Fragment {
             mConnection = new KiiBookConnection(Genre.ALL);
         }
 
-        // show a progress dialog to the user
-        mProgress = ProgressDialog.show(getContext(), "", "Loading...",  true);
-
         mConnection.fetch(from, LOAD_BOOKS_COUNT_LIMIT, new KiiBookConnection.Callback() {
             @Override
             public void success(int token, KiiQueryResult<KiiObject> result) {
-                mIsLoading = false;
-                mProgress.dismiss();
+                finishLoadingView();
                 if (result.getResult() == null) {
                     Log.e(TAG, "The result is null!");
                     return;
@@ -175,11 +172,18 @@ public class HondanaBooksFragment extends Fragment {
 
             @Override
             public void failure(@Nullable Exception e) {
-                mIsLoading = false;
-                mProgress.dismiss();
+                finishLoadingView();
                 Toast.makeText(getActivity(), "エラーが発生しました", Toast.LENGTH_LONG).show();
                 LogUtil.w(TAG, e);
             }
         });
+    }
+
+    private void finishLoadingView() {
+        mSwipeRefreshLayout.setRefreshing(false);
+        mIsLoading = false;
+        if (mProgress != null) {
+            mProgress.dismiss();
+        }
     }
 }
