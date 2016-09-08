@@ -79,6 +79,9 @@ public class KiiBook extends KiiDataObj implements Parcelable {
 
     public int getConditionDrawableResId() {
         String condition = get (CONDITION);
+        if (condition == null) {
+            return 0;
+        }
         switch (condition) {
             case "良い":
                 return R.drawable.book_icon_excellent;
