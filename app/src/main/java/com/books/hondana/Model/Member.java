@@ -15,7 +15,7 @@ public class Member extends KiiDataObj implements Parcelable {
     public static final String BIRTHDAY = "birthday";
     public static final String ADDRESS = "address";
     public static final String PROFILE = "profile";
-    //public static final String IMAGE_URL = "image_Url";
+    public static final String IMAGE_URL = "image_Url";
     public static final String POINT = "point";
     public static final String FAVORITE_AUTHOR1 = "favorite_author1";
     public static final String FAVORITE_AUTHOR2 = "favorite_author2";

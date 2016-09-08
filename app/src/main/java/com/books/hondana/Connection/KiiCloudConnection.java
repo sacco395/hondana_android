@@ -1,6 +1,8 @@
 package com.books.hondana.Connection;
 
 import android.app.Activity;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.Model.KiiCloudBucket;
@@ -73,5 +75,17 @@ public class KiiCloudConnection {
                 }
             },
          query);
+    }
+
+    public void loadMember(String userId, final SearchFinishListener searchFinishListener) {
+        Log.d("KiiCloudConnection", "loadMember(userId: " + userId + ")");
+        final KiiBucket kiiBucket = Kii.bucket(kiiCloudBucket.getName());
+        kiiBucket.query(new KiiQueryCallBack<KiiObject>() {
+            @Override
+            public void onQueryCompleted(int token, @Nullable KiiQueryResult<KiiObject> result, @Nullable Exception exception) {
+                super.onQueryCompleted(token, result, exception);
+                searchFinishListener.didFinish(token, result, exception);
+            }
+        }, new KiiQuery(KiiClause.equals("_id", userId)));
     }
 }
