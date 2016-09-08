@@ -47,6 +47,9 @@ public class HondanaBooksFragment extends Fragment {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    // ロード中を示すフラグ。無限ロードを防ぐため。
+    private boolean mIsLoading = false;
+
     public HondanaBooksFragment() {}
 
     public static HondanaBooksFragment newInstance(Genre genre) {
@@ -89,7 +92,7 @@ public class HondanaBooksFragment extends Fragment {
         // SwipeRefreshLayoutの設定
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
         mSwipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
-        
+
         // Footer を追加
         mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -97,16 +100,22 @@ public class HondanaBooksFragment extends Fragment {
                 // 本当はいらないけど、オーバライドしないと怒られるから空メソッドを作る
             }
 
-            // ロード中を示すフラグ。無限ロードを防ぐため。
-            boolean isLoading = false;
-
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (isLoading) {
+                Log.d(TAG, "onScroll: ");
+                if (mIsLoading) {
+                    Log.d(TAG, "onScroll: isLoading");
                     return;
                 }
-                if ((totalItemCount - visibleItemCount) != firstVisibleItem) {
-                    return;
+
+                if ((firstVisibleItem + visibleItemCount) == totalItemCount) {
+                    Log.d(TAG, "onScroll: loadmore");
+                    KiiBook last = mGridAdapter.getLastItem();
+                    if (last == null) {
+                        kickLoadHondanaBooks(0);
+                        return;
+                    }
+                    kickLoadHondanaBooks(last.createdAt);
                 }
             }
         });
@@ -140,6 +149,7 @@ public class HondanaBooksFragment extends Fragment {
      *             0 を指定したら、最新のものから
      */
     private void kickLoadHondanaBooks(long from) {
+        mIsLoading = true;
 
         if (mConnection == null) {
             mConnection = new KiiBookConnection(Genre.ALL);
@@ -151,6 +161,7 @@ public class HondanaBooksFragment extends Fragment {
         mConnection.fetch(from, LOAD_BOOKS_COUNT_LIMIT, new KiiBookConnection.Callback() {
             @Override
             public void success(int token, KiiQueryResult<KiiObject> result) {
+                mIsLoading = false;
                 mProgress.dismiss();
                 if (result.getResult() == null) {
                     Log.e(TAG, "The result is null!");
@@ -164,6 +175,7 @@ public class HondanaBooksFragment extends Fragment {
 
             @Override
             public void failure(@Nullable Exception e) {
+                mIsLoading = false;
                 mProgress.dismiss();
                 Toast.makeText(getActivity(), "エラーが発生しました", Toast.LENGTH_LONG).show();
                 LogUtil.w(TAG, e);

@@ -35,12 +35,21 @@ public class KiiBookConnection {
      * @param callback 処理終了時のコールバック
      */
     public void fetch(long from, int limit, final Callback callback) {
-        KiiClause genreClause = mGenre.clause();
+        if (from == 0) {
+            from = System.currentTimeMillis();
+        }
+        KiiClause clauseWithTime = KiiClause.and(
+                mGenre.clause(), // Genre 絞り込み
+                KiiClause.lessThan("_created", from) // 日時絞り込み
+        );
 
-        KiiQuery query = new KiiQuery(genreClause);
+        KiiQuery query = new KiiQuery(clauseWithTime);
 
         // Default 新しい順
         query.sortByDesc("_created");
+        if (limit != 0) {
+            query.setLimit(limit);
+        }
 
         KiiBucket kiiBucket = Kii.bucket(KiiCloudBucket.BOOKS.getName());
         kiiBucket.query(

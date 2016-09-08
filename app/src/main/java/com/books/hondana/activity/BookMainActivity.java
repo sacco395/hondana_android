@@ -40,8 +40,7 @@ import com.kii.cloud.storage.KiiUser;
 import com.squareup.picasso.Picasso;
 
 public class BookMainActivity extends AppCompatActivity
-implements HondanaBooksFragment.OnFragmentInteractionListener,
-    NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     //private static final String TAG = "BookMainActivity";
     final static String TAG = BookMainActivity.class.getSimpleName();
@@ -342,11 +341,6 @@ implements HondanaBooksFragment.OnFragmentInteractionListener,
         startActivityForResult(intent, ACT_BOOK_DETAIL_TO_ADD);
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        ;
-    }
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.

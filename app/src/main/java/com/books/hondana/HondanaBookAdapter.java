@@ -1,6 +1,7 @@
 package com.books.hondana;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,14 @@ public class HondanaBookAdapter extends BaseAdapter {
 
     public void add(KiiBook book) {
         mBooks.add(book);
+    }
+
+    @Nullable
+    public KiiBook getLastItem() {
+        if (mBooks.isEmpty()) {
+            return null;
+        }
+        return mBooks.get(getCount() - 1);
     }
 
     @Override
