@@ -1,5 +1,10 @@
 package com.books.hondana.Model;
 
+import com.kii.cloud.storage.query.KiiClause;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Tetsuro MIKAMI https://github.com/mickamy
  *         Created on 9/8/16.
@@ -31,15 +36,15 @@ public enum Genre {
 
     public String[] value() {
         switch (this) {
-            case ALL: return new String[]{"001"};
-            case LITERATURE: return new String[]{"001004","001008"};
-            case BUSINESS: return new String[]{"001006"};
-            case TECHNOLOGY: return new String[]{"001005","001012"};
-            case ART: return new String[]{"001009","001013","001027"};
-            case POCKET_EDITION: return new String[]{"001019"};
-            case PAPERBACK: return new String[]{"001020"};
-            case COMIC: return new String[]{"001001","001017","001021","001025"};
-            case OTHERS: return new String[]{"001002", "001003", "001007", "001010", "001011", "001016", "001018", "001022", "001023", "001026", "001028"};
+            case ALL: return new String[]{ "001" };
+            case LITERATURE: return new String[]{ "001004", "001008" };
+            case BUSINESS: return new String[]{ "001006" };
+            case TECHNOLOGY: return new String[]{ "001005", "001012" };
+            case ART: return new String[]{ "001009", "001013", "001027" };
+            case POCKET_EDITION: return new String[]{ "001019" };
+            case PAPERBACK: return new String[]{ "001020" };
+            case COMIC: return new String[]{ "001001", "001017", "001021", "001025" };
+            case OTHERS: return new String[]{ "001002", "001003", "001007", "001010", "001011", "001016", "001018", "001022", "001023", "001026", "001028" };
             default: throw new IllegalArgumentException("This should never happen. Something goes wrong.");
         }
     }
@@ -57,5 +62,29 @@ public enum Genre {
             case OTHERS: return "その他";
             default: throw new IllegalArgumentException("This should never happen. Something goes wrong.");
         }
+    }
+
+    public String defaultIsbn() {
+        switch (this) {
+            case ALL: return "";
+            default: return "###";
+        }
+    }
+
+    public KiiClause clause() {
+        List<KiiClause> genreClauseList = new ArrayList<>();
+        for (String genreVal : value()) {
+            genreClauseList.add(KiiClause.startsWith(KiiBook.GENRE_1, genreVal));
+            genreClauseList.add(KiiClause.startsWith(KiiBook.GENRE_2, genreVal));
+            genreClauseList.add(KiiClause.startsWith(KiiBook.GENRE_3, genreVal));
+            genreClauseList.add(KiiClause.startsWith(KiiBook.GENRE_4, genreVal));
+            genreClauseList.add(KiiClause.startsWith(KiiBook.GENRE_5, genreVal));
+        }
+        KiiClause[] genreClauseArray = new KiiClause[]{};
+        genreClauseArray = genreClauseList.toArray(genreClauseArray);
+        KiiClause genreClause = KiiClause.or(genreClauseArray);
+
+        KiiClause isbnClause = KiiClause.startsWith(KiiBook.ISBN, defaultIsbn());
+        return KiiClause.or(genreClause, isbnClause);
     }
 }
