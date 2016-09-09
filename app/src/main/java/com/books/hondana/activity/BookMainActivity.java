@@ -40,8 +40,7 @@ import com.squareup.picasso.Picasso;
 public class BookMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    //private static final String TAG = "BookMainActivity";
-    final static String TAG = BookMainActivity.class.getSimpleName();
+    private static final String TAG = BookMainActivity.class.getSimpleName();
 
     // Intent Parameter
     private static final int ACT_READ_BARCODE = 1;

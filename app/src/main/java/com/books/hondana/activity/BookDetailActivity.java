@@ -16,7 +16,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Model.book.Book;
 import com.books.hondana.Model.kii.KiiBook;
 import com.books.hondana.R;
 import com.books.hondana.util.DateUtil;
@@ -30,7 +29,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
 	final static String TAG = BookDetailActivity.class.getSimpleName();
 
-	private Book targetBook;
+	private KiiBook targetBook;
 	private Button btnAddKiiCloud;
 
 	//メンバー変数

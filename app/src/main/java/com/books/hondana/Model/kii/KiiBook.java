@@ -53,13 +53,6 @@ public class KiiBook extends KiiDataObj implements Parcelable {
 
     public long createdAt = -1L;
 
-    // Constructor
-    private KiiBook() {
-        super();
-        // application scope の kiiBucket の Objectとして設定
-        kiiDataInitialize(KiiCloudBucket.BOOKS);
-    }
-
     public static KiiBook create(Book book) {
         KiiBook kiiBook = new KiiBook();
 
@@ -174,11 +167,24 @@ public class KiiBook extends KiiDataObj implements Parcelable {
         return book;
     }
 
+    /**
+     * Kii サーバに保存したりするときのみ使う
+     */
     public static KiiBook create() {
         return new KiiBook();
     }
 
-    public KiiBook( KiiObject kiiObject){
+    private KiiBook() {
+        super();
+        kiiDataInitialize(KiiCloudBucket.BOOKS);
+    }
+
+    /**
+     * アプリ内で KiiBook は基本的に、このコンストラクタを使って生成する。
+     * KiiObject から生成しないと、createdAt が取得できないため。
+     * @param kiiObject
+     */
+    public KiiBook(KiiObject kiiObject){
         super(kiiObject);
         createdAt = kiiObject.getCreatedTime();
     }
