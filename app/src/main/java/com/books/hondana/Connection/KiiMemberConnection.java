@@ -27,7 +27,7 @@ public class KiiMemberConnection {
     public KiiMemberConnection() {
     }
 
-    private void fetch(String id, final KiiObjectCallback callback) {
+    public void fetch(String id, final KiiObjectCallback callback) {
         KiiQuery idQuery = new KiiQuery(
                 KiiClause.equals(KiiMember.USER_ID, id)
         );
