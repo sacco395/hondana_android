@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.books.hondana.R;
 
-public class SettingActivity_02 extends Activity {
+public class SettingAddressActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String str = "";

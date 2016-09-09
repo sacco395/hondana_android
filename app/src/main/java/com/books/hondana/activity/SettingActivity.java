@@ -124,10 +124,13 @@ public class SettingActivity extends AppCompatActivity
 
                 switch (position) {
                     case 0:
-                        intent.setClass(SettingActivity.this, SettingActivity_01.class);
+                        intent.setClass(SettingActivity.this, UserEditActivity.class);
                         break;
                     case 1:
-                        intent.setClass(SettingActivity.this, SettingActivity_02.class);
+                        intent.setClass(SettingActivity.this, SettingMailActivity.class);
+                        break;
+                    case 2:
+                        intent.setClass(SettingActivity.this, SettingAddressActivity.class);
                         break;
                 }
                 intent.putExtra("SELECTED_DATA", strData);

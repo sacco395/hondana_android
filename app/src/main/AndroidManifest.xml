@@ -73,10 +73,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.SettingActivity_01"
+            android:name=".activity.SettingMailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SettingActivity_02"
+            android:name=".activity.SettingAddressActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.EvaluationActivity"
