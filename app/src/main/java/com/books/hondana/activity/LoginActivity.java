@@ -26,10 +26,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.Connection.KiiMemberConnection;
 import com.books.hondana.Model.kii.KiiCloudBucket;
 import com.books.hondana.Model.kii.KiiMember;
 import com.books.hondana.R;
@@ -96,43 +98,29 @@ public class LoginActivity extends Activity {
                     showToast("User authenticated!");
 
                     // Member の user_id が user.getID() と等しいものが欲しい
-                    KiiQuery query = new KiiQuery (KiiClause.equals (KiiMember.USER_ID, user.getID ()));
-
-//                    KiiQuery allQuery = new KiiQuery ();
-
-                    // 帰ってくる結果の上限
-                    query.setLimit (1);
-
-                    Kii.bucket (KiiCloudBucket.MEMBERS.getName ()).query (new KiiQueryCallBack<KiiObject> () {
+                    KiiMemberConnection connection = new KiiMemberConnection();
+                    connection.fetch(user.getID(), new KiiMemberConnection.Callback() {
                         @Override
-                        public void onQueryCompleted(int token, @Nullable KiiQueryResult<KiiObject> result, @Nullable Exception exception) {
-                            super.onQueryCompleted (token, result, exception);
-                            if (exception == null) {
-                                // Success!
-                                if (result != null && result.getResult () != null) {
-                                    KiiObject memberObj = result.getResult ().get (0);
-                                    KiiMember kiiMember = new KiiMember(memberObj);
-                                    LogUtil.d (TAG, "onQueryCompleted: " + kiiMember.toString ());
-                                } else {
-                                    // Result is null! エラー処理
-                                }
-                            } else {
-                                // エラー処理
-                            }
+                        public void success(KiiMember member) {
+                            LogUtil.d (TAG, "onQueryCompleted: " + member.toString ());
+
+                            Intent myIntent = new Intent(LoginActivity.this,
+                                    BookMainActivity.class);
+                            LoginActivity.this.startActivity(myIntent);
                         }
-                    }, query);
 
-                    Intent myIntent = new Intent(LoginActivity.this,
-                            BookMainActivity.class);
-                    LoginActivity.this.startActivity(myIntent);
-
-                    //=finish();
+                        @Override
+                        public void failure(@Nullable Exception e) {
+                            Log.e(TAG, "failure: ", e);
+                            // tell the console and the user there was a failure
+                            showToast("ログインできません。もう一度やり直して下さい。");
+                        }
+                    });
                 }
                 // otherwise, something bad happened in the request
                 else {
                     // tell the console and the user there was a failure
                     showToast("ログインできません。もう一度やり直して下さい。");
-                    ;
                 }
             }
         }, phone, password, country);

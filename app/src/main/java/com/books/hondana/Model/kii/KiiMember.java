@@ -2,6 +2,7 @@ package com.books.hondana.Model.kii;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.books.hondana.Model.Convertible;
 import com.books.hondana.Model.Member;
@@ -16,6 +17,8 @@ import java.util.List;
  * Created by sacco on 2016/08/21.
  */
 public class KiiMember extends KiiDataObj implements Parcelable, Convertible<Member> {
+
+    private static final String TAG = KiiMember.class.getSimpleName();
 
     public static final String USER_ID = "user_id";
     public static final String NAME = "name";

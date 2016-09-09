@@ -3,6 +3,7 @@ package com.books.hondana.Connection;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 
 import com.books.hondana.Model.Member;
 import com.books.hondana.Model.kii.KiiCloudBucket;
@@ -24,6 +25,8 @@ import java.util.List;
  */
 public class KiiMemberConnection {
 
+    private static final String TAG = KiiMemberConnection.class.getSimpleName();
+
     public KiiMemberConnection() {
     }
 
@@ -38,7 +41,7 @@ public class KiiMemberConnection {
                 new KiiQueryCallBack<KiiObject>() {
                     public void onQueryCompleted(int token, KiiQueryResult<KiiObject> result, Exception e) {
                         // Error
-                        if (result == null || result.getResult() == null) {
+                        if (result == null || result.getResult() == null || result.getResult().isEmpty()) {
                             callback.failure(e);
                             return;
                         }
@@ -59,10 +62,13 @@ public class KiiMemberConnection {
             public void success(KiiMember kiiMember) {
                 Member member = kiiMember.convert();
                 int point = member.getPoint();
+                Log.d(TAG, "success: old=" + point);
                 point += diff;
+                Log.d(TAG, "success: new=" + point);
                 member.setPoint(point);
-                KiiMember updated = KiiMember.create(member);
-                updated.save(new KiiObjectCallBack() {
+                Log.d(TAG, "success: member" + member.getPoint());
+                KiiObject updated = KiiMember.create(member).toKiiObject();
+                updated.saveAllFields(new KiiObjectCallBack() {
                     @Override
                     public void onSaveCompleted(int token, @NonNull KiiObject object, @Nullable Exception exception) {
                         if (exception == null) {
@@ -71,7 +77,7 @@ public class KiiMemberConnection {
                         }
                         callback.failure(exception);
                     }
-                });
+                }, true);
             }
 
             @Override

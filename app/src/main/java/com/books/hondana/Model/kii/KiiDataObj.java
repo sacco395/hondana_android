@@ -97,7 +97,11 @@ public class KiiDataObj implements Parcelable {
         // Mapから一つずつ取り出してセット
         for ( Map.Entry<String, String> e : map.entrySet() ){
             //保存するデータを定義
-            kiiObject.set(e.getKey(), e.getValue());
+            String value = e.getValue();
+            if (value == null) {
+                value = "";
+            }
+            kiiObject.set(e.getKey(), value);
         }
         return kiiObject;
     }
