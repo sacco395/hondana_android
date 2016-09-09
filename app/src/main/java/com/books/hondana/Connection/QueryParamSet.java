@@ -38,4 +38,8 @@ public class QueryParamSet implements Serializable{
         return queryParamas.get(searchKey);
     }
 
+    @Override
+    public String toString() {
+        return queryParamas.toString();
+    }
 }
