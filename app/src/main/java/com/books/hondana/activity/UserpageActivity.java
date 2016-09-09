@@ -216,8 +216,12 @@ public class UserpageActivity extends AppCompatActivity
                 }
             }
         });
-
-
+//ここからポイント表示
+        int user_point = Member.getPoint();
+        String point = Integer.toString(user_point);
+        TextView tv_userPoint = (TextView) findViewById(R.id.user_point);
+        tv_userPoint.setText (point);
+//ここまでポイント表示
 
         // ListViewのインスタンスを生成
         ListView listView = (ListView) findViewById(R.id.list_view);
