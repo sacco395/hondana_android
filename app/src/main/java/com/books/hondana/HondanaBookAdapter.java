@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.books.hondana.Connection.KiiCloudConnection;
+import com.books.hondana.Model.Member;
 import com.books.hondana.Model.book.Book;
 import com.books.hondana.Model.book.Condition;
 import com.books.hondana.Model.book.Info;
@@ -146,13 +147,13 @@ public class HondanaBookAdapter extends BaseAdapter {
                 Log.d(TAG, "members.size: " + kiiObjects.size());
                 if (kiiObjects != null && kiiObjects.size() > 0) {
                     final KiiObject kiiObject = kiiObjects.get(0);// ひとつしか来ていないはずなので0番目だけ使う
-                    final KiiMember kiiMember = new KiiMember(kiiObject);
+                    final Member member = new KiiMember(kiiObject).convert();
 
-                    final String name = kiiMember.get(KiiMember.NAME);
+                    final String name = member.getName();
                     Log.d(TAG, "name: " + name);
                     holder.tvOwnerName.setText(name);
 
-                    final String imageUrl = kiiMember.get(KiiMember.IMAGE_URL);
+                    final String imageUrl = member.getImageUrl();
                     Log.d(TAG, "imageUrl: " + imageUrl);
                     Picasso.with(parent.getContext())
                             .load(imageUrl)

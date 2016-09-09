@@ -75,7 +75,12 @@ public class KiiMember extends KiiDataObj implements Parcelable, Convertible<Mem
         member.setAddress(get(ADDRESS));
         member.setProfile(get(PROFILE));
         member.setImageUrl(get(IMAGE_URL));
-        member.setPoint(Integer.valueOf(get(POINT)));
+
+        String point = get(POINT);
+        if (point == null || point.equals("")) {
+            point = "0";
+        }
+        member.setPoint(Integer.valueOf(point));
 
         List<String> authors = new ArrayList<>();
         authors.add(get(FAVORITE_AUTHOR1));

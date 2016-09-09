@@ -31,7 +31,7 @@ public class KiiBookConnection {
      * @param limit 最大取得件数。0 を指定したら Kii の仕様上 Max の 200 件
      * @param callback 処理終了時のコールバック
      */
-    public void fetch(long from, int limit, final Callback callback) {
+    public void fetch(long from, int limit, final KiiObjectCallback callback) {
         if (from == 0) {
             from = System.currentTimeMillis();
         }
@@ -62,11 +62,5 @@ public class KiiBookConnection {
                     }
                 },
                 query);
-    }
-
-    // データ取得終了時のCallBack
-    public interface Callback {
-        void success(int token, KiiQueryResult<KiiObject> result);
-        void failure(@Nullable Exception e);
     }
 }

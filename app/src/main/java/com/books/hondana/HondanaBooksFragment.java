@@ -14,6 +14,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.books.hondana.Connection.KiiBookConnection;
+import com.books.hondana.Connection.KiiObjectCallback;
 import com.books.hondana.Model.book.Book;
 import com.books.hondana.Model.book.Genre;
 import com.books.hondana.Model.kii.KiiBook;
@@ -145,7 +146,7 @@ public class HondanaBooksFragment extends Fragment {
             mConnection = new KiiBookConnection(Genre.ALL);
         }
 
-        mConnection.fetch(from, LOAD_BOOKS_COUNT_LIMIT, new KiiBookConnection.Callback() {
+        mConnection.fetch(from, LOAD_BOOKS_COUNT_LIMIT, new KiiObjectCallback() {
             @Override
             public void success(int token, KiiQueryResult<KiiObject> result) {
                 finishLoadingView();
