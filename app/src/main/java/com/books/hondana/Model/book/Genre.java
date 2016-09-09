@@ -1,5 +1,6 @@
-package com.books.hondana.Model;
+package com.books.hondana.Model.book;
 
+import com.books.hondana.Model.kii.KiiBook;
 import com.kii.cloud.storage.query.KiiClause;
 
 import java.util.ArrayList;
@@ -32,7 +33,10 @@ public enum Genre {
     // 	美容・暮らし・健康・料理  エンタメ・ゲーム	資格・検定	楽譜
     // 	付録付き	バーゲン本	カレンダー・手帳・家計簿
     // 	医学・薬学・看護学・歯科学
-    OTHERS;
+    OTHERS,
+
+    // 空ジャンル
+    NONE;
 
     public String[] value() {
         switch (this) {
@@ -86,5 +90,47 @@ public enum Genre {
 
         KiiClause isbnClause = KiiClause.startsWith(KiiBook.ISBN, defaultIsbn());
         return KiiClause.or(genreClause, isbnClause);
+    }
+
+    public static Genre fromRakutenGenre(String rakutenGenre) {
+        switch (rakutenGenre) {
+            case "001":
+                return Genre.ALL;
+            case "001004":
+            case "001008":
+                return Genre.LITERATURE;
+            case "001006":
+                return Genre.BUSINESS;
+            case "001005":
+            case "001012":
+                return Genre.TECHNOLOGY;
+            case "001009":
+            case "001013":
+            case "001027":
+                return Genre.ART;
+            case "001019":
+                return Genre.POCKET_EDITION;
+            case "001020":
+                return Genre.PAPERBACK;
+            case "001001":
+            case "001017":
+            case "001021":
+            case "001025":
+                return Genre.COMIC;
+            case "001002":
+            case "001003":
+            case "001007":
+            case "001010":
+            case "001011":
+            case "001016":
+            case "001018":
+            case "001022":
+            case "001023":
+            case "001026":
+            case "001028":
+                return Genre.OTHERS;
+            default:
+                return Genre.NONE;
+        }
     }
 }

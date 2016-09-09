@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.app.LoaderManager;
 import android.os.Bundle;
 
-import com.books.hondana.Model.KiiBook;
-import com.books.hondana.Model.ParseJson;
-import com.books.hondana.Model.ParseRakutenJson;
+import com.books.hondana.Model.api.JsonParser;
+import com.books.hondana.Model.book.Book;
+import com.books.hondana.Model.api.rakuten.RakutenBookParser;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/07/28.
@@ -52,8 +52,8 @@ public class RakutenBookSearch extends BookSearchConnection {
             @Override
             public void onLoadFinished(android.content.Loader<JSONObject> loader, JSONObject data) {
                 if ( data != null) {
-                    ParseJson parseJson = new ParseRakutenJson();
-                    ArrayList<KiiBook> resultList =parseJson.getBookInfo(data);
+                    JsonParser<Book> parser = new RakutenBookParser();
+                    List<Book> resultList = parser.parse(data);
                     searchFinishListener.didFinish(CONNECTION_SUCCESS, resultList);
                 }
                 // エラー時処理

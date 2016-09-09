@@ -1,4 +1,4 @@
-package com.books.hondana.Model;
+package com.books.hondana.Model.kii;
 
 import android.os.Parcel;
 import android.os.Parcelable;

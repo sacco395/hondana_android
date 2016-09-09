@@ -1,4 +1,8 @@
-package com.books.hondana.Model;
+package com.books.hondana.Model.api.google;
+
+import com.books.hondana.Model.api.BaseBook;
+import com.books.hondana.Model.book.Book;
+import com.books.hondana.Model.book.Info;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,28 +58,24 @@ public class GoogleBook extends BaseBook {
         }
     }
 
-    public KiiBook toKiiBook(){
-        KiiBook kb = new KiiBook();
-        kb.set(KiiBook.GENRE_1,"");
-        kb.set(KiiBook.GENRE_2,"");
-        kb.set(KiiBook.GENRE_3,"");
-        kb.set(KiiBook.GENRE_4,"");
-        kb.set(KiiBook.GENRE_5,"");
-
+    public Book toBook(){
+        Info info = new Info();
         for(HashMap.Entry<String, String> e : map.entrySet()) {
             if( e.getKey().equals(GoogleBook.TITLE) ) {
-                kb.set(KiiBook.TITLE, e.getValue());
+                info.setTitle(e.getValue());
             } else if (e.getKey().equals(GoogleBook.AUTHOR)){
-                kb.set(KiiBook.AUTHOR, e.getValue());
+                info.setAuthor(e.getValue());
             } else if (e.getKey().equals(GoogleBook.ISBN)){
-                kb.set(KiiBook.ISBN, e.getValue());
+                info.setIsbn(e.getValue());
             } else if (e.getKey().equals(GoogleBook.PUBLISHER)){
-                kb.set(KiiBook.PUBLISHER, e.getValue());
+                info.setPublisher(e.getValue());
             } else if (e.getKey().equals(GoogleBook.IMAGE_URL)) {
-                kb.set(KiiBook.IMAGE_URL, e.getValue());
+                info.setImageUrl(e.getValue());
             }
         }
-        return kb;
+        Book book = new Book();
+        book.setInfo(info);
+        return book;
     }
 
 }

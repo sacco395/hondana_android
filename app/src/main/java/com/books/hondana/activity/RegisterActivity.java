@@ -31,7 +31,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Model.KiiCloudBucket;
+import com.books.hondana.Model.kii.KiiCloudBucket;
 import com.books.hondana.Model.Member;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;

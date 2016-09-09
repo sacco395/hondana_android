@@ -12,7 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.books.hondana.Model.KiiBook;
+import com.books.hondana.Model.Request;
+import com.books.hondana.Model.kii.KiiBook;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
@@ -25,19 +26,15 @@ import java.util.Locale;
 
 public class RequestBookActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "BookRequestActivity";
+    private static final String TAG = RequestBookActivity.class.getSimpleName();
 
-    //BookInfoActivityからkiiBookの情報を受け取るためcreateIntentを使う
-    private static final String EXTRA_KII_BOOK = "extra_kii_book";
+    private Request request;
 
-    public static Intent createIntent(Context context, KiiBook kiiBook) {
+    public static Intent createIntent(Context context, Request request) {
         Intent intent = new Intent (context, RequestBookActivity.class);
-        intent.putExtra (EXTRA_KII_BOOK, kiiBook);
+        intent.putExtra(Request.class.getSimpleName(), request);
         return intent;
     }
-
-    KiiBook kiiBook;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +42,9 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_request_book);
 
 //上記のcreateIntentでデータを受け取る
-        kiiBook = getIntent ().getParcelableExtra (EXTRA_KII_BOOK);
+        request = getIntent ().getParcelableExtra (Request.class.getSimpleName());
 //kiiBookがないのはおかしいのでcreateIntentを使うように怒る
-        if (kiiBook == null) {
+        if (request == null) {
             throw new IllegalArgumentException ("createIntentを使ってください");
         }
 
@@ -116,8 +113,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss", Locale.JAPAN);
         String dateString = simpleDateFormat.format (date); // 2016-09-03 17:24:33
 
-        KiiUser user = KiiUser.getCurrentUser();
-        LogUtil.d(TAG, "kiiUser: " + user);
+        KiiBook kiiBook = KiiBook.create(request.getBook());
 
         kiiBook.set ("request_date", dateString);
         //kiiBook.set ("request_userId",user.getID());

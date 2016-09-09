@@ -1,10 +1,19 @@
-package com.books.hondana.Model;
+package com.books.hondana.Model.kii;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.books.hondana.Model.book.Book;
+import com.books.hondana.Model.book.Condition;
+import com.books.hondana.Model.book.Genre;
+import com.books.hondana.Model.book.Info;
+import com.books.hondana.Model.book.Size;
+import com.books.hondana.Model.book.Smell;
 import com.books.hondana.R;
 import com.kii.cloud.storage.KiiObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/07/12.
@@ -45,10 +54,128 @@ public class KiiBook extends KiiDataObj implements Parcelable {
     public long createdAt = -1L;
 
     // Constructor
-    public KiiBook() {
+    private KiiBook() {
         super();
         // application scope の kiiBucket の Objectとして設定
         kiiDataInitialize(KiiCloudBucket.BOOKS);
+    }
+
+    public static KiiBook create(Book book) {
+        KiiBook kiiBook = new KiiBook();
+
+        kiiBook.set(BOOK_ID, book.getId());
+
+        Info info = book.getInfo();
+        kiiBook.set(TITLE, info.getTitle());
+        kiiBook.set(PUBLISHER, info.getPublisher());
+        kiiBook.set(AUTHOR, info.getAuthor());
+        kiiBook.set(ISBN, info.getIsbn());
+        kiiBook.set(LANGUAGE, info.getLanguage());
+        kiiBook.set(ISSUE_DATE, info.getIssueDate());
+        kiiBook.set(IMAGE_URL, info.getImageUrl());
+
+        Size size = book.getSize();
+        kiiBook.set(HEIGHT, Double.toString(size.getHeight()));
+        kiiBook.set(WIDE, Double.toString(size.getWidth()));
+        kiiBook.set(DEPTH, Double.toString(size.getDepth()));
+        kiiBook.set(WEIGHT, Double.toString(size.getWeight()));
+
+        List<String> genres = book.getGenres();
+        kiiBook.set(GENRE_1, genres.get(0));
+        kiiBook.set(GENRE_2, genres.get(1));
+        kiiBook.set(GENRE_3, genres.get(2));
+        kiiBook.set(GENRE_4, genres.get(3));
+        kiiBook.set(GENRE_5, genres.get(4));
+
+        kiiBook.set(USER_ID, book.getOwnerId());
+
+        Condition condition = book.getCondition();
+        kiiBook.set(CONDITION, condition.getEvaluation());
+        kiiBook.set(LINE, condition.getLined());
+        kiiBook.set(BROKEN, condition.getFolded());
+        kiiBook.set(NOTES, condition.getNoted());
+        kiiBook.set(BAND, condition.getBand());
+        kiiBook.set(SUNBURNED, condition.getSunburned());
+        kiiBook.set(SCRATCHED, condition.getScratched());
+
+        Smell smell = book.getSmell();
+        kiiBook.set(CIGAR_SMELL, smell.getCigar());
+        kiiBook.set(PET_SMELL, smell.getPet());
+        kiiBook.set(MOLD_SMELL, smell.getMold());
+
+        kiiBook.set(DESCRIPTION, book.getDescription());
+
+        return kiiBook;
+    }
+
+    public Book convert() {
+        Book book = new Book();
+
+        book.setId(get(BOOK_ID));
+
+        Info info = new Info();
+        info.setTitle(get(TITLE));
+        info.setPublisher(get(PUBLISHER));
+        info.setAuthor(get(AUTHOR));
+        info.setIsbn(get(ISBN));
+        info.setLanguage(get(LANGUAGE));
+        info.setIssueDate(get(ISSUE_DATE));
+        info.setImageUrl(get(IMAGE_URL));
+        book.setInfo(info);
+
+        Size size = new Size();
+        String height = get(HEIGHT);
+        if (height != null && !height.equals("")) {
+            size.setHeight(Double.valueOf(height));
+        }
+        String width = get(WIDE);
+        if (width != null && !width.equals("")) {
+            size.setWidth(Double.valueOf(width));
+        }
+        String depth = get(DEPTH);
+        if (depth != null && !depth.equals("")) {
+            size.setDepth(Double.valueOf(depth));
+        }
+        String weight = get(WEIGHT);
+        if (weight != null && !weight.equals("")) {
+            size.setWeight(Double.valueOf(weight));
+        }
+        book.setSize(size);
+
+        List<String> genres = new ArrayList<>();
+        genres.add(get(GENRE_1));
+        genres.add(get(GENRE_2));
+        genres.add(get(GENRE_3));
+        genres.add(get(GENRE_4));
+        genres.add(get(GENRE_5));
+        book.setGenres(genres);
+
+        book.setOwnerId(get(USER_ID));
+
+        Condition condition = new Condition();
+        condition.setEvaluation(get(CONDITION));
+        condition.setLined(get(LINE));
+        condition.setFolded(get(BROKEN));
+        condition.setNoted(get(NOTES));
+        condition.setBand(get(BAND));
+        condition.setSunburned(get(SUNBURNED));
+        condition.setScratched(get(SCRATCHED));
+        book.setCondition(condition);
+
+        Smell smell = new Smell();
+        smell.setCigar(get(CIGAR_SMELL));
+        smell.setPet(get(PET_SMELL));
+        smell.setMold(get(MOLD_SMELL));
+        book.setSmell(smell);
+
+        book.setDescription(get(DESCRIPTION));
+        book.setCreatedAt(createdAt);
+
+        return book;
+    }
+
+    public static KiiBook create() {
+        return new KiiBook();
     }
 
     public KiiBook( KiiObject kiiObject){
@@ -81,88 +208,6 @@ public class KiiBook extends KiiDataObj implements Parcelable {
             return new KiiBook[size];
         }
     };
-
-    public int getConditionDrawableResId() {
-        String condition = get (CONDITION);
-        if (condition == null) {
-            return 0;
-        }
-        switch (condition) {
-            case "良い":
-                return R.drawable.book_icon_excellent;
-            case "普通":
-                return R.drawable.book_icon_good;
-            case "汚れあり":
-                return R.drawable.book_icon_bad;
-            default:
-                return 0;
-        }
-    }
-    public String getBandText() {
-        String band = get(BAND);
-        if (band == null) {
-            return "";
-        }
-        switch (band) {
-            case "帯あり": return "帯あり";
-            default: return "";
-        }
-    }
-
-    public String getSunburnedText() {
-        String sunburned = get(SUNBURNED);
-        if (sunburned == null) {
-            return "";
-        }
-        switch (sunburned) {
-            case "日焼け・変色": return "日焼け・変色";
-            default: return "";
-        }
-    }
-
-    public String getScratchedText() {
-        String scratched = get(SCRATCHED);
-        if (scratched == null) {
-            return "";
-        }
-        switch (scratched) {
-            case "スレ・傷など": return "スレ・傷など";
-            default: return "";
-        }
-    }
-
-    public String getCigarSmellText() {
-        String cigar_smell = get(CIGAR_SMELL);
-        if (cigar_smell == null) {
-            return "";
-        }
-        switch (cigar_smell) {
-            case "ペットを飼っている": return "ペットを飼っている";
-            default: return "";
-        }
-    }
-
-    public String getPetSmellText() {
-        String pet_smell = get(PET_SMELL);
-        if (pet_smell == null) {
-            return "";
-        }
-        switch (pet_smell) {
-            case "ペットを飼っている": return "ペットを飼っている";
-            default: return "";
-        }
-    }
-
-    public String getMoldSmellText() {
-        String mold_smell = get(MOLD_SMELL);
-        if (mold_smell == null) {
-            return "";
-        }
-        switch (mold_smell) {
-            case "カビ臭": return "カビ臭";
-            default: return "";
-        }
-    }
 
 
 }

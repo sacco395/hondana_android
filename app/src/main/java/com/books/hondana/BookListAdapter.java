@@ -8,13 +8,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.books.hondana.Model.KiiBook;
+import com.books.hondana.Model.book.Book;
+import com.books.hondana.Model.book.Info;
+import com.books.hondana.Model.kii.KiiBook;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class BookListAdapter extends ArrayAdapter<KiiBook>  {
+public class BookListAdapter extends ArrayAdapter<Book>  {
 
 	private final static String TAG = BookListAdapter.class.getSimpleName();
 
@@ -22,7 +25,7 @@ public class BookListAdapter extends ArrayAdapter<KiiBook>  {
 	private String imgUrl;
 	private Context context;
 	private ImageView imageView;
-	private ArrayList<KiiBook> bookList;
+	private List<Book> bookList;
 
 	@Override
 	public int getCount() {
@@ -32,7 +35,7 @@ public class BookListAdapter extends ArrayAdapter<KiiBook>  {
 	}
 
 	public BookListAdapter(Context context, int resource,
-			int textViewResourceId, ArrayList<KiiBook> objects) {
+			int textViewResourceId, List<Book> objects) {
 
 		super(context, resource, textViewResourceId, objects);
 		this.context = context;
@@ -41,7 +44,7 @@ public class BookListAdapter extends ArrayAdapter<KiiBook>  {
 	}
 
 	@Override
-	public KiiBook getItem(int position) {
+	public Book getItem(int position) {
 		if ( bookList == null )
 			return null;
 		return bookList.get(position);
@@ -58,13 +61,14 @@ public class BookListAdapter extends ArrayAdapter<KiiBook>  {
 		ImageView imgView = (ImageView)convertView.findViewById(R.id.imageView);
 
 		// 表示するオブジェクトの取得
-		KiiBook bk = getItem(position);
+		Book book = getItem(position);
 
 		// 表示データの設定
-		titleText.setText(bk.get(KiiBook.TITLE));
-		publisherText.setText(bk.get(KiiBook.PUBLISHER));
-		authorText.setText(bk.get(KiiBook.AUTHOR));
-		imgUrl = bk.get(KiiBook.IMAGE_URL);
+		Info info = book.getInfo();
+		titleText.setText(info.getTitle());
+		publisherText.setText(info.getPublisher());
+		authorText.setText(info.getAuthor());
+		imgUrl = info.getImageUrl();
 
 		// 画像データのダウンロードと設定
 		ImageLoader imageLoader = ImageLoader.getInstance();

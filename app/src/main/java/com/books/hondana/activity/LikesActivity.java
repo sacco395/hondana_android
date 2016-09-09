@@ -27,7 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.Connection.QueryParamSet;
-import com.books.hondana.Model.KiiBook;
+import com.books.hondana.Model.kii.KiiBook;
 import com.books.hondana.PRBookListViewAdapter;
 import com.books.hondana.R;
 import com.squareup.picasso.Picasso;

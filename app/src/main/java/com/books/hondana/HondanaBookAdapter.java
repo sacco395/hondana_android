@@ -13,8 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.books.hondana.Connection.KiiCloudConnection;
-import com.books.hondana.Model.KiiBook;
-import com.books.hondana.Model.KiiCloudBucket;
+import com.books.hondana.Model.book.Book;
+import com.books.hondana.Model.book.Condition;
+import com.books.hondana.Model.book.Info;
+import com.books.hondana.Model.kii.KiiBook;
+import com.books.hondana.Model.kii.KiiCloudBucket;
 import com.books.hondana.Model.Member;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.query.KiiQueryResult;
@@ -30,10 +33,10 @@ public class HondanaBookAdapter extends BaseAdapter {
 
     private static final String TAG = HondanaBookAdapter.class.getSimpleName();
 
-    private ArrayList<KiiBook> mBooks;
+    private ArrayList<Book> mBooks;
     private BookItemClickListener mListener;
 
-    public HondanaBookAdapter(ArrayList<KiiBook> books, BookItemClickListener listener) {
+    public HondanaBookAdapter(ArrayList<Book> books, BookItemClickListener listener) {
         this.mBooks = books;
         this.mListener = listener;
     }
@@ -42,13 +45,13 @@ public class HondanaBookAdapter extends BaseAdapter {
         mBooks.clear();
     }
 
-    public void add(KiiBook book) {
+    public void add(Book book) {
         mBooks.add(book);
         Log.d(TAG, "add: " + mBooks.size());
     }
 
     @Nullable
-    public KiiBook getLastItem() {
+    public Book getLastItem() {
         if (mBooks.isEmpty()) {
             return null;
         }
@@ -102,7 +105,7 @@ public class HondanaBookAdapter extends BaseAdapter {
 
         final ViewHolder holder = (ViewHolder) convertView.getTag();
 
-        final KiiBook book = mBooks.get(position);
+        final Book book = mBooks.get(position);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,27 +113,26 @@ public class HondanaBookAdapter extends BaseAdapter {
             }
         });
 
-        String coverUrl = book.get(KiiBook.IMAGE_URL);
+        Info info = book.getInfo();
+        String coverUrl = info.getImageUrl();
 
         // http://square.github.io/picasso/
         Picasso.with(convertView.getContext())
                 .load(coverUrl)
                 .into(holder.ivCover);
 
-        int resId = book.getConditionDrawableResId();
+        Condition condition = book.getCondition();
+        int resId = condition.getIconDrawableResId();
         if (resId != 0) {
             Context context = convertView.getContext();
             Drawable conditionDrawable = ResourcesCompat.getDrawable(context.getResources(), resId, null);
             holder.ivConditionIcon.setImageDrawable(conditionDrawable);
         }
 
-        String title = book.get(KiiBook.TITLE);
-        String author = book.get(KiiBook.AUTHOR);
+        holder.tvTitle.setText(info.getTitle());
+        holder.tvAuthor.setText(info.getAuthor());
 
-        holder.tvTitle.setText(title);
-        holder.tvAuthor.setText(author);
-
-        final String userId = book.get(KiiBook.USER_ID);
+        final String userId = book.getOwnerId();
         final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
         membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
             @Override
@@ -164,7 +166,7 @@ public class HondanaBookAdapter extends BaseAdapter {
     }
 
     public interface BookItemClickListener {
-        void onClick(KiiBook book);
+        void onClick(Book book);
     }
 
     private static class ViewHolder {

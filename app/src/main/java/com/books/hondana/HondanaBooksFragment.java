@@ -14,8 +14,9 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.books.hondana.Connection.KiiBookConnection;
-import com.books.hondana.Model.Genre;
-import com.books.hondana.Model.KiiBook;
+import com.books.hondana.Model.book.Book;
+import com.books.hondana.Model.book.Genre;
+import com.books.hondana.Model.kii.KiiBook;
 import com.books.hondana.activity.BookInfoActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
@@ -57,11 +58,11 @@ public class HondanaBooksFragment extends Fragment {
             mConnection = new KiiBookConnection(genre);
         }
 
-        mGridAdapter = new HondanaBookAdapter(new ArrayList<KiiBook>(), new HondanaBookAdapter.BookItemClickListener() {
+        mGridAdapter = new HondanaBookAdapter(new ArrayList<Book>(), new HondanaBookAdapter.BookItemClickListener() {
             @Override
-            public void onClick(KiiBook book) {
+            public void onClick(Book book) {
                 Intent intent = new Intent(getContext(), BookInfoActivity.class);
-                intent.putExtra(KiiBook.class.getSimpleName(), book);
+                intent.putExtra(Book.class.getSimpleName(), book);
 
                 LogUtil.d(TAG, "onItemClick: " + book);
                 startActivity(intent);
@@ -95,17 +96,17 @@ public class HondanaBooksFragment extends Fragment {
                 }
 
                 if ((firstVisibleItem + visibleItemCount) == totalItemCount) {
-                    KiiBook last = mGridAdapter.getLastItem();
+                    Book last = mGridAdapter.getLastItem();
                     if (last == null) {
                         kickLoadHondanaBooks(0);
                         return;
                     }
                     // FIXME: 9/9/16 Kii これかなりイケてないのでなんかいい感じにしたい。
-                    if (last.createdAt <= 1470909532550L) {
+                    if (last.getCreatedAt() <= 1470909532550L) {
                         // サーバにこれ以上本がない
                         return;
                     }
-                    kickLoadHondanaBooks(last.createdAt);
+                    kickLoadHondanaBooks(last.getCreatedAt());
                 }
             }
         });
@@ -153,7 +154,7 @@ public class HondanaBooksFragment extends Fragment {
                     return;
                 }
                 for (KiiObject kiiObject : result.getResult()) {
-                    mGridAdapter.add(new KiiBook(kiiObject));
+                    mGridAdapter.add(new KiiBook(kiiObject).convert());
                 }
                 mGridAdapter.notifyDataSetChanged();
             }

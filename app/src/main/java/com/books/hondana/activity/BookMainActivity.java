@@ -6,7 +6,6 @@ import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -32,8 +31,7 @@ import android.widget.Toast;
 
 import com.books.hondana.BookMainFragmentPagerAdapter;
 import com.books.hondana.Connection.QueryParamSet;
-import com.books.hondana.HondanaBooksFragment;
-import com.books.hondana.Model.KiiBook;
+import com.books.hondana.Model.kii.KiiBook;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;

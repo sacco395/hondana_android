@@ -1,19 +1,23 @@
-package com.books.hondana.Model;
+package com.books.hondana.Model.api.rakuten;
+
+import com.books.hondana.Model.api.JsonParser;
+import com.books.hondana.Model.book.Book;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/07/28.
  */
-public class ParseRakutenJson implements ParseJson {
+public class RakutenBookParser implements JsonParser<Book> {
 
     @Override
-    public ArrayList<KiiBook> getBookInfo( JSONObject rootObject ) {
-        ArrayList<KiiBook> bookList = new ArrayList<KiiBook>();
+    public List<Book> parse(JSONObject rootObject ) {
+        List<Book> bookList = new ArrayList<>();
         try {
             //JSONObject rootObject = new JSONObject(arg1);
             JSONArray itemsArray = rootObject.getJSONArray("Items");
@@ -24,9 +28,9 @@ public class ParseRakutenJson implements ParseJson {
             }
             for(int i=0;i<itemsArray.length();i++){
                 JSONObject obj = itemsArray.getJSONObject(i).getJSONObject("Item");
-                RakutenBook book = new RakutenBook(obj);
-                KiiBook kiiBook = book.toKiiBook();
-                bookList.add(kiiBook);
+                RakutenBook rakutenBook = new RakutenBook(obj);
+                Book book = rakutenBook.toBook();
+                bookList.add(book);
             }// end for
         } catch (JSONException e) {
             // TODO 自動生成された catch ブロック

@@ -1,12 +1,9 @@
 package com.books.hondana.Connection;
 
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
-import com.books.hondana.Model.Genre;
-import com.books.hondana.Model.KiiBook;
-import com.books.hondana.Model.KiiCloudBucket;
-import com.books.hondana.util.LogUtil;
+import com.books.hondana.Model.book.Genre;
+import com.books.hondana.Model.kii.KiiCloudBucket;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;

@@ -3,6 +3,8 @@ package com.books.hondana.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.books.hondana.Model.kii.KiiCloudBucket;
+import com.books.hondana.Model.kii.KiiDataObj;
 import com.kii.cloud.storage.KiiObject;
 
 /**
@@ -62,4 +64,8 @@ public class Member extends KiiDataObj implements Parcelable {
             return new Member[size];
         }
     };
+
+    public int getPoint() {
+        return 10;
+    }
 }

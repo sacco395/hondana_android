@@ -1,4 +1,7 @@
-package com.books.hondana.Model;
+package com.books.hondana.Model.api.google;
+
+import com.books.hondana.Model.api.JsonParser;
+import com.books.hondana.Model.book.Book;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,11 +12,12 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2016/07/28.
  */
-public class ParseGoogleJson implements ParseJson {
-    @Override
-    public ArrayList<KiiBook> getBookInfo(JSONObject rootObject) {
+public class GoogleBookJsonParser implements JsonParser<Book> {
 
-        ArrayList<KiiBook> bookList = new ArrayList<KiiBook>();
+    @Override
+    public ArrayList<Book> parse(JSONObject rootObject) {
+
+        ArrayList<Book> bookList = new ArrayList<>();
 
         try {
             JSONArray itemsArray = rootObject.getJSONArray("items");
@@ -28,7 +32,7 @@ public class ParseGoogleJson implements ParseJson {
                 JSONObject obj = itemsArray.getJSONObject(i);
                 JSONObject volInfo = obj.getJSONObject(GoogleBook.VOLINFO);
                 GoogleBook googleBook = new GoogleBook(volInfo);
-                KiiBook book = googleBook.toKiiBook();
+                Book book = googleBook.toBook();
                 bookList.add(book);
             }// end for
 
