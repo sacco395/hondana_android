@@ -58,7 +58,7 @@ public class KiiBookConnection {
                             return;
                         }
                         // Success
-                        callback.success(token, result);
+                        callback.success(token, result.getResult());
                     }
                 },
                 query);

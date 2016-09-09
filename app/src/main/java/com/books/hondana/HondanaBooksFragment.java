@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.query.KiiQueryResult;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HondanaBooksFragment extends Fragment {
 
@@ -148,13 +150,9 @@ public class HondanaBooksFragment extends Fragment {
 
         mConnection.fetch(from, LOAD_BOOKS_COUNT_LIMIT, new KiiObjectCallback() {
             @Override
-            public void success(int token, KiiQueryResult<KiiObject> result) {
+            public void success(int token, List<KiiObject> result) {
                 finishLoadingView();
-                if (result.getResult() == null) {
-                    Log.e(TAG, "The result is null!");
-                    return;
-                }
-                for (KiiObject kiiObject : result.getResult()) {
+                for (KiiObject kiiObject : result) {
                     mGridAdapter.add(new KiiBook(kiiObject).convert());
                 }
                 mGridAdapter.notifyDataSetChanged();
