@@ -30,19 +30,9 @@ public class Book implements Parcelable {
 
     private long createdAt;
 
-    public Book() {
-    }
+    private long updatedAt;
 
-    public Book(String id, String ownerId, Info info, Size size, Smell smell, Condition condition, List<String> genres, String description, long createdAt) {
-        this.id = id;
-        this.ownerId = ownerId;
-        this.info = info;
-        this.size = size;
-        this.smell = smell;
-        this.condition = condition;
-        this.genres = genres;
-        this.description = description;
-        this.createdAt = createdAt;
+    public Book() {
     }
 
     public String getId() {
@@ -117,6 +107,14 @@ public class Book implements Parcelable {
         this.createdAt = createdAt;
     }
 
+    public long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(long updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -133,6 +131,7 @@ public class Book implements Parcelable {
         dest.writeStringList(this.genres);
         dest.writeString(this.description);
         dest.writeLong(this.createdAt);
+        dest.writeLong(this.updatedAt);
     }
 
     protected Book(Parcel in) {
@@ -145,6 +144,7 @@ public class Book implements Parcelable {
         this.genres = in.createStringArrayList();
         this.description = in.readString();
         this.createdAt = in.readLong();
+        this.updatedAt = in.readLong();
     }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {

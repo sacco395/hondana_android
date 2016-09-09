@@ -3,6 +3,7 @@ package com.books.hondana.Model.kii;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.books.hondana.Model.Convertible;
 import com.books.hondana.Model.book.Book;
 import com.books.hondana.Model.book.Condition;
 import com.books.hondana.Model.book.Genre;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/07/12.
  */
-public class KiiBook extends KiiDataObj implements Parcelable {
+public class KiiBook extends KiiDataObj implements Parcelable, Convertible<Book> {
 
     public static final String BOOK_ID = "book_id";
     public static final String TITLE = "title";
@@ -51,7 +52,8 @@ public class KiiBook extends KiiDataObj implements Parcelable {
     public static final String MOLD_SMELL = "mold_smell";
     public static final String DESCRIPTION = "description";
 
-    public long createdAt = -1L;
+    public long createdAt = -1;
+    public long updatedAt = -1;
 
     public static KiiBook create(Book book) {
         KiiBook kiiBook = new KiiBook();
@@ -101,6 +103,7 @@ public class KiiBook extends KiiDataObj implements Parcelable {
         return kiiBook;
     }
 
+    @Override
     public Book convert() {
         Book book = new Book();
 
@@ -163,12 +166,13 @@ public class KiiBook extends KiiDataObj implements Parcelable {
 
         book.setDescription(get(DESCRIPTION));
         book.setCreatedAt(createdAt);
+        book.setUpdatedAt(updatedAt);
 
         return book;
     }
 
     /**
-     * Kii サーバに保存したりするときのみ使う
+     * Kii サーバとやりとりするときのみ使う
      */
     public static KiiBook create() {
         return new KiiBook();
@@ -181,12 +185,13 @@ public class KiiBook extends KiiDataObj implements Parcelable {
 
     /**
      * アプリ内で KiiBook は基本的に、このコンストラクタを使って生成する。
-     * KiiObject から生成しないと、createdAt が取得できないため。
+     * KiiObject から生成しないと、createdAt などが取得できないため。
      * @param kiiObject
      */
     public KiiBook(KiiObject kiiObject){
         super(kiiObject);
         createdAt = kiiObject.getCreatedTime();
+        updatedAt = kiiObject.getModifedTime();
     }
 
     protected KiiBook(Parcel in) {

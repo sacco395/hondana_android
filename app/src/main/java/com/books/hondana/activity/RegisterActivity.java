@@ -32,7 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.Model.kii.KiiCloudBucket;
-import com.books.hondana.Model.Member;
+import com.books.hondana.Model.kii.KiiMember;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
@@ -81,14 +81,6 @@ public class RegisterActivity extends Activity {
         try {
             KiiUser user = KiiUser.createWithPhone(username, phone);
             user.setCountry(country);
-            user.set("point",1);
-            //user.set("image_Url","");
-            user.set("profile","");
-            user.set("address","");
-            user.set("birthday","");
-            user.set("favorite_author1","");
-            user.set("favorite_author2","");
-            user.set("favorite_author3","");
             // register the user asynchronously
             user.register(new KiiUserCallBack() {
 
@@ -138,22 +130,7 @@ public class RegisterActivity extends Activity {
 
     private void createMember(KiiUser user) {
         // 普通にインスタンス化
-        Member member = new Member ();
-        // KiiCloud の Member バケツのオブジェクトだと宣言
-        member.kiiDataInitialize(KiiCloudBucket.MEMBERS);
-
-        // 登録したい値をセット
-        member.set (Member.USER_ID, user.getID());
-        member.set (Member.NAME, user.getUsername());
-        member.set (Member.PROFILE,"");
-        //member.set (Member.IMAGE_URL, "");
-        member.set (Member.ADDRESS,"");
-        member.set (Member.BIRTHDAY,"");
-        member.set (Member.POINT,"");
-        member.set (Member.FAVORITE_AUTHOR1,"");
-        member.set (Member.FAVORITE_AUTHOR2,"");
-        member.set (Member.FAVORITE_AUTHOR3,"");
-
+        KiiMember member = KiiMember.create(user);
 
         // サーバにポスト
         member.save (new KiiObjectCallBack () {
@@ -180,8 +157,6 @@ public class RegisterActivity extends Activity {
                     RegisterActivity.this.startActivity(myIntent);
 
                     finish();
-
-
                 }
 
                 // otherwise, something bad happened in the request

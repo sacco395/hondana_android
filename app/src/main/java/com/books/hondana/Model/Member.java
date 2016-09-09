@@ -3,41 +3,127 @@ package com.books.hondana.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.books.hondana.Model.kii.KiiCloudBucket;
-import com.books.hondana.Model.kii.KiiDataObj;
-import com.kii.cloud.storage.KiiObject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by sacco on 2016/08/21.
+ * @author Tetsuro MIKAMI https://github.com/mickamy
+ *         Created on 9/9/16.
  */
-public class Member extends KiiDataObj implements Parcelable {
+public class Member implements Parcelable {
 
-    public static final String USER_ID = "user_id";
-    public static final String NAME = "name";
-    public static final String BIRTHDAY = "birthday";
-    public static final String ADDRESS = "address";
-    public static final String PROFILE = "profile";
-    public static final String IMAGE_URL = "image_Url";
-    public static final String POINT = "point";
-    public static final String FAVORITE_AUTHOR1 = "favorite_author1";
-    public static final String FAVORITE_AUTHOR2 = "favorite_author2";
-    public static final String FAVORITE_AUTHOR3 = "favorite_author3";
-    public static final String DELETE_FLG = "delete_flg";
-    public static final String CREATED_AT = "created_at";
-    public static final String UPDATE_AT = "updated_at";
+    private String id;
 
-    // Constructor
+    private String name;
+
+    private String birthday;
+
+    private String address;
+
+    private String profile;
+
+    private String imageUrl;
+
+    private int point;
+
+    private List<String> favoriteAuthors = new ArrayList<>(3);
+
+    private boolean deleted;
+
+    private long createdAt;
+
+    private long updatedAt;
+
     public Member() {
-        super();
-        // application scope の kiiBucket の Objectとして設定
-        kiiDataInitialize(KiiCloudBucket.MEMBERS);
     }
 
-    // KiiCloud
-    public Member(KiiObject kiiObject){
-        super(kiiObject);
+    public String getId() {
+        return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+    public List<String> getFavoriteAuthors() {
+        return favoriteAuthors;
+    }
+
+    public void setFavoriteAuthors(List<String> favoriteAuthors) {
+        this.favoriteAuthors = favoriteAuthors;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(long updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     @Override
     public int describeContents() {
@@ -46,17 +132,37 @@ public class Member extends KiiDataObj implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel (dest, flags);
+        dest.writeString(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.birthday);
+        dest.writeString(this.address);
+        dest.writeString(this.profile);
+        dest.writeString(this.imageUrl);
+        dest.writeInt(this.point);
+        dest.writeStringList(this.favoriteAuthors);
+        dest.writeByte(this.deleted ? (byte) 1 : (byte) 0);
+        dest.writeLong(this.createdAt);
+        dest.writeLong(this.updatedAt);
     }
 
     protected Member(Parcel in) {
-        super (in);
+        this.id = in.readString();
+        this.name = in.readString();
+        this.birthday = in.readString();
+        this.address = in.readString();
+        this.profile = in.readString();
+        this.imageUrl = in.readString();
+        this.point = in.readInt();
+        this.favoriteAuthors = in.createStringArrayList();
+        this.deleted = in.readByte() != 0;
+        this.createdAt = in.readLong();
+        this.updatedAt = in.readLong();
     }
 
-    public static final Creator<Member> CREATOR = new Creator<Member> () {
+    public static final Creator<Member> CREATOR = new Creator<Member>() {
         @Override
         public Member createFromParcel(Parcel source) {
-            return new Member (source);
+            return new Member(source);
         }
 
         @Override
@@ -64,8 +170,4 @@ public class Member extends KiiDataObj implements Parcelable {
             return new Member[size];
         }
     };
-
-    public int getPoint() {
-        return 10;
-    }
 }

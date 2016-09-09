@@ -31,7 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.Model.kii.KiiCloudBucket;
-import com.books.hondana.Model.Member;
+import com.books.hondana.Model.kii.KiiMember;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.Kii;
@@ -96,7 +96,7 @@ public class LoginActivity extends Activity {
                     showToast("User authenticated!");
 
                     // Member の user_id が user.getID() と等しいものが欲しい
-                    KiiQuery query = new KiiQuery (KiiClause.equals (Member.USER_ID, user.getID ()));
+                    KiiQuery query = new KiiQuery (KiiClause.equals (KiiMember.USER_ID, user.getID ()));
 
 //                    KiiQuery allQuery = new KiiQuery ();
 
@@ -111,8 +111,8 @@ public class LoginActivity extends Activity {
                                 // Success!
                                 if (result != null && result.getResult () != null) {
                                     KiiObject memberObj = result.getResult ().get (0);
-                                    Member member = new Member (memberObj);
-                                    LogUtil.d (TAG, "onQueryCompleted: " + member.toString ());
+                                    KiiMember kiiMember = new KiiMember(memberObj);
+                                    LogUtil.d (TAG, "onQueryCompleted: " + kiiMember.toString ());
                                 } else {
                                     // Result is null! エラー処理
                                 }

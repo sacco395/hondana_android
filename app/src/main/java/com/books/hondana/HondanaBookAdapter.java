@@ -16,9 +16,8 @@ import com.books.hondana.Connection.KiiCloudConnection;
 import com.books.hondana.Model.book.Book;
 import com.books.hondana.Model.book.Condition;
 import com.books.hondana.Model.book.Info;
-import com.books.hondana.Model.kii.KiiBook;
 import com.books.hondana.Model.kii.KiiCloudBucket;
-import com.books.hondana.Model.Member;
+import com.books.hondana.Model.kii.KiiMember;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.query.KiiQueryResult;
 import com.squareup.picasso.Picasso;
@@ -147,13 +146,13 @@ public class HondanaBookAdapter extends BaseAdapter {
                 Log.d(TAG, "members.size: " + kiiObjects.size());
                 if (kiiObjects != null && kiiObjects.size() > 0) {
                     final KiiObject kiiObject = kiiObjects.get(0);// ひとつしか来ていないはずなので0番目だけ使う
-                    final Member member = new Member(kiiObject);
+                    final KiiMember kiiMember = new KiiMember(kiiObject);
 
-                    final String name = member.get(Member.NAME);
+                    final String name = kiiMember.get(KiiMember.NAME);
                     Log.d(TAG, "name: " + name);
                     holder.tvOwnerName.setText(name);
 
-                    final String imageUrl = member.get(Member.IMAGE_URL);
+                    final String imageUrl = kiiMember.get(KiiMember.IMAGE_URL);
                     Log.d(TAG, "imageUrl: " + imageUrl);
                     Picasso.with(parent.getContext())
                             .load(imageUrl)
