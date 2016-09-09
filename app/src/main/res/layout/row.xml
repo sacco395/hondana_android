@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:id="@+id/imgTitle"
+            android:id="@+id/imgCovert"
             android:adjustViewBounds="false"
             android:scaleType="fitCenter"
             android:layout_margin="4dp"

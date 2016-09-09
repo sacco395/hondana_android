@@ -50,9 +50,9 @@
                 <ImageView
                     android:id="@+id/user_icon"
                     android:src="@drawable/usericon"
-                    android:scaleType="centerCrop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,6 +70,7 @@
                         android:textColor="#000" />
                     <TextView
                         android:text="ブク：6ブク"
+                        android:id="@+id/user_point"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="20dp"
                         android:layout_gravity="center_vertical"

@@ -14,8 +14,9 @@
 
     <ImageView
         android:id="@+id/iv_user_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@drawable/usericon" />
 

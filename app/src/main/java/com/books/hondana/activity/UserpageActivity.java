@@ -37,7 +37,6 @@ import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
 import com.kii.cloud.storage.query.KiiQueryResult;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -137,8 +136,8 @@ public class UserpageActivity extends AppCompatActivity
 
         //navigationViewにアイコンここから
         View header = navigationView.getHeaderView(0);
-        ImageView userIcon2 = (ImageView) header.findViewById(R.id.iv_user_icon);
-        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon2);
+        final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
+//        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,8 +190,9 @@ public class UserpageActivity extends AppCompatActivity
 //        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon2);
 //        // binding.navView.setNavigationItemSelectedListener(this);
 
-        final ImageView userIcon = (ImageView)findViewById(R.id.user_icon);
+        final ImageView userIcon2 = (ImageView) findViewById(R.id.user_icon);
 
+        final String userId = user.getID ();
         final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
         membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
             @Override
@@ -212,9 +212,11 @@ public class UserpageActivity extends AppCompatActivity
                     final String imageUrl = member.get(Member.IMAGE_URL);
                     Log.d(TAG, "imageUrl: " + imageUrl);
                     imageLoader.displayImage(imageUrl, userIcon);
+                    imageLoader.displayImage(imageUrl, userIcon2);
                 }
             }
         });
+
 
 
         // ListViewのインスタンスを生成
