@@ -27,7 +27,7 @@ public class KiiMemberConnection {
     public KiiMemberConnection() {
     }
 
-    public void fetch(String id, final KiiObjectCallback callback) {
+    public void fetch(String id, final Callback callback) {
         KiiQuery idQuery = new KiiQuery(
                 KiiClause.equals(KiiMember.USER_ID, id)
         );
@@ -43,21 +43,26 @@ public class KiiMemberConnection {
                             return;
                         }
                         // Success
-                        callback.success(token, result.getResult());
+                        callback.success(new KiiMember(result.getResult().get(0)));
                     }
                 }, idQuery);
     }
 
+    /**
+     * @param userId 対象ユーザの ID
+     * @param diff ポイントの差分。減るときは負の数を指定
+     * @param callback コールバック
+     */
     public void updatePoint(String userId, final int diff, final Callback callback) {
-        fetch(userId, new KiiObjectCallback() {
+        fetch(userId, new Callback() {
             @Override
-            public void success(int token, List<KiiObject> result) {
-                Member member = new KiiMember(result.get(0)).convert();
+            public void success(KiiMember kiiMember) {
+                Member member = kiiMember.convert();
                 int point = member.getPoint();
                 point += diff;
                 member.setPoint(point);
-                KiiMember kiiMember = KiiMember.create(member);
-                kiiMember.save(new KiiObjectCallBack() {
+                KiiMember updated = KiiMember.create(member);
+                updated.save(new KiiObjectCallBack() {
                     @Override
                     public void onSaveCompleted(int token, @NonNull KiiObject object, @Nullable Exception exception) {
                         if (exception == null) {
