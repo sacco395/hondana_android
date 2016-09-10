@@ -2,13 +2,16 @@ package com.books.hondana.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -112,6 +115,29 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    @Nullable
+    private File getFile(Uri uri) {
+
+        String documentId = DocumentsContract.getDocumentId(uri);
+        String[] split = documentId.split(":");
+        String id = split[split.length - 1];
+
+        Cursor cursor = getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI ,
+                new String[] {MediaStore.MediaColumns.DATA} ,
+                "_id=?",
+                new String[]{ id },
+                null
+        );
+        if (cursor != null) {
+            cursor.moveToFirst();
+            String filePath = cursor.getString(0);
+            cursor.close();
+            return new File(filePath);
+        }
+        return null;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -121,10 +147,17 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                 return;
             }
 
+            // これで PDF への参照を掴む
+            Uri uri = data.getData();
+            final File pdfFile = getFile(uri);
+            if (pdfFile == null) {
+                Log.d(TAG, "onActivityResult: File not found");
+            } else {
+                Log.d(TAG, "onActivityResult: File found!");
+            }
+
             // Create an object in an application-scope bucket.
             KiiObject object = Kii.bucket("pdf").object();
-            // Set key-value pairs.
-            object.set("pdf", "");
             // Save KiiObject
             object.save(new KiiObjectCallBack() {
                 @Override
@@ -133,12 +166,8 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                         // Error handling
                         return;
                     }
-                    // Prepare file to upload.
-                    File localFile = new File(Environment.getExternalStorageDirectory(),
-                            "myPdf.pdf");
-
                     // Start uploading
-                    object.uploadBody(localFile, "application/pdf", new KiiObjectBodyCallback() {
+                    object.uploadBody(pdfFile, "application/pdf", new KiiObjectBodyCallback() {
                         @Override
                         public void onTransferStart(KiiObject object) {
                         }
@@ -152,7 +181,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                         public void onTransferCompleted(KiiObject object, Exception exception) {
                             if (exception != null) {
                                 // Error handling
-                                LogUtil.d (TAG, ("投稿されてないっす"));
+                                //Log.e(TAG,"onTransferCompleted",exception);
                                 return;
                             }
 
