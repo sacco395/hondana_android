@@ -15,8 +15,8 @@ import android.widget.TextView;
 import com.books.hondana.Connection.KiiCloudConnection;
 import com.books.hondana.Model.Member;
 import com.books.hondana.Model.book.Book;
-import com.books.hondana.Model.book.Condition;
-import com.books.hondana.Model.book.Info;
+import com.books.hondana.Model.book.BookCondition;
+import com.books.hondana.Model.book.BookInfo;
 import com.books.hondana.Model.kii.KiiCloudBucket;
 import com.books.hondana.Model.kii.KiiMember;
 import com.kii.cloud.storage.KiiObject;
@@ -113,7 +113,7 @@ public class HondanaBookAdapter extends BaseAdapter {
             }
         });
 
-        Info info = book.getInfo();
+        BookInfo info = book.getInfo();
         String coverUrl = info.getImageUrl();
 
         // http://square.github.io/picasso/
@@ -121,7 +121,7 @@ public class HondanaBookAdapter extends BaseAdapter {
                 .load(coverUrl)
                 .into(holder.ivCover);
 
-        Condition condition = book.getCondition();
+        BookCondition condition = book.getCondition();
         int resId = condition.getIconDrawableResId();
         if (resId != 0) {
             Context context = convertView.getContext();
@@ -132,7 +132,7 @@ public class HondanaBookAdapter extends BaseAdapter {
         holder.tvTitle.setText(info.getTitle());
         holder.tvAuthor.setText(info.getAuthor());
 
-        final String userId = book.getOwnerId();
+        final String userId = book.getOwner();
         final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
         membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
             @Override

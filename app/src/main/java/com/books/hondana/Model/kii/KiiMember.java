@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.books.hondana.Model.Convertible;
 import com.books.hondana.Model.Member;
+import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
 
@@ -40,14 +41,23 @@ public class KiiMember extends KiiDataObj implements Parcelable, Convertible<Mem
     public long createdAt = -1;
     public long updatedAt = -1;
 
-    public static KiiMember create(KiiUser user) {
-        KiiMember member = new KiiMember();
-        member.set(USER_ID, user.getID());
-        member.set(NAME, user.getUsername());
+    /**
+     * 新規ユーザ登録時に、対応する KiiMember を作成する
+     * @param user 新規登録ユーザ
+     * @return
+     */
+    public static KiiMember createNewMember(KiiUser user) throws IllegalArgumentException {
+        String id = user.getID();
+        if (id == null) {
+            throw new IllegalArgumentException("KiiUser に ID が付与されていないため、各ユーザに一対一対応した KiiMember を作ることができない。三上に連絡ください");
+        }
+        KiiObject kiiObject = Kii.bucket(KiiCloudBucket.MEMBERS.getName()).object(id);
+        kiiObject.set(USER_ID, user.getID());
+        kiiObject.set(NAME, user.getUsername());
         // TODO: 9/9/16 ユーザ登録時に付与されるポイントを設定
-        member.set(POINT, "0");
-        member.set(DELETE_FLG, "false");
-        return member;
+        kiiObject.set(POINT, "0");
+        kiiObject.set(DELETE_FLG, "false");
+        return new KiiMember(kiiObject);
     }
 
     public static KiiMember create(Member member) {

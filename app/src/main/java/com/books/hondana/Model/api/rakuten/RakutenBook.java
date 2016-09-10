@@ -1,11 +1,9 @@
 package com.books.hondana.Model.api.rakuten;
 
-import android.support.annotation.Nullable;
-
-import com.books.hondana.Model.book.Genre;
 import com.books.hondana.Model.api.BaseBook;
 import com.books.hondana.Model.book.Book;
-import com.books.hondana.Model.book.Info;
+import com.books.hondana.Model.book.BookInfo;
+import com.books.hondana.Model.book.GenreList;
 
 import org.json.JSONObject;
 
@@ -37,7 +35,7 @@ public class RakutenBook extends BaseBook implements Serializable{
 
 	public Book toBook(){
 		Book book = new Book();
-		Info info = new Info();
+		BookInfo info = new BookInfo();
 		for(HashMap.Entry<String, String> e : map.entrySet()) {
 			if( e.getKey().equals(RakutenBook.TITLE) ) {
 				info.setTitle(e.getValue());
@@ -81,7 +79,7 @@ public class RakutenBook extends BaseBook implements Serializable{
                 } else {
                     genres.add("");
                 }
-                book.setGenres(genres);
+				info.setGenres(new GenreList(genres));
 			}
 		}
         book.setInfo(info);

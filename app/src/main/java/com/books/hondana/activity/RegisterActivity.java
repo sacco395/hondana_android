@@ -31,7 +31,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Model.kii.KiiCloudBucket;
 import com.books.hondana.Model.kii.KiiMember;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
@@ -127,7 +126,7 @@ public class RegisterActivity extends Activity {
 
     private void createMember(KiiUser user) {
         // 普通にインスタンス化
-        KiiMember member = KiiMember.create(user);
+        KiiMember member = KiiMember.createNewMember(user);
 
         // サーバにポスト
         member.save (new KiiObjectCallBack () {

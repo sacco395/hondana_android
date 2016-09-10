@@ -5,12 +5,8 @@ import android.os.Parcelable;
 
 import com.books.hondana.Model.Convertible;
 import com.books.hondana.Model.book.Book;
-import com.books.hondana.Model.book.Condition;
-import com.books.hondana.Model.book.Genre;
-import com.books.hondana.Model.book.Info;
-import com.books.hondana.Model.book.Size;
-import com.books.hondana.Model.book.Smell;
-import com.books.hondana.R;
+import com.books.hondana.Model.book.BookCondition;
+import com.books.hondana.Model.book.BookInfo;
 import com.kii.cloud.storage.KiiObject;
 
 import java.util.ArrayList;
@@ -19,7 +15,9 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/07/12.
  */
-public class KiiBook extends KiiDataObj implements Parcelable, Convertible<Book> {
+public class KiiBook extends KiiDataObj implements Parcelable
+//        , Convertible<Book>
+{
 
     public static final String BOOK_ID = "book_id";
     public static final String TITLE = "title";
@@ -55,121 +53,121 @@ public class KiiBook extends KiiDataObj implements Parcelable, Convertible<Book>
     public long createdAt = -1;
     public long updatedAt = -1;
 
-    public static KiiBook create(Book book) {
-        KiiBook kiiBook = new KiiBook();
-
-        kiiBook.set(BOOK_ID, book.getId());
-
-        Info info = book.getInfo();
-        kiiBook.set(TITLE, info.getTitle());
-        kiiBook.set(PUBLISHER, info.getPublisher());
-        kiiBook.set(AUTHOR, info.getAuthor());
-        kiiBook.set(ISBN, info.getIsbn());
-        kiiBook.set(LANGUAGE, info.getLanguage());
-        kiiBook.set(ISSUE_DATE, info.getIssueDate());
-        kiiBook.set(IMAGE_URL, info.getImageUrl());
-
-        Size size = book.getSize();
-        kiiBook.set(HEIGHT, Double.toString(size.getHeight()));
-        kiiBook.set(WIDE, Double.toString(size.getWidth()));
-        kiiBook.set(DEPTH, Double.toString(size.getDepth()));
-        kiiBook.set(WEIGHT, Double.toString(size.getWeight()));
-
-        List<String> genres = book.getGenres();
-        kiiBook.set(GENRE_1, genres.get(0));
-        kiiBook.set(GENRE_2, genres.get(1));
-        kiiBook.set(GENRE_3, genres.get(2));
-        kiiBook.set(GENRE_4, genres.get(3));
-        kiiBook.set(GENRE_5, genres.get(4));
-
-        kiiBook.set(USER_ID, book.getOwnerId());
-
-        Condition condition = book.getCondition();
-        kiiBook.set(CONDITION, condition.getEvaluation());
-        kiiBook.set(LINE, condition.getLined());
-        kiiBook.set(BROKEN, condition.getFolded());
-        kiiBook.set(NOTES, condition.getNoted());
-        kiiBook.set(BAND, condition.getBand());
-        kiiBook.set(SUNBURNED, condition.getSunburned());
-        kiiBook.set(SCRATCHED, condition.getScratched());
-
-        Smell smell = book.getSmell();
-        kiiBook.set(CIGAR_SMELL, smell.getCigar());
-        kiiBook.set(PET_SMELL, smell.getPet());
-        kiiBook.set(MOLD_SMELL, smell.getMold());
-
-        kiiBook.set(DESCRIPTION, book.getDescription());
-
-        return kiiBook;
-    }
-
-    @Override
-    public Book convert() {
-        Book book = new Book();
-
-        book.setId(get(BOOK_ID));
-
-        Info info = new Info();
-        info.setTitle(get(TITLE));
-        info.setPublisher(get(PUBLISHER));
-        info.setAuthor(get(AUTHOR));
-        info.setIsbn(get(ISBN));
-        info.setLanguage(get(LANGUAGE));
-        info.setIssueDate(get(ISSUE_DATE));
-        info.setImageUrl(get(IMAGE_URL));
-        book.setInfo(info);
-
-        Size size = new Size();
-        String height = get(HEIGHT);
-        if (height != null && !height.equals("")) {
-            size.setHeight(Double.valueOf(height));
-        }
-        String width = get(WIDE);
-        if (width != null && !width.equals("")) {
-            size.setWidth(Double.valueOf(width));
-        }
-        String depth = get(DEPTH);
-        if (depth != null && !depth.equals("")) {
-            size.setDepth(Double.valueOf(depth));
-        }
-        String weight = get(WEIGHT);
-        if (weight != null && !weight.equals("")) {
-            size.setWeight(Double.valueOf(weight));
-        }
-        book.setSize(size);
-
-        List<String> genres = new ArrayList<>();
-        genres.add(get(GENRE_1));
-        genres.add(get(GENRE_2));
-        genres.add(get(GENRE_3));
-        genres.add(get(GENRE_4));
-        genres.add(get(GENRE_5));
-        book.setGenres(genres);
-
-        book.setOwnerId(get(USER_ID));
-
-        Condition condition = new Condition();
-        condition.setEvaluation(get(CONDITION));
-        condition.setLined(get(LINE));
-        condition.setFolded(get(BROKEN));
-        condition.setNoted(get(NOTES));
-        condition.setBand(get(BAND));
-        condition.setSunburned(get(SUNBURNED));
-        condition.setScratched(get(SCRATCHED));
-        book.setCondition(condition);
-
-        Smell smell = new Smell();
-        smell.setCigar(get(CIGAR_SMELL));
-        smell.setPet(get(PET_SMELL));
-        smell.setMold(get(MOLD_SMELL));
-        book.setSmell(smell);
-
-        book.setDescription(get(DESCRIPTION));
-        book.setCreatedAt(createdAt);
-        book.setUpdatedAt(updatedAt);
-
-        return book;
-    }
+//    public static KiiBook create(Book book) {
+//        KiiBook kiiBook = new KiiBook();
+//
+//        kiiBook.set(BOOK_ID, book.getId());
+//
+//        BookInfo info = book.getInfo();
+//        kiiBook.set(TITLE, info.getTitle());
+//        kiiBook.set(PUBLISHER, info.getPublisher());
+//        kiiBook.set(AUTHOR, info.getAuthor());
+//        kiiBook.set(ISBN, info.getIsbn());
+//        kiiBook.set(LANGUAGE, info.getLanguage());
+//        kiiBook.set(ISSUE_DATE, info.getIssueDate());
+//        kiiBook.set(IMAGE_URL, info.getImageUrl());
+//
+//        BookInfo.Size size = book.getSize();
+//        kiiBook.set(HEIGHT, Double.toString(size.getHeight()));
+//        kiiBook.set(WIDE, Double.toString(size.getWidth()));
+//        kiiBook.set(DEPTH, Double.toString(size.getDepth()));
+//        kiiBook.set(WEIGHT, Double.toString(size.getWeight()));
+//
+//        List<String> genres = book.getGenres();
+//        kiiBook.set(GENRE_1, genres.get(0));
+//        kiiBook.set(GENRE_2, genres.get(1));
+//        kiiBook.set(GENRE_3, genres.get(2));
+//        kiiBook.set(GENRE_4, genres.get(3));
+//        kiiBook.set(GENRE_5, genres.get(4));
+//
+//        kiiBook.set(USER_ID, book.getOwner());
+//
+//        BookCondition condition = book.getCondition();
+//        kiiBook.set(CONDITION, condition.getEvaluation());
+//        kiiBook.set(LINE, condition.getLined());
+//        kiiBook.set(BROKEN, condition.getFolded());
+//        kiiBook.set(NOTES, condition.getNoted());
+//        kiiBook.set(BAND, condition.getBand());
+//        kiiBook.set(SUNBURNED, condition.getSunburned());
+//        kiiBook.set(SCRATCHED, condition.getScratched());
+//
+//        BookCondition.Smell smell = book.getSmell();
+//        kiiBook.set(CIGAR_SMELL, smell.getCigar());
+//        kiiBook.set(PET_SMELL, smell.getPet());
+//        kiiBook.set(MOLD_SMELL, smell.getMold());
+//
+//        kiiBook.set(DESCRIPTION, book.getDescription());
+//
+//        return kiiBook;
+//    }
+//
+//    @Override
+//    public Book convert() {
+//        Book book = new Book();
+//
+//        book.setId(get(BOOK_ID));
+//
+//        BookInfo info = new BookInfo();
+//        info.setTitle(get(TITLE));
+//        info.setPublisher(get(PUBLISHER));
+//        info.setAuthor(get(AUTHOR));
+//        info.setIsbn(get(ISBN));
+//        info.setLanguage(get(LANGUAGE));
+//        info.setIssueDate(get(ISSUE_DATE));
+//        info.setImageUrl(get(IMAGE_URL));
+//        book.setInfo(info);
+//
+//        BookInfo.Size size = new BookInfo.Size();
+//        String height = get(HEIGHT);
+//        if (height != null && !height.equals("")) {
+//            size.setHeight(Double.valueOf(height));
+//        }
+//        String width = get(WIDE);
+//        if (width != null && !width.equals("")) {
+//            size.setWidth(Double.valueOf(width));
+//        }
+//        String depth = get(DEPTH);
+//        if (depth != null && !depth.equals("")) {
+//            size.setDepth(Double.valueOf(depth));
+//        }
+//        String weight = get(WEIGHT);
+//        if (weight != null && !weight.equals("")) {
+//            size.setWeight(Double.valueOf(weight));
+//        }
+//        book.setSize(size);
+//
+//        List<String> genres = new ArrayList<>();
+//        genres.add(get(GENRE_1));
+//        genres.add(get(GENRE_2));
+//        genres.add(get(GENRE_3));
+//        genres.add(get(GENRE_4));
+//        genres.add(get(GENRE_5));
+//        book.setGenres(genres);
+//
+//        book.setOwner(get(USER_ID));
+//
+//        BookCondition condition = new BookCondition();
+//        condition.setEvaluation(get(CONDITION));
+//        condition.setLined(get(LINE));
+//        condition.setFolded(get(BROKEN));
+//        condition.setNoted(get(NOTES));
+//        condition.setBand(get(BAND));
+//        condition.setSunburned(get(SUNBURNED));
+//        condition.setScratched(get(SCRATCHED));
+//        book.setCondition(condition);
+//
+//        BookCondition.Smell smell = new BookCondition.Smell();
+//        smell.setCigar(get(CIGAR_SMELL));
+//        smell.setPet(get(PET_SMELL));
+//        smell.setMold(get(MOLD_SMELL));
+//        book.setSmell(smell);
+//
+//        book.setDescription(get(DESCRIPTION));
+//        book.setCreatedAt(createdAt);
+//        book.setUpdatedAt(updatedAt);
+//
+//        return book;
+//    }
 
     /**
      * Kii サーバとやりとりするときのみ使う

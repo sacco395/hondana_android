@@ -3,6 +3,10 @@ package com.books.hondana.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.kii.cloud.storage.Kii;
+import com.kii.cloud.storage.KiiBucket;
+import com.kii.cloud.storage.KiiObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +14,7 @@ import java.util.List;
  * @author Tetsuro MIKAMI https://github.com/mickamy
  *         Created on 9/9/16.
  */
-public class Member implements Parcelable {
+public class Member extends KiiModel implements Parcelable {
 
     private String id;
 
@@ -123,6 +127,16 @@ public class Member implements Parcelable {
 
     public void setUpdatedAt(long updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public KiiBucket bucket() {
+        return Kii.bucket("members");
+    }
+
+    @Override
+    public KiiObject createNewKiiObject() throws KiiModelException {
+
     }
 
     @Override

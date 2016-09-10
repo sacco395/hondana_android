@@ -2,37 +2,44 @@ package com.books.hondana.Model.book;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.books.hondana.Model.KiiModel;
+import com.books.hondana.Model.KiiModelException;
+import com.kii.cloud.storage.Kii;
+import com.kii.cloud.storage.KiiBucket;
+import com.kii.cloud.storage.KiiObject;
+
+import org.json.JSONException;
 
 /**
  * @author Tetsuro MIKAMI https://github.com/mickamy
  *         Created on 9/9/16.
  */
-public class Book implements Parcelable {
+public class Book extends KiiModel implements Parcelable {
+
+    private static final String TAG = Book.class.getSimpleName();
+
+    public static final String OWNER = "owner";
+    public static final String INFO = "info";
+    public static final String CONDITION = "condition";
 
     private String id;
 
-    private String ownerId;
+    private String owner;
 
-    private Info info;
+    private BookInfo info;
 
-    private Size size;
-
-    private Smell smell;
-
-    private Condition condition;
-
-    private List<String> genres = new ArrayList<>(5);
-
-    private String description;
-
-    private long createdAt;
-
-    private long updatedAt;
+    private BookCondition condition;
 
     public Book() {
+    }
+
+    public Book(KiiObject kiiObject) throws JSONException {
+        super(kiiObject);
+        owner = source.getString(OWNER);
+        info = new BookInfo(source.getJSONObject(INFO));
+        condition = new BookCondition(source.getJSONObject(CONDITION));
     }
 
     public String getId() {
@@ -43,76 +50,56 @@ public class Book implements Parcelable {
         this.id = id;
     }
 
-    public String getOwnerId() {
-        return ownerId;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
-    public Info getInfo() {
+    public BookInfo getInfo() {
         return info;
     }
 
-    public void setInfo(Info info) {
+    public void setInfo(BookInfo info) {
         this.info = info;
     }
 
-    public Size getSize() {
-        return size;
-    }
-
-    public void setSize(Size size) {
-        this.size = size;
-    }
-
-    public Smell getSmell() {
-        return smell;
-    }
-
-    public void setSmell(Smell smell) {
-        this.smell = smell;
-    }
-
-    public Condition getCondition() {
+    public BookCondition getCondition() {
         return condition;
     }
 
-    public void setCondition(Condition condition) {
+    public void setCondition(BookCondition condition) {
         this.condition = condition;
     }
 
-    public List<String> getGenres() {
-        return genres;
+    @Override
+    public KiiBucket bucket() {
+        return Kii.bucket("appbooks");
     }
 
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
+    @Override
+    public KiiObject createNewKiiObject() throws KiiModelException {
+        KiiObject object = bucket().object();
+        return setValues(object);
     }
 
-    public String getDescription() {
-        return description;
+    @Override
+    public KiiObject createNewKiiObject(String id) throws KiiModelException {
+        KiiObject object = bucket().object(id);
+        return setValues(object);
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public long getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(long createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public long getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(long updatedAt) {
-        this.updatedAt = updatedAt;
+    private KiiObject setValues(KiiObject object) throws KiiModelException {
+        object.set(OWNER, owner);
+        try {
+            object.set(INFO, info.toJSON());
+            object.set(CONDITION, condition.toJSON());
+        } catch (JSONException e) {
+            throw new KiiModelException(e);
+        }
+        return object;
     }
 
     @Override
@@ -122,29 +109,19 @@ public class Book implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.source, flags);
         dest.writeString(this.id);
-        dest.writeString(this.ownerId);
+        dest.writeString(this.owner);
         dest.writeParcelable(this.info, flags);
-        dest.writeParcelable(this.size, flags);
-        dest.writeParcelable(this.smell, flags);
         dest.writeParcelable(this.condition, flags);
-        dest.writeStringList(this.genres);
-        dest.writeString(this.description);
-        dest.writeLong(this.createdAt);
-        dest.writeLong(this.updatedAt);
     }
 
     protected Book(Parcel in) {
+        this.source = in.readParcelable(KiiObject.class.getClassLoader());
         this.id = in.readString();
-        this.ownerId = in.readString();
-        this.info = in.readParcelable(Info.class.getClassLoader());
-        this.size = in.readParcelable(Size.class.getClassLoader());
-        this.smell = in.readParcelable(Smell.class.getClassLoader());
-        this.condition = in.readParcelable(Condition.class.getClassLoader());
-        this.genres = in.createStringArrayList();
-        this.description = in.readString();
-        this.createdAt = in.readLong();
-        this.updatedAt = in.readLong();
+        this.owner = in.readString();
+        this.info = in.readParcelable(BookInfo.class.getClassLoader());
+        this.condition = in.readParcelable(BookCondition.class.getClassLoader());
     }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {

@@ -8,10 +8,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.books.hondana.Model.KiiModelException;
 import com.books.hondana.Model.Request;
 import com.books.hondana.Model.kii.KiiBook;
 import com.books.hondana.R;
@@ -113,12 +115,11 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss", Locale.JAPAN);
         String dateString = simpleDateFormat.format (date); // 2016-09-03 17:24:33
 
-        KiiBook kiiBook = KiiBook.create(request.getBook());
-
-        kiiBook.set ("request_date", dateString);
+        KiiObject bookObject = request.getBook().source;
+        bookObject.set ("request_date", dateString);
         //kiiBook.set ("request_userId",user.getID());
 
-        kiiBook.save (new KiiObjectCallBack () {
+        bookObject.save (new KiiObjectCallBack () {
             @Override
             public void onSaveCompleted(int token, @NonNull KiiObject object, @Nullable Exception exception) {
                 Toast.makeText(getApplicationContext(), "本のリクエストを完了しました", Toast.LENGTH_LONG).show();

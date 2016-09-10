@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.books.hondana.Model.book.Genre;
+import com.books.hondana.Model.Genre;
 
 /**
  * Created by Administrator on 2016/08/02.

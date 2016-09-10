@@ -3,35 +3,39 @@ package com.books.hondana.Model.book;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.books.hondana.Model.JSONConvertible;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * @author Tetsuro MIKAMI https://github.com/mickamy
  *         Created on 9/9/16.
  */
-public class Size implements Parcelable {
+public class Size implements JSONConvertible, Parcelable {
 
-    private double height;
+    // KiiCloud 上のフィールド名
+    private static final String WIDTH = "width";
+    private static final String HEIGHT = "height";
+    private static final String THICKNESS = "thickness";
+    private static final String WEIGHT = "weight";
 
     private double width;
 
-    private double depth;
+    private double height;
+
+    private double thickness;
 
     private double weight;
 
-    public Size() {}
-
-    public Size(double height, double width, double depth, double weight) {
-        this.height = height;
-        this.width = width;
-        this.depth = depth;
-        this.weight = weight;
+    public Size() {
     }
 
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
+    public Size(JSONObject json) throws JSONException {
+        width = json.getDouble(WIDTH);
+        height = json.getDouble(HEIGHT);
+        thickness = json.getDouble(THICKNESS);
+        weight = json.getDouble(WEIGHT);
     }
 
     public double getWidth() {
@@ -42,12 +46,20 @@ public class Size implements Parcelable {
         this.width = width;
     }
 
-    public double getDepth() {
-        return depth;
+    public double getHeight() {
+        return height;
     }
 
-    public void setDepth(double depth) {
-        this.depth = depth;
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getThickness() {
+        return thickness;
+    }
+
+    public void setThickness(double thickness) {
+        this.thickness = thickness;
     }
 
     public double getWeight() {
@@ -59,26 +71,36 @@ public class Size implements Parcelable {
     }
 
     @Override
+    public JSONObject toJSON() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put(WIDTH, width);
+        json.put(HEIGHT, height);
+        json.put(THICKNESS, thickness);
+        json.put(WEIGHT, weight);
+        return json;
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeDouble(this.height);
         dest.writeDouble(this.width);
-        dest.writeDouble(this.depth);
+        dest.writeDouble(this.height);
+        dest.writeDouble(this.thickness);
         dest.writeDouble(this.weight);
     }
 
     protected Size(Parcel in) {
-        this.height = in.readDouble();
         this.width = in.readDouble();
-        this.depth = in.readDouble();
+        this.height = in.readDouble();
+        this.thickness = in.readDouble();
         this.weight = in.readDouble();
     }
 
-    public static final Parcelable.Creator<Size> CREATOR = new Parcelable.Creator<Size>() {
+    public static final Creator<Size> CREATOR = new Creator<Size>() {
         @Override
         public Size createFromParcel(Parcel source) {
             return new Size(source);

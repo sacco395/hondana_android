@@ -9,12 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.books.hondana.Model.book.Book;
-import com.books.hondana.Model.book.Info;
-import com.books.hondana.Model.kii.KiiBook;
+import com.books.hondana.Model.book.BookInfo;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BookListAdapter extends ArrayAdapter<Book>  {
@@ -64,7 +62,7 @@ public class BookListAdapter extends ArrayAdapter<Book>  {
 		Book book = getItem(position);
 
 		// 表示データの設定
-		Info info = book.getInfo();
+		BookInfo info = book.getInfo();
 		titleText.setText(info.getTitle());
 		publisherText.setText(info.getPublisher());
 		authorText.setText(info.getAuthor());

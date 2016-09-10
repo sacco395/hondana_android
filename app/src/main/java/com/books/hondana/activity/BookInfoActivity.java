@@ -17,8 +17,8 @@ import com.books.hondana.Connection.KiiCloudConnection;
 import com.books.hondana.Model.Member;
 import com.books.hondana.Model.Request;
 import com.books.hondana.Model.book.Book;
-import com.books.hondana.Model.book.Condition;
-import com.books.hondana.Model.book.Info;
+import com.books.hondana.Model.book.BookCondition;
+import com.books.hondana.Model.book.BookInfo;
 import com.books.hondana.Model.book.Size;
 import com.books.hondana.Model.book.Smell;
 import com.books.hondana.Model.kii.KiiCloudBucket;
@@ -68,7 +68,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         LogUtil.d (TAG, "onCreate");
 
         book = getIntent().getParcelableExtra(Book.class.getSimpleName());
-        Info info = book.getInfo();
+        BookInfo info = book.getInfo();
         String imgUrl = info.getImageUrl();
         LogUtil.d(TAG, info.getTitle());
 
@@ -90,7 +90,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         TextView tv_issueDate = (TextView) findViewById(R.id.textViewBookInfoDataOfIssue);
         tv_issueDate.setText(info.getIssueDate());
 
-        Condition condition = book.getCondition();
+        BookCondition condition = book.getCondition();
         TextView tv_bookCondition = (TextView) findViewById(R.id.bookInfoCondition);
         tv_bookCondition.setText(condition.getEvaluation());
 
@@ -104,10 +104,10 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         tv_bookLine.setText(condition.getLined());
 
         TextView tv_bookBroken = (TextView) findViewById(R.id.bookInfoBroken);
-        tv_bookBroken.setText(condition.getBand());
+        tv_bookBroken.setText(condition.getBandText());
 
         TextView tv_bookNotes = (TextView) findViewById(R.id.bookInfoNotes);
-        tv_bookNotes.setText(condition.getNoted());
+        tv_bookNotes.setText(condition.getNote());
 
 //本のその他の状態
         // 空の文字列を作成
@@ -133,7 +133,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         }
         etcText += scratched;
 
-        Smell smell = book.getSmell();
+        Smell smell = condition.getSmell();
 
         String cigar_smell = smell.getCigarSmellText();
         if (!cigar_smell.equals("")) {
@@ -158,11 +158,11 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         tv_bookEtc.setText(etcText);
 //本のその他の状態ここまで
 
-        Size size = book.getSize();
+        Size size = info.getSize();
 
         //本のサイズここから
         TextView tv_bookInfoSize = (TextView) findViewById(R.id.bookInfoSize);
-        tv_bookInfoSize.setText(MessageFormat.format ("縦{0}cm × 横{1}cm × 厚さ{2}cm", size.getHeight(), size.getWidth(), size.getDepth()));
+        tv_bookInfoSize.setText(MessageFormat.format ("縦{0}cm × 横{1}cm × 厚さ{2}cm", size.getHeight(), size.getWidth(), size.getThickness()));
 
 
         TextView tv_bookInfoWeight = (TextView) findViewById(R.id.bookInfoWeight);
@@ -175,7 +175,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         final TextView bookOwner = (TextView) findViewById(R.id.textViewBookInfoUserName);
         final ImageView userIcon = (ImageView) findViewById(R.id.bookInfoUserIcon);
 
-        final String userId = book.getOwnerId();
+        final String userId = book.getOwner();
         final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
         membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
             @Override

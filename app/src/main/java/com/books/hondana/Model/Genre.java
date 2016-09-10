@@ -1,4 +1,4 @@
-package com.books.hondana.Model.book;
+package com.books.hondana.Model;
 
 import com.books.hondana.Model.kii.KiiBook;
 import com.kii.cloud.storage.query.KiiClause;

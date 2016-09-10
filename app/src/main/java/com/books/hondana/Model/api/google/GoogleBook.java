@@ -2,7 +2,7 @@ package com.books.hondana.Model.api.google;
 
 import com.books.hondana.Model.api.BaseBook;
 import com.books.hondana.Model.book.Book;
-import com.books.hondana.Model.book.Info;
+import com.books.hondana.Model.book.BookInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,7 +59,7 @@ public class GoogleBook extends BaseBook {
     }
 
     public Book toBook(){
-        Info info = new Info();
+        BookInfo info = new BookInfo();
         for(HashMap.Entry<String, String> e : map.entrySet()) {
             if( e.getKey().equals(GoogleBook.TITLE) ) {
                 info.setTitle(e.getValue());
