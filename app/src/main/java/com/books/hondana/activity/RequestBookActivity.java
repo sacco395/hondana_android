@@ -21,6 +21,7 @@ import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
 import com.kii.cloud.storage.callback.KiiObjectBodyCallback;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
+import com.kii.cloud.storage.callback.KiiObjectPublishCallback;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -44,7 +45,6 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
     }
 
     KiiBook kiiBook;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +140,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                     // Start uploading
                     object.uploadBody(localFile, "application/pdf", new KiiObjectBodyCallback() {
                         @Override
-                        public void onTransferStart(KiiObject kiiObject) {
+                        public void onTransferStart(KiiObject object) {
                         }
 
                         @Override
@@ -152,9 +152,26 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                         public void onTransferCompleted(KiiObject object, Exception exception) {
                             if (exception != null) {
                                 // Error handling
+                                LogUtil.d (TAG, ("投稿されてないっす"));
                                 return;
                             }
-                            
+
+                            object.refresh (new KiiObjectCallBack () {
+                                public void onRefreshCompleted(int token, KiiObject object, Exception exception) {
+                                    int time = 60 * 60 * 72;//72時間後に消去
+                                    object.publishBodyExpiresIn(time, new KiiObjectPublishCallback() {
+                                        @Override
+                                        public void onPublishCompleted(String url, KiiObject object, Exception exception) {
+                                            if (exception != null) {
+                                                // Error handling
+                                                LogUtil.d (TAG, ("公開されてません"));
+                                                return;
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+
                             Toast.makeText(RequestBookActivity.this,"PDFが投稿されました！",
                                     Toast.LENGTH_LONG).show();
                             LogUtil.d (TAG, ("投稿されました"));
@@ -164,6 +181,32 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
             });
         }
     }
+
+    /*//投稿処理。画像のUploadがうまくいったときは、urlに公開のURLがセットされる
+    public void postUrl(String url) {
+        //バケット名を設定。
+        KiiObject object = Kii.bucket("members").object();
+        //Json形式でKeyのcommentをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
+        object.set ("url_Pdf", url);
+
+        //データをKiiCloudに保存
+        object.save (new KiiObjectCallBack () {
+            //保存結果が帰ってくるコールバック関数。自動的に呼び出される。
+            @Override
+            public void onSaveCompleted(int token, KiiObject object, Exception exception) {
+                //エラーがないとき
+                if (exception == null) {
+                    // Intent のインスタンスを取得する。getApplicationContext()で自分のコンテキストを取得。遷移先のアクティビティーを.classで指定
+                    Intent intent = new Intent (getApplicationContext (), RequestBookActivity.class);
+                    //Activityを終了します。
+                    finish ();
+                } else {
+                    LogUtil.e (TAG, "投稿されません。。。", exception);
+//
+                }
+            }
+        });
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
