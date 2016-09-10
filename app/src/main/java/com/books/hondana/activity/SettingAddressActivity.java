@@ -19,7 +19,7 @@ public class SettingAddressActivity extends AppCompatActivity {
 
     private static final String TAG = "SettingAddressActivity";
     private Button postButton;
-    private String Note;
+    private String AddressNote;
     KiiUser user = KiiUser.getCurrentUser ();
 
     @Override
@@ -40,7 +40,7 @@ public class SettingAddressActivity extends AppCompatActivity {
 
         TextView UserAddress = (TextView) findViewById (R.id.tv_user_address);
 
-        String address = user.getString("address");
+        final String address = user.getString("address");
         if (address.equals("")) {
             UserAddress.setText ("登録されていません");
         } else {
@@ -57,10 +57,11 @@ public class SettingAddressActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //備考欄のテキストここから
-                EditText noteField = (EditText) (findViewById (R.id.mailAddress_field));
-                Note = noteField.getText().toString ();
+                final EditText noteField = (EditText) (findViewById (R.id.address_field));
+                assert noteField != null;
+                AddressNote = noteField.getText().toString();
                 UserFields userFields = new UserFields();
-                userFields.set("address", Note);
+                userFields.set("address", AddressNote);
 
                 user.update (null,userFields,new KiiUserUpdateCallback () {
                     @Override
@@ -70,8 +71,10 @@ public class SettingAddressActivity extends AppCompatActivity {
                             return;
                         }else{
                             TextView UserAddress = (TextView) findViewById (R.id.tv_user_address);
-                            String address = user.getString("address");
+                            assert UserAddress != null;
                             UserAddress.setText(address);
+                            finish();
+                            startActivity(getIntent());
                         }
                     }
                 });

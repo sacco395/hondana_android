@@ -17,7 +17,7 @@ import com.kii.cloud.storage.callback.KiiUserUpdateCallback;
 
 public class SettingMailActivity extends AppCompatActivity {
 
-    private static final String TAG = "SettingMailActivity";
+    private static final String TAG = "SettingAddressActivity";
     private Button postButton;
     private String Note;
     KiiUser user = KiiUser.getCurrentUser ();
@@ -38,9 +38,8 @@ public class SettingMailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled (true);
         }
         TextView UserMail = (TextView) findViewById (R.id.tv_user_address);
-
         String user_mail = user.getEmail ();
-        if (user_mail==null) {
+        if (user_mail == null) {
             UserMail.setText ("登録されていません");
         } else {
             UserMail.setText (user_mail);
@@ -53,27 +52,30 @@ public class SettingMailActivity extends AppCompatActivity {
         postButton.requestFocus();
 
         postButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //備考欄のテキストここから
-            EditText noteField = (EditText) (findViewById (R.id.address_field));
-            assert noteField != null;
-            Note = noteField.getText ().toString ();
-            IdentityData.Builder builder = IdentityData.Builder.newWithEmail (Note);
-            IdentityData identityData = builder.build ();
+            @Override
+            public void onClick(View v) {
+                //備考欄のテキストここから
+                EditText noteField = (EditText) (findViewById (R.id.mailAddress_field));
+                assert noteField != null;
+                Note = noteField.getText ().toString ();
+                IdentityData.Builder builder = IdentityData.Builder.newWithEmail (Note);
+                IdentityData identityData = builder.build ();
 
-            user.update (identityData,null,new KiiUserUpdateCallback () {
-                @Override
-                public void onUpdateCompleted(KiiUser KiiUser, Exception exception) {
-                    if (exception != null) {
-                        // Error handling
-                        return;
-                    }else{TextView UserMail = (TextView) findViewById (R.id.tv_user_address);
-                        UserMail.setText (Note);}
-                }
-            });
-        }
-    });
+                user.update (identityData,null,new KiiUserUpdateCallback () {
+                    @Override
+                    public void onUpdateCompleted(KiiUser KiiUser, Exception exception) {
+                        if (exception != null) {
+                            // Error handling
+                            return;
+                        }else{
+                            TextView UserMail = (TextView) findViewById (R.id.tv_user_address);
+                            assert UserMail != null;
+                            UserMail.setText (user.getEmail ());
+                        }
+                    }
+                });
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
