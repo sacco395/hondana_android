@@ -101,7 +101,8 @@ public class LoginActivity extends Activity {
                     KiiMemberConnection connection = new KiiMemberConnection();
                     connection.fetch(user.getID(), new KiiMemberConnection.Callback() {
                         @Override
-                        public void success(KiiMember member) {
+                        public void success(KiiObject object) {
+                            KiiMember member = new KiiMember(object);
                             LogUtil.d (TAG, "onQueryCompleted: " + member.toString ());
 
                             Intent myIntent = new Intent(LoginActivity.this,

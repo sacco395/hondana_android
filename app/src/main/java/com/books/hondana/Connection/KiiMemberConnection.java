@@ -1,5 +1,6 @@
 package com.books.hondana.Connection;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
@@ -17,6 +18,8 @@ import com.kii.cloud.storage.query.KiiClause;
 import com.kii.cloud.storage.query.KiiQuery;
 import com.kii.cloud.storage.query.KiiQueryResult;
 
+import org.json.JSONException;
+
 import java.util.List;
 
 /**
@@ -32,9 +35,8 @@ public class KiiMemberConnection {
 
     public void fetch(String id, final Callback callback) {
         KiiQuery idQuery = new KiiQuery(
-                KiiClause.equals(KiiMember.USER_ID, id)
+                KiiClause.equals(KiiMember.OWNER, id)
         );
-        idQuery.setLimit(1);
 
         KiiBucket kiiBucket = Kii.bucket(KiiCloudBucket.MEMBERS.getName());
         kiiBucket.query(
@@ -45,8 +47,11 @@ public class KiiMemberConnection {
                             callback.failure(e);
                             return;
                         }
+                        if (result.getResult().size() > 1) {
+                            throw  new RuntimeException("KiiMember は、ユーザに対して一つのはずなのに、複数存在している。ポイントの整合性などが保てなくなる致命的なエラー。三上に連絡ください。");
+                        }
                         // Success
-                        callback.success(new KiiMember(result.getResult().get(0)));
+                        callback.success(result.getResult().get(0));
                     }
                 }, idQuery);
     }
@@ -59,25 +64,35 @@ public class KiiMemberConnection {
     public void updatePoint(String userId, final int diff, final Callback callback) {
         fetch(userId, new Callback() {
             @Override
-            public void success(KiiMember kiiMember) {
-                Member member = kiiMember.convert();
-                int point = member.getPoint();
-                Log.d(TAG, "success: old=" + point);
-                point += diff;
-                Log.d(TAG, "success: new=" + point);
-                member.setPoint(point);
-                Log.d(TAG, "success: member" + member.getPoint());
-                KiiObject updated = KiiMember.create(member).toKiiObject();
-                updated.saveAllFields(new KiiObjectCallBack() {
+            public void success(KiiObject kiiObject) {
+                String pointStr;
+                if (kiiObject.has(KiiMember.POINT)) {
+                    pointStr = kiiObject.getString(KiiMember.POINT);
+                } else {
+                    pointStr = "0";
+                }
+                int point = Integer.valueOf(pointStr);
+                kiiObject.set(KiiMember.POINT, point + diff);
+//                KiiMember kiiMember = new KiiMember(kiiObject);
+//                Member member = kiiMember.convert();
+//                int point = member.getPoint();
+//                Log.d(TAG, "success: old=" + point);
+//                point += diff;
+//                Log.d(TAG, "success: new=" + point);
+//                member.setPoint(point);
+//                Log.d(TAG, "success: member" + member.getPoint());
+//                KiiObject updated = KiiMember.create(member).toKiiObject();
+//                updated.saveAllFields(new KiiObjectCallBack() {
+                kiiObject.saveAllFields(new KiiObjectCallBack() {
                     @Override
                     public void onSaveCompleted(int token, @NonNull KiiObject object, @Nullable Exception exception) {
                         if (exception == null) {
-                            callback.success(new KiiMember(object));
+                            callback.success(object);
                             return;
                         }
                         callback.failure(exception);
                     }
-                }, true);
+                }, false);
             }
 
             @Override
@@ -88,7 +103,7 @@ public class KiiMemberConnection {
     }
 
     public interface Callback {
-        void success(KiiMember member);
+        void success(KiiObject kiiObject);
         void failure(@Nullable Exception e);
     }
 }

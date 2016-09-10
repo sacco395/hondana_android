@@ -20,6 +20,8 @@ public class KiiMember extends KiiDataObj implements Parcelable, Convertible<Mem
 
     private static final String TAG = KiiMember.class.getSimpleName();
 
+    public static final String OWNER = "_owner";
+
     public static final String USER_ID = "user_id";
     public static final String NAME = "name";
     public static final String BIRTHDAY = "birthday";
@@ -34,6 +36,7 @@ public class KiiMember extends KiiDataObj implements Parcelable, Convertible<Mem
     public static final String CREATED_AT = "created_at";
     public static final String UPDATE_AT = "updated_at";
 
+//    public String ownerId;
     public long createdAt = -1;
     public long updatedAt = -1;
 
@@ -58,8 +61,8 @@ public class KiiMember extends KiiDataObj implements Parcelable, Convertible<Mem
 
         List<String> authors = member.getFavoriteAuthors();
         kiiMember.set(FAVORITE_AUTHOR1, authors.get(0));
-        kiiMember.set(FAVORITE_AUTHOR1, authors.get(1));
-        kiiMember.set(FAVORITE_AUTHOR1, authors.get(2));
+        kiiMember.set(FAVORITE_AUTHOR2, authors.get(1));
+        kiiMember.set(FAVORITE_AUTHOR3 , authors.get(2));
 
         kiiMember.set(DELETE_FLG, Boolean.toString(member.isDeleted()));
         kiiMember.set(CREATED_AT, Long.toString(member.getCreatedAt()));
@@ -123,6 +126,7 @@ public class KiiMember extends KiiDataObj implements Parcelable, Convertible<Mem
      */
     public KiiMember(KiiObject kiiObject){
         super(kiiObject);
+//        ownerId = kiiObject.getString(OWNER);
         createdAt = kiiObject.getCreatedTime();
         updatedAt = kiiObject.getModifedTime();
     }
