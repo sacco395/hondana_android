@@ -1,35 +1,43 @@
 package com.books.hondana.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.books.hondana.R;
 
-public class SettingAddressActivity extends Activity {
+public class SettingAddressActivity extends AppCompatActivity {
+
+    private static final String TAG = "SettingAddressActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String str = "";
+        super.onCreate (savedInstanceState);
+        setContentView (R.layout.activity_address_setting);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting_02);
+        // ツールバーをアクションバーとしてセット
+        Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
+        toolbar.setTitle ("住所の設定");
+        setSupportActionBar (toolbar);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            str = extras.getString("SELECTED_DATA");
+
+        ActionBar actionBar = getSupportActionBar ();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled (true);
         }
-        TextView txtView = (TextView)findViewById(R.id.textView2);
-        txtView.setText(str);
+    }
 
-        Button button = (Button) findViewById(R.id.button2);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();   // アクティビティ終了
-            }
-        });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId ()) {
+            case android.R.id.home:
+                onBackPressed ();
+                return true;
+            default:
+                return super.onOptionsItemSelected (item);
+        }
     }
 }
