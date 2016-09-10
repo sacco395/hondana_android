@@ -38,7 +38,10 @@ public class SettingMailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled (true);
         }
         TextView UserMail = (TextView) findViewById (R.id.tv_user_address);
-        UserMail.setText (user.getEmail ().toString ());
+        String user_mail = user.getEmail ();
+        if (user_mail != null) {
+            UserMail.setText (user_mail);
+        }
 
         postButton = (Button)findViewById(R.id.post_button);
         // ボタンにフォーカスを移動させる
