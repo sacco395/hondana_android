@@ -46,7 +46,7 @@
             android:src="@drawable/abc_btn_rating_star_off_mtrl_alpha"
             android:tint="#C8C8C8"
             android:layout_gravity="right"
-            android:layout_marginRight="15dp" />
+            android:layout_marginRight="20dp" />
 
         <!--著者名リード-->
         <TextView
@@ -74,7 +74,6 @@
             android:layout_height="1dip"
             android:layout_marginTop="5dp"
             android:background="#E6E5E1" />
-
 
         <!--出版社リード-->
         <TextView
@@ -157,12 +156,10 @@
             android:background="#E6E5E1"
             android:layout_marginTop="12dip" />
 
-        <RelativeLayout
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginBottom="50dp"
-            >
+            android:layout_height="wrap_content" >
 
             <!--ユーザーアイコン-->
             <ImageView
@@ -175,90 +172,108 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp" />
 
-            <!--ユーザー名リード-->
-            <TextView
+               <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+               <!--本を持っている人リード-->
+               <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="本を持っている人"
                 android:id="@+id/BookInfoUserNameLead"
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
-                android:layout_alignTop="@+id/bookInfoUserIcon"
-                android:layout_alignLeft="@+id/bookInfoConditionLead"
-                android:layout_alignStart="@+id/bookInfoConditionLead"/>
-            <!--ユーザー名-->
-            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp" />
+               <!--ユーザー名-->
+               <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ユーザー名"
                 android:id="@+id/textViewBookInfoUserName"
                 android:textSize="18sp"
-                android:layout_alignBottom="@+id/BookInfoUserNameLead"
-                android:layout_toRightOf="@+id/bookInfoCondition"
-                android:layout_toEndOf="@id/BookInfoUserNameLead"
-                android:layout_alignParentEnd="false"
-                android:layout_marginLeft="10dp"
-                android:layout_alignParentRight="false"/>
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp" />
+               </LinearLayout>
+               <!--本の状態アイコン-->
+               <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/bookInfoBookConditionIcon"
+                android:src="@drawable/book_icon_good"
+                android:layout_marginLeft="145dp"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
 
-            <!--本の状態リード-->
-            <TextView
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+               <!--本の状態リード-->
+                <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="本の状態"
                 android:id="@+id/bookInfoConditionLead"
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
-                android:layout_below="@+id/textViewBookInfoUserName"
-                android:layout_alignLeft="@+id/bookInfoWeight"
-                android:layout_alignStart="@+id/bookInfoWeight"/>
-
-            <!--本の状態-->
-            <TextView
+                android:layout_marginLeft="10dp" />
+               <!--本の状態-->
+                <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="本の状態"
                 android:id="@+id/bookInfoCondition"
-                android:layout_below="@+id/textViewBookInfoUserName"
-                android:layout_toRightOf="@+id/bookInfoConditionLead"
-                android:layout_toEndOf="@+id/bookInfoConditionLead"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp" />
+        </LinearLayout>
 
-            <!--本の状態アイコン-->
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/bookInfoBookConditionIcon"
-                android:src="@drawable/book_icon_good"
-                android:layout_alignTop="@+id/BookInfoUserNameLead"
-                android:layout_alignRight="@+id/bookInfoEtc"
-                android:layout_alignEnd="@+id/bookInfoEtc"
-                android:layout_marginRight="10dp"/>
+        <LinearLayout
+         android:orientation="vertical"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
 
-            <!--その他の状態リード-->
-            <TextView
+             <!--その他の状態リード-->
+             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="その他状態"
                 android:id="@+id/bookInfoEtcLead"
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
-                android:layout_gravity="center_horizontal"
                 android:layout_alignBottom="@+id/bookInfoUserIcon"
                 android:layout_alignLeft="@+id/bookInfoConditionLead"
-                android:layout_alignStart="@+id/bookInfoConditionLead"/>
+                android:layout_alignStart="@+id/bookInfoConditionLead"
+                android:layout_marginLeft="10dp" />
             <!--その他の状態-->
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="その他状態"
                 android:id="@+id/bookInfoEtc"
-                android:layout_gravity="center_horizontal"
                 android:layout_alignTop="@+id/bookInfoEtcLead"
                 android:layout_toRightOf="@+id/bookInfoLine"
                 android:layout_toEndOf="@id/bookInfoEtcLead"
                 android:layout_marginLeft="10dp"
-                android:layout_alignBottom="@+id/bookInfoSize"/>
+                android:layout_alignBottom="@+id/bookInfoSize"
+                android:layout_marginBottom="10dp" />
+        </LinearLayout>
 
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--区切り線-->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dip"
+                android:background="#E6E5E1"
+                android:layout_weight="0.16"/>
             <!--書き込み線リード-->
             <TextView
                 android:layout_width="wrap_content"
@@ -267,21 +282,22 @@
                 android:id="@+id/bookInfoLineLead"
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
-                android:layout_gravity="center_horizontal"
-                android:layout_below="@+id/bookInfoWeightLead"
-                android:layout_alignLeft="@+id/bookInfoWeightLead"
-                android:layout_alignStart="@+id/bookInfoWeightLead"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"/>
             <!--書き込み線-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="書き込み線"
                 android:id="@+id/bookInfoLine"
-                android:layout_gravity="center_horizontal"
-                android:layout_above="@+id/bookInfoBrokenLead"
-                android:layout_toRightOf="@+id/bookInfoBrokenLead"
-                android:layout_toEndOf="@+id/bookInfoBrokenLead"/>
+                android:layout_marginLeft="10dp"/>
 
+            <!--細い区切り線-->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dip"
+                android:layout_marginTop="5dp"
+                android:background="#E6E5E1" />
 
             <!--ページの折れリード-->
             <TextView
@@ -291,21 +307,22 @@
                 android:id="@+id/bookInfoBrokenLead"
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
-                android:layout_gravity="center_horizontal"
-                android:layout_below="@+id/bookInfoLineLead"
-                android:layout_alignLeft="@+id/bookInfoLineLead"
-                android:layout_alignStart="@+id/bookInfoLineLead"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"/>
             <!--ページの折れ-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ページの折れ"
                 android:id="@+id/bookInfoBroken"
-                android:layout_gravity="center_horizontal"
-                android:layout_below="@+id/bookInfoLine"
-                android:layout_marginLeft="10dp"
-                android:layout_alignLeft="@+id/bookInfoLine"
-                android:layout_alignStart="@+id/bookInfoLine"/>
+                android:layout_marginLeft="10dp"/>
+
+            <!--細い区切り線-->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dip"
+                android:layout_marginTop="5dp"
+                android:background="#E6E5E1" />
 
             <!--サイズリード-->
             <TextView
@@ -315,10 +332,8 @@
                 android:id="@+id/bookInfoSizeLead"
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
-                android:layout_gravity="center_horizontal"
-                android:layout_alignTop="@+id/bookInfoSize"
-                android:layout_alignLeft="@+id/bookInfoUserIcon"
-                android:layout_alignStart="@+id/bookInfoUserIcon"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"/>
 
             <!--サイズ-->
             <TextView
@@ -326,10 +341,15 @@
                 android:layout_height="wrap_content"
                 android:text="サイズ"
                 android:id="@+id/bookInfoSize"
-                android:layout_gravity="center_horizontal"
-                android:layout_centerVertical="true"
-                android:layout_alignLeft="@+id/bookInfoWeight"
-                android:layout_alignStart="@+id/bookInfoWeight"/>
+                android:layout_marginLeft="10dp"/>
+
+            <!--細い区切り線-->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dip"
+                android:layout_marginTop="5dp"
+                android:background="#E6E5E1" />
+
             <!--重さリード-->
             <TextView
                 android:layout_width="wrap_content"
@@ -338,19 +358,23 @@
                 android:id="@+id/bookInfoWeightLead"
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
-                android:layout_gravity="center_horizontal"
-                android:layout_below="@+id/bookInfoSizeLead"
-                android:layout_alignLeft="@+id/bookInfoSizeLead"
-                android:layout_alignStart="@+id/bookInfoSizeLead"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"/>
             <!--重さ-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="重さ"
                 android:id="@+id/bookInfoWeight"
-                android:layout_gravity="center_horizontal"
-                android:layout_below="@+id/bookInfoSize"
-                android:layout_toRightOf="@+id/bookInfoLineLead"/>
+                android:layout_marginLeft="10dp"/>
+
+            <!--細い区切り線-->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dip"
+                android:layout_marginTop="5dp"
+                android:background="#E6E5E1" />
+
             <!--備考リード-->
             <TextView
                 android:layout_width="wrap_content"
@@ -359,9 +383,8 @@
                 android:id="@+id/bookInfoNotesLead"
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
-                android:layout_below="@+id/bookInfoBrokenLead"
-                android:layout_alignLeft="@+id/bookInfoBrokenLead"
-                android:layout_alignStart="@+id/bookInfoBrokenLead"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"/>
 
             <!--備考-->
             <TextView
@@ -369,23 +392,16 @@
                 android:layout_height="wrap_content"
                 android:text="備考"
                 android:id="@+id/bookInfoNotes"
-                android:layout_below="@+id/bookInfoBrokenLead"
-                android:layout_toRightOf="@+id/bookInfoLineLead"
-                android:layout_toEndOf="@+id/bookInfoLineLead"/>
-
-
-        </RelativeLayout>
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
 
         <!--区切り線-->
-
-        <!--交換リクエストボタン-->
-
         <View
             android:layout_width="wrap_content"
             android:layout_height="20dip"
             android:background="#E6E5E1"
             android:layout_weight="0.16"/>
-
+        <!--交換リクエストボタン-->
         <Button
             android:layout_width="300dp"
             android:layout_height="wrap_content"
