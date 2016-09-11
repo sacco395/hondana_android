@@ -63,16 +63,14 @@ public class UriUtil {
 //        cursor.moveToFirst();
 //        cursor.close();
 //        String filePath = cursor.getString(0);
-//        return new File(filePath);
+//        return filePath;
 //    }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private static String getPathForPostKitKat(final Context context, final Uri uri) {
 
-        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
         // DocumentProvider
-        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+        if (DocumentsContract.isDocumentUri(context, uri)) {
             // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
