@@ -19,7 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import com.books.hondana.util.LogUtil;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,12 +28,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.Connection.KiiCloudConnection;
 import com.books.hondana.Connection.QueryParamSet;
 import com.books.hondana.Model.KiiBook;
+import com.books.hondana.Model.KiiCloudBucket;
+import com.books.hondana.Model.Member;
 import com.books.hondana.PassedRequestFragment;
 import com.books.hondana.R;
 import com.books.hondana.ReceivedRequestFragment;
-import com.squareup.picasso.Picasso;
+import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.KiiObject;
+import com.kii.cloud.storage.KiiUser;
+import com.kii.cloud.storage.query.KiiQueryResult;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +49,8 @@ public class RequestActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "RequestActivity";
+
+    final ImageLoader imageLoader = ImageLoader.getInstance();
 
     // Intent Parameter
     private static final int ACT_READ_BARCODE = 1;
@@ -98,17 +107,44 @@ public class RequestActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //navigationViewにアイコンここから
+        //navigationViewにアイコンと名前ここから
+        KiiUser user = KiiUser.getCurrentUser();
         View header = navigationView.getHeaderView(0);
-        ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
-        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+        final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
+//        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+        final String userId = user.getID ();
+        final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
+        membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
+            @Override
+            public void didFinish(int token, KiiQueryResult<KiiObject> result, Exception e) {
+                Log.d(TAG, "didFinish(result: " + result + ")");
+                if (result == null) {
+                    Log.w(TAG, e);
+                    return;
+                }
+
+                final List<KiiObject> kiiObjects = result.getResult();
+                Log.d(TAG, "members.size: " + kiiObjects.size());
+                if (kiiObjects != null && kiiObjects.size() > 0) {
+                    final KiiObject kiiObject = kiiObjects.get(0);// ひとつしか来ていないはずなので0番目だけ使う
+                    final Member member = new Member(kiiObject);
+
+                    final String imageUrl = member.get(Member.IMAGE_URL);
+                    Log.d(TAG, "imageUrl: " + imageUrl);
+                    imageLoader.displayImage(imageUrl, userIcon);
+                }
+            }
+        });
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LogUtil.d(TAG, "onClick: User click!");
             }
         });
-        //navigationViewにアイコンここまで
+
+        TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
+        userName.setText(user.getUsername ().toString());
+        //navigationViewにアイコンと名前ここまで
 
         // binding.navView.setNavigationItemSelectedListener(this);
 

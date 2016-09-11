@@ -17,6 +17,7 @@
 
     <string-array name="array02">
         <item>プロフィール</item>
+        <item>メールアドレス</item>
         <item>住所</item>
     </string-array>
 

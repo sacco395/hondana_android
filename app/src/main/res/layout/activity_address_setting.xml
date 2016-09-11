@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              tools:context=".activity.SettingAddressActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:elevation="4dp"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+    </android.support.v7.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="現在登録されている住所"
+            android:layout_margin="10dp">
+        </TextView>
+        <TextView
+            android:id="@+id/tv_user_address"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+        </TextView>
+        <!--ユーザープロフィールのテキストエディト-->
+        <EditText
+            android:id="@+id/address_field"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="住所の登録・変更\n(例)〒000-0000 〇〇県〇〇市０−０−０"
+            android:maxLength="500"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:background="@drawable/edittext_style">
+        </EditText>
+
+        <!--投稿ボタン-->
+        <Button
+            android:id="@+id/post_button"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="登録・変更する"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginTop="100dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_rounded_corners"/>
+    </LinearLayout>
+
+</LinearLayout>
+

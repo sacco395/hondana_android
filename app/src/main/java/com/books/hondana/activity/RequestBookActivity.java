@@ -1,9 +1,11 @@
+//本のリクエストをする
 package com.books.hondana.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -15,10 +17,13 @@ import android.widget.Toast;
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
+import com.kii.cloud.storage.callback.KiiObjectBodyCallback;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -26,6 +31,9 @@ import java.util.Locale;
 public class RequestBookActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "BookRequestActivity";
+
+    //今回使用するインテントの結果の番号。適当な値でOK.
+    private static final int IMAGE_CHOOSER_RESULTCODE = 2;
 
     //BookInfoActivityからkiiBookの情報を受け取るためcreateIntentを使う
     private static final String EXTRA_KII_BOOK = "extra_kii_book";
@@ -78,9 +86,14 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
 
                 case R.id.buttonSelectFile:
                     // クリック処理
-                    Intent intent = new Intent(this, UploadPdfActivity.class);
-                    startActivity(intent);
-                    finish();
+                    //ギャラリーを開くインテントを作成して起動する。
+                    Intent intent = new Intent();
+                    //フアイルのタイプを設定
+                    intent.setType("application/pdf");
+                    //画像のインテント
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    //Activityを起動
+                    startActivityForResult(Intent.createChooser(intent, "Select Pdf"), IMAGE_CHOOSER_RESULTCODE);
                     break;
 
                 case R.id.buttonCancel:
@@ -97,6 +110,59 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                 default:
                     break;
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IMAGE_CHOOSER_RESULTCODE) {
+            if (resultCode != RESULT_OK) {
+                // Error!
+                return;
+            }
+
+            // Create an object in an application-scope bucket.
+            KiiObject object = Kii.bucket("pdf").object();
+            // Set key-value pairs.
+            object.set("pdf", "");
+            // Save KiiObject
+            object.save(new KiiObjectCallBack() {
+                @Override
+                public void onSaveCompleted(int token, KiiObject object, Exception exception) {
+                    if (exception != null) {
+                        // Error handling
+                        return;
+                    }
+                    // Prepare file to upload.
+                    File localFile = new File(Environment.getExternalStorageDirectory(),
+                            "myPdf.pdf");
+
+                    // Start uploading
+                    object.uploadBody(localFile, "application/pdf", new KiiObjectBodyCallback() {
+                        @Override
+                        public void onTransferStart(KiiObject kiiObject) {
+                        }
+
+                        @Override
+                        public void onTransferProgress(KiiObject object, long completedInBytes, long totalSizeinBytes) { /* compiled code */
+                            float progress = (float) completedInBytes / (float) totalSizeinBytes * 100.0f;
+                        }
+
+                        @Override
+                        public void onTransferCompleted(KiiObject object, Exception exception) {
+                            if (exception != null) {
+                                // Error handling
+                                return;
+                            }
+                            
+                            Toast.makeText(RequestBookActivity.this,"PDFが投稿されました！",
+                                    Toast.LENGTH_LONG).show();
+                            LogUtil.d (TAG, ("投稿されました"));
+                        }
+                    });
+                }
+            });
         }
     }
 
