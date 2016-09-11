@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.Kii;
-import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.kii.cloud.storage.callback.KiiObjectPublishCallback;
@@ -248,15 +247,11 @@ public class UserEditActivity extends AppCompatActivity {
     //投稿処理。画像のUploadがうまくいったときは、urlに公開のURLがセットされる
     public void postImages(String url) {
         //バケット名を設定。
-        KiiBucket bucket = Kii.bucket ("members");
-        KiiObject object = bucket.object ();
-        //Json形式でKeyのcommentをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
+        KiiObject object = Kii.bucket ("members").object ();
+        //Json形式でKeyのprofileをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
         object.set ("profile", profile);
+        object.set ("image_Url", url);
 
-        //画像があるときだけセット
-        if (url != null) {
-            object.set ("image_Url", url);
-        }
         //データをKiiCloudに保存
         object.save (new KiiObjectCallBack () {
             //保存結果が帰ってくるコールバック関数。自動的に呼び出される。
@@ -285,9 +280,8 @@ public class UserEditActivity extends AppCompatActivity {
     //画像をKiiCloudのimagesにUPする。参考：チュートリアル、http://www.riaxdnp.jp/?p=6775
     private void uploadFile(String path) {
         //イメージを保存するバケット名を設定。すべてここに保存してusersにはそのhttpパスを設定する。
-        KiiBucket bucket = Kii.bucket ("images");
-        KiiObject object = bucket.object ();
-        object.set ("title", "");
+        KiiObject object = Kii.bucket ("images").object ();
+        object.set ("image", "");
         object.save (new KiiObjectCallBack () {
             @Override
             public void onSaveCompleted(int token, KiiObject object, Exception exception) {
@@ -319,7 +313,7 @@ public class UserEditActivity extends AppCompatActivity {
                                 object.publishBody (new KiiObjectPublishCallback () {
                                     @Override
                                     public void onPublishCompleted(String url, KiiObject kiiObject, Exception e) {
-                                        LogUtil.d (TAG, ("投稿されました！"));
+                                        LogUtil.d (TAG, ("公開されました！"));
                                         //画像のURL付きでusersに投稿する。
                                         postImages (url);
                                     }
@@ -330,7 +324,7 @@ public class UserEditActivity extends AppCompatActivity {
 
 
                 } else {
-                    LogUtil.d (TAG, ("投稿されないっす"));
+                    LogUtil.d (TAG, ("公開されないっす"));
 //                    //失敗の時
 //                    Throwable cause = e.getCause();
 //                    if (cause instanceof CloudExecutionException)
