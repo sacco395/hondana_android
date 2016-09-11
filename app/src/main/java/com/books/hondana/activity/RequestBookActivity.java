@@ -136,8 +136,8 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         } else {
             Intent intent = new Intent();
             intent.setType("application/pdf");
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(intent, PDF_CHOOSER_CODE);
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, PDF_CHOOSER_TITLE), PDF_CHOOSER_CODE);
         }
     }
 

@@ -42,30 +42,6 @@ public class UriUtil {
         return path;
     }
 
-
-//    @TargetApi(Build.VERSION_CODES.KITKAT)
-//    private static File getPathForPostKitKat(Context context, Uri uri) {
-//        String documentId = DocumentsContract.getDocumentId(uri);
-//        Log.d(TAG, "getFile: documentId=" + documentId);
-//        String[] split = documentId.split(":");
-//        String id = split[split.length - 1];
-//
-//        Cursor cursor = context.getContentResolver().query(
-//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//                new String[] {MediaStore.MediaColumns.DATA},
-//                "_id=?",
-//                new String[]{ id },
-//                null
-//        );
-//        if (cursor == null) {
-//            return null;
-//        }
-//        cursor.moveToFirst();
-//        cursor.close();
-//        String filePath = cursor.getString(0);
-//        return filePath;
-//    }
-
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private static String getPathForPostKitKat(final Context context, final Uri uri) {
 
