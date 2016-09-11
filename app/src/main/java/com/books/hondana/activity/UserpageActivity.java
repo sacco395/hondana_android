@@ -17,8 +17,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -30,21 +28,27 @@ import com.books.hondana.Connection.QueryParamSet;
 import com.books.hondana.Model.KiiBook;
 import com.books.hondana.Model.KiiCloudBucket;
 import com.books.hondana.Model.Member;
-import com.books.hondana.PRBookListViewAdapter;
+import com.books.hondana.MyBookList;
+import com.books.hondana.MyBookListAdapter;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
+import com.kii.cloud.storage.callback.KiiQueryCallBack;
+import com.kii.cloud.storage.query.KiiQuery;
 import com.kii.cloud.storage.query.KiiQueryResult;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserpageActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        AdapterView.OnItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "UserpageActivity";
+
+    private MyBookListAdapter mAdapter;
 
     final ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -63,31 +67,6 @@ public class UserpageActivity extends AppCompatActivity
     //    private String search_Keyword;
     private FloatingActionButton mFab;
 
-    private BaseAdapter adapter;
-
-    // Isle of Wight in U.K.
-//    登録した本のリストビュー
-    private static final String[] titles = {
-            // Scenes of Isle of Wight
-            "デザイン思考は世界を変える",
-            "十月の旅人",
-            "無印良品は仕組みが９割",
-    };
-
-    private static final String[] authors = {
-            // Scenes of Isle of Wight
-            "ティム・ブラウン",
-            "レイ・ブラッドベリ",
-            "松井忠三",
-    };
-
-    // ちょっと冗長的ですが分かり易くするために
-    private static final int[] photos = {
-            R.drawable.changedesign,
-            R.drawable.october,
-            R.drawable.muji,
-    };
-    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -226,31 +205,56 @@ public class UserpageActivity extends AppCompatActivity
         tv_userPoint.setText (point);
 //ここまでポイント表示
 
-        // ListViewのインスタンスを生成
+        //アダプターを作成します。newでクラスをインスタンス化しています。
+        mAdapter = new MyBookListAdapter(this);
+
+        //ListViewのViewを取得
         ListView listView = (ListView) findViewById(R.id.list_view);
+        //GridViewにアダプターをセット。
+        listView.setAdapter(mAdapter);
 
-        // BaseAdapter を継承したadapterのインスタンスを生成
-
-        adapter = new PRBookListViewAdapter(this.getApplicationContext(), R.layout.part_book_list, titles,authors, photos);
-
-        // ListViewにadapterをセット
-        listView.setAdapter(adapter);
-
-        // 後で使います
-        listView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
+        //一覧のデータを作成して表示します。
+        fetch();
     }
+    //KiiCLoud対応のfetchです。
+    //自分で作った関数です。一覧のデータを作成して表示します。
+    private void fetch() {
+        //KiiCloudの検索条件を作成。検索条件は未設定。なので全件。
+        KiiQuery query = new KiiQuery();
+        //ソート条件を設定。日付の降順
+        query.sortByDesc("_created");
+        //バケットmessagesを検索する。最大200件
+        Kii.bucket("appbooks")
+                .query(new KiiQueryCallBack<KiiObject> () {
+                    //検索が完了した時
+                    @Override
+                    public void onQueryCompleted(int token, KiiQueryResult<KiiObject> result, Exception exception) {
+                        if (exception != null) {
+                            //エラー処理を書く
+                            return;
+                        }
+                        //空のMessageRecordデータの配列を作成
+                        ArrayList<MyBookList> MyBooks = new ArrayList<MyBookList>();
+                        //検索結果をListで得る
+                        List<KiiObject> objLists = result.getResult();
+                        //得られたListをMessageRecordに設定する
+                        for (KiiObject obj : objLists) {
+                            //_id(KiiCloudのキー)を得る。空の時は""が得られる。jsonで
+                            String url = obj.getString("image_url", "");
+                            String title = obj.getString("title", "");
+                            String author = obj.getString("author", "");
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        Intent intent = new Intent(this.getApplicationContext(), SelectedBooksActivity.class);
-        // clickされたpositionのtextとphotoのID
-        String selectedText = titles[position];
-        int selectedPhoto = photos[position];
-        // インテントにセット
-        intent.putExtra("Text", selectedText);
-        intent.putExtra("Photo", selectedPhoto);
-        // Activity をスイッチする
-        startActivity(intent);
+
+                            //MyBookListを新しく作ります。
+                            MyBookList list = new MyBookList(url,title,author);
+                            //MessageRecordの配列に追加します。
+                            MyBooks.add(list);
+                        }
+                        //データをアダプターにセットしています。これで表示されます。
+                        mAdapter.setMyBookLists(MyBooks);
+                    }
+                }, query);//最後の引数が検索条件
+
     }
 
 
