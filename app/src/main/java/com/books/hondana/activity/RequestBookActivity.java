@@ -100,9 +100,9 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
 
                 case R.id.buttonSelectFile:
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                        startChooserActivityWithoutPermission();
+                        startChooserActivity();
                     } else {
-                        RequestBookActivityPermissionsDispatcher.startChooserActivityWithCheck(this);
+                        RequestBookActivityPermissionsDispatcher.startChooserActivityWithPermissionWithCheck(this);
                     }
                     break;
 
@@ -121,7 +121,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private void startChooserActivityWithoutPermission() {
+    private void startChooserActivity() {
         Intent intent = new Intent();
         intent.setType("application/pdf");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -130,15 +130,8 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-    public void startChooserActivity() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            startChooserActivityWithoutPermission();
-        } else {
-            Intent intent = new Intent();
-            intent.setType("application/pdf");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, PDF_CHOOSER_TITLE), PDF_CHOOSER_CODE);
-        }
+    public void startChooserActivityWithPermission() {
+        startChooserActivity();
     }
 
     @Override
