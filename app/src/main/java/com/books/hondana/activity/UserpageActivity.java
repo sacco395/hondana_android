@@ -191,6 +191,7 @@ public class UserpageActivity extends AppCompatActivity
 //        // binding.navView.setNavigationItemSelectedListener(this);
 
         final ImageView userIcon2 = (ImageView) findViewById(R.id.user_icon);
+        final TextView tv_userProfile = (TextView) findViewById(R.id.tv_user_profile);
 
         final String userId = user.getID ();
         final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
@@ -210,9 +211,11 @@ public class UserpageActivity extends AppCompatActivity
                     final Member member = new Member(kiiObject);
 
                     final String imageUrl = member.get(Member.IMAGE_URL);
+                    final String userProfile = member.get(Member.PROFILE);
                     Log.d(TAG, "imageUrl: " + imageUrl);
                     imageLoader.displayImage(imageUrl, userIcon);
                     imageLoader.displayImage(imageUrl, userIcon2);
+                    tv_userProfile.setText (userProfile);
                 }
             }
         });
