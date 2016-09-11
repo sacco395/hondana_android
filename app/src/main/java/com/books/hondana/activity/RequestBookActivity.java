@@ -123,7 +123,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
 
     private void startChooserActivityWithoutPermission() {
         Intent intent = new Intent();
-        intent.setType("image/*");
+        intent.setType("application/pdf");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, PDF_CHOOSER_TITLE), PDF_CHOOSER_CODE);
     }
@@ -131,10 +131,14 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
     public void startChooserActivity() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, PDF_CHOOSER_TITLE), PDF_CHOOSER_CODE);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            startChooserActivityWithoutPermission();
+        } else {
+            Intent intent = new Intent();
+            intent.setType("application/pdf");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            startActivityForResult(intent, PDF_CHOOSER_CODE);
+        }
     }
 
     @Override
