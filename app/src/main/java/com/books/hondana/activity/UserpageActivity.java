@@ -251,7 +251,7 @@ public class UserpageActivity extends AppCompatActivity
                             MyBooks.add(list);
                         }
                         //データをアダプターにセットしています。これで表示されます。
-                        mAdapter.setMyBookLists(MyBooks);
+                        mAdapter.setMyBookList(MyBooks);
                     }
                 }, query);//最後の引数が検索条件
 

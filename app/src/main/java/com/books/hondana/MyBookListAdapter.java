@@ -1,6 +1,7 @@
 package com.books.hondana;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.books.hondana.Model.KiiBook;
+import com.books.hondana.Model.Member;
 import com.books.hondana.MyBookList;
 import com.books.hondana.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -46,7 +49,11 @@ public class MyBookListAdapter extends ArrayAdapter<MyBookList> {
         MyBookList imageRecord = getItem(position);
 
         //mImageLoaderを使って画像をダウンロードし、Viewにセットします。
-        imageView.setImageUrl(imageRecord.getImageUrl(), mImageLoader);
+        final String imageUrl = member.get(KiiBook.IMAGE_URL);
+        Log.d(TAG, "imageUrl: " + imageUrl);
+        imageLoader.displayImage(imageUrl, userIcon);
+
+        imageView.loadImage(imageRecord.getImageUrl(), mImageLoader);
         //Viewに文字をセットします。
         title.setText(imageRecord.getTitle());
         author.setText(imageRecord.getAuthor());
