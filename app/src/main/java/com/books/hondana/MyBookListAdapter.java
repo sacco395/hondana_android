@@ -30,7 +30,7 @@ public class MyBookListAdapter extends ArrayAdapter<MyBookList> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         //convertViewをチェックし、Viewがないときは新しくViewを作成します。convertViewがセットされている時は未使用なのでそのまま再利用します。メモリーに優しい。
         if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.part_book_list, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.part_my_book_list, parent, false);
         }
 
         //レイアウトにある画像と文字のViewを所得します。

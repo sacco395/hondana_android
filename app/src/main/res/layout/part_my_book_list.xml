@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_BookImg"
+        android:scaleType="centerCrop"
+        android:layout_margin="5dp"
+        android:layout_width="50dp"
+        android:layout_height="70dp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        <!--タイトル部分-->
+    <TextView
+        android:id="@+id/tv_BookTitle"
+        android:layout_marginTop="17dp"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#4b4b4b" />
+        <!--著者名部分-->
+    <TextView
+        android:id="@+id/tv_BookAuthor"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="#4b4b4b" />
+    </LinearLayout>
+</LinearLayout>
