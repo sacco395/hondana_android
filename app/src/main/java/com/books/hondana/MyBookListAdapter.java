@@ -1,7 +1,6 @@
 package com.books.hondana;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.books.hondana.Model.KiiBook;
-import com.books.hondana.Model.Member;
-import com.books.hondana.MyBookList;
-import com.books.hondana.R;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -24,7 +19,6 @@ import java.util.List;
 //<MessageRecord>はデータクラスMessageRecordのArrayAdapterであることを示している。このアダプターで管理したいデータクラスを記述されば良い。
 public class MyBookListAdapter extends ArrayAdapter<MyBookList> {
 
-    final ImageLoader mImageLoader = ImageLoader.getInstance();
 
     //アダプターを作成する関数。コンストラクター。クラス名と同じです。
     public MyBookListAdapter(Context context) {
@@ -49,11 +43,9 @@ public class MyBookListAdapter extends ArrayAdapter<MyBookList> {
         MyBookList imageRecord = getItem(position);
 
         //mImageLoaderを使って画像をダウンロードし、Viewにセットします。
-        final String imageUrl = member.get(KiiBook.IMAGE_URL);
-        Log.d(TAG, "imageUrl: " + imageUrl);
-        imageLoader.displayImage(imageUrl, userIcon);
+        String image_url = imageRecord.getImageUrl();
+        Picasso.with (convertView.getContext ()).load(image_url).into(imageView);
 
-        imageView.loadImage(imageRecord.getImageUrl(), mImageLoader);
         //Viewに文字をセットします。
         title.setText(imageRecord.getTitle());
         author.setText(imageRecord.getAuthor());

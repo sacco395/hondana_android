@@ -36,6 +36,7 @@ import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
 import com.kii.cloud.storage.callback.KiiQueryCallBack;
+import com.kii.cloud.storage.query.KiiClause;
 import com.kii.cloud.storage.query.KiiQuery;
 import com.kii.cloud.storage.query.KiiQueryResult;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -218,12 +219,17 @@ public class UserpageActivity extends AppCompatActivity
     }
     //KiiCLoud対応のfetchです。
     //自分で作った関数です。一覧のデータを作成して表示します。
+    KiiUser kiiUser = KiiUser.getCurrentUser();
+    String userId = kiiUser.getID ();
     private void fetch() {
         //KiiCloudの検索条件を作成。検索条件は未設定。なので全件。
-        KiiQuery query = new KiiQuery();
+        KiiQuery query = new KiiQuery(KiiClause.and(
+                KiiClause.equals("_owner",userId)));
+        // Define query conditions
+
         //ソート条件を設定。日付の降順
         query.sortByDesc("_created");
-        //バケットmessagesを検索する。最大200件
+        //バケットappbooksを検索する。最大200件
         Kii.bucket("appbooks")
                 .query(new KiiQueryCallBack<KiiObject> () {
                     //検索が完了した時
@@ -233,11 +239,11 @@ public class UserpageActivity extends AppCompatActivity
                             //エラー処理を書く
                             return;
                         }
-                        //空のMessageRecordデータの配列を作成
+                        //空のMyBookListデータの配列を作成
                         ArrayList<MyBookList> MyBooks = new ArrayList<MyBookList>();
                         //検索結果をListで得る
                         List<KiiObject> objLists = result.getResult();
-                        //得られたListをMessageRecordに設定する
+                        //得られたListをMyBookListに設定する
                         for (KiiObject obj : objLists) {
                             //_id(KiiCloudのキー)を得る。空の時は""が得られる。jsonで
                             String url = obj.getString("image_url", "");
@@ -247,7 +253,7 @@ public class UserpageActivity extends AppCompatActivity
 
                             //MyBookListを新しく作ります。
                             MyBookList list = new MyBookList(url,title,author);
-                            //MessageRecordの配列に追加します。
+                            //MyBookListの配列に追加します。
                             MyBooks.add(list);
                         }
                         //データをアダプターにセットしています。これで表示されます。
