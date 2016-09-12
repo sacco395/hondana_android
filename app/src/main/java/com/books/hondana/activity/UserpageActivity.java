@@ -206,7 +206,7 @@ public class UserpageActivity extends AppCompatActivity
         tv_userPoint.setText (point);
 //ここまでポイント表示
 
-        //アダプターを作成します。newでクラスをインスタンス化しています。
+//アダプターを作成します。newでクラスをインスタンス化しています。
         mAdapter = new MyBookListAdapter(this);
 
         //ListViewのViewを取得
@@ -224,7 +224,7 @@ public class UserpageActivity extends AppCompatActivity
     private void fetch() {
         //KiiCloudの検索条件を作成。検索条件は未設定。なので全件。
         KiiQuery query = new KiiQuery(KiiClause.and(
-                KiiClause.equals("_owner",userId)));
+                KiiClause.equals("_owner",userId)));//request_userId(自分が本に申請した場合)
         // Define query conditions
 
         //ソート条件を設定。日付の降順
