@@ -6,5 +6,5 @@
     android:layout_height="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
     android:theme="@style/ToolbarTheme"
-    app:logo="@drawable/logo_hondana"
+    app:logo="@drawable/logo_hondana_beta"
     app:popupTheme="@style/AppTheme.PopupOverlay" />

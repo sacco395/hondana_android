@@ -7,6 +7,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="centerInside"
-        android:src="@drawable/logo_hondana"
+        android:src="@drawable/logo_hondana_beta"
         />
 </LinearLayout>
