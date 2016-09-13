@@ -176,12 +176,12 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/list_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="180dp"
                 android:layout_marginTop="5dp" />
 
             <!--ユーザーがリクエストした本のリストビュー-->
             <TextView
-                android:text="あなたがリクエストされた本一覧\n→発送の準備をして、発送後は発送完了の連絡をしましょう"
+                android:text="あなたへリクエストされた本一覧\n→発送の準備をして発送完了したら連絡しましょう。"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center_vertical"
@@ -192,7 +192,7 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/list_view02"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="180dp"
                 android:layout_marginTop="5dp" />
         </LinearLayout>
 
