@@ -5,7 +5,7 @@ import android.app.LoaderManager;
 import android.os.Bundle;
 
 import com.books.hondana.Model.api.JsonParser;
-import com.books.hondana.Model.book.Book;
+import com.books.hondana.Model.Book;
 import com.books.hondana.Model.api.google.GoogleBookJsonParser;
 
 import org.json.JSONObject;

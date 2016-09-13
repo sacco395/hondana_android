@@ -12,15 +12,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.books.hondana.Connection.KiiCloudConnection;
+import com.books.hondana.Connection.KiiMemberConnection;
+import com.books.hondana.Connection.KiiObjectCallback;
 import com.books.hondana.Model.Member;
-import com.books.hondana.Model.book.Book;
-import com.books.hondana.Model.book.BookCondition;
-import com.books.hondana.Model.book.BookInfo;
-import com.books.hondana.Model.kii.KiiCloudBucket;
-import com.books.hondana.Model.kii.KiiMember;
-import com.kii.cloud.storage.KiiObject;
-import com.kii.cloud.storage.query.KiiQueryResult;
+import com.books.hondana.Model.Book;
+import com.books.hondana.Model.BookCondition;
+import com.books.hondana.Model.BookInfo;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -45,9 +42,12 @@ public class HondanaBookAdapter extends BaseAdapter {
         mBooks.clear();
     }
 
+    public void add(List<Book> books) {
+        mBooks.addAll(books);
+    }
+
     public void add(Book book) {
         mBooks.add(book);
-        Log.d(TAG, "add: " + mBooks.size());
     }
 
     @Nullable
@@ -132,36 +132,27 @@ public class HondanaBookAdapter extends BaseAdapter {
         holder.tvTitle.setText(info.getTitle());
         holder.tvAuthor.setText(info.getAuthor());
 
-        final String userId = book.getOwner();
-        final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
-        membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
+        final String userId = book.getOwnerId();
+        KiiMemberConnection connection = new KiiMemberConnection();
+        connection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
-            public void didFinish(int token, KiiQueryResult<KiiObject> result, Exception e) {
-                Log.d(TAG, "didFinish(result: " + result + ")");
-                if (result == null) {
-                    Log.w(TAG, e);
-                    return;
-                }
+            public void success(int token, Member member) {
+                final String name = member.getName();
+                Log.d(TAG, "name: " + name);
+                holder.tvOwnerName.setText(name);
 
-                final List<KiiObject> kiiObjects = result.getResult();
-                Log.d(TAG, "members.size: " + kiiObjects.size());
-                if (kiiObjects != null && kiiObjects.size() > 0) {
-                    final KiiObject kiiObject = kiiObjects.get(0);// ひとつしか来ていないはずなので0番目だけ使う
-                    final Member member = new KiiMember(kiiObject).convert();
+                final String imageUrl = member.getImageUrl();
+                Log.d(TAG, "imageUrl: " + imageUrl);
+                Picasso.with(parent.getContext())
+                        .load(imageUrl)
+                        .into(holder.ivOwnerIcon);
+            }
 
-                    final String name = member.getName();
-                    Log.d(TAG, "name: " + name);
-                    holder.tvOwnerName.setText(name);
-
-                    final String imageUrl = member.getImageUrl();
-                    Log.d(TAG, "imageUrl: " + imageUrl);
-                    Picasso.with(parent.getContext())
-                            .load(imageUrl)
-                            .into(holder.ivOwnerIcon);
-                }
+            @Override
+            public void failure(Exception e) {
+                Log.e(TAG, "failure: ", e);
             }
         });
-
         return convertView;
     }
 

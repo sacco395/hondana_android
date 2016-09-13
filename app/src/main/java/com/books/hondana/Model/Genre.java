@@ -1,6 +1,5 @@
 package com.books.hondana.Model;
 
-import com.books.hondana.Model.kii.KiiBook;
 import com.kii.cloud.storage.query.KiiClause;
 
 import java.util.ArrayList;
@@ -78,17 +77,17 @@ public enum Genre {
     public KiiClause clause() {
         List<KiiClause> genreClauseList = new ArrayList<>();
         for (String genreVal : value()) {
-            genreClauseList.add(KiiClause.startsWith(KiiBook.GENRE_1, genreVal));
-            genreClauseList.add(KiiClause.startsWith(KiiBook.GENRE_2, genreVal));
-            genreClauseList.add(KiiClause.startsWith(KiiBook.GENRE_3, genreVal));
-            genreClauseList.add(KiiClause.startsWith(KiiBook.GENRE_4, genreVal));
-            genreClauseList.add(KiiClause.startsWith(KiiBook.GENRE_5, genreVal));
+            genreClauseList.add(KiiClause.startsWith(GenreList.GENRE_1, genreVal));
+            genreClauseList.add(KiiClause.startsWith(GenreList.GENRE_2, genreVal));
+            genreClauseList.add(KiiClause.startsWith(GenreList.GENRE_3, genreVal));
+            genreClauseList.add(KiiClause.startsWith(GenreList.GENRE_4, genreVal));
+            genreClauseList.add(KiiClause.startsWith(GenreList.GENRE_5, genreVal));
         }
         KiiClause[] genreClauseArray = new KiiClause[]{};
         genreClauseArray = genreClauseList.toArray(genreClauseArray);
         KiiClause genreClause = KiiClause.or(genreClauseArray);
 
-        KiiClause isbnClause = KiiClause.startsWith(KiiBook.ISBN, defaultIsbn());
+        KiiClause isbnClause = KiiClause.startsWith(BookInfo.ISBN, defaultIsbn());
         return KiiClause.or(genreClause, isbnClause);
     }
 

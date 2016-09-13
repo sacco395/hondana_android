@@ -28,7 +28,7 @@ import com.squareup.picasso.Picasso;
 public class GuideActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "GuideActivity";
+    private static final String TAG = GuideActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

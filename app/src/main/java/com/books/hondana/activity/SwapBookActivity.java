@@ -19,6 +19,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import com.books.hondana.Model.Book;
+import com.books.hondana.Model.BookInfo;
 import com.books.hondana.util.LogUtil;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.Connection.QueryParamSet;
-import com.books.hondana.Model.kii.KiiBook;
 import com.books.hondana.PassedBooksFragment;
 import com.books.hondana.R;
 import com.books.hondana.ReceivedBooksFragment;
@@ -43,7 +45,7 @@ import java.util.List;
 public class SwapBookActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "SwapBookActivity";
+    private static final String TAG = SwapBookActivity.class.getSimpleName();
 
     // Intent Parameter
     private static final int ACT_READ_BARCODE = 1;
@@ -262,17 +264,16 @@ public class SwapBookActivity extends AppCompatActivity
         // 書籍情報を検索
         Intent intent = new Intent(SwapBookActivity.this,BookSearchListActivity.class);
         QueryParamSet queryParamSet = new QueryParamSet();
-        queryParamSet.addQueryParam(KiiBook.ISBN,this.search_Isbn);
-        intent.putExtra( "SEARCH_PARAM", queryParamSet );
+        queryParamSet.addQueryParam(BookInfo.ISBN,this.search_Isbn);
+        intent.putExtra(QueryParamSet.class.getSimpleName(), queryParamSet );
         startActivityForResult(intent, ACT_BOOK_SEARCH_LIST);
     }
 
     private void kickListSearchResult(Intent data){
         Bundle extras = data.getExtras();
-        //HashMap<String,String> bookInfo = (HashMap<String, String>) data.getSerializableExtra("Book");
-        KiiBook kiiBook = (KiiBook)extras.get("Book");
+        Book book = extras.getParcelable(Book.class.getSimpleName());
         Intent intent = new Intent(SwapBookActivity.this,BookDetailActivity.class);
-        intent.putExtra("Book", kiiBook );
+        intent.putExtra(Book.class.getSimpleName(), book);
         startActivityForResult(intent, ACT_BOOK_DETAIL_TO_ADD);
     }
 

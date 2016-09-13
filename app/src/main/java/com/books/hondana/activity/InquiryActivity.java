@@ -26,7 +26,7 @@ import com.squareup.picasso.Picasso;
 public class InquiryActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
 
-    private static final String TAG = "InquiryActivity";
+    private static final String TAG = InquiryActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

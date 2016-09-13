@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,86 +16,67 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Model.kii.KiiBook;
+import com.books.hondana.Model.abst.KiiModel;
+import com.books.hondana.Model.Book;
+import com.books.hondana.Model.BookCondition;
+import com.books.hondana.Model.BookInfo;
+import com.books.hondana.Model.Size;
+import com.books.hondana.Model.Smell;
 import com.books.hondana.R;
 import com.books.hondana.util.DateUtil;
-import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class BookDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
 	final static String TAG = BookDetailActivity.class.getSimpleName();
 
-	private KiiBook targetBook;
-	private Button btnAddKiiCloud;
+	private Book targetBook;
 
-	//メンバー変数
-	private CheckBox mCheckBoxBand;
-	private CheckBox mCheckBoxSunburned;
-	private CheckBox mCheckBoxScratched;
-	private CheckBox mCheckBoxCigar;
-	private CheckBox mCheckBoxPet;
-	private CheckBox mCheckBoxMold;
+	private BookCondition condition;
+	private Smell smell;
 
-	private String Note;
-	private String Height;
-	private String Wide;
-	private String Depth;
-	private String Weight;
-
-	// define the UI elements
-	private ProgressDialog mProgress=null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_book_detail);
 
+		targetBook = getIntent().getParcelableExtra(Book.class.getSimpleName());
+		if (targetBook == null) {
+			Log.e(TAG, "onCreate: Book が null!");
+			Toast.makeText(BookDetailActivity.this, "エラー: 本の情報が取得できませんでした。", Toast.LENGTH_SHORT).show();
+		}
+		condition = targetBook.getCondition();
+		smell = condition.getSmell();
 
-		//CheckBoxBandとcheckboxBandを結び付ける
-		mCheckBoxBand = (CheckBox) findViewById(R.id.chkBand);
-		//チェックボックスの状態を設定
-		mCheckBoxBand.setChecked(false);
-		//チェックボックスがクリックされた時に呼び出されるコールバックリスナーを登録
-		mCheckBoxBand.setOnClickListener(this);
+		CheckBox cbBand = (CheckBox) findViewById(R.id.chkBand);
+		cbBand.setChecked(false);
+		cbBand.setOnClickListener(this);
 
-		//同様に、CheckBoxSunburned
-		mCheckBoxSunburned = (CheckBox) findViewById(R.id.chkSunburned);
-		mCheckBoxSunburned.setChecked(false);
-		mCheckBoxSunburned.setOnClickListener(this);
+		CheckBox cbSunburned = (CheckBox) findViewById(R.id.chkSunburned);
+		cbSunburned.setChecked(false);
+		cbSunburned.setOnClickListener(this);
 
-		//同様に、CheckBoxScratched
-		mCheckBoxScratched = (CheckBox) findViewById(R.id.chkScratched);
-		mCheckBoxScratched.setChecked(false);
-		mCheckBoxScratched.setOnClickListener(this);
+		CheckBox cbScratched = (CheckBox) findViewById(R.id.chkScratched);
+		cbScratched.setChecked(false);
+		cbScratched.setOnClickListener(this);
 
-		//同様に、CheckBoxCigar
-		mCheckBoxCigar = (CheckBox) findViewById(R.id.chkCigarSmell);
-		mCheckBoxCigar.setChecked(false);
-		mCheckBoxCigar.setOnClickListener(this);
+		CheckBox cbCigarSmell = (CheckBox) findViewById(R.id.chkCigarSmell);
+		cbCigarSmell.setChecked(false);
+		cbCigarSmell.setOnClickListener(this);
 
-		//同様に、CheckBoxPet
-		mCheckBoxPet = (CheckBox) findViewById(R.id.chkPetSmell);
-		mCheckBoxPet.setChecked(false);
-		mCheckBoxPet.setOnClickListener(this);
+		CheckBox cbPet = (CheckBox) findViewById(R.id.chkPetSmell);
+		cbPet.setChecked(false);
+		cbPet.setOnClickListener(this);
 
-		//同様に、CheckBoxMold
-		mCheckBoxMold = (CheckBox) findViewById(R.id.chkMoldSmell);
-		mCheckBoxMold.setChecked(false);
-		mCheckBoxMold.setOnClickListener(this);
+		CheckBox cbMold = (CheckBox) findViewById(R.id.chkMoldSmell);
+		cbMold.setChecked(false);
+		cbMold.setOnClickListener(this);
 
-
-
-		//targetBook = new KiiBook();
-		//HashMap<String,String> bookInfo = (HashMap<String, String>) getIntent().getSerializableExtra("Book");
-		//targetBook.setUpMap(bookInfo);
-
-		targetBook = getIntent().getParcelableExtra("Book");
-		String imgUrl = targetBook.get(KiiBook.IMAGE_URL);
+		final BookInfo info = targetBook.getInfo();
+		String imgUrl = info.getImageUrl();
 
 		if( (imgUrl != null) && (imgUrl.length() > 0)){
 			// 画像データのダウンロードと設定
@@ -105,29 +86,30 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 		}
 
 		TextView tv_title = (TextView) findViewById(R.id.textView_title);
-		tv_title.setText(targetBook.get(KiiBook.TITLE));
+		tv_title.setText(info.getTitle());
 		TextView tv_author = (TextView) findViewById(R.id.textView_author);
-		tv_author.setText(targetBook.get(KiiBook.AUTHOR));
+		tv_author.setText(info.getAuthor());
 		TextView tv_isbn = (TextView)findViewById(R.id.textView_isbn);
-		tv_isbn.setText(targetBook.get(KiiBook.ISBN));
+		tv_isbn.setText(info.getIsbn());
 		TextView tv_publisher = (TextView)findViewById(R.id.textView_publisher);
-		tv_publisher.setText(targetBook.get(KiiBook.PUBLISHER));
+		tv_publisher.setText(info.getPublisher());
 		TextView tv_issueDate = (TextView)findViewById(R.id.textView_issueDate);
-		tv_issueDate.setText(targetBook.get(KiiBook.ISSUE_DATE));
+		tv_issueDate.setText(info.getIssueDate());
 
+		final BookCondition condition = new BookCondition();
 //本の状態ラジオボタンここから
 		((RadioGroup)findViewById(R.id.rCondition)).setOnCheckedChangeListener
 				(new RadioGroup.OnCheckedChangeListener () {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				if(checkedId == R.id.cond_excellent){
 					//１つめを選択
-					targetBook.set ("condition","良い");
+					condition.setEvaluation(BookCondition.EVALUATION_EXCELLENT);
 				}else if(checkedId == R.id.cond_good){
 					//２つめを選択
-					targetBook.set ("condition","普通");
+					condition.setEvaluation(BookCondition.EVALUATION_GOOD);
 				}else if(checkedId == R.id.cond_bad){
 					//３つめを選択
-					targetBook.set ("condition","汚れあり");
+					condition.setEvaluation(BookCondition.EVALUATION_BAD);
 				}
 			}
 
@@ -139,16 +121,16 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
 						if(checkedId == R.id.rLine_no){
 							//１つめを選択
-							targetBook.set ("line","なし");
+							condition.setLined(BookCondition.LINED_NONE);
 						}else if(checkedId == R.id.rLine_5){
 							//２つめを選択
-							targetBook.set ("line","5P未満");
+							condition.setLined(BookCondition.LINED_ZERO_TO_FIVE);
 						}else if(checkedId == R.id.rLine_5_10){
 							//３つめを選択
-							targetBook.set ("line","5P以上10P未満");
+							condition.setLined(BookCondition.LINED_FIVE_TO_TEN);
 						}else if(checkedId == R.id.rLine_10over){
 							//３つめを選択
-							targetBook.set ("line","10P以上");
+							condition.setLined(BookCondition.LINED_MORE_THAN_TEN);
 						}
 					}
 
@@ -160,32 +142,28 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
 						if(checkedId == R.id.rBroken_no){
 							//１つめを選択
-							targetBook.set ("broken","なし");
+							condition.setBroken(BookCondition.BROKEN_NONE);
 						}else if(checkedId == R.id.rBroken_5){
 							//２つめを選択
-							targetBook.set ("broken","5P未満");
+							condition.setBroken(BookCondition.BROKEN_ZERO_TO_FIVE);
 						}else if(checkedId == R.id.rBroken_5_10){
 							//３つめを選択
-							targetBook.set ("broken","5P以上10P未満");
+							condition.setBroken(BookCondition.BROKEN_FIVE_TO_TEN);
 						}else if(checkedId == R.id.rBroken_10over){
 							//３つめを選択
-							targetBook.set ("broken","10P以上");
+							condition.setBroken(BookCondition.BROKEN_MORE_THAN_TEN);
 						}
 					}
 
 				});
 //ページの折れラジオボタンここまで
 
-
-
-		// 2016/09/06 Okuyama Upadate
-		if ( !DateUtil.isOneYearAfter(targetBook.get(KiiBook.ISSUE_DATE)) ) {
+		if (!DateUtil.isOneYearAfter(info.getIssueDate())) {
 			Toast.makeText(BookDetailActivity.this,"一年前以上に発行された書籍ではありません。",
 					Toast.LENGTH_LONG).show();
 		}
-		//////////////////////////////////////////////
 
-		btnAddKiiCloud = (Button)findViewById(R.id.btnAddKiiBook);
+		Button btnAddKiiCloud = (Button) findViewById(R.id.btnAddKiiBook);
 		// ボタンにフォーカスを移動させる
 		btnAddKiiCloud.setFocusable(true);
 		btnAddKiiCloud.setFocusableInTouchMode(true);
@@ -197,150 +175,98 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 		//備考欄のテキストここから
 				EditText noteField = (EditText) (findViewById (R.id.edtNote));
 				assert noteField != null;
-				Note = noteField.getText ().toString ();
+				String noteStr = noteField.getText().toString ();
 				// 入力された文字を取得して保存
-				targetBook.set ("notes",Note);
+				condition.setNote(noteStr);
 		//備考欄のテキストここまで
 
+				Size size = info.getSize();
+
 		//本のサイズここから
-				EditText HeightField = (EditText) (findViewById (R.id.Height));
-				Height = HeightField.getText ().toString ();
+				EditText heightField = (EditText) (findViewById(R.id.Height));
+				String heightStr = heightField.getText().toString();
+				size.setHeight(Double.valueOf(heightStr));
 		// 入力された文字を取得して保存
-				targetBook.set ("size_height",Height);
 
-				EditText WideField = (EditText) (findViewById (R.id.Wide));
-				Wide = WideField.getText ().toString ();
-				// 入力された文字を取得して保存
-				targetBook.set ("size_wide",Wide);
 
-				EditText DepthField = (EditText) (findViewById (R.id.Depth));
-				Depth = DepthField.getText ().toString ();
+				EditText widthField = (EditText) (findViewById(R.id.Wide));
+				String widthStr = widthField.getText().toString();
 				// 入力された文字を取得して保存
-				targetBook.set ("size_depth",Depth);
+				size.setWidth(Double.valueOf(widthStr));
 
-				EditText WeightField = (EditText) (findViewById (R.id.Weight));
-				Weight = WeightField.getText ().toString ();
+				EditText thicknessField = (EditText) (findViewById(R.id.Depth));
+				String thicknessStr = thicknessField.getText().toString();
 				// 入力された文字を取得して保存
-				targetBook.set ("size_weight",Weight);
+				size.setThickness(Double.valueOf(thicknessStr));
+
+				EditText weightField = (EditText) (findViewById(R.id.Weight));
+				String weightStr = weightField.getText().toString();
+				// 入力された文字を取得して保存
+				size.setWeight(Double.valueOf(weightStr));
 		//本のサイズここまで
 
-				// KiiBook bKobj = new KiiBook()
-				KiiBook bKobj = targetBook;
-				// 確認 by 奥山 2016/08/26
-				if (targetBook.get(KiiBook.ISBN)==null || targetBook.get(KiiBook.ISBN).length()<=0 ){
-					Toast.makeText(BookDetailActivity.this,"BookDetailActivity targetBook空だよ！",
-							Toast.LENGTH_LONG).show();
+				KiiUser user = KiiUser.getCurrentUser();
+				if (user == null || user.getID() == null) {
+					Log.e(TAG, "onClick: User ID が取得できません");
+					Toast.makeText(BookDetailActivity.this, "エラー: ユーザ情報が取得できません", Toast.LENGTH_SHORT).show();
+					return;
 				}
-				Toast.makeText(BookDetailActivity.this,"ISBN:"+targetBook.get(KiiBook.ISBN),
-						Toast.LENGTH_SHORT).show();
+				targetBook.setOwnerId(user.getID());
+				info.setSize(size);
+				targetBook.setInfo(info);
+				condition.setSmell(smell);
+				targetBook.setCondition(condition);
 
-				KiiUser kiiUser = KiiUser.getCurrentUser ();
-				targetBook.set ("user_id",kiiUser.getID());
 
 				// show a progress dialog to the user
-				mProgress = ProgressDialog.show( BookDetailActivity.this, "登録中", "しばらくお待ちください",	true);
+				final ProgressDialog progress = ProgressDialog.show(BookDetailActivity.this, "登録中", "しばらくお待ちください", true);
 
-				bKobj.save(	new KiiObjectCallBack() {
+				targetBook.save(false, new KiiModel.KiiSaveCallback() {
 					@Override
-					public void onSaveCompleted(int token, KiiObject object, Exception exception) {
-						// hide our progress UI element
-						mProgress.dismiss();
-
-						// go to the next screen
+					public void success(int token, KiiObject object) {
+						progress.dismiss();
+						Log.d(TAG, "success: ");
 						Intent intent = new Intent();
-						setResult(Activity.RESULT_OK,intent);
+						setResult(Activity.RESULT_OK, intent);
 						finish();
+					}
 
-						if (exception != null) {
-							// Error handling
-							LogUtil.w("BookDetailActivity", exception);
-							return;
-						}
+					@Override
+					public void failure(@Nullable Exception e) {
+						progress.dismiss();
+						Log.e(TAG, "failure: ", e);
+						Toast.makeText(BookDetailActivity.this, "本の登録に失敗しました。", Toast.LENGTH_SHORT).show();
 					}
 				});
 			}
 		});
 	}
-	//本のその他の状態ここから
+
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
+		if (!(v instanceof CheckBox)) {
+			return;
+		}
+		CheckBox cb = (CheckBox) v;
+		switch (cb.getId()) {
 			case R.id.chkBand:		//帯付きの場合
-				if(mCheckBoxBand.isChecked() == true){	// チェックされている場合
-					targetBook.set ("band", "帯あり");
-				}
+				condition.setHasBand(cb.isChecked());
 				break;
 			case R.id.chkSunburned:	//日焼けの場合
-				if(mCheckBoxSunburned.isChecked() == true){	// チェックされている場合
-					targetBook.set ("sunburned", "日焼け・変色");
-				}
+				condition.setSunburned(cb.isChecked());
 				break;
 			case R.id.chkScratched:		//スレ・傷の場合
-				if(mCheckBoxScratched.isChecked() == true){	// チェックされている場合
-					targetBook.set ("scratched", "スレ・傷など");
-				}
+				condition.setScratched(cb.isChecked());
 				break;
 			case R.id.chkCigarSmell:	//たばこ臭の場合
-				if(mCheckBoxCigar.isChecked() == true){	// チェックされている場合
-					targetBook.set ("cigar_smell", "たばこ臭");
-				}
+				smell.setCigar(cb.isChecked());
 				break;
 			case R.id.chkPetSmell:	//ペットを飼ってる場合
-				if(mCheckBoxPet.isChecked() == true){	// チェックされている場合
-					targetBook.set ("pet_smell", "ペットを飼っている");
-				}
+				smell.setPet(cb.isChecked());
 				break;
 			case R.id.chkMoldSmell:	//カビ臭の場合
-				if(mCheckBoxMold.isChecked() == true){	// チェックされている場合
-					targetBook.set ("mold_smell", "カビ臭");
-				}
-				break;
-
-			default:
+				smell.setMold(cb.isChecked());
 				break;
 		}
 	}
-//本のその他の状態ここまで
-
-//	@Override
-//	public Loader<Bitmap> onCreateLoader(int arg0, Bundle arg1) {
-//		ImageAsyncLoader loader  = new ImageAsyncLoader(this, targetBook.get(KiiBook.IMAGE_URL));
-//		loader.forceLoad();
-//		return loader;
-//	}
-//
-//	@Override
-//	public void onLoadFinished(Loader<Bitmap> arg0, Bitmap arg1) {
-//		ImageView iv = (ImageView)findViewById(R.id.imgBookDetail);
-//		iv.setImageBitmap(arg1);
-//
-//		getLoaderManager().destroyLoader(0);
-//	}
-//
-//	@Override
-//	public void onLoaderReset(Loader<Bitmap> arg0) {
-//		// TODO 自動生成されたメソッド・スタブ
-//	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.book_detail, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-//	@Override
-//	public void onCancel(DialogInterface arg0) {
-//		// TODO 自動生成されたメソッド・スタブ
-//
-//	}
 }

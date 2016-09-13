@@ -17,9 +17,6 @@ import com.books.hondana.TodoListViewAdapter;
 public class TodoActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener {
 
-    private BaseAdapter adapter;
-
-
     private static final String[] date = {
             // Scenes of Isle of Wight
             "3日前",
@@ -64,7 +61,7 @@ public class TodoActivity extends AppCompatActivity
 
         // BaseAdapter を継承したadapterのインスタンスを生成
 
-        adapter = new TodoListViewAdapter (this.getApplicationContext (), R.layout.part_todo_list, date, todo, photos);
+        BaseAdapter adapter = new TodoListViewAdapter(this.getApplicationContext(), R.layout.part_todo_list, date, todo, photos);
 
         // ListViewにadapterをセット
         listView.setAdapter (adapter);

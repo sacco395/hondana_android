@@ -1,9 +1,9 @@
-package com.books.hondana.Model.book;
+package com.books.hondana.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.books.hondana.Model.JSONConvertible;
+import com.books.hondana.Model.abst.JSONConvertible;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,7 +12,7 @@ import org.json.JSONObject;
  * @author Tetsuro MIKAMI https://github.com/mickamy
  *         Created on 9/9/16.
  */
-public class Size implements JSONConvertible, Parcelable {
+public class Size extends JSONConvertible implements Parcelable {
 
     // KiiCloud 上のフィールド名
     private static final String WIDTH = "width";
@@ -32,10 +32,7 @@ public class Size implements JSONConvertible, Parcelable {
     }
 
     public Size(JSONObject json) throws JSONException {
-        width = json.getDouble(WIDTH);
-        height = json.getDouble(HEIGHT);
-        thickness = json.getDouble(THICKNESS);
-        weight = json.getDouble(WEIGHT);
+        super(json);
     }
 
     public double getWidth() {
@@ -78,6 +75,14 @@ public class Size implements JSONConvertible, Parcelable {
         json.put(THICKNESS, thickness);
         json.put(WEIGHT, weight);
         return json;
+    }
+
+    @Override
+    public void setValues(JSONObject json) throws JSONException {
+        width = json.getDouble(WIDTH);
+        height = json.getDouble(HEIGHT);
+        thickness = json.getDouble(THICKNESS);
+        weight = json.getDouble(WEIGHT);
     }
 
     @Override

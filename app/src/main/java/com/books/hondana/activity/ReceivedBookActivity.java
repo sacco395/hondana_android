@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.books.hondana.Model.kii.KiiBook;
+import com.books.hondana.Model.Request;
+import com.books.hondana.Model.abst.KiiModel;
 import com.books.hondana.R;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
@@ -21,26 +23,23 @@ import java.util.Locale;
 
 public class ReceivedBookActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //TodoActivityからkiiBookの情報を受け取るためcreateIntentを使う
-    private static final String EXTRA_KII_BOOK = "extra_kii_book";
+    private static final String TAG = ReceivedBookActivity.class.getSimpleName();
 
-    public static Intent createIntent(Context context, KiiBook kiiBook) {
-        Intent intent = new Intent (context, ReceivedBookActivity.class);
-        intent.putExtra (EXTRA_KII_BOOK, kiiBook);
+    private Request request;
+
+    public static Intent createIntent(Context context, Request request) {
+        Intent intent = new Intent(context, ReceivedBookActivity.class);
+        intent.putExtra(Request.class.getSimpleName(), request);
         return intent;
     }
-
-    KiiBook kiiBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recieved_book);
 
-        //上記のcreateIntentでデータを受け取る
-        kiiBook = getIntent ().getParcelableExtra (EXTRA_KII_BOOK);
-//kiiBookがないのはおかしいのでcreateIntentを使うように怒る
-        if (kiiBook == null) {
+        request = getIntent ().getParcelableExtra(Request.class.getSimpleName());
+        if (request == null) {
             throw new IllegalArgumentException ("createIntentを使ってください");
         }
 
@@ -56,15 +55,21 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss", Locale.JAPAN);
         String dateString = simpleDateFormat.format (date); // 2016-09-03 17:24:33
 
-        kiiBook.set ("received_date", dateString);
-        kiiBook.save (new KiiObjectCallBack () {
+        request.setReceivedDate(dateString);
+        request.save(false, new KiiModel.KiiSaveCallback() {
             @Override
-            public void onSaveCompleted(int token, @NonNull KiiObject object, @Nullable Exception exception) {
-                Toast.makeText(getApplicationContext(), "本の受け取りと評価を完了しました", Toast.LENGTH_LONG).show();
+            public void success(int token, KiiObject object) {
+                Toast.makeText(ReceivedBookActivity.this, "本の受け取りと評価を完了しました", Toast.LENGTH_LONG).show();
 
                 //暫定的にTOPページにintentする
                 Intent intent = new Intent(ReceivedBookActivity.this, BookMainActivity.class);
                 startActivity(intent);
+            }
+
+            @Override
+            public void failure(@Nullable Exception e) {
+                Log.e(TAG, "failure: ", e);
+                Toast.makeText(ReceivedBookActivity.this, "保存に失敗しました。", Toast.LENGTH_SHORT).show();
             }
         });
     }

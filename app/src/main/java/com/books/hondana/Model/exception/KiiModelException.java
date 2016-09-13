@@ -1,4 +1,4 @@
-package com.books.hondana.Model;
+package com.books.hondana.Model.exception;
 
 import org.json.JSONException;
 

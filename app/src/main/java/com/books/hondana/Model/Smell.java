@@ -1,9 +1,9 @@
-package com.books.hondana.Model.book;
+package com.books.hondana.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.books.hondana.Model.JSONConvertible;
+import com.books.hondana.Model.abst.JSONConvertible;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,7 +12,7 @@ import org.json.JSONObject;
  * @author Tetsuro MIKAMI https://github.com/mickamy
  *         Created on 9/9/16.
  */
-public class Smell implements JSONConvertible, Parcelable {
+public class Smell extends JSONConvertible implements Parcelable {
 
     // KiiCloud 上のフィールド名
     public static final String CIGAR = "cigar";
@@ -29,9 +29,31 @@ public class Smell implements JSONConvertible, Parcelable {
     }
 
     public Smell(JSONObject json) throws JSONException {
-        cigar = json.getBoolean(CIGAR);
-        pet = json.getBoolean(PET);
-        mold = json.getBoolean(MOLD);
+        super(json);
+    }
+
+    public boolean hasCigar() {
+        return cigar;
+    }
+
+    public void setCigar(boolean cigar) {
+        this.cigar = cigar;
+    }
+
+    public boolean hasPet() {
+        return pet;
+    }
+
+    public void setPet(boolean pet) {
+        this.pet = pet;
+    }
+
+    public boolean hasMold() {
+        return mold;
+    }
+
+    public void setMold(boolean mold) {
+        this.mold = mold;
     }
 
     public String getCigarSmellText() {
@@ -68,6 +90,13 @@ public class Smell implements JSONConvertible, Parcelable {
         json.put(PET, pet);
         json.put(MOLD, mold);
         return json;
+    }
+
+    @Override
+    public void setValues(JSONObject json) throws JSONException {
+        cigar = json.getBoolean(CIGAR);
+        pet = json.getBoolean(PET);
+        mold = json.getBoolean(MOLD);
     }
 
     @Override

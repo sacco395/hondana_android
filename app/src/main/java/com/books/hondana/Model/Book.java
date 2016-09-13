@@ -1,11 +1,9 @@
-package com.books.hondana.Model.book;
+package com.books.hondana.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
-import com.books.hondana.Model.KiiModel;
-import com.books.hondana.Model.KiiModelException;
+import com.books.hondana.Model.abst.KiiModel;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;
@@ -20,42 +18,37 @@ public class Book extends KiiModel implements Parcelable {
 
     private static final String TAG = Book.class.getSimpleName();
 
-    public static final String OWNER = "owner";
+    public static final String BUCKET_NAME = "appbooks";
+
+    public static final String OWNER_ID = "owner_id";
     public static final String INFO = "info";
     public static final String CONDITION = "condition";
 
-    private String id;
-
-    private String owner;
+    private String ownerId;
 
     private BookInfo info;
 
     private BookCondition condition;
 
     public Book() {
+        ownerId = "";
+        info = new BookInfo();
+        condition = new BookCondition();
     }
 
     public Book(KiiObject kiiObject) throws JSONException {
         super(kiiObject);
-        owner = source.getString(OWNER);
+        ownerId = source.getString(OWNER_ID);
         info = new BookInfo(source.getJSONObject(INFO));
         condition = new BookCondition(source.getJSONObject(CONDITION));
     }
 
-    public String getId() {
-        return id;
+    public String getOwnerId() {
+        return ownerId;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public BookInfo getInfo() {
@@ -76,30 +69,25 @@ public class Book extends KiiModel implements Parcelable {
 
     @Override
     public KiiBucket bucket() {
-        return Kii.bucket("appbooks");
+        return Kii.bucket(BUCKET_NAME);
     }
 
     @Override
-    public KiiObject createNewKiiObject() throws KiiModelException {
-        KiiObject object = bucket().object();
-        return setValues(object);
+    public void setValuesFrom(KiiObject object) throws JSONException {
+        ownerId = object.getString(OWNER_ID);
+        info = new BookInfo(object.getJSONObject(INFO));
+        condition = new BookCondition(object.getJSONObject(CONDITION));
     }
 
     @Override
-    public KiiObject createNewKiiObject(String id) throws KiiModelException {
-        KiiObject object = bucket().object(id);
-        return setValues(object);
-    }
-
-    private KiiObject setValues(KiiObject object) throws KiiModelException {
-        object.set(OWNER, owner);
-        try {
-            object.set(INFO, info.toJSON());
-            object.set(CONDITION, condition.toJSON());
-        } catch (JSONException e) {
-            throw new KiiModelException(e);
+    public KiiObject createKiiObject() throws JSONException {
+        if (source == null) {
+            source = bucket().object();
         }
-        return object;
+        source.set(OWNER, ownerId);
+        source.set(INFO, info.toJSON());
+        source.set(CONDITION, condition.toJSON());
+        return source;
     }
 
     @Override
@@ -111,7 +99,7 @@ public class Book extends KiiModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(this.source, flags);
         dest.writeString(this.id);
-        dest.writeString(this.owner);
+        dest.writeString(this.ownerId);
         dest.writeParcelable(this.info, flags);
         dest.writeParcelable(this.condition, flags);
     }
@@ -119,7 +107,7 @@ public class Book extends KiiModel implements Parcelable {
     protected Book(Parcel in) {
         this.source = in.readParcelable(KiiObject.class.getClassLoader());
         this.id = in.readString();
-        this.owner = in.readString();
+        this.ownerId = in.readString();
         this.info = in.readParcelable(BookInfo.class.getClassLoader());
         this.condition = in.readParcelable(BookCondition.class.getClassLoader());
     }

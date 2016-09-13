@@ -5,18 +5,18 @@ package com.books.hondana.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.books.hondana.Model.kii.KiiBook;
+import com.books.hondana.Model.Request;
+import com.books.hondana.Model.abst.KiiModel;
 import com.books.hondana.R;
 import com.kii.cloud.storage.KiiObject;
-import com.kii.cloud.storage.callback.KiiObjectCallBack;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,17 +25,15 @@ import java.util.Locale;
 public class SendBookActivity extends AppCompatActivity
         implements View.OnClickListener {
 
-    //TodoActivityからkiiBookの情報を受け取るためcreateIntentを使う
-    private static final String EXTRA_KII_BOOK = "extra_kii_book";
+    private static final String TAG = SendBookActivity.class.getSimpleName();
 
-    public static Intent createIntent(Context context, KiiBook kiiBook) {
+    private Request request;
+
+    public static Intent createIntent(Context context, Request request) {
         Intent intent = new Intent (context, SendBookActivity.class);
-        intent.putExtra (EXTRA_KII_BOOK, kiiBook);
+        intent.putExtra (Request.class.getSimpleName(), request);
         return intent;
     }
-
-    KiiBook kiiBook;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +41,9 @@ public class SendBookActivity extends AppCompatActivity
         setContentView(R.layout.activity_send_book);
 
         //上記のcreateIntentでデータを受け取る
-        kiiBook = getIntent ().getParcelableExtra (EXTRA_KII_BOOK);
+        request = getIntent ().getParcelableExtra(Request.class.getSimpleName());
 //kiiBookがないのはおかしいのでcreateIntentを使うように怒る
-        if (kiiBook == null) {
+        if (request == null) {
             throw new IllegalArgumentException ("createIntentを使ってください");
         }
 
@@ -95,15 +93,21 @@ public class SendBookActivity extends AppCompatActivity
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss", Locale.JAPAN);
         String dateString = simpleDateFormat.format (date); // 2016-09-03 17:24:33
 
-        kiiBook.set ("send_date", dateString);
-        kiiBook.save (new KiiObjectCallBack () {
+        request.setSentDate(dateString);
+        request.save(false, new KiiModel.KiiSaveCallback() {
             @Override
-            public void onSaveCompleted(int token, @NonNull KiiObject object, @Nullable Exception exception) {
+            public void success(int token, KiiObject object) {
                 Toast.makeText(getApplicationContext(), "本の発送を完了しました", Toast.LENGTH_LONG).show();
 
                 //暫定的にTOPページにintentする
                 Intent intent = new Intent(SendBookActivity.this, BookMainActivity.class);
                 startActivity(intent);
+            }
+
+            @Override
+            public void failure(@Nullable Exception e) {
+                Log.e(TAG, "failure: ", e);
+                Toast.makeText(SendBookActivity.this, "本の発想に失敗しました。", Toast.LENGTH_SHORT).show();
             }
         });
     }

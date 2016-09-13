@@ -23,7 +23,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,7 +30,8 @@ import android.widget.Toast;
 
 import com.books.hondana.BookMainFragmentPagerAdapter;
 import com.books.hondana.Connection.QueryParamSet;
-import com.books.hondana.Model.kii.KiiBook;
+import com.books.hondana.Model.Book;
+import com.books.hondana.Model.BookInfo;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
@@ -51,28 +51,6 @@ public class BookMainActivity extends AppCompatActivity
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
 
-    // Search Param
-    private String search_Isbn;
-
-    //    private String search_Keyword;
-    private Button btnScan;
-    private Button btnReturn;
-    private FloatingActionButton mFab;
-
-    // define the UI elements
-//    private ProgressDialog mProgress;
-
-    // define the list
-//    private ListView mListView;
-//    private GridView mGridView;
-
-//    private HondanaBookAdapter mListAdapter;
-//    private KiiCloudConnection kiiCloudConnection;
-//    private QueryParamSet queryParamSet;
-
-
-    private ViewPager viewPager;
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +66,8 @@ public class BookMainActivity extends AppCompatActivity
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //カメラボタン
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
-        mFab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -150,7 +128,7 @@ public class BookMainActivity extends AppCompatActivity
         });
         //navigationViewにアイコンここまで
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter( new BookMainFragmentPagerAdapter( getSupportFragmentManager()));
 
     }
@@ -320,11 +298,11 @@ public class BookMainActivity extends AppCompatActivity
         String format = extras.getString("READ_FORMAT");
         Toast.makeText(this, "Contents = " + code +
                 ", Format = " + format, Toast.LENGTH_SHORT).show();
-        this.search_Isbn = code;
+        String search_Isbn = code;
         // 書籍情報を検索
         Intent intent = new Intent(BookMainActivity.this,BookSearchListActivity.class);
         QueryParamSet queryParamSet = new QueryParamSet();
-        queryParamSet.addQueryParam(KiiBook.ISBN,this.search_Isbn);
+        queryParamSet.addQueryParam(BookInfo.ISBN, search_Isbn);
         intent.putExtra( "SEARCH_PARAM", queryParamSet );
         startActivityForResult(intent, ACT_BOOK_SEARCH_LIST);
     }
@@ -332,9 +310,9 @@ public class BookMainActivity extends AppCompatActivity
     private void kickListSearchResult(Intent data){
         Bundle extras = data.getExtras();
         //HashMap<String,String> bookInfo = (HashMap<String, String>) data.getSerializableExtra("Book");
-        KiiBook kiiBook = (KiiBook)extras.get("Book");
+        Book book = (Book) extras.get(Book.class.getSimpleName());
         Intent intent = new Intent(BookMainActivity.this,BookDetailActivity.class);
-        intent.putExtra("Book", kiiBook );
+        intent.putExtra(Book.class.getSimpleName(), book);
         startActivityForResult(intent, ACT_BOOK_DETAIL_TO_ADD);
     }
 

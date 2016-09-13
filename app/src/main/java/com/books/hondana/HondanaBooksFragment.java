@@ -14,16 +14,11 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.books.hondana.Connection.KiiBookConnection;
-import com.books.hondana.Connection.KiiMemberConnection;
-import com.books.hondana.Connection.KiiObjectCallback;
-import com.books.hondana.Model.book.Book;
+import com.books.hondana.Connection.KiiObjectListCallback;
+import com.books.hondana.Model.Book;
 import com.books.hondana.Model.Genre;
-import com.books.hondana.Model.kii.KiiBook;
-import com.books.hondana.Model.kii.KiiMember;
 import com.books.hondana.activity.BookInfoActivity;
 import com.books.hondana.util.LogUtil;
-import com.kii.cloud.storage.KiiObject;
-import com.kii.cloud.storage.KiiUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,11 +101,11 @@ public class HondanaBooksFragment extends Fragment {
                         return;
                     }
                     // FIXME: 9/9/16 Kii これかなりイケてないのでなんかいい感じにしたい。
-                    if (last.createdAt <= 1470909532550L) {
+                    if (last.getCreatedAt() <= 1470909532550L) {
                         // サーバにこれ以上本がない
                         return;
                     }
-                    kickLoadHondanaBooks(last.createdAt);
+                    kickLoadHondanaBooks(last.getCreatedAt());
                 }
             }
         });
@@ -149,13 +144,11 @@ public class HondanaBooksFragment extends Fragment {
             mConnection = new KiiBookConnection(Genre.ALL);
         }
 
-        mConnection.fetch(from, LOAD_BOOKS_COUNT_LIMIT, new KiiObjectCallback() {
+        mConnection.fetch(from, LOAD_BOOKS_COUNT_LIMIT, new KiiObjectListCallback<Book>() {
             @Override
-            public void success(int token, List<KiiObject> result) {
+            public void success(int token, List<Book> result) {
                 finishLoadingView();
-                for (KiiObject kiiObject : result) {
-                    mGridAdapter.add(new Book(kiiObject));
-                }
+                mGridAdapter.add(result);
                 mGridAdapter.notifyDataSetChanged();
             }
 

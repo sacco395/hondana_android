@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,14 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.books.hondana.Model.KiiModelException;
 import com.books.hondana.Model.Request;
-import com.books.hondana.Model.kii.KiiBook;
+import com.books.hondana.Model.abst.KiiModel;
 import com.books.hondana.R;
-import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.callback.KiiObjectCallBack;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -115,18 +111,29 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss", Locale.JAPAN);
         String dateString = simpleDateFormat.format (date); // 2016-09-03 17:24:33
 
-        KiiObject bookObject = request.getBook().source;
-        bookObject.set ("request_date", dateString);
-        //kiiBook.set ("request_userId",user.getID());
+        KiiUser user = KiiUser.getCurrentUser();
+        if (user == null || user.getID() == null) {
+            Log.e(TAG, "saveRequestDate: KiiUser is null!");
+            Toast.makeText(RequestBookActivity.this, "ログイン情報を取得できませんでした。再度ログインしてください。", Toast.LENGTH_SHORT).show();
+            // TODO: 9/13/16 Launch LoginActivity or something
+            return;
+        }
 
-        bookObject.save (new KiiObjectCallBack () {
+        request.setRequestedDate(dateString);
+        request.save(false, new KiiModel.KiiSaveCallback() {
             @Override
-            public void onSaveCompleted(int token, @NonNull KiiObject object, @Nullable Exception exception) {
+            public void success(int token, KiiObject object) {
                 Toast.makeText(getApplicationContext(), "本のリクエストを完了しました", Toast.LENGTH_LONG).show();
 
                 //暫定的にTOPページにintentする
                 Intent intent = new Intent(RequestBookActivity.this, BookMainActivity.class);
                 startActivity(intent);
+            }
+
+            @Override
+            public void failure(@Nullable Exception e) {
+                Log.e(TAG, "failure: ", e);
+                Toast.makeText(RequestBookActivity.this, "本のリクエストに失敗しました。", Toast.LENGTH_SHORT).show();
             }
         });
     }

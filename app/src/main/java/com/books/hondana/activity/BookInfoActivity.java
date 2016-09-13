@@ -13,51 +13,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Connection.KiiCloudConnection;
+import com.books.hondana.Connection.KiiMemberConnection;
+import com.books.hondana.Connection.KiiObjectCallback;
 import com.books.hondana.Model.Member;
 import com.books.hondana.Model.Request;
-import com.books.hondana.Model.book.Book;
-import com.books.hondana.Model.book.BookCondition;
-import com.books.hondana.Model.book.BookInfo;
-import com.books.hondana.Model.book.Size;
-import com.books.hondana.Model.book.Smell;
-import com.books.hondana.Model.kii.KiiCloudBucket;
-import com.books.hondana.Model.kii.KiiMember;
+import com.books.hondana.Model.Book;
+import com.books.hondana.Model.BookCondition;
+import com.books.hondana.Model.BookInfo;
+import com.books.hondana.Model.Size;
+import com.books.hondana.Model.Smell;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
-import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.query.KiiQueryResult;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.MessageFormat;
-import java.util.List;
 
 
 public class BookInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = BookInfoActivity.class.getSimpleName();
 
-    //private BaseAdapter adapter;
-
     private Book book;
 
     final ImageLoader imageLoader = ImageLoader.getInstance();
-
-
-    /*private static final String[] username = {
-            // Scenes of Isle of Wight
-            "ユーザー名",
-            "ユーザー名",
-            "ユーザー名",
-    };
-
-    private static final String[] evaluation = {
-            // Scenes of Isle of Wight
-            "評価",
-            "評価",
-            "評価",
-    };*/
 
 
     @SuppressLint("SetTextI18n")
@@ -175,31 +154,23 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         final TextView bookOwner = (TextView) findViewById(R.id.textViewBookInfoUserName);
         final ImageView userIcon = (ImageView) findViewById(R.id.bookInfoUserIcon);
 
-        final String userId = book.getOwner();
-        final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
-        membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
+        final String userId = book.getOwnerId();
+        final KiiMemberConnection memberConnection = new KiiMemberConnection();
+        memberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
-            public void didFinish(int token, KiiQueryResult<KiiObject> result, Exception e) {
-                Log.d(TAG, "didFinish(result: " + result + ")");
-                if (result == null) {
-                    Log.w(TAG, e);
-                    return;
-                }
+            public void success(int token, Member member) {
+                final String name = member.getName();
+                Log.d(TAG, "name: " + name);
+                bookOwner.setText(name);
 
-                final List<KiiObject> kiiObjects = result.getResult();
-                Log.d(TAG, "members.size: " + kiiObjects.size());
-                if (kiiObjects != null && kiiObjects.size() > 0) {
-                    final KiiObject kiiObject = kiiObjects.get(0);// ひとつしか来ていないはずなので0番目だけ使う
-                    final Member member = new KiiMember(kiiObject).convert();
+                final String imageUrl = member.getImageUrl();
+                Log.d(TAG, "imageUrl: " + imageUrl);
+                imageLoader.displayImage(imageUrl, userIcon);
+            }
 
-                    final String name = member.getName();
-                    Log.d(TAG, "name: " + name);
-                    bookOwner.setText(name);
-
-                    final String imageUrl = member.getImageUrl();
-                    Log.d(TAG, "imageUrl: " + imageUrl);
-                    imageLoader.displayImage(imageUrl, userIcon);
-                }
+            @Override
+            public void failure(Exception e) {
+                Log.e(TAG, "failure: ", e);
             }
         });
 
@@ -234,8 +205,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         LogUtil.d (TAG, "kiiUser: " + currentUser);
 
         Request request = new Request();
-        request.setClientUserId(currentUser.getID());
-        request.setBook(book);
+        request.setClientId(currentUser.getID());
+        request.setBookId(book.getId());
 
         startActivity(RequestBookActivity.createIntent (this, request));
     }

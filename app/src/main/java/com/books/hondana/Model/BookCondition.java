@@ -1,9 +1,9 @@
-package com.books.hondana.Model.book;
+package com.books.hondana.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.books.hondana.Model.JSONConvertible;
+import com.books.hondana.Model.abst.JSONConvertible;
 import com.books.hondana.R;
 
 import org.json.JSONException;
@@ -13,7 +13,7 @@ import org.json.JSONObject;
  * @author Tetsuro MIKAMI https://github.com/mickamy
  *         Created on 9/9/16.
  */
-public class BookCondition implements JSONConvertible, Parcelable {
+public class BookCondition extends JSONConvertible implements Parcelable {
 
     // KiiCloud 上のフィールド名
     public static final String LINED = "lined";
@@ -23,6 +23,25 @@ public class BookCondition implements JSONConvertible, Parcelable {
     public static final String HAS_BAND = "hasBand";
     public static final String EVALUATION = "evaluation";
     public static final String SMELL = "smell";
+
+    public static final int LINED_NONE = 0;
+    public static final int LINED_ZERO_TO_FIVE = 1;
+    public static final int LINED_FIVE_TO_TEN = 2;
+    public static final int LINED_MORE_THAN_TEN = 3;
+
+    public static final int FOLDED_NONE = 0;
+    public static final int FOLDED_ZERO_TO_FIVE = 1;
+    public static final int FOLDED_FIVE_TO_TEN = 2;
+    public static final int FOLDED_MORE_THAN_TEN = 3;
+
+    public static final int BROKEN_NONE = 0;
+    public static final int BROKEN_ZERO_TO_FIVE = 1;
+    public static final int BROKEN_FIVE_TO_TEN = 2;
+    public static final int BROKEN_MORE_THAN_TEN = 3;
+
+    public static final int EVALUATION_EXCELLENT = 0;
+    public static final int EVALUATION_GOOD = 1;
+    public static final int EVALUATION_BAD = 2;
 
     /**
      * 下線などの書き込み
@@ -41,6 +60,16 @@ public class BookCondition implements JSONConvertible, Parcelable {
      * 3: 10 < x
      */
     private int folded;
+
+
+    /**
+     * 破け
+     * 0: x = 0
+     * 1: 0 < x < 5
+     * 2: 5 < x < 10
+     * 3: 10 < x
+     */
+    private int broken;
 
     // 日焼け
     private boolean sunburned;
@@ -66,17 +95,12 @@ public class BookCondition implements JSONConvertible, Parcelable {
     private String note;
 
     public BookCondition() {
+        smell = new Smell();
+        note = "";
     }
 
     public BookCondition(JSONObject json) throws JSONException {
-        lined = json.getInt(LINED);
-        folded = json.getInt(FOLDED);
-        sunburned = json.getBoolean(SUNBURNED);
-        scratched = json.getBoolean(SCRATCHED);
-        hasBand = json.getBoolean(HAS_BAND);
-        evaluation = json.getInt(EVALUATION);
-        smell = new Smell(json.getJSONObject(SMELL));
-        note = json.getString(note);
+        super(json);
     }
 
     public int getLined() {
@@ -93,6 +117,14 @@ public class BookCondition implements JSONConvertible, Parcelable {
 
     public void setFolded(int folded) {
         this.folded = folded;
+    }
+
+    public int getBroken() {
+        return broken;
+    }
+
+    public void setBroken(int broken) {
+        this.broken = broken;
     }
 
     public boolean isSunburned() {
@@ -194,6 +226,18 @@ public class BookCondition implements JSONConvertible, Parcelable {
     }
 
     @Override
+    public void setValues(JSONObject json) throws JSONException {
+        lined = json.getInt(LINED);
+        folded = json.getInt(FOLDED);
+        sunburned = json.getBoolean(SUNBURNED);
+        scratched = json.getBoolean(SCRATCHED);
+        hasBand = json.getBoolean(HAS_BAND);
+        evaluation = json.getInt(EVALUATION);
+        smell = new Smell(json.getJSONObject(SMELL));
+        note = json.getString(note);
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -202,6 +246,7 @@ public class BookCondition implements JSONConvertible, Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.lined);
         dest.writeInt(this.folded);
+        dest.writeInt(this.broken);
         dest.writeByte(this.sunburned ? (byte) 1 : (byte) 0);
         dest.writeByte(this.scratched ? (byte) 1 : (byte) 0);
         dest.writeByte(this.hasBand ? (byte) 1 : (byte) 0);
@@ -213,6 +258,7 @@ public class BookCondition implements JSONConvertible, Parcelable {
     protected BookCondition(Parcel in) {
         this.lined = in.readInt();
         this.folded = in.readInt();
+        this.broken = in.readInt();
         this.sunburned = in.readByte() != 0;
         this.scratched = in.readByte() != 0;
         this.hasBand = in.readByte() != 0;

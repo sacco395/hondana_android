@@ -3,12 +3,14 @@ package com.books.hondana.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.books.hondana.Model.abst.KiiModel;
+import com.books.hondana.Model.exception.KiiModelException;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;
+import com.kii.cloud.storage.KiiUser;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONException;
 
 /**
  * @author Tetsuro MIKAMI https://github.com/mickamy
@@ -16,7 +18,17 @@ import java.util.List;
  */
 public class Member extends KiiModel implements Parcelable {
 
-    private String id;
+    public static final String BUCKET_NAME = "members";
+
+    // KiiCloud 上のフィールド名
+    public static final String NAME = "name";
+    public static final String BIRTHDAY = "birthday";
+    public static final String ADDRESS = "address";
+    public static final String PROFILE = "profile";
+    public static final String IMAGE_URL = "image_url";
+    public static final String POINT = "point";
+    public static final String FAVORITE_AUTHORS = "favorite_authors";
+    public static final String DELETED = "deleted";
 
     private String name;
 
@@ -30,7 +42,7 @@ public class Member extends KiiModel implements Parcelable {
 
     private int point;
 
-    private List<String> favoriteAuthors = new ArrayList<>(3);
+    private AuthorList favoriteAuthors;
 
     private boolean deleted;
 
@@ -38,15 +50,33 @@ public class Member extends KiiModel implements Parcelable {
 
     private long updatedAt;
 
+    public static Member createFrom(KiiUser kiiUser) throws KiiModelException {
+        String id = kiiUser.getID();
+        if (id == null) {
+            throw new KiiModelException();
+        }
+        Member member = new Member();
+        if (!KiiObject.isValidObjectID(id)) {
+            throw new KiiModelException();
+        }
+        member.id = id;
+        member.source = member.bucket().object(id);
+        member.name = kiiUser.getUsername();
+        return member;
+    }
+
     public Member() {
+        name = "";
+        birthday = "";
+        address = "";
+        profile = "";
+        imageUrl = "";
+        name = "";
+        favoriteAuthors = new AuthorList();
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public Member(KiiObject kiiObject) throws JSONException {
+        super(kiiObject);
     }
 
     public String getName() {
@@ -97,11 +127,11 @@ public class Member extends KiiModel implements Parcelable {
         this.point = point;
     }
 
-    public List<String> getFavoriteAuthors() {
+    public AuthorList getFavoriteAuthors() {
         return favoriteAuthors;
     }
 
-    public void setFavoriteAuthors(List<String> favoriteAuthors) {
+    public void setFavoriteAuthors(AuthorList favoriteAuthors) {
         this.favoriteAuthors = favoriteAuthors;
     }
 
@@ -113,30 +143,37 @@ public class Member extends KiiModel implements Parcelable {
         this.deleted = deleted;
     }
 
-    public long getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(long createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public long getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(long updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     @Override
     public KiiBucket bucket() {
-        return Kii.bucket("members");
+        return Kii.bucket(BUCKET_NAME);
     }
 
     @Override
-    public KiiObject createNewKiiObject() throws KiiModelException {
+    public void setValuesFrom(KiiObject kiiObject) throws JSONException {
+        name = kiiObject.getString(NAME);
+        birthday = kiiObject.getString(BIRTHDAY);
+        address = kiiObject.getString(ADDRESS);
+        profile = kiiObject.getString(PROFILE);
+        imageUrl = kiiObject.getString(IMAGE_URL);
+        point = kiiObject.getInt(POINT);
+        favoriteAuthors = new AuthorList(kiiObject.getJSONObject(FAVORITE_AUTHORS));
+        deleted = kiiObject.getBoolean(DELETED);
+    }
 
+    @Override
+    public KiiObject createKiiObject() throws JSONException {
+        if (source == null) {
+            source = bucket().object();
+        }
+        source.set(NAME, name);
+        source.set(BIRTHDAY, birthday);
+        source.set(ADDRESS, address);
+        source.set(PROFILE, profile);
+        source.set(IMAGE_URL, imageUrl);
+        source.set(POINT, point);
+        source.set(FAVORITE_AUTHORS, favoriteAuthors.toJSON());
+        source.set(DELETED, deleted);
+        return source;
     }
 
     @Override
@@ -153,7 +190,7 @@ public class Member extends KiiModel implements Parcelable {
         dest.writeString(this.profile);
         dest.writeString(this.imageUrl);
         dest.writeInt(this.point);
-        dest.writeStringList(this.favoriteAuthors);
+        dest.writeParcelable(this.favoriteAuthors, flags);
         dest.writeByte(this.deleted ? (byte) 1 : (byte) 0);
         dest.writeLong(this.createdAt);
         dest.writeLong(this.updatedAt);
@@ -167,7 +204,7 @@ public class Member extends KiiModel implements Parcelable {
         this.profile = in.readString();
         this.imageUrl = in.readString();
         this.point = in.readInt();
-        this.favoriteAuthors = in.createStringArrayList();
+        this.favoriteAuthors = in.readParcelable(AuthorList.class.getClassLoader());
         this.deleted = in.readByte() != 0;
         this.createdAt = in.readLong();
         this.updatedAt = in.readLong();

@@ -1,20 +1,17 @@
-package com.books.hondana.Model.book;
+package com.books.hondana.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.books.hondana.Model.JSONConvertible;
+import com.books.hondana.Model.abst.JSONConvertible;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 書誌的なデータ。別の所有者による同じ本が共通して持つ情報を担う
  */
-public class BookInfo implements JSONConvertible, Parcelable {
+public class BookInfo extends JSONConvertible implements Parcelable {
 
     // KiiCloud 上のフィールド名
     public static final String TITLE = "title";
@@ -46,18 +43,18 @@ public class BookInfo implements JSONConvertible, Parcelable {
     private GenreList genres;
 
     public BookInfo() {
+        title = "";
+        author = "";
+        isbn = "";
+        language = "";
+        issueDate = "";
+        imageUrl = "";
+        size = new Size();
+        genres = new GenreList();
     }
 
     public BookInfo(JSONObject json) throws JSONException {
-        title = json.getString(TITLE);
-        publisher = json.getString(PUBLISHER);
-        author = json.getString(AUTHOR);
-        isbn = json.getString(ISBN);
-        language = json.getString(LANGUAGE);
-        issueDate = json.getString(ISSUE_DATE);
-        imageUrl = json.getString(IMAGE_URL);
-        size = new Size(json.getJSONObject(SIZE));
-        genres = new GenreList(json.getJSONObject(GENRES));
+        super(json);
     }
 
     public String getTitle() {
@@ -130,6 +127,19 @@ public class BookInfo implements JSONConvertible, Parcelable {
 
     public void setGenres(GenreList genres) {
         this.genres = genres;
+    }
+
+    @Override
+    public void setValues(JSONObject json) throws JSONException {
+        title = json.getString(TITLE);
+        publisher = json.getString(PUBLISHER);
+        author = json.getString(AUTHOR);
+        isbn = json.getString(ISBN);
+        language = json.getString(LANGUAGE);
+        issueDate = json.getString(ISSUE_DATE);
+        imageUrl = json.getString(IMAGE_URL);
+        size = new Size(json.getJSONObject(SIZE));
+        genres = new GenreList(json.getJSONObject(GENRES));
     }
 
     @Override

@@ -19,6 +19,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import com.books.hondana.Model.Book;
+import com.books.hondana.Model.BookInfo;
 import com.books.hondana.util.LogUtil;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.Connection.QueryParamSet;
-import com.books.hondana.Model.kii.KiiBook;
 import com.books.hondana.PassedRequestFragment;
 import com.books.hondana.R;
 import com.books.hondana.ReceivedRequestFragment;
@@ -41,7 +43,7 @@ import java.util.List;
 public class RequestActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "RequestActivity";
+    private static final String TAG = RequestActivity.class.getSimpleName();
 
     // Intent Parameter
     private static final int ACT_READ_BARCODE = 1;
@@ -52,27 +54,17 @@ public class RequestActivity extends AppCompatActivity
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
 
-    // Search Param
-    private String search_Isbn;
-
-    //    private String search_Keyword;
-    private FloatingActionButton mFab;
-
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("取引中の本");
         setSupportActionBar(toolbar);
 
         //カメラボタン
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,10 +104,10 @@ public class RequestActivity extends AppCompatActivity
 
         // binding.navView.setNavigationItemSelectedListener(this);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
     }
@@ -255,21 +247,20 @@ public class RequestActivity extends AppCompatActivity
         String format = extras.getString("READ_FORMAT");
         Toast.makeText(this, "Contents = " + code +
                 ", Format = " + format, Toast.LENGTH_SHORT).show();
-        this.search_Isbn = code;
+        String search_Isbn = code;
         // 書籍情報を検索
         Intent intent = new Intent(RequestActivity.this,BookSearchListActivity.class);
         QueryParamSet queryParamSet = new QueryParamSet();
-        queryParamSet.addQueryParam(KiiBook.ISBN,this.search_Isbn);
+        queryParamSet.addQueryParam(BookInfo.ISBN, search_Isbn);
         intent.putExtra( "SEARCH_PARAM", queryParamSet );
         startActivityForResult(intent, ACT_BOOK_SEARCH_LIST);
     }
 
     private void kickListSearchResult(Intent data){
         Bundle extras = data.getExtras();
-        //HashMap<String,String> bookInfo = (HashMap<String, String>) data.getSerializableExtra("Book");
-        KiiBook kiiBook = (KiiBook)extras.get("Book");
+        Book book = extras.getParcelable(Book.class.getSimpleName());
         Intent intent = new Intent(RequestActivity.this,BookDetailActivity.class);
-        intent.putExtra("Book", kiiBook );
+        intent.putExtra(Book.class.getSimpleName(), book);
         startActivityForResult(intent, ACT_BOOK_DETAIL_TO_ADD);
     }
 
