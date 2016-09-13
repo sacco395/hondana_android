@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.books.hondana.activity.SendBookActivity;
+import com.books.hondana.activity.ReceivedBookActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,11 +19,11 @@ import java.util.List;
  * Created by sacco on 2016/09/11.
  */
 //<MessageRecord>はデータクラスMessageRecordのArrayAdapterであることを示している。このアダプターで管理したいデータクラスを記述されば良い。
-public class MyBookListAdapter extends ArrayAdapter<MyBookList> {
+public class BookRequestListAdapter extends ArrayAdapter<MyBookList> {
 
 
     //アダプターを作成する関数。コンストラクター。クラス名と同じです。
-    public MyBookListAdapter(Context context) {
+    public BookRequestListAdapter(Context context) {
 
         super(context, R.layout.part_book_list);
     }
@@ -45,7 +45,7 @@ public class MyBookListAdapter extends ArrayAdapter<MyBookList> {
             //クリックした時
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (view.getContext (), SendBookActivity.class);
+                Intent intent = new Intent (view.getContext (), ReceivedBookActivity.class);
 
                 // 渡したいデータとキーを指定する。urlという名前でリンクの文字列を渡しています。
                 MyBookList MyBookList = getItem(position);

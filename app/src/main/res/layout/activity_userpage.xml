@@ -114,44 +114,45 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:id="@+id/evaluation">
+            <!--評価機能ができたら復活-->
+            <!--<LinearLayout-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingTop="@dimen/activity_vertical_margin"-->
+                <!--android:id="@+id/evaluation">-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:drawableLeft="@drawable/icon_good"
-                    android:drawablePadding="5dp"
-                    android:textColor="#666"
-                    android:text="良い : 3"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:drawableLeft="@drawable/icon_neutral"
-                    android:drawablePadding="5dp"
-                    android:textColor="#666"
-                    android:text="普通 : 2"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:drawableLeft="@drawable/icon_bad"
-                    android:drawablePadding="5dp"
-                    android:textColor="#666"
-                    android:text="悪い : 1"
-                    />
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:drawableLeft="@drawable/icon_good"-->
+                    <!--android:drawablePadding="5dp"-->
+                    <!--android:textColor="#666"-->
+                    <!--android:text="良い : 3"-->
+                    <!--/>-->
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:drawableLeft="@drawable/icon_neutral"-->
+                    <!--android:drawablePadding="5dp"-->
+                    <!--android:textColor="#666"-->
+                    <!--android:text="普通 : 2"-->
+                    <!--/>-->
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:drawableLeft="@drawable/icon_bad"-->
+                    <!--android:drawablePadding="5dp"-->
+                    <!--android:textColor="#666"-->
+                    <!--android:text="悪い : 1"-->
+                    <!--/>-->
+            <!--</LinearLayout>-->
             <TextView
                 android:text="自己紹介文"
                 android:layout_marginTop="5dp"
@@ -164,7 +165,7 @@
 
             <!--ユーザーがリクエストした本のリストビュー-->
             <TextView
-                android:text="あなたがリスエストした本"
+                android:text="あなたがリクエストした本一覧\n→届いたら受け取りの連絡をしましょう"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center_vertical"
@@ -174,6 +175,22 @@
             <ListView
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" />
+
+            <!--ユーザーがリクエストした本のリストビュー-->
+            <TextView
+                android:text="あなたがリクエストされた本一覧\n→発送の準備をして、発送後は発送完了の連絡をしましょう"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"/>
+            <ListView
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:id="@+id/list_view02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp" />
