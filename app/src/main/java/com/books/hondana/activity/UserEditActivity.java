@@ -22,6 +22,7 @@ import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiObject;
+import com.kii.cloud.storage.KiiUser;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.kii.cloud.storage.callback.KiiObjectPublishCallback;
 import com.kii.cloud.storage.resumabletransfer.KiiRTransfer;
@@ -248,6 +249,10 @@ public class UserEditActivity extends AppCompatActivity {
     public void postImages(String url) {
         //バケット名を設定。
         KiiObject object = Kii.bucket ("members").object ();
+
+        KiiUser kiiUser = KiiUser.getCurrentUser ();
+        object.set ("name",kiiUser.getUsername ());
+        LogUtil.d (TAG, "name: " + kiiUser);
         //Json形式でKeyのprofileをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
         object.set ("profile", profile);
         object.set ("image_Url", url);
