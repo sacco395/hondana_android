@@ -41,7 +41,7 @@ public class MyBookListAdapter extends ArrayAdapter<MyBookList> {
         TextView author = (TextView) convertView.findViewById(R.id.tv_BookAuthor);
 
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        convertView.setOnClickListener(new View.OnClickListener() {
             //クリックした時
             @Override
             public void onClick(View view) {
