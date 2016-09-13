@@ -181,7 +181,7 @@
 
             <!--ユーザーがリクエストした本のリストビュー-->
             <TextView
-                android:text="あなたへリクエストされた本一覧\n→発送の準備をして発送完了したら連絡しましょう。"
+                android:text="あなたへリクエストされた本一覧\n→発送の準備をして、発送後は発送完了の連絡をしましょう"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center_vertical"
