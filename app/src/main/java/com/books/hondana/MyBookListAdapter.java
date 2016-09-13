@@ -1,6 +1,7 @@
 package com.books.hondana;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.books.hondana.activity.ReceivedBookActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -37,6 +39,24 @@ public class MyBookListAdapter extends ArrayAdapter<MyBookList> {
         ImageView imageView = (ImageView) convertView.findViewById(R.id.iv_BookImg);
         TextView title = (TextView) convertView.findViewById(R.id.tv_BookTitle);
         TextView author = (TextView) convertView.findViewById(R.id.tv_BookAuthor);
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            //クリックした時
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (view.getContext (), ReceivedBookActivity.class);
+
+                // 渡したいデータとキーを指定する。urlという名前でリンクの文字列を渡しています。
+                MyBookList MyBookList = getItem(position);
+                String id = MyBookList.getId();
+                intent.putExtra ("_id",id);
+
+                // 遷移先の画面を呼び出す
+                view.getContext ().startActivity (intent);
+            }
+        });
+
 
 
         //表示するセルの位置からデータをMessageRecordのデータを取得します

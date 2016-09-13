@@ -224,7 +224,7 @@ public class UserpageActivity extends AppCompatActivity
     private void fetch() {
         //KiiCloudの検索条件を作成。検索条件は未設定。なので全件。
         KiiQuery query = new KiiQuery(KiiClause.and(
-                KiiClause.equals("_owner",userId)));//request_userId(自分が本に申請した場合)
+                KiiClause.equals("request_userId",userId)));//request_userId(自分が本に申請した場合)
         // Define query conditions
 
         //ソート条件を設定。日付の降順
@@ -246,13 +246,14 @@ public class UserpageActivity extends AppCompatActivity
                         //得られたListをMyBookListに設定する
                         for (KiiObject obj : objLists) {
                             //_id(KiiCloudのキー)を得る。空の時は""が得られる。jsonで
+                            String id = obj.getString("_id", "");
                             String url = obj.getString("image_url", "");
                             String title = obj.getString("title", "");
                             String author = obj.getString("author", "");
 
 
                             //MyBookListを新しく作ります。
-                            MyBookList list = new MyBookList(url,title,author);
+                            MyBookList list = new MyBookList(id,url,title,author);
                             //MyBookListの配列に追加します。
                             MyBooks.add(list);
                         }
