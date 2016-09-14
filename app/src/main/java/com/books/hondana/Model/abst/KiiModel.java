@@ -69,7 +69,7 @@ public abstract class KiiModel {
             Log.w(TAG, "save: ", e);
             callback.failure(e);
         }
-        if (isValid(id)) {
+        if (hasValidId()) {
             Log.d(TAG, "save: saveAllFields");
             source.saveAllFields(new KiiObjectCallBack() {
                 @Override
@@ -96,8 +96,8 @@ public abstract class KiiModel {
         });
     }
 
-    private boolean isValid(String s) {
-        return !(s == null || "".equals(s));
+    private boolean hasValidId() {
+        return !(id == null || id.equals(""));
     }
 
     public interface KiiSaveCallback {
