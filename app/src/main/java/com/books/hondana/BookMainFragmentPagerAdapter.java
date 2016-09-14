@@ -12,7 +12,17 @@ import com.books.hondana.Model.Genre;
 public class BookMainFragmentPagerAdapter
         extends FragmentPagerAdapter {
 
-    private final Genre[] genres = Genre.values();
+    private final Genre[] genres = new Genre[] {
+            Genre.ALL,
+            Genre.LITERATURE,
+            Genre.BUSINESS,
+            Genre.TECHNOLOGY,
+            Genre.ART,
+            Genre.POCKET_EDITION,
+            Genre.PAPERBACK,
+            Genre.COMIC,
+            Genre.OTHERS
+    };
 
     public BookMainFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
