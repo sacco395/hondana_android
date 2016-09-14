@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,15 +21,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.Connection.KiiMemberConnection;
+import com.books.hondana.Connection.KiiObjectCallback;
+import com.books.hondana.Model.Member;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
-import com.squareup.picasso.Picasso;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SettingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "SettingActivity";
+
+    final ImageLoader imageLoader = ImageLoader.getInstance();
 
 
     @Override
@@ -57,22 +63,38 @@ public class SettingActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //navigationViewにアイコンここから
+        //navigationViewにアイコンと名前ここから
+        KiiUser user = KiiUser.getCurrentUser();
         View header = navigationView.getHeaderView(0);
-        ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
-        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+        final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
+//        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+        final String userId = user.getID();
+        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
+            @Override
+            public void success(int token, Member member) {
+                if (!member.hasValidImageUrl()) {
+                    return;
+                }
+                final String imageUrl = member.getImageUrl();
+                LogUtil.d(TAG, "imageUrl: " + imageUrl);
+                imageLoader.displayImage(imageUrl, userIcon);
+            }
+
+            @Override
+            public void failure(Exception e) {
+                Log.w(TAG, "failure: ", e);
+            }
+        });
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                    Intent intent = new Intent(SettingActivity.this,
-                            UserpageActivity.class);
-                    SettingActivity.this.startActivity(intent);
-
-
-                }
+                LogUtil.d(TAG, "onClick: User click!");
+            }
         });
-        //navigationViewにアイコンここまで
+
+        TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
+        userName.setText(user.getUsername().toString());
+        //navigationViewにアイコンと名前ここまで
 
         // binding.navView.setNavigationItemSelectedListener(this);
 
@@ -92,10 +114,13 @@ public class SettingActivity extends AppCompatActivity
 
                 switch (position) {
                     case 0:
-                        intent.setClass(SettingActivity.this, SettingActivity_01.class);
+                        intent.setClass(SettingActivity.this, UserEditActivity.class);
                         break;
                     case 1:
-                        intent.setClass(SettingActivity.this, SettingActivity_02.class);
+                        intent.setClass(SettingActivity.this, SettingMailActivity.class);
+                        break;
+                    case 2:
+                        intent.setClass(SettingActivity.this, SettingAddressActivity.class);
                         break;
                 }
                 intent.putExtra("SELECTED_DATA", strData);
@@ -151,36 +176,37 @@ public class SettingActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_like) {
-            if (kiiUser != null) {
-                Intent intent = new Intent(this, LikesActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(this, StartActivity.class);
-                startActivity(intent);
-                showToast("会員登録をお願いします！");
-            }
+//            if (kiiUser != null) {
+//                Intent intent = new Intent(this, LikesActivity.class);
+//                startActivity(intent);
+//            } else {
+//                Intent intent = new Intent(this, StartActivity.class);
+//                startActivity(intent);
+//                showToast("会員登録をお願いします！");
+//            }
+//一時的にコメントアウト
 
         } else if (id == R.id.nav_exchange) {
-            if (kiiUser != null) {
-                Intent intent = new Intent(this, SwapBookActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(this, StartActivity.class);
-                startActivity(intent);
-                showToast("会員登録をお願いします！");
-            }
-
+//            if (kiiUser != null) {
+//                Intent intent = new Intent(this, SwapBookActivity.class);
+//                startActivity(intent);
+//            } else {
+//                Intent intent = new Intent(this, StartActivity.class);
+//                startActivity(intent);
+//                showToast("会員登録をお願いします！");
+//            }
+//一時的にコメントアウト
 
         } else if (id == R.id.nav_transaction) {
-            if (kiiUser != null) {
-                Intent intent = new Intent(this, RequestActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(this, StartActivity.class);
-                startActivity(intent);
-                showToast("会員登録をお願いします！");
-            }
-
+//            if (kiiUser != null) {
+//                Intent intent = new Intent(this, RequestActivity.class);
+//                startActivity(intent);
+//            } else {
+//                Intent intent = new Intent(this, StartActivity.class);
+//                startActivity(intent);
+//                showToast("会員登録をお願いします！");
+//            }
+//一時的にコメントアウト
 
         } else if (id == R.id.nav_set) {
             if (kiiUser != null) {

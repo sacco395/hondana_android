@@ -14,10 +14,10 @@ import android.widget.TextView;
 
 import com.books.hondana.Connection.KiiMemberConnection;
 import com.books.hondana.Connection.KiiObjectCallback;
-import com.books.hondana.Model.Member;
 import com.books.hondana.Model.Book;
 import com.books.hondana.Model.BookCondition;
 import com.books.hondana.Model.BookInfo;
+import com.books.hondana.Model.Member;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -91,7 +91,7 @@ public class HondanaBookAdapter extends BaseAdapter {
             // 辞書引いてでも、しっくりくる名前を考えるべきです。Title って聞いたら、
             // 文字列を連想して、TextView かと思ってしまいます。
             // ここでは表紙の画像なので、imgCovert とかがいいかと。
-            ImageView ivCover = (ImageView) itemLayout.findViewById(R.id.imgTitle);
+            ImageView ivCover = (ImageView) itemLayout.findViewById(R.id.imgCovert);
             ImageView ivCondition = (ImageView) itemLayout.findViewById(R.id.MainBookConditionIcon);
             TextView tvTitle = (TextView) itemLayout.findViewById(R.id.rowTextTitle);
             TextView tvAuthor = (TextView) itemLayout.findViewById(R.id.rowTextAuthor);
@@ -133,8 +133,7 @@ public class HondanaBookAdapter extends BaseAdapter {
         holder.tvAuthor.setText(info.getAuthor());
 
         final String userId = book.getOwnerId();
-        KiiMemberConnection connection = new KiiMemberConnection();
-        connection.fetch(userId, new KiiObjectCallback<Member>() {
+        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {
                 final String name = member.getName();
@@ -142,9 +141,6 @@ public class HondanaBookAdapter extends BaseAdapter {
                 holder.tvOwnerName.setText(name);
 
                 final String imageUrl = member.getImageUrl();
-                if (imageUrl.equals("")) {
-                    return;
-                }
                 Log.d(TAG, "imageUrl: " + imageUrl);
                 Picasso.with(parent.getContext())
                         .load(imageUrl)
@@ -181,3 +177,4 @@ public class HondanaBookAdapter extends BaseAdapter {
         }
     }
 }
+

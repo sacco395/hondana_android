@@ -143,6 +143,13 @@ public class Member extends KiiModel implements Parcelable {
         this.deleted = deleted;
     }
 
+    public boolean hasValidImageUrl() {
+        if (imageUrl == null || imageUrl.equals("")) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public KiiBucket bucket() {
         return Kii.bucket(BUCKET_NAME);

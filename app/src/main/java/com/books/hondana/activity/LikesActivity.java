@@ -14,10 +14,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import com.books.hondana.Model.Book;
-import com.books.hondana.Model.BookInfo;
-import com.books.hondana.util.LogUtil;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,16 +25,25 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.Connection.KiiMemberConnection;
+import com.books.hondana.Connection.KiiObjectCallback;
 import com.books.hondana.Connection.QueryParamSet;
+import com.books.hondana.Model.Book;
+import com.books.hondana.Model.BookInfo;
+import com.books.hondana.Model.Member;
 import com.books.hondana.PRBookListViewAdapter;
 import com.books.hondana.R;
-import com.squareup.picasso.Picasso;
+import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.KiiUser;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class LikesActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         AdapterView.OnItemClickListener {
 
     private static final String TAG = LikesActivity.class.getSimpleName();
+
+    final ImageLoader imageLoader = ImageLoader.getInstance();
 
     // Intent Parameter
     private static final int ACT_READ_BARCODE = 1;
@@ -115,17 +120,38 @@ public class LikesActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //navigationViewにアイコンここから
+        //navigationViewにアイコンと名前ここから
+        KiiUser user = KiiUser.getCurrentUser();
         View header = navigationView.getHeaderView(0);
-        ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
-        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+        final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
+//        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+        final String userId = user.getID();
+        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
+            @Override
+            public void success(int token, Member member) {
+                if (!member.hasValidImageUrl()) {
+                    return;
+                }
+                final String imageUrl = member.getImageUrl();
+                LogUtil.d(TAG, "imageUrl: " + imageUrl);
+                imageLoader.displayImage(imageUrl, userIcon);
+            }
+
+            @Override
+            public void failure(Exception e) {
+                LogUtil.w(TAG, e);
+            }
+        });
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LogUtil.d(TAG, "onClick: User click!");
             }
         });
-        //navigationViewにアイコンここまで
+
+        TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
+        userName.setText(user.getUsername().toString());
+        //navigationViewにアイコンと名前ここまで
 
         // binding.navView.setNavigationItemSelectedListener(this);
 

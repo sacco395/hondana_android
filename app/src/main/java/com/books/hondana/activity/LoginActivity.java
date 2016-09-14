@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -36,14 +35,8 @@ import com.books.hondana.Connection.KiiObjectCallback;
 import com.books.hondana.Model.Member;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
-import com.kii.cloud.storage.Kii;
-import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.callback.KiiQueryCallBack;
 import com.kii.cloud.storage.callback.KiiUserCallBack;
-import com.kii.cloud.storage.query.KiiClause;
-import com.kii.cloud.storage.query.KiiQuery;
-import com.kii.cloud.storage.query.KiiQueryResult;
 
 public class LoginActivity extends Activity {
 
@@ -97,9 +90,7 @@ public class LoginActivity extends Activity {
                 pref.edit().putString(getString(R.string.save_token), user.getAccessToken()).apply();//保存されていない時は""
                 showToast("User authenticated!");
 
-                // Member の user_id が user.getID() と等しいものが欲しい
-                KiiMemberConnection connection = new KiiMemberConnection();
-                connection.fetch(user.getID(), new KiiObjectCallback<Member>() {
+                KiiMemberConnection.fetch(user.getID(), new KiiObjectCallback<Member>() {
                     @Override
                     public void success(int token, Member member) {
                         LogUtil.d (TAG, "onQueryCompleted: " + member.toString());

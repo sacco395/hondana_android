@@ -2,8 +2,8 @@ package com.books.hondana.Connection;
 
 import android.util.Log;
 
-import com.books.hondana.Model.Genre;
 import com.books.hondana.Model.Book;
+import com.books.hondana.Model.Genre;
 import com.books.hondana.Model.abst.KiiModel;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
@@ -26,10 +26,8 @@ public class KiiBookConnection {
 
     private static final String TAG = KiiBookConnection.class.getSimpleName();
 
-    private Genre mGenre;
-
-    public KiiBookConnection(Genre genre) {
-        this.mGenre = genre;
+    private KiiBookConnection() {
+        throw new RuntimeException("Do not instantiate this Class!");
     }
 
     /**
@@ -39,12 +37,12 @@ public class KiiBookConnection {
      * @param limit 最大取得件数。0 を指定したら Kii の仕様上 Max の 200 件
      * @param callback 処理終了時のコールバック
      */
-    public void fetch(long from, int limit, final KiiObjectListCallback<Book> callback) {
+    public static void fetch(Genre genre, long from, int limit, final KiiObjectListCallback<Book> callback) {
         if (from == 0) {
             from = System.currentTimeMillis();
         }
         KiiClause clauseWithTime = KiiClause.and(
-                mGenre.clause(), // Genre 絞り込み
+                genre.clause(), // Genre 絞り込み
                 KiiClause.lessThan(KiiModel.CREATED_AT, from) // 日時絞り込み
         );
         Log.d(TAG, "fetch: " + clauseWithTime.toString());
@@ -80,7 +78,7 @@ public class KiiBookConnection {
                 query);
     }
 
-    private List<Book> convert(List<KiiObject> bookObjects) throws JSONException {
+    private static List<Book> convert(List<KiiObject> bookObjects) throws JSONException {
         List<Book> books = new ArrayList<>();
         for (KiiObject object : bookObjects) {
             books.add(new Book(object));

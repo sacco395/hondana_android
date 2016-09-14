@@ -15,11 +15,11 @@ import android.widget.Toast;
 
 import com.books.hondana.Connection.KiiMemberConnection;
 import com.books.hondana.Connection.KiiObjectCallback;
-import com.books.hondana.Model.Member;
-import com.books.hondana.Model.Request;
 import com.books.hondana.Model.Book;
 import com.books.hondana.Model.BookCondition;
 import com.books.hondana.Model.BookInfo;
+import com.books.hondana.Model.Member;
+import com.books.hondana.Model.Request;
 import com.books.hondana.Model.Size;
 import com.books.hondana.Model.Smell;
 import com.books.hondana.R;
@@ -155,14 +155,15 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         final ImageView userIcon = (ImageView) findViewById(R.id.bookInfoUserIcon);
 
         final String userId = book.getOwnerId();
-        final KiiMemberConnection memberConnection = new KiiMemberConnection();
-        memberConnection.fetch(userId, new KiiObjectCallback<Member>() {
+        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {
                 final String name = member.getName();
                 Log.d(TAG, "name: " + name);
                 bookOwner.setText(name);
-
+                if (!member.hasValidImageUrl()) {
+                    return;
+                }
                 final String imageUrl = member.getImageUrl();
                 Log.d(TAG, "imageUrl: " + imageUrl);
                 imageLoader.displayImage(imageUrl, userIcon);
@@ -173,21 +174,6 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
                 Log.e(TAG, "failure: ", e);
             }
         });
-
-//        getCurrentUser();
-
-        /*// ListViewのインスタンスを生成
-        ListView listViewBookOwner = (ListView) findViewById(R.id.listViewBookOwner);
-
-        // BaseAdapter を継承したadapterのインスタンスを生成
-
-        adapter = new BookInfoListViewAdapter(this.getApplicationContext(), R.layout.part_book_owner, username, evaluation);
-
-        // ListViewにadapterをセット
-        listViewBookOwner.setAdapter(adapter);
-
-        // 後で使います
-//        listViewBookOwner.setOnItemClickListener(this);*/
     }
 
     @Override

@@ -21,10 +21,11 @@ public class KiiMemberConnection {
 
     private static final String TAG = KiiMemberConnection.class.getSimpleName();
 
-    public KiiMemberConnection() {
+    private KiiMemberConnection() {
+        throw new RuntimeException("Do not instantiate this Class!");
     }
 
-    public void fetch(String id, final KiiObjectCallback<Member> callback) {
+    public static void fetch(String id, final KiiObjectCallback<Member> callback) {
         KiiObject memberObject = Kii.bucket(Member.BUCKET_NAME).object(id);
         memberObject.refresh(new KiiObjectCallBack() {
             @Override
@@ -49,7 +50,7 @@ public class KiiMemberConnection {
      * @param diff ポイントの差分。減るときは負の数を指定
      * @param callback コールバック
      */
-    public void updatePoint(String userId, final int diff, final KiiObjectCallback<Member> callback) {
+    public static void updatePoint(String userId, final int diff, final KiiObjectCallback<Member> callback) {
         fetch(userId, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {
@@ -86,7 +87,7 @@ public class KiiMemberConnection {
         });
     }
 
-    private List<Member> convert(List<KiiObject> memberObjects) throws JSONException {
+    private static List<Member> convert(List<KiiObject> memberObjects) throws JSONException {
         List<Member> members = new ArrayList<>();
         for (KiiObject memberObject : memberObjects) {
             members.add(new Member(memberObject));

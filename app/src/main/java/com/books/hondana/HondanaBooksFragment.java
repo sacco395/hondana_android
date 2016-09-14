@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -29,10 +28,10 @@ public class HondanaBooksFragment extends Fragment {
 
     private static final int LOAD_BOOKS_COUNT_LIMIT = 20;
 
+    private Genre mGenre;
+
     private GridView mGridView;
     private HondanaBookAdapter mGridAdapter;
-
-    private KiiBookConnection mConnection;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -53,8 +52,7 @@ public class HondanaBooksFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            Genre genre = (Genre) getArguments().getSerializable(Genre.class.getSimpleName());
-            mConnection = new KiiBookConnection(genre);
+            mGenre = (Genre) getArguments().getSerializable(Genre.class.getSimpleName());
         }
 
         mGridAdapter = new HondanaBookAdapter(new ArrayList<Book>(), new HondanaBookAdapter.BookItemClickListener() {
@@ -109,7 +107,6 @@ public class HondanaBooksFragment extends Fragment {
 //                }
 //            }
 //        });
-
         return view;
     }
 
@@ -140,11 +137,7 @@ public class HondanaBooksFragment extends Fragment {
     private void kickLoadHondanaBooks(long from) {
         mIsLoading = true;
 
-        if (mConnection == null) {
-            mConnection = new KiiBookConnection(Genre.ALL);
-        }
-
-        mConnection.fetch(from, LOAD_BOOKS_COUNT_LIMIT, new KiiObjectListCallback<Book>() {
+        KiiBookConnection.fetch(mGenre, from, LOAD_BOOKS_COUNT_LIMIT, new KiiObjectListCallback<Book>() {
             @Override
             public void success(int token, List<Book> result) {
                 Log.d(TAG, "success: size=" + result.size());

@@ -17,6 +17,7 @@
 
     <string-array name="array02">
         <item>プロフィール</item>
+        <item>メールアドレス</item>
         <item>住所</item>
     </string-array>
 
@@ -68,9 +69,14 @@
 
 
     //発送者への評価ページに使用//
-    <string name="evaluateText01">"受け取り評価をしてください"</string>
+    <string name="evaluateText01">"受け取りの連絡をしましょう"</string>
 
-    <string name="evaluateText02">"本が発送されました。\n本が到着したら、出品者の評価をしてください。"</string>
+    <string name="evaluateText02">"本が発送されました。\n本が到着したら、受け取り完了の連絡をしましょう。"</string>
+
+    //評価機能ができたら復活//
+    <!--<string name="evaluateText01">"受け取り評価をしてください"</string>-->
+
+    <!--<string name="evaluateText02">"本が発送されました。\n本が到着したら、出品者の評価をしてください。"</string>-->
 
     <string name="checkBoxEvaluation">"中身を確認しました"</string>
 
@@ -82,7 +88,7 @@
 
     <string name="evaluateText03">"本を送った相手に評価のコメントを送信しましょう。\n(例)ありがとうございました。本が届きました。またよろしくお願いします。"</string>
 
-    <string name="buttonTransmission">"送信"</string>
+    <string name="buttonTransmission">"受け取り完了"</string>
 
     <string name="cloud_name">Kii Cloud</string>
 

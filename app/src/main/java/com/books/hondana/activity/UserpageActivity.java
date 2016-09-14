@@ -16,28 +16,44 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.BookRequestListAdapter;
+import com.books.hondana.Connection.KiiMemberConnection;
+import com.books.hondana.Connection.KiiObjectCallback;
 import com.books.hondana.Connection.QueryParamSet;
 import com.books.hondana.Model.Book;
 import com.books.hondana.Model.BookInfo;
-import com.books.hondana.PRBookListViewAdapter;
+import com.books.hondana.Model.Member;
+import com.books.hondana.MyBookList;
+import com.books.hondana.MyBookListAdapter;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.Kii;
+import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.squareup.picasso.Picasso;
+import com.kii.cloud.storage.callback.KiiQueryCallBack;
+import com.kii.cloud.storage.query.KiiClause;
+import com.kii.cloud.storage.query.KiiQuery;
+import com.kii.cloud.storage.query.KiiQueryResult;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserpageActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        AdapterView.OnItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "UserpageActivity";
+
+    private BookRequestListAdapter mAdapter;
+    private MyBookListAdapter mAdapter2;
+
+    final ImageLoader imageLoader = ImageLoader.getInstance();
 
     // Intent Parameter
     private static final int ACT_READ_BARCODE = 1;
@@ -54,30 +70,6 @@ public class UserpageActivity extends AppCompatActivity
     //    private String search_Keyword;
     private FloatingActionButton mFab;
 
-    private BaseAdapter adapter;
-
-    // Isle of Wight in U.K.
-//    登録した本のリストビュー
-    private static final String[] titles = {
-            // Scenes of Isle of Wight
-            "デザイン思考は世界を変える",
-            "十月の旅人",
-            "無印良品は仕組みが９割",
-    };
-
-    private static final String[] authors = {
-            // Scenes of Isle of Wight
-            "ティム・ブラウン",
-            "レイ・ブラッドベリ",
-            "松井忠三",
-    };
-
-    // ちょっと冗長的ですが分かり易くするために
-    private static final int[] photos = {
-            R.drawable.changedesign,
-            R.drawable.october,
-            R.drawable.muji,
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,8 +118,8 @@ public class UserpageActivity extends AppCompatActivity
 
         //navigationViewにアイコンここから
         View header = navigationView.getHeaderView(0);
-        ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
-        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+        final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
+//        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,8 +148,10 @@ public class UserpageActivity extends AppCompatActivity
         //navigationViewにアイコンここまで
 
         LinearLayout UserEdit = (LinearLayout)findViewById(R.id.user_edit);
-        LinearLayout Evaluation = (LinearLayout)findViewById(R.id.evaluation);
 
+        //評価機能がついたら復活
+//        LinearLayout Evaluation = (LinearLayout)findViewById(R.id.evaluation);
+//
         UserEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,46 +161,160 @@ public class UserpageActivity extends AppCompatActivity
             }
         });
 
-        Evaluation.setOnClickListener(new View.OnClickListener() {
+////評価機能がついたら復活
+//        Evaluation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                LogUtil.d(TAG, "onClick");
+//                Intent intent = new Intent(UserpageActivity.this, EvaluationActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
+//        ImageView userIcon2 = (ImageView)findViewById(R.id.user_icon);
+//        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon2);
+//        // binding.navView.setNavigationItemSelectedListener(this);
+
+        final ImageView userIcon2 = (ImageView) findViewById(R.id.user_icon);
+        final TextView tv_userProfile = (TextView) findViewById(R.id.tv_user_profile);
+
+        final String userId = user.getID();
+        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
-            public void onClick(View v) {
-                LogUtil.d(TAG, "onClick");
-                Intent intent = new Intent(UserpageActivity.this, EvaluationActivity.class);
-                startActivity(intent);
+            public void success(int token, Member member) {
+                final String userProfile = member.getProfile();
+                tv_userProfile.setText(userProfile);
+                if (!member.hasValidImageUrl()) {
+                    return;
+                }
+                final String imageUrl = member.getImageUrl();
+                LogUtil.d(TAG, "imageUrl: " + imageUrl);
+                imageLoader.displayImage(imageUrl, userIcon);
+                imageLoader.displayImage(imageUrl, userIcon2);
+//ここからポイント表示
+                int user_point = member.getPoint();
+                String point = Integer.toString(user_point);
+                TextView tv_userPoint = (TextView) findViewById(R.id.user_point);
+                tv_userPoint.setText(point);
+//ここまでポイント表示
+            }
+
+            @Override
+            public void failure(Exception e) {
+                LogUtil.w(TAG, e);
             }
         });
 
-        ImageView userIcon2 = (ImageView)findViewById(R.id.user_icon);
-        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon2);
-        // binding.navView.setNavigationItemSelectedListener(this);
+//アダプターを作成します。newでクラスをインスタンス化しています。
+        mAdapter = new BookRequestListAdapter(this);
+        mAdapter2 = new MyBookListAdapter(this);
 
-
-
-        // ListViewのインスタンスを生成
+        //ListViewのViewを取得
         ListView listView = (ListView) findViewById(R.id.list_view);
+        //GridViewにアダプターをセット。
+        listView.setAdapter(mAdapter);
 
-        // BaseAdapter を継承したadapterのインスタンスを生成
+        //一覧のデータを作成して表示します。
+        fetch();
 
-        adapter = new PRBookListViewAdapter(this.getApplicationContext(), R.layout.part_book_list, titles,authors, photos);
+        //ListViewのViewを取得
+        ListView listView2 = (ListView) findViewById(R.id.list_view02);
+        //GridViewにアダプターをセット。
+        listView2.setAdapter(mAdapter2);
 
-        // ListViewにadapterをセット
-        listView.setAdapter(adapter);
-
-        // 後で使います
-        listView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
+        //一覧のデータを作成して表示します。
+        fetch02();
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        Intent intent = new Intent(this.getApplicationContext(), SelectedBooksActivity.class);
-        // clickされたpositionのtextとphotoのID
-        String selectedText = titles[position];
-        int selectedPhoto = photos[position];
-        // インテントにセット
-        intent.putExtra("Text", selectedText);
-        intent.putExtra("Photo", selectedPhoto);
-        // Activity をスイッチする
-        startActivity(intent);
+    //KiiCLoud対応のfetchです。
+    //自分で作った関数です。一覧のデータを作成して表示します。
+    KiiUser kiiUser = KiiUser.getCurrentUser();
+    String userId = kiiUser.getID();
+
+    private void fetch() {
+        //KiiCloudの検索条件を作成。検索条件は未設定。なので全件。
+        KiiQuery query = new KiiQuery(KiiClause.and(
+                KiiClause.equals("request_userId", userId)));//request_userId(自分が本に申請した場合)
+//                KiiClause.notEquals("send_date", "")));//送った日付が存在する場合)
+        // Define query conditions
+
+        //ソート条件を設定。日付の降順
+        query.sortByDesc("_created");
+        //バケットappbooksを検索する。最大200件
+        Kii.bucket("appbooks")
+                .query(new KiiQueryCallBack<KiiObject>() {
+                    //検索が完了した時
+                    @Override
+                    public void onQueryCompleted(int token, KiiQueryResult<KiiObject> result, Exception exception) {
+                        if (exception != null) {
+                            //エラー処理を書く
+                            return;
+                        }
+                        //空のMyBookListデータの配列を作成
+                        ArrayList<MyBookList> MyBooks = new ArrayList<MyBookList>();
+                        //検索結果をListで得る
+                        List<KiiObject> objLists = result.getResult();
+                        //得られたListをMyBookListに設定する
+                        for (KiiObject obj : objLists) {
+                            //_id(KiiCloudのキー)を得る。空の時は""が得られる。jsonで
+                            String id = obj.getString("_id", "");
+                            String url = obj.getString("image_url", "");
+                            String title = obj.getString("title", "");
+                            String author = obj.getString("author", "");
+
+
+                            //MyBookListを新しく作ります。
+                            MyBookList list = new MyBookList(id, url, title, author);
+                            //MyBookListの配列に追加します。
+                            MyBooks.add(list);
+                        }
+                        //データをアダプターにセットしています。これで表示されます。
+                        mAdapter.setMyBookList(MyBooks);
+                    }
+                }, query);//
+    }
+
+    private void fetch02() {
+        //KiiCloudの検索条件を作成。検索条件は未設定。なので全件。
+        KiiQuery query = new KiiQuery(KiiClause.and(
+                KiiClause.equals("user_id", userId),//request_userId(自分が本に申請した場合)
+                KiiClause.notEquals("request_date", "")));//送った日付が存在する場合)
+        // Define query conditions
+
+        //ソート条件を設定。日付の降順
+        query.sortByDesc("_created");
+        //バケットappbooksを検索する。最大200件
+        Kii.bucket("appbooks")
+                .query(new KiiQueryCallBack<KiiObject>() {
+                    //検索が完了した時
+                    @Override
+                    public void onQueryCompleted(int token, KiiQueryResult<KiiObject> result, Exception exception) {
+                        if (exception != null) {
+                            //エラー処理を書く
+                            return;
+                        }
+                        //空のMyBookListデータの配列を作成
+                        ArrayList<MyBookList> MyBooks = new ArrayList<MyBookList>();
+                        //検索結果をListで得る
+                        List<KiiObject> objLists = result.getResult();
+                        //得られたListをMyBookListに設定する
+                        for (KiiObject obj : objLists) {
+                            //_id(KiiCloudのキー)を得る。空の時は""が得られる。jsonで
+                            String id = obj.getString("_id", "");
+                            String url = obj.getString("image_url", "");
+                            String title = obj.getString("title", "");
+                            String author = obj.getString("author", "");
+
+
+                            //MyBookListを新しく作ります。
+                            MyBookList list = new MyBookList(id, url, title, author);
+                            //MyBookListの配列に追加します。
+                            MyBooks.add(list);
+                        }
+                        //データをアダプターにセットしています。これで表示されます。
+                        mAdapter2.setMyBookList(MyBooks);
+                    }
+                }, query);//
     }
 
 
@@ -335,16 +443,19 @@ public class UserpageActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_like) {
-            Intent intent = new Intent(this, LikesActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, LikesActivity.class);
+//            startActivity(intent);
+//一時的にコメントアウト
 
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(this, SwapBookActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, SwapBookActivity.class);
+//            startActivity(intent);
+//一時的にコメントアウト
 
         } else if (id == R.id.nav_transaction) {
-            Intent intent = new Intent(this, RequestActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, RequestActivity.class);
+//            startActivity(intent);
+//一時的にコメントアウト
 
         } else if (id == R.id.nav_set) {
             Intent intent = new Intent(this, SettingActivity.class);

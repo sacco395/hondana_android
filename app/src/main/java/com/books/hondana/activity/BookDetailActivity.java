@@ -16,12 +16,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Model.abst.KiiModel;
 import com.books.hondana.Model.Book;
 import com.books.hondana.Model.BookCondition;
 import com.books.hondana.Model.BookInfo;
 import com.books.hondana.Model.Size;
 import com.books.hondana.Model.Smell;
+import com.books.hondana.Model.abst.KiiModel;
 import com.books.hondana.R;
 import com.books.hondana.util.DateUtil;
 import com.kii.cloud.storage.KiiObject;
@@ -36,7 +36,6 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
 	private BookCondition condition;
 	private Smell smell;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

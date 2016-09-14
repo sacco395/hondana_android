@@ -47,7 +47,6 @@ public class SendBookActivity extends AppCompatActivity
             throw new IllegalArgumentException ("createIntentを使ってください");
         }
 
-
         findViewById(R.id.buttonCancel).setOnClickListener(this);
         findViewById(R.id.buttonSending).setOnClickListener(this);
 

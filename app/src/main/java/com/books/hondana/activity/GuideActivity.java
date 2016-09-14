@@ -20,15 +20,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.Connection.KiiMemberConnection;
+import com.books.hondana.Connection.KiiObjectCallback;
+import com.books.hondana.Model.Member;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
-import com.squareup.picasso.Picasso;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class GuideActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = GuideActivity.class.getSimpleName();
+    //    private static final String TAG = "GuideActivity";
+    final ImageLoader imageLoader = ImageLoader.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,30 @@ public class GuideActivity extends AppCompatActivity
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 setProfileInMenu(drawerView);
+                final ImageView userIcon = (ImageView) drawerView.findViewById(R.id.iv_user_icon);
+                KiiUser kiiUser = KiiUser.getCurrentUser();
+                LogUtil.d(TAG, "kiiUser: " + kiiUser);
+                if (kiiUser != null) {
+                    final String userId = kiiUser.getID();
+                    KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
+                        @Override
+                        public void success(int token, Member member) {
+                            if (!member.hasValidImageUrl()) {
+                                return;
+                            }
+                            final String imageUrl = member.getImageUrl();
+                            LogUtil.d(TAG, "imageUrl: " + imageUrl);
+                            imageLoader.displayImage(imageUrl, userIcon);
+                        }
+
+                        @Override
+                        public void failure(Exception e) {
+
+                        }
+                    });
+                    TextView userName = (TextView) drawerView.findViewById(R.id.tv_user_name);
+                    userName.setText(kiiUser.getUsername().toString());
+                }
             }
         };
         drawer.setDrawerListener(toggle);
@@ -59,8 +88,8 @@ public class GuideActivity extends AppCompatActivity
 
         //navigationViewにアイコンここから
         View header = navigationView.getHeaderView(0);
-        ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
-        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+//        ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
+//        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,35 +197,38 @@ public class GuideActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_like) {
-            if (kiiUser != null) {
-                Intent intent = new Intent(this, LikesActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(this, StartActivity.class);
-                startActivity(intent);
-                showToast("会員登録をお願いします！");
-            }
+//            if (kiiUser != null) {
+//                Intent intent = new Intent(this, LikesActivity.class);
+//                startActivity(intent);
+//            } else {
+//                Intent intent = new Intent(this, StartActivity.class);
+//                startActivity(intent);
+//                showToast("会員登録をお願いします！");
+//            }
+//一時的にコメントアウト
 
         } else if (id == R.id.nav_exchange) {
-            if (kiiUser != null) {
-                Intent intent = new Intent(this, SwapBookActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(this, StartActivity.class);
-                startActivity(intent);
-                showToast("会員登録をお願いします！");
-            }
+//            if (kiiUser != null) {
+//                Intent intent = new Intent(this, SwapBookActivity.class);
+//                startActivity(intent);
+//            } else {
+//                Intent intent = new Intent(this, StartActivity.class);
+//                startActivity(intent);
+//                showToast("会員登録をお願いします！");
+//            }
+//一時的にコメントアウト
 
 
         } else if (id == R.id.nav_transaction) {
-            if (kiiUser != null) {
-                Intent intent = new Intent(this, RequestActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(this, StartActivity.class);
-                startActivity(intent);
-                showToast("会員登録をお願いします！");
-            }
+//            if (kiiUser != null) {
+//                Intent intent = new Intent(this, RequestActivity.class);
+//                startActivity(intent);
+//            } else {
+//                Intent intent = new Intent(this, StartActivity.class);
+//                startActivity(intent);
+//                showToast("会員登録をお願いします！");
+//            }
+//一時的にコメントアウト
 
 
         } else if (id == R.id.nav_set) {

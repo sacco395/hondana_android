@@ -4,7 +4,6 @@ package com.books.hondana.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,7 +14,6 @@ import com.books.hondana.Model.Request;
 import com.books.hondana.Model.abst.KiiModel;
 import com.books.hondana.R;
 import com.kii.cloud.storage.KiiObject;
-import com.kii.cloud.storage.callback.KiiObjectCallBack;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,7 +35,6 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recieved_book);
-
         request = getIntent ().getParcelableExtra(Request.class.getSimpleName());
         if (request == null) {
             throw new IllegalArgumentException ("createIntentを使ってください");
@@ -45,7 +42,6 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
 
         findViewById(R.id.buttonReceived).setOnClickListener(this);
     }
-
 
     //kiiBookに本の受け取り日時を記録して保存する
     @Override
@@ -60,7 +56,6 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void success(int token, KiiObject object) {
                 Toast.makeText(ReceivedBookActivity.this, "本の受け取りと評価を完了しました", Toast.LENGTH_LONG).show();
-
                 //暫定的にTOPページにintentする
                 Intent intent = new Intent(ReceivedBookActivity.this, BookMainActivity.class);
                 startActivity(intent);
