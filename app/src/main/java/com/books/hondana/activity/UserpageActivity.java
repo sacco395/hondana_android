@@ -447,16 +447,19 @@ public class UserpageActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_like) {
-            Intent intent = new Intent(this, LikesActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, LikesActivity.class);
+//            startActivity(intent);
+//一時的にコメントアウト
 
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(this, SwapBookActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, SwapBookActivity.class);
+//            startActivity(intent);
+//一時的にコメントアウト
 
         } else if (id == R.id.nav_transaction) {
-            Intent intent = new Intent(this, RequestActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, RequestActivity.class);
+//            startActivity(intent);
+//一時的にコメントアウト
 
         } else if (id == R.id.nav_set) {
             Intent intent = new Intent(this, SettingActivity.class);
