@@ -13,8 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Tetsuro MIKAMI https://github.com/mickamy
- *         Created on 9/10/16.
+ * KiiCloud には以下のように保存される
+ * {
+ *     ...
+ *     "genre": {
+ *         "genre_1": value1,
+ *         "genre_2": value2,
+ *         "genre_3": value3,
+ *         "genre_4": value4,
+ *         "genre_5": value5,
+ *     }
+ *     ...
+ * }
  */
 public class GenreList implements Parcelable {
 

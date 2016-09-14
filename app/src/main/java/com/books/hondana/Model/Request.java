@@ -11,8 +11,10 @@ import com.kii.cloud.storage.KiiObject;
 import org.json.JSONException;
 
 /**
- * @author Tetsuro MIKAMI https://github.com/mickamy
- *         Created on 9/9/16.
+ * リクエストに関する情報を保持
+ * 取引が進むごとに、対応するフィールドに日付がセットされる
+ * Request -> Send -> Receive -> Evaluate
+ * の順に行われる
  */
 public class Request extends KiiModel implements Parcelable {
 
@@ -29,10 +31,19 @@ public class Request extends KiiModel implements Parcelable {
 
     private String id;
 
+    /**
+     * リクエストをしたユーザID
+     */
     private String clientId;
 
+    /**
+     * 本の持ち主のユーザID
+     */
     private String serverId;
 
+    /**
+     * 配送に使う宛名ラベルの PDF ファイルが保存されている KiiObject の ID
+     */
     private String pdfLabelId;
 
     private String bookId;

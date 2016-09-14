@@ -13,8 +13,8 @@ import com.kii.cloud.storage.KiiUser;
 import org.json.JSONException;
 
 /**
- * @author Tetsuro MIKAMI https://github.com/mickamy
- *         Created on 9/9/16.
+ * 登録されている KiiUser と一対一対応になるオブジェクト
+ * ID は KiiUser の ID と同一なので、一対一対応が担保される
  */
 public class Member extends KiiModel implements Parcelable {
 
@@ -50,6 +50,14 @@ public class Member extends KiiModel implements Parcelable {
 
     private long updatedAt;
 
+    /**
+     * KiiUser から Member を新規生成
+     * @param kiiUser id, name を取得し、生成される Member にセット
+     * @return KiiObject を source フィールドに持ち、id, name は KiiUser と同一のものを持つ
+     * @throws KiiModelException id が無効な場合
+     *        （KiiUser#getID がnull、もしくはすでに同じ id を持つ Member が存在する時）にスロー
+     *         ユーザとメンバーの一対一対応が担保されなくなるので、致命的
+     */
     public static Member createFrom(KiiUser kiiUser) throws KiiModelException {
         String id = kiiUser.getID();
         if (id == null) {
@@ -144,10 +152,7 @@ public class Member extends KiiModel implements Parcelable {
     }
 
     public boolean hasValidImageUrl() {
-        if (imageUrl == null || imageUrl.equals("")) {
-            return false;
-        }
-        return true;
+        return !(imageUrl == null || imageUrl.equals(""));
     }
 
     @Override

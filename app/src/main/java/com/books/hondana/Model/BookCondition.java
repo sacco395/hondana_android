@@ -10,8 +10,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * @author Tetsuro MIKAMI https://github.com/mickamy
- *         Created on 9/9/16.
+ * 本の状態
+ * 各本によって異なりうる値を保持
+ * KiiCloud には以下のように保存される
+ * {
+ *     ...
+ *     "condition": {
+ *         "lined": value,
+ *         "folded": value,
+ *         "sunburned": value,
+ *         "has_band": value,
+ *         ...
+ *     }
+ *     ...
+ * }
  */
 public class BookCondition extends JSONConvertible implements Parcelable {
 

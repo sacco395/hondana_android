@@ -12,8 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Tetsuro MIKAMI https://github.com/mickamy
- *         Created on 9/10/16.
+ * 作家のリスト
+ * KiiCloud 上には、以下のように保存される
+ * {
+ *     ...
+ *     "authors": {
+ *         "author1": value1,
+ *         "author2": value2,
+ *         "author3": value3
+ *     },
+ *     ...
+ * }
  */
 public class AuthorList extends JSONConvertible implements Parcelable {
 
@@ -23,6 +32,7 @@ public class AuthorList extends JSONConvertible implements Parcelable {
 
     private List<String> values;
 
+    // デフォルトの値をセット
     public AuthorList() {
         values = new ArrayList<>();
         values.add("");

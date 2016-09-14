@@ -9,7 +9,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * 書誌的なデータ。別の所有者による同じ本が共通して持つ情報を担う
+ * 書誌的なデータ
+ * 別の所有者による同じ本が共通して持つ情報を担う
+ * KiiCloud には以下のように保存される
+ * {
+ *     ...
+ *     "info": {
+ *         "title": value,
+ *         "folded": value,
+ *         "sunburned": value,
+ *         "has_band": value,
+ *         ...
+ *     }
+ *     ...
+ * }
  */
 public class BookInfo extends JSONConvertible implements Parcelable {
 
