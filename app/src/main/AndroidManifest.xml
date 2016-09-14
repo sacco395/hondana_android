@@ -10,7 +10,7 @@
     <application
         android:name=".HelloKii"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/hondana_launcher_icon"
         android:label="@string/title_MyActivity"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
