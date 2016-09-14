@@ -23,6 +23,7 @@ public class BookCondition extends JSONConvertible implements Parcelable {
     public static final String HAS_BAND = "hasBand";
     public static final String EVALUATION = "evaluation";
     public static final String SMELL = "smell";
+    public static final String NOTE = "note";
 
     public static final int LINED_NONE = 0;
     public static final int LINED_ZERO_TO_FIVE = 1;
@@ -234,7 +235,7 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         hasBand = json.getBoolean(HAS_BAND);
         evaluation = json.getInt(EVALUATION);
         smell = new Smell(json.getJSONObject(SMELL));
-        note = json.getString(note);
+        note = json.getString(NOTE);
     }
 
     @Override

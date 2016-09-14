@@ -142,6 +142,9 @@ public class HondanaBookAdapter extends BaseAdapter {
                 holder.tvOwnerName.setText(name);
 
                 final String imageUrl = member.getImageUrl();
+                if (imageUrl.equals("")) {
+                    return;
+                }
                 Log.d(TAG, "imageUrl: " + imageUrl);
                 Picasso.with(parent.getContext())
                         .load(imageUrl)

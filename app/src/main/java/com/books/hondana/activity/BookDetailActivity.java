@@ -221,7 +221,6 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
 				// show a progress dialog to the user
 				final ProgressDialog progress = ProgressDialog.show(BookDetailActivity.this, "登録中", "しばらくお待ちください", true);
-
 				targetBook.save(false, new KiiModel.KiiSaveCallback() {
 					@Override
 					public void success(int token, KiiObject object) {
