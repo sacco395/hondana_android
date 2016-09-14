@@ -71,7 +71,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
         BookCondition condition = book.getCondition();
         TextView tv_bookCondition = (TextView) findViewById(R.id.bookInfoCondition);
-        tv_bookCondition.setText(condition.getEvaluation());
+        tv_bookCondition.setText(condition.getEvaluationText());
 
         ImageView iv_bookCondition = (ImageView) findViewById(R.id.bookInfoBookConditionIcon);
         int resId = condition.getIconDrawableResId();

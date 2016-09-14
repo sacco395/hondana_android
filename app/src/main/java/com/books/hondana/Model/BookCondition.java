@@ -213,6 +213,19 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         }
     }
 
+    public String getEvaluationText() {
+        switch (evaluation) {
+            case 0:
+                return "良い";
+            case 1:
+                return "普通";
+            case 2:
+                return "汚れあり";
+            default:
+                return "普通";
+        }
+    }
+
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
