@@ -213,6 +213,45 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         }
     }
 
+    public String getLinedText() {
+        switch (lined) {
+            case LINED_ZERO_TO_FIVE:
+                return "0 ~ 5 ページ折れ";
+            case LINED_FIVE_TO_TEN:
+                return "5 ~ 10 ページ折れ";
+            case LINED_MORE_THAN_TEN:
+                return "10 ページ以上折れ";
+            default:
+                return "折れなし";
+        }
+    }
+
+    public String getFoldedText() {
+        switch (folded) {
+            case FOLDED_ZERO_TO_FIVE:
+                return "0 ~ 5 ページ折れ";
+            case FOLDED_FIVE_TO_TEN:
+                return "5 ~ 10 ページ折れ";
+            case FOLDED_MORE_THAN_TEN:
+                return "10 ページ以上折れ";
+            default:
+                return "折れなし";
+        }
+    }
+
+    public String getBrokenText() {
+        switch (broken) {
+            case BROKEN_ZERO_TO_FIVE:
+                return "0 ~ 5 ページ破け";
+            case BROKEN_FIVE_TO_TEN:
+                return "5 ~ 10 ページ破け";
+            case BROKEN_MORE_THAN_TEN:
+                return "10 ページ以上破け";
+            default:
+                return "破けなし";
+        }
+    }
+
     public String getEvaluationText() {
         switch (evaluation) {
             case 0:
@@ -236,6 +275,7 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         json.put(HAS_BAND, hasBand);
         json.put(EVALUATION, evaluation);
         json.put(SMELL, smell.toJSON());
+        json.put(NOTE, note);
         return json;
     }
 

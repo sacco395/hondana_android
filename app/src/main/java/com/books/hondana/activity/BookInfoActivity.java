@@ -80,7 +80,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         iv_bookCondition.setImageDrawable(conditionDrawable);
 
         TextView tv_bookLine = (TextView) findViewById(R.id.bookInfoLine);
-        tv_bookLine.setText(condition.getLined());
+        tv_bookLine.setText(condition.getLinedText());
 
         TextView tv_bookBroken = (TextView) findViewById(R.id.bookInfoBroken);
         tv_bookBroken.setText(condition.getBandText());
