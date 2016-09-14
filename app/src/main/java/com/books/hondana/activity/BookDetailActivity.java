@@ -185,24 +185,25 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 		//本のサイズここから
 				EditText heightField = (EditText) (findViewById(R.id.Height));
 				String heightStr = heightField.getText().toString();
-				size.setHeight(Double.valueOf(heightStr));
+				double height = getValidDouble(heightStr);
+				size.setHeight(height);
 		// 入力された文字を取得して保存
 
 
 				EditText widthField = (EditText) (findViewById(R.id.Wide));
 				String widthStr = widthField.getText().toString();
-				// 入力された文字を取得して保存
-				size.setWidth(Double.valueOf(widthStr));
+				double width = getValidDouble(widthStr);
+				size.setWidth(width);
 
 				EditText thicknessField = (EditText) (findViewById(R.id.Depth));
 				String thicknessStr = thicknessField.getText().toString();
-				// 入力された文字を取得して保存
-				size.setThickness(Double.valueOf(thicknessStr));
+				double thickness = getValidDouble(thicknessStr);
+				size.setThickness(thickness);
 
 				EditText weightField = (EditText) (findViewById(R.id.Weight));
 				String weightStr = weightField.getText().toString();
-				// 入力された文字を取得して保存
-				size.setWeight(Double.valueOf(weightStr));
+				double weight = getValidDouble(weightStr);
+				size.setWeight(weight);
 		//本のサイズここまで
 
 				KiiUser user = KiiUser.getCurrentUser();
@@ -240,6 +241,13 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 				});
 			}
 		});
+	}
+
+	private double getValidDouble(String s) {
+		if (s == null || s.equals("")) {
+			return 0;
+		}
+		return Double.valueOf(s);
 	}
 
 	@Override
