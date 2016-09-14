@@ -109,6 +109,9 @@ public class BookMainActivity extends AppCompatActivity
                     KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
                         @Override
                         public void success(int token, Member member) {
+                            if (!member.hasValidImageUrl()) {
+                                return;
+                            }
                             final String imageUrl = member.getImageUrl();
                             LogUtil.d(TAG, "imageUrl: " + imageUrl);
                             imageLoader.displayImage(imageUrl, userIcon);
