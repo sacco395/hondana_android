@@ -50,11 +50,11 @@ public class GenreList extends JSONConvertible implements Parcelable {
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put(GENRE_1, values.get(1));
-        json.put(GENRE_2, values.get(2));
-        json.put(GENRE_3, values.get(3));
-        json.put(GENRE_4, values.get(4));
-        json.put(GENRE_5, values.get(5));
+        json.put(GENRE_1, values.get(0));
+        json.put(GENRE_2, values.get(1));
+        json.put(GENRE_3, values.get(2));
+        json.put(GENRE_4, values.get(3));
+        json.put(GENRE_5, values.get(4));
         return json;
     }
 
