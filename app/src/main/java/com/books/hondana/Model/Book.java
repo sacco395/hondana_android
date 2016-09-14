@@ -94,7 +94,7 @@ public class Book extends KiiModel implements Parcelable {
         if (source == null) {
             source = bucket().object();
         }
-        source.set(OWNER, ownerId);
+        source.set(OWNER_ID, ownerId);
         source.set(INFO, info.toJSON());
         source.set(CONDITION, condition.toJSON());
         genres.putValueInto(source);
