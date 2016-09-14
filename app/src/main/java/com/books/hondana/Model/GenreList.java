@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.books.hondana.Model.abst.JSONConvertible;
+import com.kii.cloud.storage.KiiObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +16,7 @@ import java.util.List;
  * @author Tetsuro MIKAMI https://github.com/mickamy
  *         Created on 9/10/16.
  */
-public class GenreList extends JSONConvertible implements Parcelable {
+public class GenreList implements Parcelable {
 
     // KiiCloud 上のフィールド名
     public static final String GENRE_1 = "genre_1";
@@ -35,10 +36,6 @@ public class GenreList extends JSONConvertible implements Parcelable {
         values.add("");
     }
 
-    public GenreList(JSONObject json) throws JSONException {
-        super(json);
-    }
-
     public GenreList(List<String> values) {
         this.values = values;
     }
@@ -47,25 +44,21 @@ public class GenreList extends JSONConvertible implements Parcelable {
         return values;
     }
 
-    @Override
-    public JSONObject toJSON() throws JSONException {
-        JSONObject json = new JSONObject();
-        json.put(GENRE_1, values.get(0));
-        json.put(GENRE_2, values.get(1));
-        json.put(GENRE_3, values.get(2));
-        json.put(GENRE_4, values.get(3));
-        json.put(GENRE_5, values.get(4));
-        return json;
+    public void getValueFrom(KiiObject object) {
+        values = new ArrayList<>();
+        values.add(object.getString(GENRE_1));
+        values.add(object.getString(GENRE_2));
+        values.add(object.getString(GENRE_3));
+        values.add(object.getString(GENRE_4));
+        values.add(object.getString(GENRE_5));
     }
 
-    @Override
-    public void setValues(JSONObject json) throws JSONException {
-        values = new ArrayList<>(5);
-        values.add(json.getString(GENRE_1));
-        values.add(json.getString(GENRE_2));
-        values.add(json.getString(GENRE_3));
-        values.add(json.getString(GENRE_4));
-        values.add(json.getString(GENRE_5));
+    public void putValueInto(KiiObject object) {
+        object.set(GENRE_1, values.get(0));
+        object.set(GENRE_2, values.get(1));
+        object.set(GENRE_3, values.get(2));
+        object.set(GENRE_4, values.get(3));
+        object.set(GENRE_5, values.get(4));
     }
 
     @Override

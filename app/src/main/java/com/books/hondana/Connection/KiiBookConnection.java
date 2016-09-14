@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.books.hondana.Model.Genre;
 import com.books.hondana.Model.Book;
+import com.books.hondana.Model.abst.KiiModel;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;
@@ -44,8 +45,9 @@ public class KiiBookConnection {
         }
         KiiClause clauseWithTime = KiiClause.and(
                 mGenre.clause(), // Genre 絞り込み
-                KiiClause.lessThan("_created", from) // 日時絞り込み
+                KiiClause.lessThan(KiiModel.CREATED_AT, from) // 日時絞り込み
         );
+        Log.d(TAG, "fetch: " + clauseWithTime.toString());
 
         KiiQuery query = new KiiQuery(clauseWithTime);
 

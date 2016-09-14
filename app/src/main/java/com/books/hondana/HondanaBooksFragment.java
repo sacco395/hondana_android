@@ -147,6 +147,7 @@ public class HondanaBooksFragment extends Fragment {
         mConnection.fetch(from, LOAD_BOOKS_COUNT_LIMIT, new KiiObjectListCallback<Book>() {
             @Override
             public void success(int token, List<Book> result) {
+                Log.d(TAG, "success: size=" + result.size());
                 finishLoadingView();
                 mGridAdapter.add(result);
                 mGridAdapter.notifyDataSetChanged();

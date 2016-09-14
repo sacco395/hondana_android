@@ -22,7 +22,6 @@ public class BookInfo extends JSONConvertible implements Parcelable {
     public static final String ISSUE_DATE = "issue_date";
     public static final String IMAGE_URL = "image_url";
     public static final String SIZE = "size";
-    public static final String GENRES = "genres";
 
     private String title;
 
@@ -40,8 +39,6 @@ public class BookInfo extends JSONConvertible implements Parcelable {
 
     private Size size;
 
-    private GenreList genres;
-
     public BookInfo() {
         title = "";
         author = "";
@@ -50,7 +47,6 @@ public class BookInfo extends JSONConvertible implements Parcelable {
         issueDate = "";
         imageUrl = "";
         size = new Size();
-        genres = new GenreList();
     }
 
     public BookInfo(JSONObject json) throws JSONException {
@@ -121,14 +117,6 @@ public class BookInfo extends JSONConvertible implements Parcelable {
         this.size = size;
     }
 
-    public GenreList getGenres() {
-        return genres;
-    }
-
-    public void setGenres(GenreList genres) {
-        this.genres = genres;
-    }
-
     @Override
     public void setValues(JSONObject json) throws JSONException {
         title = json.getString(TITLE);
@@ -139,7 +127,6 @@ public class BookInfo extends JSONConvertible implements Parcelable {
         issueDate = json.getString(ISSUE_DATE);
         imageUrl = json.getString(IMAGE_URL);
         size = new Size(json.getJSONObject(SIZE));
-        genres = new GenreList(json.getJSONObject(GENRES));
     }
 
     @Override
@@ -153,7 +140,6 @@ public class BookInfo extends JSONConvertible implements Parcelable {
         json.put(ISSUE_DATE, issueDate);
         json.put(IMAGE_URL, imageUrl);
         json.put(SIZE, size.toJSON());
-        json.put(GENRES, genres.toJSON());
         return json;
     }
 
@@ -172,7 +158,6 @@ public class BookInfo extends JSONConvertible implements Parcelable {
         dest.writeString(this.issueDate);
         dest.writeString(this.imageUrl);
         dest.writeParcelable(this.size, flags);
-        dest.writeParcelable(this.genres, flags);
     }
 
     protected BookInfo(Parcel in) {
@@ -184,7 +169,6 @@ public class BookInfo extends JSONConvertible implements Parcelable {
         this.issueDate = in.readString();
         this.imageUrl = in.readString();
         this.size = in.readParcelable(Size.class.getClassLoader());
-        this.genres = in.readParcelable(GenreList.class.getClassLoader());
     }
 
     public static final Creator<BookInfo> CREATOR = new Creator<BookInfo>() {

@@ -89,6 +89,7 @@ public enum Genre {
 
         KiiClause isbnClause = KiiClause.startsWith(BookInfo.ISBN, defaultIsbn());
         return KiiClause.or(genreClause, isbnClause);
+//        return KiiClause.or(genreClause);
     }
 
     public static Genre fromRakutenGenre(String rakutenGenre) {

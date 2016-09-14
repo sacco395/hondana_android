@@ -20,6 +20,7 @@ public abstract class KiiModel {
 
     public static final String ID = "_id";
     public static final String OWNER = "_owner";
+    public static final String CREATED_AT = "_created";
 
     protected KiiObject source;
 

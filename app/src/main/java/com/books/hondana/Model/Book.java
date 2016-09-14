@@ -30,17 +30,17 @@ public class Book extends KiiModel implements Parcelable {
 
     private BookCondition condition;
 
+    private GenreList genres;
+
     public Book() {
         ownerId = "";
         info = new BookInfo();
         condition = new BookCondition();
+        genres = new GenreList();
     }
 
     public Book(KiiObject kiiObject) throws JSONException {
         super(kiiObject);
-        ownerId = source.getString(OWNER_ID);
-        info = new BookInfo(source.getJSONObject(INFO));
-        condition = new BookCondition(source.getJSONObject(CONDITION));
     }
 
     public String getOwnerId() {
@@ -67,6 +67,14 @@ public class Book extends KiiModel implements Parcelable {
         this.condition = condition;
     }
 
+    public GenreList getGenres() {
+        return genres;
+    }
+
+    public void setGenres(GenreList genres) {
+        this.genres = genres;
+    }
+
     @Override
     public KiiBucket bucket() {
         return Kii.bucket(BUCKET_NAME);
@@ -77,6 +85,8 @@ public class Book extends KiiModel implements Parcelable {
         ownerId = object.getString(OWNER_ID);
         info = new BookInfo(object.getJSONObject(INFO));
         condition = new BookCondition(object.getJSONObject(CONDITION));
+        genres = new GenreList();
+        genres.getValueFrom(createKiiObject());
     }
 
     @Override
@@ -87,6 +97,7 @@ public class Book extends KiiModel implements Parcelable {
         source.set(OWNER, ownerId);
         source.set(INFO, info.toJSON());
         source.set(CONDITION, condition.toJSON());
+        genres.putValueInto(source);
         return source;
     }
 
@@ -97,19 +108,17 @@ public class Book extends KiiModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(this.source, flags);
-        dest.writeString(this.id);
         dest.writeString(this.ownerId);
         dest.writeParcelable(this.info, flags);
         dest.writeParcelable(this.condition, flags);
+        dest.writeParcelable(this.genres, flags);
     }
 
     protected Book(Parcel in) {
-        this.source = in.readParcelable(KiiObject.class.getClassLoader());
-        this.id = in.readString();
         this.ownerId = in.readString();
         this.info = in.readParcelable(BookInfo.class.getClassLoader());
         this.condition = in.readParcelable(BookCondition.class.getClassLoader());
+        this.genres = in.readParcelable(GenreList.class.getClassLoader());
     }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {

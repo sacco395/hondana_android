@@ -79,7 +79,7 @@ public class RakutenBook extends BaseBook implements Serializable{
                 } else {
                     genres.add("");
                 }
-				info.setGenres(new GenreList(genres));
+				book.setGenres(new GenreList(genres));
 			}
 		}
         book.setInfo(info);
