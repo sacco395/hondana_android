@@ -169,24 +169,24 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
             @Override
             public void didFinish(int token, KiiQueryResult<KiiObject> result, Exception e) {
-                Log.d(TAG, "didFinish(result: " + result + ")");
+                LogUtil.d(TAG, "didFinish(result: " + result + ")");
                 if (result == null) {
                     Log.w(TAG, e);
                     return;
                 }
 
                 final List<KiiObject> kiiObjects = result.getResult();
-                Log.d(TAG, "members.size: " + kiiObjects.size());
+                LogUtil.d(TAG, "members.size: " + kiiObjects.size());
                 if (kiiObjects != null && kiiObjects.size() > 0) {
                     final KiiObject kiiObject = kiiObjects.get(0);// ひとつしか来ていないはずなので0番目だけ使う
                     final Member member = new Member(kiiObject);
 
                     final String name = member.get(Member.NAME);
-                    Log.d(TAG, "name: " + name);
+                    LogUtil.d(TAG, "name: " + name);
                     bookOwner.setText(name);
 
                     final String imageUrl = member.get(Member.IMAGE_URL);
-                    Log.d(TAG, "imageUrl: " + imageUrl);
+                    LogUtil.d(TAG, "imageUrl: " + imageUrl);
                     imageLoader.displayImage(imageUrl, userIcon);
                 }
             }

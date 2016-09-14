@@ -90,7 +90,7 @@ public class HondanaBooksFragment extends Fragment {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 if (mIsLoading) {
-                    Log.d(TAG, "onScroll: isLoading");
+                    LogUtil.d(TAG, "onScroll: isLoading");
                     return;
                 }
 

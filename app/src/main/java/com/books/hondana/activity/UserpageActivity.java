@@ -13,7 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -183,21 +182,21 @@ public class UserpageActivity extends AppCompatActivity
         membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
             @Override
             public void didFinish(int token, KiiQueryResult<KiiObject> result, Exception e) {
-                Log.d(TAG, "didFinish(result: " + result + ")");
+                LogUtil.d(TAG, "didFinish(result: " + result + ")");
                 if (result == null) {
-                    Log.w(TAG, e);
+                    LogUtil.w(TAG, e);
                     return;
                 }
 
                 final List<KiiObject> kiiObjects = result.getResult();
-                Log.d(TAG, "members.size: " + kiiObjects.size());
+                LogUtil.d(TAG, "members.size: " + kiiObjects.size());
                 if (kiiObjects != null && kiiObjects.size() > 0) {
                     final KiiObject kiiObject = kiiObjects.get(0);// ひとつしか来ていないはずなので0番目だけ使う
                     final Member member = new Member(kiiObject);
 
                     final String imageUrl = member.get(Member.IMAGE_URL);
                     final String userProfile = member.get(Member.PROFILE);
-                    Log.d(TAG, "imageUrl: " + imageUrl);
+                    LogUtil.d(TAG, "imageUrl: " + imageUrl);
                     imageLoader.displayImage(imageUrl, userIcon);
                     imageLoader.displayImage(imageUrl, userIcon2);
                     tv_userProfile.setText (userProfile);

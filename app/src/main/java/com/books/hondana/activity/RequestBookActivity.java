@@ -5,12 +5,9 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -147,7 +144,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
             String path = UriUtil.getPath(this, uri);
 
             if (path != null) {
-                Log.d(TAG, "onActivityResult: File found!");
+                LogUtil.d(TAG, "onActivityResult: File found!");
                 postPdf(new File(path));
             } else {
                 Log.e(TAG, "onActivityResult: File not found!");
