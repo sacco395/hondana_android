@@ -64,6 +64,6 @@ public class Member extends KiiDataObj implements Parcelable {
     };
 
     public static int getPoint() {
-        return 10;
+        return 1;
     }
 }
