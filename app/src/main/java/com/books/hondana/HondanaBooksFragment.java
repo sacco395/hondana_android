@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -80,33 +81,33 @@ public class HondanaBooksFragment extends Fragment {
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
         mSwipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
 
-//        mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(AbsListView view, int scrollState) {
-//            }
-//
-//            @Override
-//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//                if (mIsLoading) {
-//                    Log.d(TAG, "onScroll: isLoading");
-//                    return;
-//                }
-//
-//                if ((firstVisibleItem + visibleItemCount) == totalItemCount) {
-//                    Book last = mGridAdapter.getLastItem();
-//                    if (last == null) {
-//                        kickLoadHondanaBooks(0);
-//                        return;
-//                    }
-//                    // FIXME: 9/9/16 Kii これかなりイケてないのでなんかいい感じにしたい。
-//                    if (last.getCreatedAt() <= 1470909532550L) {
-//                        // サーバにこれ以上本がない
-//                        return;
-//                    }
-//                    kickLoadHondanaBooks(last.getCreatedAt());
-//                }
-//            }
-//        });
+        mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (mIsLoading) {
+                    Log.d(TAG, "onScroll: isLoading");
+                    return;
+                }
+
+                if ((firstVisibleItem + visibleItemCount) == totalItemCount) {
+                    Book last = mGridAdapter.getLastItem();
+                    if (last == null) {
+                        kickLoadHondanaBooks(0);
+                        return;
+                    }
+                    // FIXME: 9/9/16 Kii これかなりイケてないのでなんかいい感じにしたい。
+                    if (last.getCreatedAt() <= 1470909532550L) {
+                        // サーバにこれ以上本がない
+                        return;
+                    }
+                    kickLoadHondanaBooks(last.getCreatedAt());
+                }
+            }
+        });
         return view;
     }
 
