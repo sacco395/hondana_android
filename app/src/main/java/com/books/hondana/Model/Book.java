@@ -32,10 +32,20 @@ public class Book extends KiiModel implements Parcelable {
 
     private GenreList genres;
 
+    /**
+     * 新規に Book オブジェクトを生成する
+     * @return
+     */
     public static Book createNew() {
         return new Book();
     }
 
+    /**
+     * KiiCloud 上に保存されているものを、KiiObject から生成
+     * @param kiiObject
+     * @return
+     * @throws JSONException 求めるフィールドがなかった場合に例外をスロー
+     */
     public static Book createFrom(KiiObject kiiObject) throws JSONException {
         return new Book(kiiObject);
     }

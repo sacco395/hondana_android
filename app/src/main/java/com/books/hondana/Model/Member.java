@@ -46,12 +46,20 @@ public class Member extends KiiModel implements Parcelable {
 
     private boolean deleted;
 
+    /**
+     * すでに KiiCloud 上に保存されているオブジェクトから Member を生成
+     * @param kiiObject
+     * @return
+     * @throws JSONException
+     */
     public static Member createFrom(KiiObject kiiObject) throws JSONException {
         return new Member();
     }
 
     /**
      * KiiUser から Member を新規生成
+     * KiiCloud にすでに保存してあるものを取得する場合は、
+     * {@link com.books.hondana.Connection.KiiMemberConnection} を使用すること
      * @param kiiUser id, name を取得し、生成される Member にセット
      * @return KiiObject を source フィールドに持ち、id, name は KiiUser と同一のものを持つ
      * @throws KiiModelException id が無効な場合

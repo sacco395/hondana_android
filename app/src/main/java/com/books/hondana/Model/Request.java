@@ -9,6 +9,7 @@ import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.callback.KiiObjectBodyCallback;
+import com.kii.cloud.storage.callback.KiiObjectPublishCallback;
 
 import org.json.JSONException;
 
@@ -62,6 +63,13 @@ public class Request extends KiiModel implements Parcelable {
 
     private String evaluatedDate;
 
+    /**
+     * Request を、新規に作成する。すでにサーバに保存されているオブジェクトの取得は、
+     * {@link com.books.hondana.Connection.KiiRequestConnection} を使用すること
+     * @param clientId KiiUser#getID
+     * @param book リクエストの対象の本
+     * @return
+     */
     public static Request createNew(String clientId, Book book)  {
         Request request = new Request();
         request.setClientId(clientId);
@@ -70,6 +78,12 @@ public class Request extends KiiModel implements Parcelable {
         return request;
     }
 
+    /**
+     * KiiCloud に保存されているオブジェクトから、Request を生成
+     * @param kiiObject
+     * @return
+     * @throws JSONException KiiObject 内に、求めるフィールドがなかったら例外をスロー
+     */
     public static Request createFrom(KiiObject kiiObject) throws JSONException {
         return new Request(kiiObject);
     }
@@ -157,7 +171,14 @@ public class Request extends KiiModel implements Parcelable {
         return evaluatedDate;
     }
 
-    public void savePdf(final File pdfFile, final PdfUploadCallback callback) {
+    /**
+     * フィールドの値を保存しかつ、PDF アップロード
+     * Request が、KiiCloud 上で書き換わっていた場合、データの整合性を保つためにアップデートは中断され、
+     * PdfUploadCallback#failure が呼ばれる
+     * @param pdfFile 公開期限（秒）
+     * @param callback See {@link KiiObjectBodyCallback}
+     */
+    public void saveWithPdf(final File pdfFile, final PdfUploadCallback callback) {
         save(false, new KiiSaveCallback() {
             @Override
             public void success(int token, KiiObject object) {
@@ -169,6 +190,20 @@ public class Request extends KiiModel implements Parcelable {
                 callback.failure(new IllegalStateException("Failed to save fields before uploading Object body!"));
             }
         });
+    }
+
+    /**
+     * PDF を期限付きで公開して URL を取得
+     * Request が、KiiObject から生成されていない場合、PdfPublishCallback#failure が呼ばれる
+     * @param expiresIn 公開期限（秒）
+     * @param callback See {@link KiiObjectPublishCallback}
+     */
+    public void publishPdfWithExpation(int expiresIn, PdfPublishCallback callback) {
+        if (source == null || id == null) {
+            callback.failure(new IllegalStateException("KiiObject が空です。"));
+            return;
+        }
+        source.publishBodyExpiresIn(expiresIn, callback);
     }
 
     public void setEvaluatedDate(String evaluatedDate) {
@@ -252,6 +287,10 @@ public class Request extends KiiModel implements Parcelable {
     };
 
     public interface PdfUploadCallback extends KiiObjectBodyCallback {
+        void failure(IllegalStateException e);
+    }
+
+    public interface PdfPublishCallback extends KiiObjectPublishCallback {
         void failure(IllegalStateException e);
     }
 }

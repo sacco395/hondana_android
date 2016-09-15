@@ -22,10 +22,8 @@ import com.books.hondana.Model.abst.KiiModel;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.books.hondana.util.UriUtil;
-import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.callback.KiiObjectBodyCallback;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.kii.cloud.storage.callback.KiiObjectPublishCallback;
 
@@ -150,7 +148,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void postPdf(final File pdfFile) {
-        request.savePdf(pdfFile, new Request.PdfUploadCallback() {
+        request.saveWithPdf(pdfFile, new Request.PdfUploadCallback() {
             @Override
             public void failure(IllegalStateException e) {
                 LogUtil.w(TAG, e);
