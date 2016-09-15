@@ -15,17 +15,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Tetsuro MIKAMI https://github.com/mickamy
- *         Created on 9/9/16.
+ * KiiCloud 上の Member を取得するためのクラス
+ * インスタンス化せずに クラスメソッドを使う
  */
 public class KiiMemberConnection {
 
     private static final String TAG = KiiMemberConnection.class.getSimpleName();
 
+    /**
+     * インスタンス化厳禁
+     */
     private KiiMemberConnection() {
         throw new RuntimeException("Do not instantiate this Class!");
     }
 
+    /**
+     * ID で KiiCloud 上の Member を検索
+     * @param id KiiUser#getID から取得できる ID
+     * @param callback
+     */
     public static void fetch(String id, final KiiObjectCallback<Member> callback) {
         KiiObject memberObject = Kii.bucket(Member.BUCKET_NAME).object(id);
         memberObject.refresh(new KiiObjectCallBack() {
@@ -49,7 +57,7 @@ public class KiiMemberConnection {
     /**
      * @param userId 対象ユーザの ID
      * @param diff ポイントの差分。減るときは負の数を指定
-     * @param callback コールバック
+     * @param callback
      */
     public static void updatePoint(String userId, final int diff, final KiiObjectCallback<Member> callback) {
         fetch(userId, new KiiObjectCallback<Member>() {
@@ -77,16 +85,8 @@ public class KiiMemberConnection {
 
             @Override
             public void failure(@Nullable Exception e) {
-
+                callback.failure(new IllegalStateException("KiiCloud 上の Member の値が書き換わっている。ポイントの整合性が取れなくなる可能性があるので、ポイントを書き換えずに通信終了"));
             }
         });
-    }
-
-    private static List<Member> convert(List<KiiObject> memberObjects) throws JSONException {
-        List<Member> members = new ArrayList<>();
-        for (KiiObject memberObject : memberObjects) {
-            members.add(Member.createFrom(memberObject));
-        }
-        return members;
     }
 }

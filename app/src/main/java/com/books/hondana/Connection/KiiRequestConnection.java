@@ -18,20 +18,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Tetsuro MIKAMI https://github.com/mickamy
- *         Created on 9/15/16.
+ * KiiCloud 上の Request を取得するためのクラス
+ * インスタンス化せずに クラスメソッドを使う
  */
 public class KiiRequestConnection {
 
     private static final String TAG = KiiRequestConnection.class.getSimpleName();
 
+    /**
+     * インスタンス化厳禁
+     */
     private KiiRequestConnection() {
         throw new RuntimeException("Do not instantiate this Class!");
     }
 
-    public static void fetchUserRequests(String userId, final KiiObjectListCallback<Request> callback) {
+    /**
+     * ユーザがお願いしているリクエストのリストを取得
+     * @param userId KiiUser#getUserID
+     * @param callback
+     */
+    public static void fetchRequestsByUser(String userId, KiiObjectListCallback<Request> callback) {
         KiiClause clause = KiiClause.equals(Request.CLIENT_ID, userId);
         KiiQuery clientIdQuery = new KiiQuery(clause);
+        queryRequestBucket(clientIdQuery, callback);
+    }
+
+    /**
+     * ユーザがお願いされているリクエストのリストを取得
+     * @param userId KiiUser#getUserID
+     * @param callback
+     */
+    public static void fetchRequestsByOthers(String userId, KiiObjectListCallback<Request> callback) {
+        KiiClause clause = KiiClause.equals(Request.SERVER_ID, userId);
+        KiiQuery serverIdQuery = new KiiQuery(clause);
+        queryRequestBucket(serverIdQuery, callback);
+    }
+
+    /**
+     * ユーザが関わっているリクエストのリストを取得
+     * @param userId KiiUser#getUserID
+     * @param callback
+     */
+    public static void fetchRequetsRelatedToUser(String userId, KiiObjectListCallback<Request> callback) {
+        KiiClause clause = KiiClause.or(
+                KiiClause.equals(Request.CLIENT_ID, userId),
+                KiiClause.equals(Request.SERVER_ID, userId)
+        );
+        KiiQuery userIdQuery = new KiiQuery(clause);
+        queryRequestBucket(userIdQuery, callback);
+    }
+
+    /**
+     * KiiQuery を元に、Request のバケツを検索、リストを取得
+     * @param query 検索条件
+     * @param callback
+     */
+    private static void queryRequestBucket(KiiQuery query, final KiiObjectListCallback<Request> callback) {
         KiiBucket requestBucket = Kii.bucket(Request.BUCKET_NAME);
         requestBucket.query(new KiiQueryCallBack<KiiObject>() {
             @Override
@@ -51,7 +93,7 @@ public class KiiRequestConnection {
                     callback.failure(e);
                 }
             }
-        }, clientIdQuery);
+        }, query);
     }
 
     private static List<Request> convert(List<KiiObject> requestObjects) throws JSONException {

@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Tetsuro MIKAMI https://github.com/mickamy
- *         Created on 9/8/16.
+ * KiiCloud 上の Book を取得するためのクラス
+ * インスタンス化せずに クラスメソッドを使う
  */
 public class KiiBookConnection {
 
@@ -31,6 +31,7 @@ public class KiiBookConnection {
     }
 
     /**
+     * @param genre 取得してくるジャンル
      * @param from ページネーションのための、作成日時の UNIX 時間 (ミリ秒)
      *             この時間以前に作成された KiiBook を取ってくる
      *             0 を指定したら、最新のものから

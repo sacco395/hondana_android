@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.books.hondana.Model.PdfLabel;
 import com.books.hondana.Model.Request;
 import com.books.hondana.Model.abst.KiiModel;
 import com.books.hondana.R;
@@ -151,8 +150,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void postPdf(final File pdfFile) {
-        PdfLabel pdfLabel = PdfLabel.createNew(request);
-        pdfLabel.savePdf(pdfFile, new PdfLabel.PdfUploadCallback() {
+        request.savePdf(pdfFile, new Request.PdfUploadCallback() {
             @Override
             public void failure(IllegalStateException e) {
                 LogUtil.w(TAG, e);
