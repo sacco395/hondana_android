@@ -46,10 +46,6 @@ public class Member extends KiiModel implements Parcelable {
 
     private boolean deleted;
 
-    private long createdAt;
-
-    private long updatedAt;
-
     public static Member createFrom(KiiObject kiiObject) throws JSONException {
         return new Member();
     }
@@ -177,7 +173,7 @@ public class Member extends KiiModel implements Parcelable {
     }
 
     @Override
-    public KiiObject createKiiObject() throws JSONException {
+    protected KiiObject createKiiObject() throws JSONException {
         if (source == null) {
             source = bucket().object();
         }
@@ -199,7 +195,10 @@ public class Member extends KiiModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.source, flags);
         dest.writeString(this.id);
+        dest.writeLong(this.createdAt);
+        dest.writeLong(this.updatedAt);
         dest.writeString(this.name);
         dest.writeString(this.birthday);
         dest.writeString(this.address);
@@ -208,12 +207,13 @@ public class Member extends KiiModel implements Parcelable {
         dest.writeInt(this.point);
         dest.writeParcelable(this.favoriteAuthors, flags);
         dest.writeByte(this.deleted ? (byte) 1 : (byte) 0);
-        dest.writeLong(this.createdAt);
-        dest.writeLong(this.updatedAt);
     }
 
     protected Member(Parcel in) {
+        this.source = in.readParcelable(KiiObject.class.getClassLoader());
         this.id = in.readString();
+        this.createdAt = in.readLong();
+        this.updatedAt = in.readLong();
         this.name = in.readString();
         this.birthday = in.readString();
         this.address = in.readString();
@@ -222,8 +222,6 @@ public class Member extends KiiModel implements Parcelable {
         this.point = in.readInt();
         this.favoriteAuthors = in.readParcelable(AuthorList.class.getClassLoader());
         this.deleted = in.readByte() != 0;
-        this.createdAt = in.readLong();
-        this.updatedAt = in.readLong();
     }
 
     public static final Creator<Member> CREATOR = new Creator<Member>() {

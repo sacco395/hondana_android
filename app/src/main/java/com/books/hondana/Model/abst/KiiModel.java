@@ -69,7 +69,7 @@ public abstract class KiiModel {
      */
     public abstract void setValuesFrom(KiiObject kiiObject) throws JSONException;
 
-    public abstract KiiObject createKiiObject() throws JSONException;
+    protected abstract KiiObject createKiiObject() throws JSONException;
 
     /**
      * KiiCloud にすでに登録されている Object はアップデート

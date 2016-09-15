@@ -98,7 +98,7 @@ public class Book extends KiiModel implements Parcelable {
     }
 
     @Override
-    public KiiObject createKiiObject() throws JSONException {
+    protected KiiObject createKiiObject() throws JSONException {
         if (source == null) {
             source = bucket().object();
         }
@@ -116,6 +116,10 @@ public class Book extends KiiModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.source, flags);
+        dest.writeString(this.id);
+        dest.writeLong(this.createdAt);
+        dest.writeLong(this.updatedAt);
         dest.writeString(this.ownerId);
         dest.writeParcelable(this.info, flags);
         dest.writeParcelable(this.condition, flags);
@@ -123,6 +127,10 @@ public class Book extends KiiModel implements Parcelable {
     }
 
     protected Book(Parcel in) {
+        this.source = in.readParcelable(KiiObject.class.getClassLoader());
+        this.id = in.readString();
+        this.createdAt = in.readLong();
+        this.updatedAt = in.readLong();
         this.ownerId = in.readString();
         this.info = in.readParcelable(BookInfo.class.getClassLoader());
         this.condition = in.readParcelable(BookCondition.class.getClassLoader());
