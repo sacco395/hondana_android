@@ -30,10 +30,10 @@ public abstract class KiiModel {
 
     protected long updatedAt;
 
-    public KiiModel() {
+    protected KiiModel() {
     }
 
-    public KiiModel(KiiObject kiiObject) throws JSONException {
+    protected KiiModel(KiiObject kiiObject) throws JSONException {
         source = kiiObject;
         id = kiiObject.getString(ID);
         createdAt = kiiObject.getCreatedTime();

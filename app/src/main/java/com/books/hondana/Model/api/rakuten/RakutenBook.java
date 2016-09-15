@@ -34,7 +34,7 @@ public class RakutenBook extends BaseBook implements Serializable{
 	}
 
 	public Book toBook(){
-		Book book = new Book();
+		Book book = Book.createNew();
 		BookInfo info = new BookInfo();
 		for(HashMap.Entry<String, String> e : map.entrySet()) {
 			if( e.getKey().equals(RakutenBook.TITLE) ) {

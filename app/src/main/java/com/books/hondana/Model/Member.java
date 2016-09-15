@@ -50,6 +50,10 @@ public class Member extends KiiModel implements Parcelable {
 
     private long updatedAt;
 
+    public static Member createFrom(KiiObject kiiObject) throws JSONException {
+        return new Member();
+    }
+
     /**
      * KiiUser から Member を新規生成
      * @param kiiUser id, name を取得し、生成される Member にセット
@@ -58,7 +62,7 @@ public class Member extends KiiModel implements Parcelable {
      *        （KiiUser#getID がnull、もしくはすでに同じ id を持つ Member が存在する時）にスロー
      *         ユーザとメンバーの一対一対応が担保されなくなるので、致命的
      */
-    public static Member createFrom(KiiUser kiiUser) throws KiiModelException {
+    public static Member createNew(KiiUser kiiUser) throws KiiModelException {
         String id = kiiUser.getID();
         if (id == null) {
             throw new KiiModelException();
@@ -73,7 +77,7 @@ public class Member extends KiiModel implements Parcelable {
         return member;
     }
 
-    public Member() {
+    private Member() {
         name = "";
         birthday = "";
         address = "";
@@ -83,7 +87,7 @@ public class Member extends KiiModel implements Parcelable {
         favoriteAuthors = new AuthorList();
     }
 
-    public Member(KiiObject kiiObject) throws JSONException {
+    private Member(KiiObject kiiObject) throws JSONException {
         super(kiiObject);
     }
 

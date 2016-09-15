@@ -124,7 +124,7 @@ public class RegisterActivity extends Activity {
     private void createMember(KiiUser user) {
         Member member;
         try {
-            member = Member.createFrom(user);
+            member = Member.createNew(user);
         } catch (KiiModelException e) {
             mProgress.cancel();
             Log.e(TAG, "createMember: KiiModelException=", e);

@@ -73,7 +73,7 @@ public class GoogleBook extends BaseBook {
                 info.setImageUrl(e.getValue());
             }
         }
-        Book book = new Book();
+        Book book = Book.createNew();
         book.setInfo(info);
         return book;
     }

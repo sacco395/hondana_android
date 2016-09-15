@@ -32,14 +32,22 @@ public class Book extends KiiModel implements Parcelable {
 
     private GenreList genres;
 
-    public Book() {
+    public static Book createNew() {
+        return new Book();
+    }
+
+    public static Book createFrom(KiiObject kiiObject) throws JSONException {
+        return new Book(kiiObject);
+    }
+
+    private Book() {
         ownerId = "";
         info = new BookInfo();
         condition = new BookCondition();
         genres = new GenreList();
     }
 
-    public Book(KiiObject kiiObject) throws JSONException {
+    private Book(KiiObject kiiObject) throws JSONException {
         super(kiiObject);
     }
 

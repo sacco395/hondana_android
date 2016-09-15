@@ -81,7 +81,7 @@ public class KiiBookConnection {
     private static List<Book> convert(List<KiiObject> bookObjects) throws JSONException {
         List<Book> books = new ArrayList<>();
         for (KiiObject object : bookObjects) {
-            books.add(new Book(object));
+            books.add(Book.createFrom(object));
         }
         return books;
     }

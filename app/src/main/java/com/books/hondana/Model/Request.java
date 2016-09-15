@@ -56,7 +56,19 @@ public class Request extends KiiModel implements Parcelable {
 
     private String evaluatedDate;
 
-    public Request() {
+    public static Request createNew(String clientId, Book book)  {
+        Request request = new Request();
+        request.setClientId(clientId);
+        request.setServerId(book.getOwnerId());
+        request.setBookId(book.getId());
+        return request;
+    }
+
+    public static Request createFrom(KiiObject kiiObject) throws JSONException {
+        return new Request(kiiObject);
+    }
+
+    private Request() {
         clientId = "";
         serverId = "";
         pdfLabelId = "";
@@ -67,7 +79,7 @@ public class Request extends KiiModel implements Parcelable {
         evaluatedDate = "";
     }
 
-    public Request(KiiObject kiiObject) throws JSONException {
+    private Request(KiiObject kiiObject) throws JSONException {
         super(kiiObject);
     }
 

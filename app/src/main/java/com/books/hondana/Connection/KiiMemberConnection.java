@@ -36,7 +36,7 @@ public class KiiMemberConnection {
                     return;
                 }
                 try {
-                    Member member = new Member(object);
+                    Member member = Member.createFrom(object);
                     callback.success(token, member);
                 } catch (JSONException e) {
                     callback.failure(e);
@@ -71,7 +71,7 @@ public class KiiMemberConnection {
                             return;
                         }
                         try {
-                            Member result = new Member(object);
+                            Member result = Member.createFrom(object);
                             callback.success(token, result);
                         } catch (JSONException e) {
                             callback.failure(e);
@@ -90,7 +90,7 @@ public class KiiMemberConnection {
     private static List<Member> convert(List<KiiObject> memberObjects) throws JSONException {
         List<Member> members = new ArrayList<>();
         for (KiiObject memberObject : memberObjects) {
-            members.add(new Member(memberObject));
+            members.add(Member.createFrom(memberObject));
         }
         return members;
     }

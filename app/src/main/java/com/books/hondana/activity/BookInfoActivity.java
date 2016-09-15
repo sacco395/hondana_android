@@ -190,10 +190,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         }
         LogUtil.d (TAG, "kiiUser: " + currentUser);
 
-        Request request = new Request();
-        request.setClientId(currentUser.getID());
-        request.setBookId(book.getId());
-
+        Request request = Request.createNew(currentUser.getID(), book);
         startActivity(RequestBookActivity.createIntent (this, request));
     }
 
