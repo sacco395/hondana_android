@@ -34,6 +34,8 @@ public class Book extends KiiModel implements Parcelable {
 
     /**
      * 新規に Book オブジェクトを生成する
+     * KiiCloud にすでに保存されている場合は、
+     * {@link com.books.hondana.Connection.KiiBookConnection} を使用する事
      * @return
      */
     public static Book createNew() {
