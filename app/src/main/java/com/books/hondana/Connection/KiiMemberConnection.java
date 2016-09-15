@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.books.hondana.Model.Member;
+import com.books.hondana.Model.abst.KiiModel;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
@@ -56,20 +57,9 @@ public class KiiMemberConnection {
             public void success(int token, Member member) {
                 int current = member.getPoint();
                 member.setPoint(current + diff);
-                KiiObject updated;
-                try  {
-                    updated = member.createKiiObject();
-                } catch (JSONException e) {
-                    callback.failure(e);
-                    return;
-                }
-                updated.saveAllFields(new KiiObjectCallBack() {
+                member.save(false, new KiiModel.KiiSaveCallback() {
                     @Override
-                    public void onSaveCompleted(int token, @NonNull KiiObject object, @Nullable Exception exception) {
-                        if (exception != null) {
-                            callback.failure(exception);
-                            return;
-                        }
+                    public void success(int token, KiiObject object) {
                         try {
                             Member result = Member.createFrom(object);
                             callback.success(token, result);
@@ -77,7 +67,12 @@ public class KiiMemberConnection {
                             callback.failure(e);
                         }
                     }
-                }, false);
+
+                    @Override
+                    public void failure(@Nullable Exception e) {
+                        callback.failure(e);
+                    }
+                });
             }
 
             @Override

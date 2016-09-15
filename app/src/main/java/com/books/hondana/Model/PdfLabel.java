@@ -28,8 +28,6 @@ public class PdfLabel extends KiiModel implements Parcelable {
 
     private String requestId;
 
-    private boolean isSavedOnKiiCloud;
-
     public static PdfLabel createNew(Request request) {
         PdfLabel label = new PdfLabel();
         label.requestId = request.getId();
