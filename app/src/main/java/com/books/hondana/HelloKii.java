@@ -37,7 +37,7 @@ public class HelloKii extends Application {
     public void onCreate() {
         super.onCreate();
         // initialize the Kii SDK!
-        Kii.initialize("69f6949c", "911e08cb5604e5f9203af1dc551da2a0", Site.JP);
+        Kii.initialize("f05451aa", "d29bfea2bbe0451b0af0fd57494db3b7", Site.JP);
         // 画像ダウンロード用ライブラリの初期化
         initImageLoder();
     }
