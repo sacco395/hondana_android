@@ -2,13 +2,17 @@ package com.books.hondana.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import com.books.hondana.Model.abst.KiiModel;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;
+import com.kii.cloud.storage.callback.KiiObjectBodyCallback;
 
 import org.json.JSONException;
+
+import java.io.File;
 
 /**
  * @author Tetsuro MIKAMI https://github.com/mickamy
@@ -16,15 +20,19 @@ import org.json.JSONException;
  */
 public class PdfLabel extends KiiModel implements Parcelable {
 
-    public static final String BUCKET_NAME = "pdfs";
+    public static final String BUCKET_NAME = "pdf_labels";
 
     public static final String REQUEST_ID = "request_id";
 
+    public static final String PDF_CONTENT_TYPE = "application/pdf";
+
     private String requestId;
 
-    public static PdfLabel createNew(String requestId) {
+    private boolean isSavedOnKiiCloud;
+
+    public static PdfLabel createNew(Request request) {
         PdfLabel label = new PdfLabel();
-        label.requestId = requestId;
+        label.requestId = request.getId();
         return label;
     }
 
@@ -38,6 +46,28 @@ public class PdfLabel extends KiiModel implements Parcelable {
 
     private PdfLabel() {
         requestId = "";
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
+    public void savePdf(final File pdfFile, final PdfUploadCallback callback) {
+        save(false, new KiiSaveCallback() {
+            @Override
+            public void success(int token, KiiObject object) {
+                object.uploadBody(pdfFile, PDF_CONTENT_TYPE, callback);
+            }
+
+            @Override
+            public void failure(@Nullable Exception e) {
+                callback.failure(new IllegalStateException("Failed to save fields before uploading Object body!"));
+            }
+        });
     }
 
     @Override
@@ -92,4 +122,8 @@ public class PdfLabel extends KiiModel implements Parcelable {
             return new PdfLabel[size];
         }
     };
+
+    public interface PdfUploadCallback extends KiiObjectBodyCallback {
+        void failure(IllegalStateException e);
+    }
 }

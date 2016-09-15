@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.books.hondana.Model.PdfLabel;
 import com.books.hondana.Model.Request;
 import com.books.hondana.Model.abst.KiiModel;
 import com.books.hondana.R;
@@ -150,55 +151,50 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void postPdf(final File pdfFile) {
-        // Create an object in an application-scope bucket.
-        KiiObject object = Kii.bucket("pdf").object();
-        // Save KiiObject
-        object.save(new KiiObjectCallBack() {
+        PdfLabel pdfLabel = PdfLabel.createNew(request);
+        pdfLabel.savePdf(pdfFile, new PdfLabel.PdfUploadCallback() {
             @Override
-            public void onSaveCompleted(int token, KiiObject object, Exception exception) {
-                if (exception != null) {
+            public void failure(IllegalStateException e) {
+                LogUtil.w(TAG, e);
+            }
+
+            @Override
+            public void onTransferStart(@NonNull KiiObject kiiObject) {
+
+            }
+
+            @Override
+            public void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e) {
+
+                if (e != null) {
                     // Error handling
+                    Log.e(TAG, "onTransferCompleted: ", e);
                     return;
                 }
 
-                // Start uploading
-                object.uploadBody(pdfFile, "application/pdf", new KiiObjectBodyCallback() {
-                    @Override
-                    public void onTransferStart(KiiObject object) {
-                    }
-
-                    @Override
-                    public void onTransferProgress(KiiObject object, long completedInBytes, long totalSizeinBytes) { /* compiled code */
-                    }
-
-                    @Override
-                    public void onTransferCompleted(KiiObject object, Exception exception) {
-                        if (exception != null) {
-                            // Error handling
-                            Log.e(TAG, "onTransferCompleted: ", exception);
-                            return;
-                        }
-
-                        object.refresh(new KiiObjectCallBack() {
-                            public void onRefreshCompleted(int token, KiiObject object, Exception exception) {
-                                int time = 60 * 60 * 72;//72時間後に消去
-                                object.publishBodyExpiresIn(time, new KiiObjectPublishCallback() {
-                                    @Override
-                                    public void onPublishCompleted(String url, KiiObject object, Exception exception) {
-                                        if (exception != null) {
-                                            // Error handling
-                                            LogUtil.d(TAG, ("公開されてません"));
-                                        }
-                                    }
-                                });
+                kiiObject.refresh(new KiiObjectCallBack() {
+                    public void onRefreshCompleted(int token, KiiObject object, Exception exception) {
+                        int time = 60 * 60 * 72;//72時間後に消去
+                        object.publishBodyExpiresIn(time, new KiiObjectPublishCallback() {
+                            @Override
+                            public void onPublishCompleted(String url, KiiObject object, Exception exception) {
+                                if (exception != null) {
+                                    // Error handling
+                                    LogUtil.d(TAG, ("公開されてません"));
+                                }
                             }
                         });
-
-                        Toast.makeText(RequestBookActivity.this, "PDFが投稿されました！",
-                                Toast.LENGTH_LONG).show();
-                        LogUtil.d(TAG, ("投稿されました"));
                     }
                 });
+
+                Toast.makeText(RequestBookActivity.this, "PDFが投稿されました！",
+                        Toast.LENGTH_LONG).show();
+                LogUtil.d(TAG, ("投稿されました"));
+            }
+
+            @Override
+            public void onTransferProgress(@NonNull KiiObject kiiObject, long l, long l1) {
+
             }
         });
     }
