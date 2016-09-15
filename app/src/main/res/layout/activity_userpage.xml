@@ -52,7 +52,7 @@
                     android:src="@drawable/usericon"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop" />
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -68,10 +68,12 @@
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#000" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <TextView
                             android:text="ブク："
                             android:layout_marginTop="5dp"
@@ -82,6 +84,7 @@
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:textColor="#000" />
+
                         <TextView
                             android:id="@+id/user_point"
                             android:layout_marginTop="5dp"
@@ -91,6 +94,7 @@
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="#000" />
+
                         <TextView
                             android:text="ブク"
                             android:layout_marginTop="5dp"
@@ -101,7 +105,7 @@
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:textColor="#000" />
-                        </LinearLayout>
+                    </LinearLayout>
                     <!--<TextView-->
                         <!--android:text="（うち期限付きブク：4ブク）"-->
                         <!--android:layout_marginTop="5dp"-->
@@ -116,42 +120,42 @@
 
             <!--評価機能ができたら復活-->
             <!--<LinearLayout-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:paddingTop="@dimen/activity_vertical_margin"-->
-                <!--android:id="@+id/evaluation">-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingTop="@dimen/activity_vertical_margin"-->
+            <!--android:id="@+id/evaluation">-->
 
-                <!--<TextView-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:textSize="16sp"-->
-                    <!--android:drawableLeft="@drawable/icon_good"-->
-                    <!--android:drawablePadding="5dp"-->
-                    <!--android:textColor="#666"-->
-                    <!--android:text="良い : 3"-->
-                    <!--/>-->
-                <!--<TextView-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:textSize="16sp"-->
-                    <!--android:drawableLeft="@drawable/icon_neutral"-->
-                    <!--android:drawablePadding="5dp"-->
-                    <!--android:textColor="#666"-->
-                    <!--android:text="普通 : 2"-->
-                    <!--/>-->
-                <!--<TextView-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:textSize="16sp"-->
-                    <!--android:drawableLeft="@drawable/icon_bad"-->
-                    <!--android:drawablePadding="5dp"-->
-                    <!--android:textColor="#666"-->
-                    <!--android:text="悪い : 1"-->
-                    <!--/>-->
+            <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textSize="16sp"-->
+            <!--android:drawableLeft="@drawable/icon_good"-->
+            <!--android:drawablePadding="5dp"-->
+            <!--android:textColor="#666"-->
+            <!--android:text="良い : 3"-->
+            <!--/>-->
+            <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textSize="16sp"-->
+            <!--android:drawableLeft="@drawable/icon_neutral"-->
+            <!--android:drawablePadding="5dp"-->
+            <!--android:textColor="#666"-->
+            <!--android:text="普通 : 2"-->
+            <!--/>-->
+            <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textSize="16sp"-->
+            <!--android:drawableLeft="@drawable/icon_bad"-->
+            <!--android:drawablePadding="5dp"-->
+            <!--android:textColor="#666"-->
+            <!--android:text="悪い : 1"-->
+            <!--/>-->
             <!--</LinearLayout>-->
             <TextView
                 android:text="自己紹介文"
@@ -161,7 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:id="@+id/tv_user_profile"/>
+                android:id="@+id/tv_user_profile" />
             <!--区切り線-->
             <View
                 android:layout_marginTop="5dp"
@@ -178,14 +182,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
+
             <TextView
                 android:text="→届いたら受け取りの連絡をしましょう"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
             <ListView
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/list_view"
@@ -208,14 +213,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
+
             <TextView
                 android:text="→発送の準備をして、発送後は発送完了の連絡をしましょう"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
+
             <ListView
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/list_view02"

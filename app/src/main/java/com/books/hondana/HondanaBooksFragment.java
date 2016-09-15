@@ -14,14 +14,14 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.books.hondana.Connection.KiiBookConnection;
+import com.books.hondana.Connection.KiiObjectListCallback;
+import com.books.hondana.Model.Book;
 import com.books.hondana.Model.Genre;
-import com.books.hondana.Model.KiiBook;
 import com.books.hondana.activity.BookInfoActivity;
 import com.books.hondana.util.LogUtil;
-import com.kii.cloud.storage.KiiObject;
-import com.kii.cloud.storage.query.KiiQueryResult;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HondanaBooksFragment extends Fragment {
 
@@ -29,10 +29,10 @@ public class HondanaBooksFragment extends Fragment {
 
     private static final int LOAD_BOOKS_COUNT_LIMIT = 20;
 
+    private Genre mGenre;
+
     private GridView mGridView;
     private HondanaBookAdapter mGridAdapter;
-
-    private KiiBookConnection mConnection;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -53,15 +53,14 @@ public class HondanaBooksFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            Genre genre = (Genre) getArguments().getSerializable(Genre.class.getSimpleName());
-            mConnection = new KiiBookConnection(genre);
+            mGenre = (Genre) getArguments().getSerializable(Genre.class.getSimpleName());
         }
 
-        mGridAdapter = new HondanaBookAdapter(new ArrayList<KiiBook>(), new HondanaBookAdapter.BookItemClickListener() {
+        mGridAdapter = new HondanaBookAdapter(new ArrayList<Book>(), new HondanaBookAdapter.BookItemClickListener() {
             @Override
-            public void onClick(KiiBook book) {
+            public void onClick(Book book) {
                 Intent intent = new Intent(getContext(), BookInfoActivity.class);
-                intent.putExtra(KiiBook.class.getSimpleName(), book);
+                intent.putExtra(Book.class.getSimpleName(), book);
 
                 LogUtil.d(TAG, "onItemClick: " + book);
                 startActivity(intent);
@@ -90,26 +89,25 @@ public class HondanaBooksFragment extends Fragment {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 if (mIsLoading) {
-                    LogUtil.d(TAG, "onScroll: isLoading");
+                    Log.d(TAG, "onScroll: isLoading");
                     return;
                 }
 
                 if ((firstVisibleItem + visibleItemCount) == totalItemCount) {
-                    KiiBook last = mGridAdapter.getLastItem();
+                    Book last = mGridAdapter.getLastItem();
                     if (last == null) {
                         kickLoadHondanaBooks(0);
                         return;
                     }
                     // FIXME: 9/9/16 Kii これかなりイケてないのでなんかいい感じにしたい。
-                    if (last.createdAt <= 1470909532550L) {
+                    if (last.getCreatedAt() <= 1470909532550L) {
                         // サーバにこれ以上本がない
                         return;
                     }
-                    kickLoadHondanaBooks(last.createdAt);
+                    kickLoadHondanaBooks(last.getCreatedAt());
                 }
             }
         });
-
         return view;
     }
 
@@ -140,21 +138,12 @@ public class HondanaBooksFragment extends Fragment {
     private void kickLoadHondanaBooks(long from) {
         mIsLoading = true;
 
-        if (mConnection == null) {
-            mConnection = new KiiBookConnection(Genre.ALL);
-        }
-
-        mConnection.fetch(from, LOAD_BOOKS_COUNT_LIMIT, new KiiBookConnection.Callback() {
+        KiiBookConnection.fetch(mGenre, from, LOAD_BOOKS_COUNT_LIMIT, new KiiObjectListCallback<Book>() {
             @Override
-            public void success(int token, KiiQueryResult<KiiObject> result) {
+            public void success(int token, List<Book> result) {
+                Log.d(TAG, "success: size=" + result.size());
                 finishLoadingView();
-                if (result.getResult() == null) {
-                    Log.e(TAG, "The result is null!");
-                    return;
-                }
-                for (KiiObject kiiObject : result.getResult()) {
-                    mGridAdapter.add(new KiiBook(kiiObject));
-                }
+                mGridAdapter.add(result);
                 mGridAdapter.notifyDataSetChanged();
             }
 

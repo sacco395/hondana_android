@@ -22,9 +22,6 @@ import java.util.List;
 public class StartActivity extends AppCompatActivity
         implements View.OnClickListener {
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +31,10 @@ public class StartActivity extends AppCompatActivity
             findViewById(R.id.buttonRegistration).setOnClickListener(this);
             findViewById(R.id.skip).setOnClickListener(this);
 
-            viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
             setupViewPager(viewPager);
 
-            tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
             tabLayout.setupWithViewPager(viewPager);
     }
 

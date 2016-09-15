@@ -20,10 +20,12 @@ import com.books.hondana.Connection.GoogleBookSearch;
 import com.books.hondana.Connection.QueryParamSet;
 import com.books.hondana.Connection.RakutenBookSearch;
 import com.books.hondana.Connection.SearchAPI;
-import com.books.hondana.Model.KiiBook;
+import com.books.hondana.Model.Book;
+import com.books.hondana.Model.BookInfo;
 import com.books.hondana.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookSearchListActivity extends AppCompatActivity
 		implements DialogInterface.OnCancelListener {
@@ -34,9 +36,9 @@ public class BookSearchListActivity extends AppCompatActivity
 	private QueryParamSet queryParamSet;
 	private String isbn;
 
-	private ArrayList<KiiBook> bookList=null;
-	private ArrayList<KiiBook> rakuten_bookList=null;
-	private ArrayList<KiiBook> google_bookList=null;
+	private List<Book> bookList = null;
+	private List<Book> rakuten_bookList = null;
+	private List<Book> google_bookList = null;
 
 	private ListView mainListView;
 
@@ -56,7 +58,7 @@ public class BookSearchListActivity extends AppCompatActivity
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 									long arg3) {
-				KiiBook selectedBook = bookList.get(arg2);
+				Book selectedBook = bookList.get(arg2);
 				//HashMap<String,String> bookInfo = selectedBook.getMap();
 				Intent intent = new Intent();
 				intent.putExtra( "Book", selectedBook );
@@ -66,13 +68,13 @@ public class BookSearchListActivity extends AppCompatActivity
 		});//end setOnItemClickListener
 
 		///////////////////////////////////////////////////////////////
-		bookList = new ArrayList<KiiBook>();
-		rakuten_bookList = new ArrayList<KiiBook>();
-		google_bookList = new ArrayList<KiiBook>();
+		bookList = new ArrayList<>();
+		rakuten_bookList = new ArrayList<>();
+		google_bookList = new ArrayList<>();
 		///////////////////////////////////////////////////////////////
 		Intent intent = this.getIntent();
 		queryParamSet = (QueryParamSet)intent.getExtras().get("SEARCH_PARAM");
-		isbn = queryParamSet.getSearchValue(KiiBook.ISBN);
+		isbn = queryParamSet.getSearchValue(BookInfo.ISBN);
 
 		///////////////////////////////////////////////////////////////
 		//selectSearchAPI(this);
@@ -89,7 +91,7 @@ public class BookSearchListActivity extends AppCompatActivity
 		rakutenSearchConnection = new RakutenBookSearch(this,queryParamSet);
 		rakutenSearchConnection.searchBooks( 1, new BookSearchConnection.SearchFinishListener() {
 			@Override
-			public void didFinish(int err, ArrayList<KiiBook> resultList) {
+			public void didFinish(int err, List<Book> resultList) {
 
 				dispEndMessage(SearchAPI.RAKUTEN);
 
@@ -125,7 +127,7 @@ public class BookSearchListActivity extends AppCompatActivity
 		googleSearchConnection = new GoogleBookSearch(this,queryParamSet);
 		googleSearchConnection.searchBooks( 1, new BookSearchConnection.SearchFinishListener() {
 			@Override
-			public void didFinish(int err, ArrayList<KiiBook> resultList) {
+			public void didFinish(int err, List<Book> resultList) {
 
 				dispEndMessage(SearchAPI.GOOGLE);
 
@@ -134,7 +136,7 @@ public class BookSearchListActivity extends AppCompatActivity
 					// for Debug
 					Toast.makeText(BookSearchListActivity.this, "見つかった件数:" + count, Toast.LENGTH_SHORT).show();
 					if (count > 0) {
-						google_bookList =resultList;
+						google_bookList = resultList;
 						bookList = resultList;
 
 						BookListAdapter adapter =
@@ -245,69 +247,3 @@ public class BookSearchListActivity extends AppCompatActivity
 		// TODO 自動生成されたメソッド・スタブ
 	}
 }
-//	public void onLoadFinished(Loader<JSONObject> arg0, JSONObject rootObject) {
-//
-//		int numOfData;
-//
-//		if (progressDialog != null) {
-//			progressDialog.dismiss();
-//		}
-//
-//		ParseJson parseJson = new ParseRakutenJson();
-//		bookList = parseJson.getBookInfo(rootObject);
-//
-//		if (bookList == null) {
-//			Toast.makeText(this, "残念ながら、見つかりませんでした。", Toast.LENGTH_LONG).show();
-//			return;
-//		}
-//
-//		numOfData = bookList.size();
-//		Toast.makeText(this, "見つかった件数:" + numOfData, Toast.LENGTH_LONG).show();
-//
-//		if (numOfData <= 0) {
-//			Toast.makeText(this, "残念ながら、見つかりませんでした。", Toast.LENGTH_LONG).show();
-//			return;
-//		}
-//
-//		BookListAdapter adapter =
-//				new BookListAdapter(this, android.R.layout.simple_expandable_list_item_1, 0, bookList);
-//		mainListView.setAdapter(adapter);
-//
-//		getLoaderManager().destroyLoader(0);
-//	}
-
-
-//	@Override
-//	public void onCancel(DialogInterface arg0) {
-//		// TODO 自動生成されたメソッド・スタブ
-//	}
-//
-//	@Override
-//	public void onLoaderReset(Loader<JSONObject> loader) {
-//		// TODO 自動生成されたメソッド・スタブ
-//	}
-//
-///////////////////////////////////////////////////////////////////
-//Toast.makeText(this, "BeginBookListActivity",Toast.LENGTH_SHORT).show();
-//
-//	@Override
-//	public Loader<JSONObject> onCreateLoader(int arg0, Bundle arg1) {
-////		progressDialog = new ProgressDialog(this);
-////		progressDialog.setTitle("しばらくお待ちください。");
-////		progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-////		progressDialog.setCancelable(true);
-////		progressDialog.setOnCancelListener(this);
-////		progressDialog.show();
-//
-//
-//
-//		//HttpAsyncLoader<JSONObject> loader  = new HttpAsyncLoader<JSONObject>(this, arg1.getString("url"));
-//		HttpAsyncLoader loader  = new HttpAsyncLoader(this, arg1.getString("url"));
-//		loader.forceLoad();
-//		return loader;
-//	}
-//
-//	@Override
-//	public void onLoadFinished(Loader<JSONObject> loader, JSONObject data) {
-//
-//	}

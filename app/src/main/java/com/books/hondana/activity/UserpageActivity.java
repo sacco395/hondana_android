@@ -23,10 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.BookRequestListAdapter;
-import com.books.hondana.Connection.KiiCloudConnection;
+import com.books.hondana.Connection.KiiMemberConnection;
+import com.books.hondana.Connection.KiiObjectCallback;
 import com.books.hondana.Connection.QueryParamSet;
-import com.books.hondana.Model.KiiBook;
-import com.books.hondana.Model.KiiCloudBucket;
+import com.books.hondana.Model.Book;
+import com.books.hondana.Model.BookInfo;
 import com.books.hondana.Model.Member;
 import com.books.hondana.MyBookList;
 import com.books.hondana.MyBookListAdapter;
@@ -177,38 +178,32 @@ public class UserpageActivity extends AppCompatActivity
         final ImageView userIcon2 = (ImageView) findViewById(R.id.user_icon);
         final TextView tv_userProfile = (TextView) findViewById(R.id.tv_user_profile);
 
-        final String userId = user.getID ();
-        final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
-        membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
+        final String userId = user.getID();
+        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
-            public void didFinish(int token, KiiQueryResult<KiiObject> result, Exception e) {
-                LogUtil.d(TAG, "didFinish(result: " + result + ")");
-                if (result == null) {
-                    LogUtil.w(TAG, e);
+            public void success(int token, Member member) {
+                final String userProfile = member.getProfile();
+                tv_userProfile.setText(userProfile);
+                if (!member.hasValidImageUrl()) {
                     return;
                 }
+                final String imageUrl = member.getImageUrl();
+                LogUtil.d(TAG, "imageUrl: " + imageUrl);
+                imageLoader.displayImage(imageUrl, userIcon);
+                imageLoader.displayImage(imageUrl, userIcon2);
+//ここからポイント表示
+                int user_point = member.getPoint();
+                String point = Integer.toString(user_point);
+                TextView tv_userPoint = (TextView) findViewById(R.id.user_point);
+                tv_userPoint.setText(point);
+//ここまでポイント表示
+            }
 
-                final List<KiiObject> kiiObjects = result.getResult();
-                LogUtil.d(TAG, "members.size: " + kiiObjects.size());
-                if (kiiObjects != null && kiiObjects.size() > 0) {
-                    final KiiObject kiiObject = kiiObjects.get(0);// ひとつしか来ていないはずなので0番目だけ使う
-                    final Member member = new Member(kiiObject);
-
-                    final String imageUrl = member.get(Member.IMAGE_URL);
-                    final String userProfile = member.get(Member.PROFILE);
-                    LogUtil.d(TAG, "imageUrl: " + imageUrl);
-                    imageLoader.displayImage(imageUrl, userIcon);
-                    imageLoader.displayImage(imageUrl, userIcon2);
-                    tv_userProfile.setText (userProfile);
-                }
+            @Override
+            public void failure(Exception e) {
+                LogUtil.w(TAG, e);
             }
         });
-//ここからポイント表示
-        int user_point = Member.getPoint();
-        String point = Integer.toString(user_point);
-        TextView tv_userPoint = (TextView) findViewById(R.id.user_point);
-        tv_userPoint.setText (point);
-//ここまでポイント表示
 
 //アダプターを作成します。newでクラスをインスタンス化しています。
         mAdapter = new BookRequestListAdapter(this);
@@ -230,14 +225,16 @@ public class UserpageActivity extends AppCompatActivity
         //一覧のデータを作成して表示します。
         fetch02();
     }
+
     //KiiCLoud対応のfetchです。
     //自分で作った関数です。一覧のデータを作成して表示します。
     KiiUser kiiUser = KiiUser.getCurrentUser();
-    String userId = kiiUser.getID ();
+    String userId = kiiUser.getID();
+
     private void fetch() {
         //KiiCloudの検索条件を作成。検索条件は未設定。なので全件。
         KiiQuery query = new KiiQuery(KiiClause.and(
-                KiiClause.equals("request_userId",userId)));//request_userId(自分が本に申請した場合)
+                KiiClause.equals("request_userId", userId)));//request_userId(自分が本に申請した場合)
 //                KiiClause.notEquals("send_date", "")));//送った日付が存在する場合)
         // Define query conditions
 
@@ -245,7 +242,7 @@ public class UserpageActivity extends AppCompatActivity
         query.sortByDesc("_created");
         //バケットappbooksを検索する。最大200件
         Kii.bucket("appbooks")
-                .query(new KiiQueryCallBack<KiiObject> () {
+                .query(new KiiQueryCallBack<KiiObject>() {
                     //検索が完了した時
                     @Override
                     public void onQueryCompleted(int token, KiiQueryResult<KiiObject> result, Exception exception) {
@@ -267,7 +264,7 @@ public class UserpageActivity extends AppCompatActivity
 
 
                             //MyBookListを新しく作ります。
-                            MyBookList list = new MyBookList(id,url,title,author);
+                            MyBookList list = new MyBookList(id, url, title, author);
                             //MyBookListの配列に追加します。
                             MyBooks.add(list);
                         }
@@ -280,7 +277,7 @@ public class UserpageActivity extends AppCompatActivity
     private void fetch02() {
         //KiiCloudの検索条件を作成。検索条件は未設定。なので全件。
         KiiQuery query = new KiiQuery(KiiClause.and(
-                KiiClause.equals("user_id",userId),//request_userId(自分が本に申請した場合)
+                KiiClause.equals("user_id", userId),//request_userId(自分が本に申請した場合)
                 KiiClause.notEquals("request_date", "")));//送った日付が存在する場合)
         // Define query conditions
 
@@ -288,7 +285,7 @@ public class UserpageActivity extends AppCompatActivity
         query.sortByDesc("_created");
         //バケットappbooksを検索する。最大200件
         Kii.bucket("appbooks")
-                .query(new KiiQueryCallBack<KiiObject> () {
+                .query(new KiiQueryCallBack<KiiObject>() {
                     //検索が完了した時
                     @Override
                     public void onQueryCompleted(int token, KiiQueryResult<KiiObject> result, Exception exception) {
@@ -310,7 +307,7 @@ public class UserpageActivity extends AppCompatActivity
 
 
                             //MyBookListを新しく作ります。
-                            MyBookList list = new MyBookList(id,url,title,author);
+                            MyBookList list = new MyBookList(id, url, title, author);
                             //MyBookListの配列に追加します。
                             MyBooks.add(list);
                         }
@@ -420,17 +417,16 @@ public class UserpageActivity extends AppCompatActivity
         // 書籍情報を検索
         Intent intent = new Intent(UserpageActivity.this,BookSearchListActivity.class);
         QueryParamSet queryParamSet = new QueryParamSet();
-        queryParamSet.addQueryParam(KiiBook.ISBN,this.search_Isbn);
+        queryParamSet.addQueryParam(BookInfo.ISBN,this.search_Isbn);
         intent.putExtra( "SEARCH_PARAM", queryParamSet );
         startActivityForResult(intent, ACT_BOOK_SEARCH_LIST);
     }
 
     private void kickListSearchResult(Intent data){
         Bundle extras = data.getExtras();
-        //HashMap<String,String> bookInfo = (HashMap<String, String>) data.getSerializableExtra("Book");
-        KiiBook kiiBook = (KiiBook)extras.get("Book");
+        Book book = extras.getParcelable(Book.class.getSimpleName());
         Intent intent = new Intent(UserpageActivity.this,BookDetailActivity.class);
-        intent.putExtra("Book", kiiBook );
+        intent.putExtra(Book.class.getSimpleName(), book);
         startActivityForResult(intent, ACT_BOOK_DETAIL_TO_ADD);
     }
 

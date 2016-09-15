@@ -21,17 +21,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Connection.KiiCloudConnection;
-import com.books.hondana.Model.KiiCloudBucket;
+import com.books.hondana.Connection.KiiMemberConnection;
+import com.books.hondana.Connection.KiiObjectCallback;
 import com.books.hondana.Model.Member;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
-import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.query.KiiQueryResult;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.util.List;
 
 public class SettingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,27 +68,21 @@ public class SettingActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
 //        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
-        final String userId = user.getID ();
-        final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
-        membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
+        final String userId = user.getID();
+        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
-            public void didFinish(int token, KiiQueryResult<KiiObject> result, Exception e) {
-                LogUtil.d(TAG, "didFinish(result: " + result + ")");
-                if (result == null) {
-                    Log.w(TAG, e);
+            public void success(int token, Member member) {
+                if (!member.hasValidImageUrl()) {
                     return;
                 }
+                final String imageUrl = member.getImageUrl();
+                LogUtil.d(TAG, "imageUrl: " + imageUrl);
+                imageLoader.displayImage(imageUrl, userIcon);
+            }
 
-                final List<KiiObject> kiiObjects = result.getResult();
-                LogUtil.d(TAG, "members.size: " + kiiObjects.size());
-                if (kiiObjects != null && kiiObjects.size() > 0) {
-                    final KiiObject kiiObject = kiiObjects.get(0);// ひとつしか来ていないはずなので0番目だけ使う
-                    final Member member = new Member(kiiObject);
-
-                    final String imageUrl = member.get(Member.IMAGE_URL);
-                    LogUtil.d(TAG, "imageUrl: " + imageUrl);
-                    imageLoader.displayImage(imageUrl, userIcon);
-                }
+            @Override
+            public void failure(Exception e) {
+                Log.w(TAG, "failure: ", e);
             }
         });
         header.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +93,7 @@ public class SettingActivity extends AppCompatActivity
         });
 
         TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
-        userName.setText(user.getUsername ().toString());
+        userName.setText(user.getUsername().toString());
         //navigationViewにアイコンと名前ここまで
 
         // binding.navView.setNavigationItemSelectedListener(this);

@@ -11,7 +11,7 @@ public class MyBookList {
     private String author;
 
     //データを１つ作成する関数です。項目が増えたら増やしましょう。
-    public MyBookList(String id,String image_url, String title, String author) {
+    public MyBookList(String id, String image_url, String title, String author) {
         this.id = id;
         this.image_url = image_url;
         this.title = title;
@@ -19,8 +19,19 @@ public class MyBookList {
     }
 
     //それぞれの項目を返す関数です。項目が増えたら増やしましょう。
-    public String getId() {return id;}
-    public String getImageUrl() {return image_url;}
-    public String getTitle() {return title;}
-    public String getAuthor() {return author;}
+    public String getId() {
+        return id;
+    }
+
+    public String getImageUrl() {
+        return image_url;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
 }

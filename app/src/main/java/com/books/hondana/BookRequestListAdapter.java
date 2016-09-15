@@ -27,11 +27,12 @@ public class BookRequestListAdapter extends ArrayAdapter<MyBookList> {
 
         super(context, R.layout.part_book_list);
     }
+
     //表示するViewを返します。これがListVewの１つのセルとして表示されます。表示されるたびに実行されます。
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         //convertViewをチェックし、Viewがないときは新しくViewを作成します。convertViewがセットされている時は未使用なのでそのまま再利用します。メモリーに優しい。
-        if(convertView == null) {
+        if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.part_my_book_list, parent, false);
         }
 
@@ -45,18 +46,17 @@ public class BookRequestListAdapter extends ArrayAdapter<MyBookList> {
             //クリックした時
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (view.getContext (), ReceivedBookActivity.class);
+                Intent intent = new Intent(view.getContext(), ReceivedBookActivity.class);
 
                 // 渡したいデータとキーを指定する。urlという名前でリンクの文字列を渡しています。
                 MyBookList MyBookList = getItem(position);
                 String id = MyBookList.getId();
-                intent.putExtra ("_id",id);
+                intent.putExtra("_id", id);
 
                 // 遷移先の画面を呼び出す
-                view.getContext ().startActivity (intent);
+                view.getContext().startActivity(intent);
             }
         });
-
 
 
         //表示するセルの位置からデータをMessageRecordのデータを取得します
@@ -64,7 +64,7 @@ public class BookRequestListAdapter extends ArrayAdapter<MyBookList> {
 
         //mImageLoaderを使って画像をダウンロードし、Viewにセットします。
         String image_url = imageRecord.getImageUrl();
-        Picasso.with (convertView.getContext ()).load(image_url).into(imageView);
+        Picasso.with(convertView.getContext()).load(image_url).into(imageView);
 
         //Viewに文字をセットします。
         title.setText(imageRecord.getTitle());
@@ -73,12 +73,13 @@ public class BookRequestListAdapter extends ArrayAdapter<MyBookList> {
         //1つのセルのViewを返します。
         return convertView;
     }
+
     //データをセットしなおす関数
     public void setMyBookList(List<MyBookList> objects) {
         //ArrayAdapterを空にする。
         clear();
         //テータの数だけMessageRecordを追加します。
-        for(MyBookList object : objects) {
+        for (MyBookList object : objects) {
             add(object);
         }
         //データの変更を通知します。

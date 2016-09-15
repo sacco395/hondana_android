@@ -248,14 +248,14 @@ public class UserEditActivity extends AppCompatActivity {
     //投稿処理。画像のUploadがうまくいったときは、urlに公開のURLがセットされる
     public void postImages(String url) {
         //バケット名を設定。
-        KiiObject object = Kii.bucket ("members").object ();
+        KiiObject object = Kii.bucket("members").object();
 
-        KiiUser kiiUser = KiiUser.getCurrentUser ();
-        object.set ("name",kiiUser.getUsername ());
-        LogUtil.d (TAG, "name: " + kiiUser);
+        KiiUser kiiUser = KiiUser.getCurrentUser();
+        object.set("name", kiiUser.getUsername());
+        LogUtil.d(TAG, "name: " + kiiUser);
         //Json形式でKeyのprofileをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
         object.set ("profile", profile);
-        object.set ("image_Url", url);
+        object.set("image_Url", url);
 
         //データをKiiCloudに保存
         object.save (new KiiObjectCallBack () {
@@ -285,8 +285,8 @@ public class UserEditActivity extends AppCompatActivity {
     //KiiCloudのimagesバケットにオブジェクトを作成する。参考：チュートリアル、http://www.riaxdnp.jp/?p=6775
     private void uploadFile(String path) {
         //イメージを保存するバケット名を設定。すべてここに保存してusersにはそのhttpパスを設定する。
-        KiiObject object = Kii.bucket ("images").object ();
-        object.set ("image", "");
+        KiiObject object = Kii.bucket("images").object();
+        object.set("image", "");
         object.save (new KiiObjectCallBack () {
             @Override
             public void onSaveCompleted(int token, KiiObject object, Exception exception) {
@@ -318,7 +318,7 @@ public class UserEditActivity extends AppCompatActivity {
                                 object.publishBody (new KiiObjectPublishCallback () {
                                     @Override
                                     public void onPublishCompleted(String url, KiiObject kiiObject, Exception e) {
-                                        LogUtil.d (TAG, ("公開されました！"));
+                                        LogUtil.d(TAG, ("公開されました！"));
                                         //画像のURL付きでusersに投稿する。
                                         postImages (url);
                                     }
@@ -329,7 +329,7 @@ public class UserEditActivity extends AppCompatActivity {
 
 
                 } else {
-                    LogUtil.d (TAG, ("公開されないっす"));
+                    LogUtil.d(TAG, ("公開されないっす"));
 //                    //失敗の時
 //                    Throwable cause = e.getCause();
 //                    if (cause instanceof CloudExecutionException)

@@ -9,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,22 +20,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Connection.KiiCloudConnection;
-import com.books.hondana.Model.KiiCloudBucket;
+import com.books.hondana.Connection.KiiMemberConnection;
+import com.books.hondana.Connection.KiiObjectCallback;
 import com.books.hondana.Model.Member;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
-import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.query.KiiQueryResult;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.util.List;
 
 public class GuideActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "GuideActivity";
+    private static final String TAG = GuideActivity.class.getSimpleName();
+    //    private static final String TAG = "GuideActivity";
     final ImageLoader imageLoader = ImageLoader.getInstance();
 
     @Override
@@ -59,31 +55,25 @@ public class GuideActivity extends AppCompatActivity
                 KiiUser kiiUser = KiiUser.getCurrentUser();
                 LogUtil.d(TAG, "kiiUser: " + kiiUser);
                 if (kiiUser != null) {
-                    final String userId = kiiUser.getID ();
-                    final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
-                    membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
+                    final String userId = kiiUser.getID();
+                    KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
                         @Override
-                        public void didFinish(int token, KiiQueryResult<KiiObject> result, Exception e) {
-                            LogUtil.d(TAG, "didFinish(result: " + result + ")");
-                            if (result == null) {
-                                Log.w(TAG, e);
+                        public void success(int token, Member member) {
+                            if (!member.hasValidImageUrl()) {
                                 return;
                             }
+                            final String imageUrl = member.getImageUrl();
+                            LogUtil.d(TAG, "imageUrl: " + imageUrl);
+                            imageLoader.displayImage(imageUrl, userIcon);
+                        }
 
-                            final List<KiiObject> kiiObjects = result.getResult();
-                            LogUtil.d(TAG, "members.size: " + kiiObjects.size());
-                            if (kiiObjects != null && kiiObjects.size() > 0) {
-                                final KiiObject kiiObject = kiiObjects.get(0);// ひとつしか来ていないはずなので0番目だけ使う
-                                final Member member = new Member(kiiObject);
+                        @Override
+                        public void failure(Exception e) {
 
-                                final String imageUrl = member.get(Member.IMAGE_URL);
-                                LogUtil.d(TAG, "imageUrl: " + imageUrl);
-                                imageLoader.displayImage(imageUrl, userIcon);
-                            }
                         }
                     });
                     TextView userName = (TextView) drawerView.findViewById(R.id.tv_user_name);
-                    userName.setText(kiiUser.getUsername ().toString());
+                    userName.setText(kiiUser.getUsername().toString());
                 }
             }
         };

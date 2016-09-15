@@ -17,14 +17,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.books.hondana.Model.KiiBook;
+import com.books.hondana.Model.Request;
+import com.books.hondana.Model.abst.KiiModel;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.books.hondana.util.UriUtil;
-import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.callback.KiiObjectBodyCallback;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.kii.cloud.storage.callback.KiiObjectPublishCallback;
 
@@ -39,23 +38,19 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 public class RequestBookActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "BookRequestActivity";
+    private static final String TAG = RequestBookActivity.class.getSimpleName();
 
+    private Request request;
     //今回使用するインテントの結果の番号。適当な値でOK.
     private static final int PDF_CHOOSER_CODE = 2;
 
     private static final String PDF_CHOOSER_TITLE = "PDF ファイルを選択してください";
 
-    //BookInfoActivityからkiiBookの情報を受け取るためcreateIntentを使う
-    private static final String EXTRA_KII_BOOK = "extra_kii_book";
-
-    public static Intent createIntent(Context context, KiiBook kiiBook) {
+    public static Intent createIntent(Context context, Request request) {
         Intent intent = new Intent (context, RequestBookActivity.class);
-        intent.putExtra (EXTRA_KII_BOOK, kiiBook);
+        intent.putExtra(Request.class.getSimpleName(), request);
         return intent;
     }
-
-    KiiBook kiiBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +58,9 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_request_book);
 
 //上記のcreateIntentでデータを受け取る
-        kiiBook = getIntent ().getParcelableExtra (EXTRA_KII_BOOK);
+        request = getIntent ().getParcelableExtra (Request.class.getSimpleName());
 //kiiBookがないのはおかしいのでcreateIntentを使うように怒る
-        if (kiiBook == null) {
+        if (request == null) {
             throw new IllegalArgumentException ("createIntentを使ってください");
         }
 
@@ -153,55 +148,49 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void postPdf(final File pdfFile) {
-        // Create an object in an application-scope bucket.
-        KiiObject object = Kii.bucket("pdf").object();
-        // Save KiiObject
-        object.save(new KiiObjectCallBack() {
+        request.saveWithPdf(pdfFile, new Request.PdfUploadCallback() {
             @Override
-            public void onSaveCompleted(int token, KiiObject object, Exception exception) {
-                if (exception != null) {
+            public void failure(IllegalStateException e) {
+                LogUtil.w(TAG, e);
+            }
+
+            @Override
+            public void onTransferStart(@NonNull KiiObject kiiObject) {
+
+            }
+
+            @Override
+            public void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e) {
+
+                if (e != null) {
                     // Error handling
+                    Log.e(TAG, "onTransferCompleted: ", e);
                     return;
                 }
 
-                // Start uploading
-                object.uploadBody(pdfFile, "application/pdf", new KiiObjectBodyCallback() {
-                    @Override
-                    public void onTransferStart(KiiObject object) {
-                    }
-
-                    @Override
-                    public void onTransferProgress(KiiObject object, long completedInBytes, long totalSizeinBytes) { /* compiled code */
-                    }
-
-                    @Override
-                    public void onTransferCompleted(KiiObject object, Exception exception) {
-                        if (exception != null) {
-                            // Error handling
-                            Log.e(TAG, "onTransferCompleted: ", exception);
-                            return;
-                        }
-
-                        object.refresh (new KiiObjectCallBack () {
-                            public void onRefreshCompleted(int token, KiiObject object, Exception exception) {
-                                int time = 60 * 60 * 72;//72時間後に消去
-                                object.publishBodyExpiresIn(time, new KiiObjectPublishCallback() {
-                                    @Override
-                                    public void onPublishCompleted(String url, KiiObject object, Exception exception) {
-                                        if (exception != null) {
-                                            // Error handling
-                                            LogUtil.d (TAG, ("公開されてません"));
-                                        }
-                                    }
-                                });
+                kiiObject.refresh(new KiiObjectCallBack() {
+                    public void onRefreshCompleted(int token, KiiObject object, Exception exception) {
+                        int time = 60 * 60 * 72;//72時間後に消去
+                        object.publishBodyExpiresIn(time, new KiiObjectPublishCallback() {
+                            @Override
+                            public void onPublishCompleted(String url, KiiObject object, Exception exception) {
+                                if (exception != null) {
+                                    // Error handling
+                                    LogUtil.d(TAG, ("公開されてません"));
+                                }
                             }
                         });
-
-                        Toast.makeText(RequestBookActivity.this,"PDFが投稿されました！",
-                                Toast.LENGTH_LONG).show();
-                        LogUtil.d (TAG, ("投稿されました"));
                     }
                 });
+
+                Toast.makeText(RequestBookActivity.this, "PDFが投稿されました！",
+                        Toast.LENGTH_LONG).show();
+                LogUtil.d(TAG, ("投稿されました"));
+            }
+
+            @Override
+            public void onTransferProgress(@NonNull KiiObject kiiObject, long l, long l1) {
+
             }
         });
     }
@@ -249,19 +238,28 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         String dateString = simpleDateFormat.format (date); // 2016-09-03 17:24:33
 
         KiiUser user = KiiUser.getCurrentUser();
-        LogUtil.d(TAG, "kiiUser: " + user);
+        if (user == null || user.getID() == null) {
+            Log.e(TAG, "saveRequestDate: KiiUser is null!");
+            Toast.makeText(RequestBookActivity.this, "ログイン情報を取得できませんでした。再度ログインしてください。", Toast.LENGTH_SHORT).show();
+            // TODO: 9/13/16 Launch LoginActivity or something
+            return;
+        }
 
-        kiiBook.set ("request_date", dateString);
-        //kiiBook.set ("request_userId",user.getID());
-
-        kiiBook.save (new KiiObjectCallBack () {
+        request.setRequestedDate(dateString);
+        request.save(false, new KiiModel.KiiSaveCallback() {
             @Override
-            public void onSaveCompleted(int token, @NonNull KiiObject object, @Nullable Exception exception) {
+            public void success(int token, KiiObject object) {
                 Toast.makeText(getApplicationContext(), "本のリクエストを完了しました", Toast.LENGTH_LONG).show();
 
                 //暫定的にTOPページにintentする
                 Intent intent = new Intent(RequestBookActivity.this, BookMainActivity.class);
                 startActivity(intent);
+            }
+
+            @Override
+            public void failure(@Nullable Exception e) {
+                Log.e(TAG, "failure: ", e);
+                Toast.makeText(RequestBookActivity.this, "本のリクエストに失敗しました。", Toast.LENGTH_SHORT).show();
             }
         });
     }

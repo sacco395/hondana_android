@@ -26,12 +26,14 @@ import com.books.hondana.AllEvaluationFragment;
 import com.books.hondana.BadEvaluationFragment;
 import com.books.hondana.Connection.QueryParamSet;
 import com.books.hondana.GoodEvaluationFragment;
-import com.books.hondana.Model.KiiBook;
+import com.books.hondana.Model.Book;
+import com.books.hondana.Model.BookInfo;
 import com.books.hondana.NeutralEvaluationFragment;
 import com.books.hondana.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class EvaluationActivity extends AppCompatActivity {
 
    
@@ -227,17 +229,16 @@ public class EvaluationActivity extends AppCompatActivity {
         // 書籍情報を検索
         Intent intent = new Intent(EvaluationActivity.this,BookSearchListActivity.class);
         QueryParamSet queryParamSet = new QueryParamSet();
-        queryParamSet.addQueryParam(KiiBook.ISBN,this.search_Isbn);
-        intent.putExtra( "SEARCH_PARAM", queryParamSet );
+        queryParamSet.addQueryParam(BookInfo.ISBN, this.search_Isbn);
+        intent.putExtra(QueryParamSet.class.getSimpleName(), queryParamSet);
         startActivityForResult(intent, ACT_BOOK_SEARCH_LIST);
     }
 
     private void kickListSearchResult(Intent data){
         Bundle extras = data.getExtras();
-        //HashMap<String,String> bookInfo = (HashMap<String, String>) data.getSerializableExtra("Book");
-        KiiBook kiiBook = (KiiBook)extras.get("Book");
+        Book book = extras.getParcelable(Book.class.getSimpleName());
         Intent intent = new Intent(EvaluationActivity.this,BookDetailActivity.class);
-        intent.putExtra("Book", kiiBook );
+        intent.putExtra(Book.class.getSimpleName(), book);
         startActivityForResult(intent, ACT_BOOK_DETAIL_TO_ADD);
     }
 }

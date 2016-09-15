@@ -20,34 +20,34 @@ public class SettingAddressActivity extends AppCompatActivity {
     private static final String TAG = "SettingAddressActivity";
     private Button postButton;
     private String AddressNote;
-    KiiUser user = KiiUser.getCurrentUser ();
+    KiiUser user = KiiUser.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate (savedInstanceState);
-        setContentView (R.layout.activity_address_setting);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_address_setting);
 
         // ツールバーをアクションバーとしてセット
-        Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
-        toolbar.setTitle ("住所の登録・変更");
-        setSupportActionBar (toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("住所の登録・変更");
+        setSupportActionBar(toolbar);
 
 
-        ActionBar actionBar = getSupportActionBar ();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled (true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        TextView UserAddress = (TextView) findViewById (R.id.tv_user_address);
+        TextView UserAddress = (TextView) findViewById(R.id.tv_user_address);
 
         final String address = user.getString("address");
         if (address.equals("")) {
-            UserAddress.setText ("登録されていません");
+            UserAddress.setText("登録されていません");
         } else {
-            UserAddress.setText (address);
+            UserAddress.setText(address);
         }
 
-        postButton = (Button)findViewById(R.id.post_button);
+        postButton = (Button) findViewById(R.id.post_button);
         // ボタンにフォーカスを移動させる
         postButton.setFocusable(true);
         postButton.setFocusableInTouchMode(true);
@@ -57,20 +57,20 @@ public class SettingAddressActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //備考欄のテキストここから
-                final EditText noteField = (EditText) (findViewById (R.id.address_field));
+                final EditText noteField = (EditText) (findViewById(R.id.address_field));
                 assert noteField != null;
                 AddressNote = noteField.getText().toString();
                 UserFields userFields = new UserFields();
                 userFields.set("address", AddressNote);
 
-                user.update (null,userFields,new KiiUserUpdateCallback () {
+                user.update(null, userFields, new KiiUserUpdateCallback() {
                     @Override
                     public void onUpdateCompleted(KiiUser KiiUser, Exception exception) {
                         if (exception != null) {
                             // Error handling
                             return;
-                        }else{
-                            TextView UserAddress = (TextView) findViewById (R.id.tv_user_address);
+                        } else {
+                            TextView UserAddress = (TextView) findViewById(R.id.tv_user_address);
                             assert UserAddress != null;
                             UserAddress.setText(address);
                             finish();
@@ -81,14 +81,15 @@ public class SettingAddressActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId ()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed ();
+                onBackPressed();
                 return true;
             default:
-                return super.onOptionsItemSelected (item);
+                return super.onOptionsItemSelected(item);
         }
 
     }

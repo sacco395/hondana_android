@@ -30,7 +30,7 @@ public class UriUtil {
 
     private static String getPathForPreKitKat(Context context, Uri uri) {
         ContentResolver contentResolver = context.getContentResolver();
-        String[] columns = { MediaStore.Images.Media.DATA };
+        String[] columns = {MediaStore.Images.Media.DATA};
         Cursor cursor = contentResolver.query(uri, columns, null, null, null);
         if (cursor == null) {
             return null;
@@ -84,7 +84,7 @@ public class UriUtil {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[] {
+                final String[] selectionArgs = new String[]{
                         split[1]
                 };
 
@@ -112,14 +112,14 @@ public class UriUtil {
      * Get the value of the data column for this Uri. This is useful for
      * MediaStore Uris, and other file-based ContentProviders.
      *
-     * @param context The context.
-     * @param uri The Uri to query.
-     * @param selection (Optional) Filter used in the query.
+     * @param context       The context.
+     * @param uri           The Uri to query.
+     * @param selection     (Optional) Filter used in the query.
      * @param selectionArgs (Optional) Selection arguments used in the query.
      * @return The value of the _data column, which is typically a file path.
      */
     private static String getDataColumn(Context context, Uri uri, String selection,
-                                       String[] selectionArgs) {
+                                        String[] selectionArgs) {
 
         Cursor cursor = null;
         final String column = "_data";

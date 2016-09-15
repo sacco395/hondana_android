@@ -20,32 +20,32 @@ public class SettingMailActivity extends AppCompatActivity {
     private static final String TAG = "SettingAddressActivity";
     private Button postButton;
     private String Note;
-    KiiUser user = KiiUser.getCurrentUser ();
+    KiiUser user = KiiUser.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate (savedInstanceState);
-        setContentView (R.layout.activity_mail_setting);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mail_setting);
 
         // ツールバーをアクションバーとしてセット
-        Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
-        toolbar.setTitle ("メールアドレスの登録・変更");
-        setSupportActionBar (toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("メールアドレスの登録・変更");
+        setSupportActionBar(toolbar);
 
 
-        ActionBar actionBar = getSupportActionBar ();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled (true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        TextView UserMail = (TextView) findViewById (R.id.tv_user_address);
-        String user_mail = user.getEmail ();
+        TextView UserMail = (TextView) findViewById(R.id.tv_user_address);
+        String user_mail = user.getEmail();
         if (user_mail == null) {
-            UserMail.setText ("登録されていません");
+            UserMail.setText("登録されていません");
         } else {
-            UserMail.setText (user_mail);
+            UserMail.setText(user_mail);
         }
 
-        postButton = (Button)findViewById(R.id.post_button);
+        postButton = (Button) findViewById(R.id.post_button);
         // ボタンにフォーカスを移動させる
         postButton.setFocusable(true);
         postButton.setFocusableInTouchMode(true);
@@ -55,36 +55,37 @@ public class SettingMailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //備考欄のテキストここから
-                EditText noteField = (EditText) (findViewById (R.id.mailAddress_field));
+                EditText noteField = (EditText) (findViewById(R.id.mailAddress_field));
                 assert noteField != null;
-                Note = noteField.getText ().toString ();
-                IdentityData.Builder builder = IdentityData.Builder.newWithEmail (Note);
-                IdentityData identityData = builder.build ();
+                Note = noteField.getText().toString();
+                IdentityData.Builder builder = IdentityData.Builder.newWithEmail(Note);
+                IdentityData identityData = builder.build();
 
-                user.update (identityData,null,new KiiUserUpdateCallback () {
+                user.update(identityData, null, new KiiUserUpdateCallback() {
                     @Override
                     public void onUpdateCompleted(KiiUser KiiUser, Exception exception) {
                         if (exception != null) {
                             // Error handling
                             return;
-                        }else{
-                            TextView UserMail = (TextView) findViewById (R.id.tv_user_address);
+                        } else {
+                            TextView UserMail = (TextView) findViewById(R.id.tv_user_address);
                             assert UserMail != null;
-                            UserMail.setText (user.getEmail ());
+                            UserMail.setText(user.getEmail());
                         }
                     }
                 });
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId ()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed ();
+                onBackPressed();
                 return true;
             default:
-                return super.onOptionsItemSelected (item);
+                return super.onOptionsItemSelected(item);
         }
 
     }

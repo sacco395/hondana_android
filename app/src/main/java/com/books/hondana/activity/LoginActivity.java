@@ -25,23 +25,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Model.KiiCloudBucket;
+import com.books.hondana.Connection.KiiMemberConnection;
+import com.books.hondana.Connection.KiiObjectCallback;
 import com.books.hondana.Model.Member;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
-import com.kii.cloud.storage.Kii;
-import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.callback.KiiQueryCallBack;
 import com.kii.cloud.storage.callback.KiiUserCallBack;
-import com.kii.cloud.storage.query.KiiClause;
-import com.kii.cloud.storage.query.KiiQuery;
-import com.kii.cloud.storage.query.KiiQueryResult;
 
 public class LoginActivity extends Activity {
 
@@ -51,7 +46,6 @@ public class LoginActivity extends Activity {
     private TextView mPhoneField;
     private TextView mPasswordField;
     private ProgressDialog mProgress;
-    private String country = "JP";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,9 +71,8 @@ public class LoginActivity extends Activity {
         String password = mPasswordField.getText().toString();
         LogUtil.d(TAG, "Logging in: " + phone + ":" + password);
 
-        boolean result = false;
-
         // authenticate the user asynchronously
+        String country = "JP";
         KiiUser.logInWithLocalPhone(new KiiUserCallBack() {
 
             // catch the callback's "done" request
@@ -88,52 +81,31 @@ public class LoginActivity extends Activity {
                 // hide our progress UI element
                 mProgress.cancel();
 
-                // check for an exception (successful request if e==null)
-                if (e == null) {
-
-                    SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
-                    pref.edit().putString(getString(R.string.save_token), user.getAccessToken()).apply();//保存されていない時は""
-                    showToast("User authenticated!");
-
-                    // Member の user_id が user.getID() と等しいものが欲しい
-                    KiiQuery query = new KiiQuery (KiiClause.equals (Member.USER_ID, user.getID ()));
-
-//                    KiiQuery allQuery = new KiiQuery ();
-
-                    // 帰ってくる結果の上限
-                    query.setLimit (1);
-
-                    Kii.bucket (KiiCloudBucket.MEMBERS.getName ()).query (new KiiQueryCallBack<KiiObject> () {
-                        @Override
-                        public void onQueryCompleted(int token, @Nullable KiiQueryResult<KiiObject> result, @Nullable Exception exception) {
-                            super.onQueryCompleted (token, result, exception);
-                            if (exception == null) {
-                                // Success!
-                                if (result != null && result.getResult () != null) {
-                                    KiiObject memberObj = result.getResult ().get (0);
-                                    Member member = new Member (memberObj);
-                                    LogUtil.d (TAG, "onQueryCompleted: " + member.toString ());
-                                } else {
-                                    // Result is null! エラー処理
-                                }
-                            } else {
-                                // エラー処理
-                            }
-                        }
-                    }, query);
-
-                    Intent myIntent = new Intent(LoginActivity.this,
-                            BookMainActivity.class);
-                    LoginActivity.this.startActivity(myIntent);
-
-                    //=finish();
-                }
-                // otherwise, something bad happened in the request
-                else {
-                    // tell the console and the user there was a failure
+                if (e != null) {
                     showToast("ログインできません。もう一度やり直して下さい。");
-                    ;
+                    return;
                 }
+
+                SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
+                pref.edit().putString(getString(R.string.save_token), user.getAccessToken()).apply();//保存されていない時は""
+                showToast("User authenticated!");
+
+                KiiMemberConnection.fetch(user.getID(), new KiiObjectCallback<Member>() {
+                    @Override
+                    public void success(int token, Member member) {
+                        LogUtil.d (TAG, "onQueryCompleted: " + member.toString());
+
+                        Intent myIntent = new Intent(LoginActivity.this,
+                                BookMainActivity.class);
+                        LoginActivity.this.startActivity(myIntent);
+                    }
+
+                    @Override
+                    public void failure(Exception e) {
+                        Log.e(TAG, "failure: ", e);
+                        showToast("ログインできません。もう一度やり直して下さい。");
+                    }
+                });
             }
         }, phone, password, country);
     }

@@ -4,14 +4,14 @@ import android.app.Activity;
 import android.app.LoaderManager;
 import android.app.ProgressDialog;
 
-import com.books.hondana.Model.KiiBook;
+import com.books.hondana.Model.Book;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/07/28.
  */
-public abstract class BookSearchConnection implements ParseQueryParamSet {
+public abstract class BookSearchConnection {
 
     // 通信成功
     public final static int CONNECTION_SUCCESS = 1;
@@ -34,7 +34,7 @@ public abstract class BookSearchConnection implements ParseQueryParamSet {
 
     // データ取得終了時のCallBack
     public interface SearchFinishListener {
-        public void didFinish(final int err, final ArrayList<KiiBook> resultList);
+        public void didFinish(final int err, final List<Book> resultList);
     }
 
     // Constructor

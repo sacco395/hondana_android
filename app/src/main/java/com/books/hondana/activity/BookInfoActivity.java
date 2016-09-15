@@ -13,46 +13,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Connection.KiiCloudConnection;
-import com.books.hondana.Model.KiiBook;
-import com.books.hondana.Model.KiiCloudBucket;
+import com.books.hondana.Connection.KiiMemberConnection;
+import com.books.hondana.Connection.KiiObjectCallback;
+import com.books.hondana.Model.Book;
+import com.books.hondana.Model.BookCondition;
+import com.books.hondana.Model.BookInfo;
 import com.books.hondana.Model.Member;
+import com.books.hondana.Model.Request;
+import com.books.hondana.Model.Size;
+import com.books.hondana.Model.Smell;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
-import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.query.KiiQueryResult;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.MessageFormat;
-import java.util.List;
 
 
 public class BookInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
-
     private static final String TAG = BookInfoActivity.class.getSimpleName();
 
-    //private BaseAdapter adapter;
-
-    private KiiBook kiiBook;
+    private Book book;
 
     final ImageLoader imageLoader = ImageLoader.getInstance();
-
-
-    /*private static final String[] username = {
-            // Scenes of Isle of Wight
-            "ユーザー名",
-            "ユーザー名",
-            "ユーザー名",
-    };
-
-    private static final String[] evaluation = {
-            // Scenes of Isle of Wight
-            "評価",
-            "評価",
-            "評価",
-    };*/
 
 
     @SuppressLint("SetTextI18n")
@@ -62,9 +46,10 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_book_info);
         LogUtil.d (TAG, "onCreate");
 
-        kiiBook = getIntent().getParcelableExtra(KiiBook.class.getSimpleName());
-        String imgUrl = kiiBook.get(KiiBook.IMAGE_URL);
-        LogUtil.d(TAG, kiiBook.get(KiiBook.TITLE));
+        book = getIntent().getParcelableExtra(Book.class.getSimpleName());
+        BookInfo info = book.getInfo();
+        String imgUrl = info.getImageUrl();
+        LogUtil.d(TAG, info.getTitle());
 
         if ((imgUrl != null) && (imgUrl.length() > 0)) {
             // 画像データのダウンロードと設定
@@ -74,71 +59,74 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         }
 
         TextView tv_title = (TextView) findViewById(R.id.textViewBookInfoTitle);
-        tv_title.setText(kiiBook.get(KiiBook.TITLE));
+        tv_title.setText(info.getTitle());
         TextView tv_author = (TextView) findViewById(R.id.textViewBookInfoAuthor);
-        tv_author.setText(kiiBook.get(KiiBook.AUTHOR));
+        tv_author.setText(info.getAuthor());
         TextView tv_isbn = (TextView) findViewById(R.id.textViewBookInfoIsbn);
-        tv_isbn.setText(kiiBook.get(KiiBook.ISBN));
+        tv_isbn.setText(info.getIsbn());
         TextView tv_publisher = (TextView) findViewById(R.id.textViewBookInfoPublisher);
-        tv_publisher.setText(kiiBook.get(KiiBook.PUBLISHER));
+        tv_publisher.setText(info.getIsbn());
         TextView tv_issueDate = (TextView) findViewById(R.id.textViewBookInfoDataOfIssue);
-        tv_issueDate.setText(kiiBook.get(KiiBook.ISSUE_DATE));
+        tv_issueDate.setText(info.getIssueDate());
 
+        BookCondition condition = book.getCondition();
         TextView tv_bookCondition = (TextView) findViewById(R.id.bookInfoCondition);
-        tv_bookCondition.setText(kiiBook.get(KiiBook.CONDITION));
+        tv_bookCondition.setText(condition.getEvaluationText());
 
         ImageView iv_bookCondition = (ImageView) findViewById(R.id.bookInfoBookConditionIcon);
-        int resId = kiiBook.getConditionDrawableResId();
+        int resId = condition.getIconDrawableResId();
         if (resId == 0) return;
         Drawable conditionDrawable = ResourcesCompat.getDrawable(getResources(), resId, null);
         iv_bookCondition.setImageDrawable(conditionDrawable);
 
         TextView tv_bookLine = (TextView) findViewById(R.id.bookInfoLine);
-        tv_bookLine.setText(kiiBook.get(KiiBook.LINE));
+        tv_bookLine.setText(condition.getLinedText());
 
         TextView tv_bookBroken = (TextView) findViewById(R.id.bookInfoBroken);
-        tv_bookBroken.setText(kiiBook.get(KiiBook.BROKEN));
+        tv_bookBroken.setText(condition.getBandText());
 
         TextView tv_bookNotes = (TextView) findViewById(R.id.bookInfoNotes);
-        tv_bookNotes.setText(kiiBook.get(KiiBook.NOTES));
+        tv_bookNotes.setText(condition.getNote());
 
 //本のその他の状態
         // 空の文字列を作成
         String etcText = "";
         // 日焼け情報を追加
-        String band = kiiBook.getBandText();
+        String band = condition.getBandText();
         // sunburned が空の文字列でなければ、読点を挿入（ここは趣味で）
         if (!band.equals("")) {
             band += "／";
         }
         etcText += band;
 
-        String sunburned = kiiBook.getSunburnedText();
+        String sunburned = condition.getSunburnedText();
         // sunburned が空の文字列でなければ、読点を挿入（ここは趣味で）
         if (!sunburned.equals("")) {
             sunburned += "／";
         }
         etcText += sunburned;
 
-        String scratched = kiiBook.getScratchedText();
+        String scratched = condition.getScratchedText();
         if (!scratched.equals("")) {
             scratched += "／";
         }
         etcText += scratched;
 
-        String cigar_smell = kiiBook.getCigarSmellText();
+        Smell smell = condition.getSmell();
+
+        String cigar_smell = smell.getCigarSmellText();
         if (!cigar_smell.equals("")) {
             cigar_smell += "／";
         }
         etcText += cigar_smell;
 
-        String petSmell = kiiBook.getPetSmellText();
+        String petSmell = smell.getPetSmellText();
         if (!petSmell.equals("")) {
             petSmell += "／";
         }
         etcText += petSmell;
 
-        String mold_smell = kiiBook.getMoldSmellText();
+        String mold_smell = smell.getMoldSmellText();
         if (!mold_smell.equals("")) {
             mold_smell += "／";
         }
@@ -149,13 +137,15 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         tv_bookEtc.setText(etcText);
 //本のその他の状態ここまで
 
+        Size size = info.getSize();
+
         //本のサイズここから
         TextView tv_bookInfoSize = (TextView) findViewById(R.id.bookInfoSize);
-        tv_bookInfoSize.setText(MessageFormat.format ("縦{0}cm × 横{1}cm × 厚さ{2}cm", kiiBook.get (KiiBook.HEIGHT), kiiBook.get (KiiBook.WIDE), kiiBook.get (KiiBook.DEPTH)));
+        tv_bookInfoSize.setText(MessageFormat.format ("縦{0}cm × 横{1}cm × 厚さ{2}cm", size.getHeight(), size.getWidth(), size.getThickness()));
 
 
         TextView tv_bookInfoWeight = (TextView) findViewById(R.id.bookInfoWeight);
-        tv_bookInfoWeight.setText(kiiBook.get(KiiBook.WEIGHT)+"g");
+        tv_bookInfoWeight.setText(size.getWeight() + "g");
 
         //本のサイズここまで
 
@@ -164,71 +154,44 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         final TextView bookOwner = (TextView) findViewById(R.id.textViewBookInfoUserName);
         final ImageView userIcon = (ImageView) findViewById(R.id.bookInfoUserIcon);
 
-        final String userId = kiiBook.get(KiiBook.USER_ID);
-        final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
-        membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
+        final String userId = book.getOwnerId();
+        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
-            public void didFinish(int token, KiiQueryResult<KiiObject> result, Exception e) {
-                LogUtil.d(TAG, "didFinish(result: " + result + ")");
-                if (result == null) {
-                    Log.w(TAG, e);
+            public void success(int token, Member member) {
+                final String name = member.getName();
+                Log.d(TAG, "name: " + name);
+                bookOwner.setText(name);
+                if (!member.hasValidImageUrl()) {
                     return;
                 }
+                final String imageUrl = member.getImageUrl();
+                Log.d(TAG, "imageUrl: " + imageUrl);
+                imageLoader.displayImage(imageUrl, userIcon);
+            }
 
-                final List<KiiObject> kiiObjects = result.getResult();
-                LogUtil.d(TAG, "members.size: " + kiiObjects.size());
-                if (kiiObjects != null && kiiObjects.size() > 0) {
-                    final KiiObject kiiObject = kiiObjects.get(0);// ひとつしか来ていないはずなので0番目だけ使う
-                    final Member member = new Member(kiiObject);
-
-                    final String name = member.get(Member.NAME);
-                    LogUtil.d(TAG, "name: " + name);
-                    bookOwner.setText(name);
-
-                    final String imageUrl = member.get(Member.IMAGE_URL);
-                    LogUtil.d(TAG, "imageUrl: " + imageUrl);
-                    imageLoader.displayImage(imageUrl, userIcon);
-                }
+            @Override
+            public void failure(Exception e) {
+                Log.e(TAG, "failure: ", e);
             }
         });
-
-//        getCurrentUser();
-
-        /*// ListViewのインスタンスを生成
-        ListView listViewBookOwner = (ListView) findViewById(R.id.listViewBookOwner);
-
-        // BaseAdapter を継承したadapterのインスタンスを生成
-
-        adapter = new BookInfoListViewAdapter(this.getApplicationContext(), R.layout.part_book_owner, username, evaluation);
-
-        // ListViewにadapterをセット
-        listViewBookOwner.setAdapter(adapter);
-
-        // 後で使います
-//        listViewBookOwner.setOnItemClickListener(this);*/
     }
 
     @Override
     public void onClick(View v) {
         LogUtil.d(TAG, "onClick");
 
-        KiiUser kiiUser = KiiUser.getCurrentUser ();
-        kiiBook.set ("request_userId",kiiUser.getID());
-        LogUtil.d (TAG, "kiiUser: " + kiiUser);
-//        String owner = kiiBook.get("_owner");
-//        LogUtil.d(TAG, "owner: " + owner);
-//
-//
-//        if ((kiiUser != null) && (KiiUser != owner)) {
-
-        if(kiiUser != null){
-            //kiiBookのデータを持って、BookRequestActivityにintentする
-            startActivity(RequestBookActivity.createIntent (this, kiiBook));
-        } else {
+        KiiUser currentUser = KiiUser.getCurrentUser ();
+        if (currentUser == null) {
+            Log.d(TAG, "onClick: Current KiiUser is null!");
             Intent intent = new Intent(this, StartActivity.class);
             startActivity(intent);
             showToast("会員登録をお願いします！");
+            return;
         }
+        LogUtil.d (TAG, "kiiUser: " + currentUser);
+
+        Request request = Request.createNew(currentUser.getID(), book);
+        startActivity(RequestBookActivity.createIntent (this, request));
     }
 
     private void showToast(String message) {

@@ -19,23 +19,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Connection.KiiCloudConnection;
-import com.books.hondana.Model.KiiCloudBucket;
+import com.books.hondana.Connection.KiiMemberConnection;
+import com.books.hondana.Connection.KiiObjectCallback;
 import com.books.hondana.Model.Member;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
-import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.query.KiiQueryResult;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.util.List;
+import com.squareup.picasso.Picasso;
 
 public class InquiryActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
 
-    private static final String TAG = "InquiryActivity";
-    final ImageLoader imageLoader = ImageLoader.getInstance();
+    private static final String TAG = InquiryActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,31 +54,27 @@ public class InquiryActivity extends AppCompatActivity
                 KiiUser kiiUser = KiiUser.getCurrentUser();
                 LogUtil.d(TAG, "kiiUser: " + kiiUser);
                 if (kiiUser != null) {
-                    final String userId = kiiUser.getID ();
-                    final KiiCloudConnection membersConnection = new KiiCloudConnection(KiiCloudBucket.MEMBERS);
-                    membersConnection.loadMember(userId, new KiiCloudConnection.SearchFinishListener() {
+                    final String userId = kiiUser.getID();
+                    KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
                         @Override
-                        public void didFinish(int token, KiiQueryResult<KiiObject> result, Exception e) {
-                            LogUtil.d(TAG, "didFinish(result: " + result + ")");
-                            if (result == null) {
-                                Log.w(TAG, e);
+                        public void success(int token, Member member) {
+                            if (!member.hasValidImageUrl()) {
                                 return;
                             }
+                            final String imageUrl = member.getImageUrl();
+                            LogUtil.d(TAG, "imageUrl: " + imageUrl);
+                            Picasso.with(InquiryActivity.this)
+                                    .load(imageUrl)
+                                    .into(userIcon);
+                        }
 
-                            final List<KiiObject> kiiObjects = result.getResult();
-                            LogUtil.d(TAG, "members.size: " + kiiObjects.size());
-                            if (kiiObjects != null && kiiObjects.size() > 0) {
-                                final KiiObject kiiObject = kiiObjects.get(0);// ひとつしか来ていないはずなので0番目だけ使う
-                                final Member member = new Member(kiiObject);
-
-                                final String imageUrl = member.get(Member.IMAGE_URL);
-                                LogUtil.d(TAG, "imageUrl: " + imageUrl);
-                                imageLoader.displayImage(imageUrl, userIcon);
-                            }
+                        @Override
+                        public void failure(Exception e) {
+                            Log.w(TAG, e);
                         }
                     });
                     TextView userName = (TextView) drawerView.findViewById(R.id.tv_user_name);
-                    userName.setText(kiiUser.getUsername ().toString());
+                    userName.setText(kiiUser.getUsername().toString());
                 }
             }
         };

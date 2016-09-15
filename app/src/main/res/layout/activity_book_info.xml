@@ -159,7 +159,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
             <!--ユーザーアイコン-->
             <ImageView
@@ -172,33 +172,33 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp" />
 
-               <LinearLayout
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-               <!--本を持っている人リード-->
-               <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <!--本を持っている人リード-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                 android:text="本を持っている人"
                 android:id="@+id/BookInfoUserNameLead"
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp" />
-               <!--ユーザー名-->
-               <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp" />
+                <!--ユーザー名-->
+                <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ユーザー名"
                 android:id="@+id/textViewBookInfoUserName"
                 android:textSize="18sp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp" />
-               </LinearLayout>
-               <!--本の状態アイコン-->
-               <ImageView
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp" />
+            </LinearLayout>
+            <!--本の状態アイコン-->
+            <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/bookInfoBookConditionIcon"
@@ -210,10 +210,10 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
-               <!--本の状態リード-->
-                <TextView
+            <!--本の状態リード-->
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="本の状態"
@@ -221,8 +221,8 @@
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
                 android:layout_marginLeft="10dp" />
-               <!--本の状態-->
-                <TextView
+            <!--本の状態-->
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="本の状態"
@@ -232,12 +232,12 @@
         </LinearLayout>
 
         <LinearLayout
-         android:orientation="vertical"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content">
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-             <!--その他の状態リード-->
-             <TextView
+            <!--その他の状態リード-->
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="その他状態"
@@ -273,7 +273,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dip"
                 android:background="#E6E5E1"
-                android:layout_weight="0.16"/>
+                android:layout_weight="0.16" />
             <!--書き込み線リード-->
             <TextView
                 android:layout_width="wrap_content"
@@ -283,14 +283,14 @@
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
             <!--書き込み線-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="書き込み線"
                 android:id="@+id/bookInfoLine"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
 
             <!--細い区切り線-->
             <View
@@ -308,14 +308,14 @@
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
             <!--ページの折れ-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ページの折れ"
                 android:id="@+id/bookInfoBroken"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
 
             <!--細い区切り線-->
             <View
@@ -333,7 +333,7 @@
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
 
             <!--サイズ-->
             <TextView
@@ -341,7 +341,7 @@
                 android:layout_height="wrap_content"
                 android:text="サイズ"
                 android:id="@+id/bookInfoSize"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
 
             <!--細い区切り線-->
             <View
@@ -359,14 +359,14 @@
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
             <!--重さ-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="重さ"
                 android:id="@+id/bookInfoWeight"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
 
             <!--細い区切り線-->
             <View
@@ -384,7 +384,7 @@
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
 
             <!--備考-->
             <TextView
@@ -392,7 +392,7 @@
                 android:layout_height="wrap_content"
                 android:text="備考"
                 android:id="@+id/bookInfoNotes"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
         </LinearLayout>
 
         <!--区切り線-->
