@@ -2,13 +2,17 @@ package com.books.hondana.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import com.books.hondana.Model.abst.KiiModel;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;
+import com.kii.cloud.storage.callback.KiiObjectBodyCallback;
 
 import org.json.JSONException;
+
+import java.io.File;
 
 /**
  * リクエストに関する情報を保持
@@ -19,6 +23,8 @@ import org.json.JSONException;
 public class Request extends KiiModel implements Parcelable {
 
     public static final String BUCKET_NAME = "requests";
+
+    public static final String PDF_CONTENT_TYPE = "application/pdf";
 
     public static final String CLIENT_ID = "client_id";
     public static final String SERVER_ID = "server_id";
@@ -151,6 +157,20 @@ public class Request extends KiiModel implements Parcelable {
         return evaluatedDate;
     }
 
+    public void savePdf(final File pdfFile, final PdfUploadCallback callback) {
+        save(false, new KiiSaveCallback() {
+            @Override
+            public void success(int token, KiiObject object) {
+                object.uploadBody(pdfFile, PDF_CONTENT_TYPE, callback);
+            }
+
+            @Override
+            public void failure(@Nullable Exception e) {
+                callback.failure(new IllegalStateException("Failed to save fields before uploading Object body!"));
+            }
+        });
+    }
+
     public void setEvaluatedDate(String evaluatedDate) {
         this.evaluatedDate = evaluatedDate;
     }
@@ -230,4 +250,8 @@ public class Request extends KiiModel implements Parcelable {
             return new Request[size];
         }
     };
+
+    public interface PdfUploadCallback extends KiiObjectBodyCallback {
+        void failure(IllegalStateException e);
+    }
 }
