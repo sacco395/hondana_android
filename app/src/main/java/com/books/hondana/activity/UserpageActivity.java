@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,6 +42,7 @@ import com.kii.cloud.storage.query.KiiClause;
 import com.kii.cloud.storage.query.KiiQuery;
 import com.kii.cloud.storage.query.KiiQueryResult;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,8 +83,6 @@ public class UserpageActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
-
         //カメラボタン
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
@@ -104,22 +104,18 @@ public class UserpageActivity extends AppCompatActivity
         };
         drawer.setDrawerListener(toggle);
 
-        //         this, binding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        // binding.drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-        // ログインしてる名前を表示する
+
         TextView Username = (TextView)findViewById(R.id.user_name);
         Username.setText(user.getUsername ().toString());
-        //
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //navigationViewにアイコンここから
+
         View header = navigationView.getHeaderView(0);
-        final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
-//        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+        final ImageView navUserIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,13 +141,13 @@ public class UserpageActivity extends AppCompatActivity
 
         TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
         userName.setText(user.getUsername ().toString());
-        //navigationViewにアイコンここまで
 
         LinearLayout UserEdit = (LinearLayout)findViewById(R.id.user_edit);
 
         //評価機能がついたら復活
 //        LinearLayout Evaluation = (LinearLayout)findViewById(R.id.evaluation);
 //
+        assert UserEdit != null;
         UserEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,39 +167,31 @@ public class UserpageActivity extends AppCompatActivity
 //            }
 //        });
 
-//        ImageView userIcon2 = (ImageView)findViewById(R.id.user_icon);
-//        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon2);
-//        // binding.navView.setNavigationItemSelectedListener(this);
 
-        final ImageView userIcon2 = (ImageView) findViewById(R.id.user_icon);
-        final TextView tv_userProfile = (TextView) findViewById(R.id.tv_user_profile);
+        final ImageView userIcon = (ImageView) findViewById(R.id.user_icon);
 
-        final String userId = user.getID();
+        KiiUser kiiUser = KiiUser.getCurrentUser();
+        assert kiiUser != null;
+        String userId = kiiUser.getID();
+        LogUtil.d (TAG, "userID = " + userId);
         KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
-            @Override
-            public void success(int token, Member member) {
-                final String userProfile = member.getProfile();
-                tv_userProfile.setText(userProfile);
-                if (!member.hasValidImageUrl()) {
-                    return;
-                }
-                final String imageUrl = member.getImageUrl();
-                LogUtil.d(TAG, "imageUrl: " + imageUrl);
-                imageLoader.displayImage(imageUrl, userIcon);
-                imageLoader.displayImage(imageUrl, userIcon2);
-//ここからポイント表示
-                int user_point = member.getPoint();
-                String point = Integer.toString(user_point);
-                TextView tv_userPoint = (TextView) findViewById(R.id.user_point);
-                tv_userPoint.setText(point);
-//ここまでポイント表示
-            }
+                    @Override
+                    public void success(int token, Member member) {
+                        if (!member.hasValidImageUrl()) {
+                            return;
+                        }
 
-            @Override
-            public void failure(Exception e) {
-                LogUtil.w(TAG, e);
-            }
-        });
+                        final String imageUrl = member.getImageUrl();
+                        Log.d(TAG, "imageUrl: " + imageUrl);
+                        Picasso.with(UserpageActivity.this).load(imageUrl).into(navUserIcon);
+                        Picasso.with(UserpageActivity.this).load(imageUrl).into(userIcon);
+                    }
+
+                    @Override
+                    public void failure(Exception e) {
+                        Log.w(TAG, e);
+                    }
+                });
 
 //アダプターを作成します。newでクラスをインスタンス化しています。
         mAdapter = new BookRequestListAdapter(this);

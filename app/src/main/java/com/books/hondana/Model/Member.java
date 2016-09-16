@@ -53,7 +53,7 @@ public class Member extends KiiModel implements Parcelable {
      * @throws JSONException
      */
     public static Member createFrom(KiiObject kiiObject) throws JSONException {
-        return new Member();
+        return new Member(kiiObject);
     }
 
     /**
