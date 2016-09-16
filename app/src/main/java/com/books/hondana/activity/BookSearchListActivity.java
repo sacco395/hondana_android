@@ -15,13 +15,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.books.hondana.BookListAdapter;
-import com.books.hondana.Connection.BookSearchConnection;
-import com.books.hondana.Connection.GoogleBookSearch;
-import com.books.hondana.Connection.QueryParamSet;
-import com.books.hondana.Connection.RakutenBookSearch;
-import com.books.hondana.Connection.SearchAPI;
-import com.books.hondana.Model.Book;
-import com.books.hondana.Model.BookInfo;
+import com.books.hondana.connection.BookSearchConnection;
+import com.books.hondana.connection.GoogleBookSearch;
+import com.books.hondana.connection.QueryParamSet;
+import com.books.hondana.connection.RakutenBookSearch;
+import com.books.hondana.connection.SearchAPI;
+import com.books.hondana.model.Book;
+import com.books.hondana.model.BookInfo;
 import com.books.hondana.R;
 
 import java.util.ArrayList;

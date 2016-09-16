@@ -1,10 +1,10 @@
-package com.books.hondana.Model;
+package com.books.hondana.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
-import com.books.hondana.Model.abst.KiiModel;
+import com.books.hondana.model.abst.KiiModel;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;
@@ -65,7 +65,7 @@ public class Request extends KiiModel implements Parcelable {
 
     /**
      * Request を、新規に作成する。すでにサーバに保存されているオブジェクトの取得は、
-     * {@link com.books.hondana.Connection.KiiRequestConnection} を使用すること
+     * {@link com.books.hondana.connection.KiiRequestConnection} を使用すること
      * @param clientId KiiUser#getID
      * @param book リクエストの対象の本
      * @return

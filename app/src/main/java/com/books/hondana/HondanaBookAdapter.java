@@ -12,12 +12,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.books.hondana.Connection.KiiMemberConnection;
-import com.books.hondana.Connection.KiiObjectCallback;
-import com.books.hondana.Model.Book;
-import com.books.hondana.Model.BookCondition;
-import com.books.hondana.Model.BookInfo;
-import com.books.hondana.Model.Member;
+import com.books.hondana.connection.KiiMemberConnection;
+import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.model.Book;
+import com.books.hondana.model.BookCondition;
+import com.books.hondana.model.BookInfo;
+import com.books.hondana.model.Member;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

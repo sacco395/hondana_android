@@ -1,9 +1,9 @@
-package com.books.hondana.Model;
+package com.books.hondana.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.books.hondana.Model.abst.JSONConvertible;
+import com.books.hondana.model.abst.JSONConvertible;
 import com.books.hondana.R;
 
 import org.json.JSONException;

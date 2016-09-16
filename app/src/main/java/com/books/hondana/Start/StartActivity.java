@@ -1,4 +1,4 @@
-package com.books.hondana.Start;
+package com.books.hondana.start;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.view.View;
 
 import com.books.hondana.R;
 import com.books.hondana.activity.BookMainActivity;
-import com.books.hondana.Login_Register.LoginActivity;
-import com.books.hondana.Login_Register.RegisterActivity;
+import com.books.hondana.login_register.LoginActivity;
+import com.books.hondana.login_register.RegisterActivity;
 
 import java.util.ArrayList;
 import java.util.List;

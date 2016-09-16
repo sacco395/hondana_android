@@ -42,9 +42,9 @@ public class UploadPdfActivity extends AppCompatActivity {
         // Create an object in an application-scope bucket.
         KiiObject object = Kii.bucket("pdf").object();
 
-// Set key-value pairs.
+        // Set key-value pairs.
         object.set("pdf", "");
-// Save KiiObject
+        // Save KiiObject
         object.save(new KiiObjectCallBack() {
             @Override
             public void onSaveCompleted(int token, KiiObject object, Exception exception) {

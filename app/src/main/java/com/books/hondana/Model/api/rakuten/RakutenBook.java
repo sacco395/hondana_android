@@ -1,9 +1,9 @@
-package com.books.hondana.Model.api.rakuten;
+package com.books.hondana.model.api.rakuten;
 
-import com.books.hondana.Model.api.BaseBook;
-import com.books.hondana.Model.Book;
-import com.books.hondana.Model.BookInfo;
-import com.books.hondana.Model.GenreList;
+import com.books.hondana.model.api.BaseBook;
+import com.books.hondana.model.Book;
+import com.books.hondana.model.BookInfo;
+import com.books.hondana.model.GenreList;
 
 import org.json.JSONObject;
 

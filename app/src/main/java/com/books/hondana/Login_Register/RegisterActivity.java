@@ -17,7 +17,7 @@
 //
 //
 
-package com.books.hondana.Login_Register;
+package com.books.hondana.login_register;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -31,9 +31,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Model.exception.KiiModelException;
-import com.books.hondana.Model.Member;
-import com.books.hondana.Model.abst.KiiModel;
+import com.books.hondana.model.exception.KiiModelException;
+import com.books.hondana.model.Member;
+import com.books.hondana.model.abst.KiiModel;
 import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;

@@ -1,5 +1,5 @@
 //評価一覧
-package com.books.hondana.Evaluation;
+package com.books.hondana.evaluation;
 
 import android.Manifest;
 import android.content.Intent;
@@ -22,9 +22,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Connection.QueryParamSet;
-import com.books.hondana.Model.Book;
-import com.books.hondana.Model.BookInfo;
+import com.books.hondana.connection.QueryParamSet;
+import com.books.hondana.model.Book;
+import com.books.hondana.model.BookInfo;
 import com.books.hondana.R;
 import com.books.hondana.activity.BookDetailActivity;
 import com.books.hondana.activity.BookSearchListActivity;

@@ -1,9 +1,9 @@
-package com.books.hondana.Connection;
+package com.books.hondana.connection;
 
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.books.hondana.Model.Request;
+import com.books.hondana.model.Request;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;

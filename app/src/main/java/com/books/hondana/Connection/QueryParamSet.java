@@ -1,4 +1,4 @@
-package com.books.hondana.Connection;
+package com.books.hondana.connection;
 
 import java.io.Serializable;
 import java.util.HashMap;

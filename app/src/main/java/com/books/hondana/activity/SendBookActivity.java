@@ -13,8 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.books.hondana.Model.Request;
-import com.books.hondana.Model.abst.KiiModel;
+import com.books.hondana.model.Request;
+import com.books.hondana.model.abst.KiiModel;
 import com.books.hondana.R;
 import com.kii.cloud.storage.KiiObject;
 
@@ -42,13 +42,13 @@ public class SendBookActivity extends AppCompatActivity
 
         //上記のcreateIntentでデータを受け取る
         request = getIntent ().getParcelableExtra(Request.class.getSimpleName());
-//kiiBookがないのはおかしいのでcreateIntentを使うように怒る
+        //kiiBookがないのはおかしいのでcreateIntentを使うように怒る
         if (request == null) {
             throw new IllegalArgumentException ("createIntentを使ってください");
         }
 
         findViewById(R.id.buttonCancel).setOnClickListener(this);
-        findViewById(R.id.buttonSending).setOnClickListener(this);
+        findViewById(R.id.buttonSent).setOnClickListener(this);
 
 // ツールバーをアクションバーとしてセット
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar02);
@@ -65,7 +65,7 @@ public class SendBookActivity extends AppCompatActivity
                     finish();
                     break;
 
-                case R.id.buttonSending:
+                case R.id.buttonSent:
                     // クリック処理
                     saveSendDate ();
                     break;
@@ -106,7 +106,7 @@ public class SendBookActivity extends AppCompatActivity
             @Override
             public void failure(@Nullable Exception e) {
                 Log.e(TAG, "failure: ", e);
-                Toast.makeText(SendBookActivity.this, "本の発想に失敗しました。", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SendBookActivity.this, "本の発送に失敗しました。", Toast.LENGTH_SHORT).show();
             }
         });
     }

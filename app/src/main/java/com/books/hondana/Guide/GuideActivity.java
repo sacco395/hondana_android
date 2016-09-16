@@ -1,5 +1,5 @@
 //ガイド
-package com.books.hondana.Guide;
+package com.books.hondana.guide;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,14 +20,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Connection.KiiMemberConnection;
-import com.books.hondana.Connection.KiiObjectCallback;
-import com.books.hondana.Model.Member;
+import com.books.hondana.connection.KiiMemberConnection;
+import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.model.Member;
 import com.books.hondana.R;
-import com.books.hondana.Start.StartActivity;
+import com.books.hondana.start.StartActivity;
 import com.books.hondana.activity.BookMainActivity;
 import com.books.hondana.activity.InquiryActivity;
-import com.books.hondana.Setting.SettingActivity;
+import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.activity.UserpageActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;

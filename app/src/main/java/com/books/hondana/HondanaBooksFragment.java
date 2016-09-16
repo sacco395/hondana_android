@@ -13,10 +13,10 @@ import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.books.hondana.Connection.KiiBookConnection;
-import com.books.hondana.Connection.KiiObjectListCallback;
-import com.books.hondana.Model.Book;
-import com.books.hondana.Model.Genre;
+import com.books.hondana.connection.KiiBookConnection;
+import com.books.hondana.connection.KiiObjectListCallback;
+import com.books.hondana.model.Book;
+import com.books.hondana.model.Genre;
 import com.books.hondana.activity.BookInfoActivity;
 import com.books.hondana.util.LogUtil;
 

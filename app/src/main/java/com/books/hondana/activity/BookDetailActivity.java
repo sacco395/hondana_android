@@ -16,12 +16,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Model.Book;
-import com.books.hondana.Model.BookCondition;
-import com.books.hondana.Model.BookInfo;
-import com.books.hondana.Model.Size;
-import com.books.hondana.Model.Smell;
-import com.books.hondana.Model.abst.KiiModel;
+import com.books.hondana.model.Book;
+import com.books.hondana.model.BookCondition;
+import com.books.hondana.model.BookInfo;
+import com.books.hondana.model.Size;
+import com.books.hondana.model.Smell;
+import com.books.hondana.model.abst.KiiModel;
 import com.books.hondana.R;
 import com.books.hondana.util.DateUtil;
 import com.kii.cloud.storage.KiiObject;

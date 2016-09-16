@@ -1,7 +1,6 @@
-package com.books.hondana.Connection;
+package com.books.hondana.connection;
 
-import com.books.hondana.Model.abst.KiiModel;
-import com.kii.cloud.storage.KiiObject;
+import com.books.hondana.model.abst.KiiModel;
 
 /**
  * @author Tetsuro MIKAMI https://github.com/mickamy

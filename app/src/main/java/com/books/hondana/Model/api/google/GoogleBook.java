@@ -1,8 +1,8 @@
-package com.books.hondana.Model.api.google;
+package com.books.hondana.model.api.google;
 
-import com.books.hondana.Model.api.BaseBook;
-import com.books.hondana.Model.Book;
-import com.books.hondana.Model.BookInfo;
+import com.books.hondana.model.api.BaseBook;
+import com.books.hondana.model.Book;
+import com.books.hondana.model.BookInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;

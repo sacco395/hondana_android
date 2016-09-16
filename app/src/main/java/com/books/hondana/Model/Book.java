@@ -1,9 +1,9 @@
-package com.books.hondana.Model;
+package com.books.hondana.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.books.hondana.Model.abst.KiiModel;
+import com.books.hondana.model.abst.KiiModel;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;
@@ -35,7 +35,7 @@ public class Book extends KiiModel implements Parcelable {
     /**
      * 新規に Book オブジェクトを生成する
      * KiiCloud にすでに保存されている場合は、
-     * {@link com.books.hondana.Connection.KiiBookConnection} を使用する事
+     * {@link com.books.hondana.connection.KiiBookConnection} を使用する事
      * @return
      */
     public static Book createNew() {

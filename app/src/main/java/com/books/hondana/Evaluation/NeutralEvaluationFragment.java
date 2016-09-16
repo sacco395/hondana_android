@@ -1,4 +1,4 @@
-package com.books.hondana.Evaluation;
+package com.books.hondana.evaluation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import com.books.hondana.Evaluation.EvaluationListViewAdapter;
 import com.books.hondana.R;
 import com.books.hondana.activity.SelectedBooksActivity;
 

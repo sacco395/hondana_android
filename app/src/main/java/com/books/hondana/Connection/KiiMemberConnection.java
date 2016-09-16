@@ -1,18 +1,15 @@
-package com.books.hondana.Connection;
+package com.books.hondana.connection;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.books.hondana.Model.Member;
-import com.books.hondana.Model.abst.KiiModel;
+import com.books.hondana.model.Member;
+import com.books.hondana.model.abst.KiiModel;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
 
 import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * KiiCloud 上の Member を取得するためのクラス

@@ -1,13 +1,9 @@
-package com.books.hondana.Model;
+package com.books.hondana.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.books.hondana.Model.abst.JSONConvertible;
 import com.kii.cloud.storage.KiiObject;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
