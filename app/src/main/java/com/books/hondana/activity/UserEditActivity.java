@@ -255,7 +255,7 @@ public class UserEditActivity extends AppCompatActivity {
         LogUtil.d(TAG, "name: " + kiiUser);
         //Json形式でKeyのprofileをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
         object.set ("profile", profile);
-        object.set("image_Url", url);
+        object.set("image_url", url);
 
         //データをKiiCloudに保存
         object.save (new KiiObjectCallBack () {
