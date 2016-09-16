@@ -1,5 +1,5 @@
 //本の受け取り完了（発送者への評価）
-package com.books.hondana.activity;
+package com.books.hondana.Evaluation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import com.books.hondana.Model.Request;
 import com.books.hondana.Model.abst.KiiModel;
 import com.books.hondana.Model.Book;
 import com.books.hondana.R;
+import com.books.hondana.activity.BookMainActivity;
 import com.kii.cloud.storage.KiiObject;
 
 import java.text.SimpleDateFormat;

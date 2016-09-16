@@ -1,4 +1,4 @@
-package com.books.hondana.activity;
+package com.books.hondana.Guide;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

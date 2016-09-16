@@ -21,8 +21,11 @@ import android.widget.Toast;
 
 import com.books.hondana.Connection.KiiMemberConnection;
 import com.books.hondana.Connection.KiiObjectCallback;
+import com.books.hondana.Guide.GuideActivity;
 import com.books.hondana.Model.Member;
 import com.books.hondana.R;
+import com.books.hondana.Setting.SettingActivity;
+import com.books.hondana.Start.StartActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.squareup.picasso.Picasso;

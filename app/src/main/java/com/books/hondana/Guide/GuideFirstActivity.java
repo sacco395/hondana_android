@@ -1,4 +1,4 @@
-package com.books.hondana.activity;
+package com.books.hondana.Guide;
 
 import android.app.Activity;
 import android.os.Bundle;

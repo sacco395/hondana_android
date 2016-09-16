@@ -23,6 +23,7 @@ import com.books.hondana.Model.Request;
 import com.books.hondana.Model.Size;
 import com.books.hondana.Model.Smell;
 import com.books.hondana.R;
+import com.books.hondana.Start.StartActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.nostra13.universalimageloader.core.ImageLoader;

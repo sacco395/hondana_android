@@ -1,5 +1,5 @@
 //ガイド
-package com.books.hondana.activity;
+package com.books.hondana.Guide;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +24,11 @@ import com.books.hondana.Connection.KiiMemberConnection;
 import com.books.hondana.Connection.KiiObjectCallback;
 import com.books.hondana.Model.Member;
 import com.books.hondana.R;
+import com.books.hondana.Start.StartActivity;
+import com.books.hondana.activity.BookMainActivity;
+import com.books.hondana.activity.InquiryActivity;
+import com.books.hondana.Setting.SettingActivity;
+import com.books.hondana.activity.UserpageActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.nostra13.universalimageloader.core.ImageLoader;

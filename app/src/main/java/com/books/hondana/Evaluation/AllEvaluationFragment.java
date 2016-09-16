@@ -1,4 +1,4 @@
-package com.books.hondana;
+package com.books.hondana.Evaluation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.books.hondana.R;
 import com.books.hondana.activity.SelectedBooksActivity;
 
 
@@ -80,7 +81,7 @@ public class AllEvaluationFragment extends Fragment
             super.onViewCreated(view, savedInstanceState);
 
             ListView listView = (ListView) view.findViewById(R.id.list);
-            adapter = new EvaluationListViewAdapter (this.getContext(), R.layout.part_evaluation_list, scenes, authors, comments, date, photos);
+            adapter = new EvaluationListViewAdapter(this.getContext(), R.layout.part_evaluation_list, scenes, authors, comments, date, photos);
 
             // ListViewにadapterをセット
             listView.setAdapter(adapter);

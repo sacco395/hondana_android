@@ -17,7 +17,7 @@
 //
 //
 
-package com.books.hondana.activity;
+package com.books.hondana.Login_Register;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -34,6 +34,7 @@ import com.books.hondana.Connection.KiiMemberConnection;
 import com.books.hondana.Connection.KiiObjectCallback;
 import com.books.hondana.Model.Member;
 import com.books.hondana.R;
+import com.books.hondana.activity.BookMainActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.kii.cloud.storage.callback.KiiUserCallBack;
