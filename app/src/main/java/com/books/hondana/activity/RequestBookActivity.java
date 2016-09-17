@@ -195,32 +195,6 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         });
     }
 
-    /*//投稿処理。画像のUploadがうまくいったときは、urlに公開のURLがセットされる
-    public void postUrl(String url) {
-        //バケット名を設定。
-        KiiObject object = Kii.bucket("members").object();
-        //Json形式でKeyのcommentをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
-        object.set ("url_Pdf", url);
-
-        //データをKiiCloudに保存
-        object.save (new KiiObjectCallBack () {
-            //保存結果が帰ってくるコールバック関数。自動的に呼び出される。
-            @Override
-            public void onSaveCompleted(int token, KiiObject object, Exception exception) {
-                //エラーがないとき
-                if (exception == null) {
-                    // Intent のインスタンスを取得する。getApplicationContext()で自分のコンテキストを取得。遷移先のアクティビティーを.classで指定
-                    Intent intent = new Intent (getApplicationContext (), RequestBookActivity.class);
-                    //Activityを終了します。
-                    finish ();
-                } else {
-                    LogUtil.e (TAG, "投稿されません。。。", exception);
-//
-                }
-            }
-        });
-    }*/
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

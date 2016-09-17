@@ -330,13 +330,6 @@ public class UserEditActivity extends AppCompatActivity {
 
                 } else {
                     LogUtil.d(TAG, ("公開されないっす"));
-//                    //失敗の時
-//                    Throwable cause = e.getCause();
-//                    if (cause instanceof CloudExecutionException)
-//                        showAlert(Util
-//                                .generateAlertMessage((CloudExecutionException) cause));
-//                    else
-//                        showAlert(e.getLocalizedMessage());
                 }
             }
         });

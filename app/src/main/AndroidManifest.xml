@@ -160,8 +160,6 @@
         </activity>
         <activity android:name=".evaluation.EvaluatedActivity">
         </activity>
-        <activity android:name=".activity.UploadPdfActivity">
-        </activity>
     </application>
 
 </manifest>
