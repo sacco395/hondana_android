@@ -126,7 +126,7 @@ public class BookMainActivity extends AppCompatActivity
                         }
                     });
                     TextView userName = (TextView) drawerView.findViewById(R.id.tv_user_name);
-                    userName.setText(kiiUser.getUsername().toString());
+                    userName.setText(kiiUser.getUsername());
                 }
             }
         };
@@ -163,6 +163,7 @@ public class BookMainActivity extends AppCompatActivity
         //navigationViewにアイコンここまで
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        assert viewPager != null;
         viewPager.setAdapter( new BookMainFragmentPagerAdapter( getSupportFragmentManager()));
 
     }
@@ -170,6 +171,7 @@ public class BookMainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
 

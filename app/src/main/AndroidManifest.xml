@@ -135,10 +135,10 @@
             android:name=".activity.InfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".login_register.RegisterActivity"
+            android:name=".login.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".login_register.LoginActivity"
+            android:name=".login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".start.StartActivity"
