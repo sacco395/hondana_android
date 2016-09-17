@@ -1,15 +1,15 @@
-package com.books.hondana.activity;
+package com.books.hondana.guide;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.books.hondana.R;
 
-public class GuideBukuActivity extends AppCompatActivity {
+public class GuideSendingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guide_buku);
+        setContentView(R.layout.activity_guide_sending);
     }
 }

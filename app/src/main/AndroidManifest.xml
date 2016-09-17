@@ -28,16 +28,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.PhoneAuthActivity"
+            android:name=".login_register.PhoneAuthActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BookMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.GuideFirstActivity"
+            android:name=".guide.GuideFirstActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.GuidePassActivity"
+            android:name=".guide.GuidePassActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.InquiryActivity"
@@ -64,23 +64,23 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.GuideActivity"
+            android:name=".guide.GuideActivity"
             android:label="@string/title_activity_guide"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.SettingActivity"
+            android:name=".setting.SettingActivity"
             android:label="@string/title_activity_set"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.SettingMailActivity"
+            android:name=".setting.SettingMailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SettingAddressActivity"
+            android:name=".setting.SettingAddressActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.EvaluationActivity"
+            android:name=".evaluation.EvaluationActivity"
             android:label="@string/title_activity_evaluation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -135,30 +135,30 @@
             android:name=".activity.InfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name=".login_register.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".login_register.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.StartActivity"
+            android:name=".start.StartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.BookInfoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.GuideRegisterActivity"
+        <activity android:name=".guide.GuideRegisterActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.GuideBukuActivity"
+        <activity android:name=".guide.GuideBukuActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.GuideSendingActivity"
+        <activity android:name=".guide.GuideSendingActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.UserEditActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.EvaluatedActivity">
+        <activity android:name=".evaluation.EvaluatedActivity">
         </activity>
         <activity android:name=".activity.UploadPdfActivity">
         </activity>

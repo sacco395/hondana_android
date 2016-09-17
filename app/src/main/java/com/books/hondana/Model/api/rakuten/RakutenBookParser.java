@@ -1,7 +1,7 @@
-package com.books.hondana.Model.api.rakuten;
+package com.books.hondana.model.api.rakuten;
 
-import com.books.hondana.Model.api.JsonParser;
-import com.books.hondana.Model.Book;
+import com.books.hondana.model.api.JsonParser;
+import com.books.hondana.model.Book;
 
 import org.json.JSONArray;
 import org.json.JSONException;

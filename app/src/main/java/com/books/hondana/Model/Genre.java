@@ -1,4 +1,4 @@
-package com.books.hondana.Model;
+package com.books.hondana.model;
 
 import com.kii.cloud.storage.query.KiiClause;
 
@@ -43,8 +43,8 @@ public enum Genre {
             case LITERATURE: return new String[]{ "001004", "001008" };
             case BUSINESS: return new String[]{ "001006" };
             case TECHNOLOGY: return new String[]{ "001005", "001012" };
-            case ART: return new String[]{ "001009", "001013", "001027" };
-            case POCKET_EDITION: return new String[]{ "001019" };
+            case ART: return new String[]{ "001009001", "001009002", "001009003", "001009004", "001009005", "001009006", "001009007", "001009008", "001009009", "001009010", "001009011", "001009012", "001009013", "001009014", "001009015", "001013", "001027" };
+            case POCKET_EDITION: return new String[]{ "001019", "001019001", "001019002", "001019003","001019005", "001019006", "001019007", "001019008", "001019009", "001019010", "001019011", "001019012", "001019013", "001019014", "001019015" };
             case PAPERBACK: return new String[]{ "001020" };
             case COMIC: return new String[]{ "001001", "001017", "001021", "001025" };
             case OTHERS: return new String[]{ "001002", "001003", "001007", "001010", "001011", "001016", "001018", "001022", "001023", "001026", "001028" };

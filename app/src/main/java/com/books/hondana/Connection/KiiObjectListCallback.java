@@ -1,8 +1,8 @@
-package com.books.hondana.Connection;
+package com.books.hondana.connection;
 
 import android.support.annotation.Nullable;
 
-import com.books.hondana.Model.abst.KiiModel;
+import com.books.hondana.model.abst.KiiModel;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.books.hondana;
+package com.books.hondana.evaluation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,22 +10,25 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.books.hondana.R;
 import com.books.hondana.activity.SelectedBooksActivity;
 
-public class NeutralEvaluationFragment extends Fragment
+public class GoodEvaluationFragment extends Fragment
         implements AdapterView.OnItemClickListener {
     private BaseAdapter adapter;
     // Isle of Wight in U.K.
     private static final String[] evaluations = {
             // Scenes of Isle of Wight
-            "普通 : 送った相手",
-            "普通 : 送ってもらった相手",
+            "良い : 送った相手",
+            "良い : 送ってもらった相手",
+            "良い : 送った相手",
     };
 
     private static final String[] users = {
             // Scenes of Isle of Wight
-            "たく",
-            "ポニータ",
+            "スピカ",
+            "らっこ",
+            "さきこ",
     };
 
 
@@ -33,15 +36,18 @@ public class NeutralEvaluationFragment extends Fragment
             // Scenes of Isle of Wight
             "本日届きました。ありがとうございました。",
             "",
+            "また機会がありましたらよろしくお願いします。",
     };
 
     private static final String[] date = {
             // Scenes of Isle of Wight
             "2016.00.00 00:00",
             "2016.00.00 00:00",
+            "2016.00.00 00:00",
     };
     // ちょっと冗長的ですが分かり易くするために
     private static final int[] photos = {
+            R.drawable.usericon,
             R.drawable.usericon,
             R.drawable.usericon,
     };
@@ -59,7 +65,7 @@ public class NeutralEvaluationFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         ListView listView = (ListView) view.findViewById(R.id.list);
-        adapter = new EvaluationListViewAdapter (this.getContext(), R.layout.part_evaluation_list, evaluations, users, comments, date, photos);
+        adapter = new EvaluationListViewAdapter(this.getContext(), R.layout.part_evaluation_list, evaluations, users, comments, date, photos);
 
         // ListViewにadapterをセット
         listView.setAdapter(adapter);

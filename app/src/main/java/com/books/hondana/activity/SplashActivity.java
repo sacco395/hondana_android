@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+
+import com.books.hondana.start.StartActivity;
 import com.books.hondana.util.LogUtil;
 
 import com.books.hondana.R;

@@ -1,10 +1,10 @@
-package com.books.hondana.Connection;
+package com.books.hondana.connection;
 
 import android.util.Log;
 
-import com.books.hondana.Model.Book;
-import com.books.hondana.Model.Genre;
-import com.books.hondana.Model.abst.KiiModel;
+import com.books.hondana.model.Book;
+import com.books.hondana.model.Genre;
+import com.books.hondana.model.abst.KiiModel;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;

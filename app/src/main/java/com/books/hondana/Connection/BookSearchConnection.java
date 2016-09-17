@@ -1,10 +1,10 @@
-package com.books.hondana.Connection;
+package com.books.hondana.connection;
 
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.app.ProgressDialog;
 
-import com.books.hondana.Model.Book;
+import com.books.hondana.model.Book;
 
 import java.util.List;
 

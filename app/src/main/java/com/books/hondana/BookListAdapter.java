@@ -8,8 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.books.hondana.Model.Book;
-import com.books.hondana.Model.BookInfo;
+import com.books.hondana.model.Book;
+import com.books.hondana.model.BookInfo;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 

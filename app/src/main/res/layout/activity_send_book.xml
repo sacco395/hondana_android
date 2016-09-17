@@ -154,7 +154,7 @@
                 android:layout_width="0dip"
                 android:layout_weight="1.0"
                 android:layout_height="wrap_content"
-                android:id="@+id/buttonSending"
+                android:id="@+id/buttonSent"
                 android:text="@string/buttonSending"
                 android:background="#2FCDB4" />
 

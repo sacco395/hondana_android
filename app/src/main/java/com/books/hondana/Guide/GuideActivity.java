@@ -1,5 +1,5 @@
-//設定
-package com.books.hondana.activity;
+//ガイド
+package com.books.hondana.guide;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,29 +20,34 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.Connection.KiiMemberConnection;
-import com.books.hondana.Connection.KiiObjectCallback;
-import com.books.hondana.Model.Member;
+import com.books.hondana.connection.KiiMemberConnection;
+import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.model.Member;
 import com.books.hondana.R;
+import com.books.hondana.start.StartActivity;
+import com.books.hondana.activity.BookMainActivity;
+import com.books.hondana.activity.InquiryActivity;
+import com.books.hondana.setting.SettingActivity;
+import com.books.hondana.activity.UserpageActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class SettingActivity extends AppCompatActivity
+public class GuideActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "SettingActivity";
-
+    private static final String TAG = GuideActivity.class.getSimpleName();
+    //    private static final String TAG = "GuideActivity";
     final ImageLoader imageLoader = ImageLoader.getInstance();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_guide);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("設定");
+        toolbar.setTitle("ガイド");
         setSupportActionBar(toolbar);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,6 +56,30 @@ public class SettingActivity extends AppCompatActivity
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 setProfileInMenu(drawerView);
+                final ImageView userIcon = (ImageView) drawerView.findViewById(R.id.iv_user_icon);
+                KiiUser kiiUser = KiiUser.getCurrentUser();
+                LogUtil.d(TAG, "kiiUser: " + kiiUser);
+                if (kiiUser != null) {
+                    final String userId = kiiUser.getID();
+                    KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
+                        @Override
+                        public void success(int token, Member member) {
+                            if (!member.hasValidImageUrl()) {
+                                return;
+                            }
+                            final String imageUrl = member.getImageUrl();
+                            LogUtil.d(TAG, "imageUrl: " + imageUrl);
+                            imageLoader.displayImage(imageUrl, userIcon);
+                        }
+
+                        @Override
+                        public void failure(Exception e) {
+
+                        }
+                    });
+                    TextView userName = (TextView) drawerView.findViewById(R.id.tv_user_name);
+                    userName.setText(kiiUser.getUsername().toString());
+                }
             }
         };
         drawer.setDrawerListener(toggle);
@@ -63,43 +91,36 @@ public class SettingActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //navigationViewにアイコンと名前ここから
-        KiiUser user = KiiUser.getCurrentUser();
+        //navigationViewにアイコンここから
         View header = navigationView.getHeaderView(0);
-        final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
+//        ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
 //        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
-        final String userId = user.getID();
-        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
-            @Override
-            public void success(int token, Member member) {
-                if (!member.hasValidImageUrl()) {
-                    return;
-                }
-                final String imageUrl = member.getImageUrl();
-                LogUtil.d(TAG, "imageUrl: " + imageUrl);
-                imageLoader.displayImage(imageUrl, userIcon);
-            }
-
-            @Override
-            public void failure(Exception e) {
-                Log.w(TAG, "failure: ", e);
-            }
-        });
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.d(TAG, "onClick: User click!");
+                KiiUser kiiUser = KiiUser.getCurrentUser();
+                LogUtil.d(TAG, "kiiUser: " + kiiUser);
+
+                if (kiiUser != null) {
+                    Intent intent = new Intent(GuideActivity.this,
+                            UserpageActivity.class);
+                    GuideActivity.this.startActivity(intent);
+
+                } else {
+                    Intent intent = new Intent(GuideActivity.this,
+                            StartActivity.class);
+                    GuideActivity.this.startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
             }
         });
-
-        TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
-        userName.setText(user.getUsername().toString());
-        //navigationViewにアイコンと名前ここまで
+        //navigationViewにアイコンここまで
 
         // binding.navView.setNavigationItemSelectedListener(this);
 
+//        ガイドページの項目のリストビュー
         ListView list = (ListView) findViewById(R.id.list_view);
-        String[] item01 = getResources().getStringArray(R.array.array02);
+        String[] item01 = getResources().getStringArray(R.array.array01);
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, item01);
         list.setAdapter(adapter);
@@ -114,13 +135,19 @@ public class SettingActivity extends AppCompatActivity
 
                 switch (position) {
                     case 0:
-                        intent.setClass(SettingActivity.this, UserEditActivity.class);
+                        intent.setClass(GuideActivity.this, GuideFirstActivity.class);
                         break;
                     case 1:
-                        intent.setClass(SettingActivity.this, SettingMailActivity.class);
+                        intent.setClass(GuideActivity.this, GuidePassActivity.class);
                         break;
                     case 2:
-                        intent.setClass(SettingActivity.this, SettingAddressActivity.class);
+                        intent.setClass(GuideActivity.this, GuideRegisterActivity.class);
+                        break;
+                    case 3:
+                        intent.setClass(GuideActivity.this, GuideBukuActivity.class);
+                        break;
+                    case 4:
+                        intent.setClass(GuideActivity.this, GuideSendingActivity.class);
                         break;
                 }
                 intent.putExtra("SELECTED_DATA", strData);
@@ -167,7 +194,6 @@ public class SettingActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        LogUtil.d(TAG, "onClick");
         KiiUser kiiUser = KiiUser.getCurrentUser ();
         LogUtil.d (TAG, "kiiUser: " + kiiUser);
 
@@ -197,6 +223,7 @@ public class SettingActivity extends AppCompatActivity
 //            }
 //一時的にコメントアウト
 
+
         } else if (id == R.id.nav_transaction) {
 //            if (kiiUser != null) {
 //                Intent intent = new Intent(this, RequestActivity.class);
@@ -207,6 +234,7 @@ public class SettingActivity extends AppCompatActivity
 //                showToast("会員登録をお願いします！");
 //            }
 //一時的にコメントアウト
+
 
         } else if (id == R.id.nav_set) {
             if (kiiUser != null) {
@@ -233,7 +261,6 @@ public class SettingActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
     void setProfileInMenu(View drawerView) {
 //        tvUserName.setText(user.getName());
 //        Picasso.with(this)
@@ -243,16 +270,15 @@ public class SettingActivity extends AppCompatActivity
         TextView tvUserName = (TextView) drawerView.findViewById(R.id.tv_user_name);
         ImageView ivUserIcon = (ImageView) drawerView.findViewById(R.id.iv_user_icon);
 
-        llUserContainer.setOnClickListener(new View.OnClickListener() {
+        /*llUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LogUtil.d(TAG, "onClick");
-                Intent intent = new Intent(SettingActivity.this, UserpageActivity.class);
+                Intent intent = new Intent(GuideActivity.this, UserpageActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
-
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }

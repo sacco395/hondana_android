@@ -1,10 +1,10 @@
-package com.books.hondana.Model;
+package com.books.hondana.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.books.hondana.Model.abst.KiiModel;
-import com.books.hondana.Model.exception.KiiModelException;
+import com.books.hondana.model.abst.KiiModel;
+import com.books.hondana.model.exception.KiiModelException;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;
@@ -59,7 +59,7 @@ public class Member extends KiiModel implements Parcelable {
     /**
      * KiiUser から Member を新規生成
      * KiiCloud にすでに保存してあるものを取得する場合は、
-     * {@link com.books.hondana.Connection.KiiMemberConnection} を使用すること
+     * {@link com.books.hondana.connection.KiiMemberConnection} を使用すること
      * @param kiiUser id, name を取得し、生成される Member にセット
      * @return KiiObject を source フィールドに持ち、id, name は KiiUser と同一のものを持つ
      * @throws KiiModelException id が無効な場合

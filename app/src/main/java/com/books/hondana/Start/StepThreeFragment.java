@@ -1,10 +1,12 @@
-package com.books.hondana;
+package com.books.hondana.start;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.books.hondana.R;
 
 
 public class StepThreeFragment extends Fragment {
