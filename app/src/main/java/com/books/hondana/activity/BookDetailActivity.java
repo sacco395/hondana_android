@@ -16,14 +16,18 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.R;
+import com.books.hondana.connection.KiiMemberConnection;
+import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookCondition;
 import com.books.hondana.model.BookInfo;
+import com.books.hondana.model.Member;
 import com.books.hondana.model.Size;
 import com.books.hondana.model.Smell;
 import com.books.hondana.model.abst.KiiModel;
-import com.books.hondana.R;
 import com.books.hondana.util.DateUtil;
+import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -99,20 +103,20 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 //本の状態ラジオボタンここから
 		((RadioGroup)findViewById(R.id.rCondition)).setOnCheckedChangeListener
 				(new RadioGroup.OnCheckedChangeListener () {
-			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				if(checkedId == R.id.cond_excellent){
-					//１つめを選択
-					condition.setEvaluation(BookCondition.EVALUATION_EXCELLENT);
-				}else if(checkedId == R.id.cond_good){
-					//２つめを選択
-					condition.setEvaluation(BookCondition.EVALUATION_GOOD);
-				}else if(checkedId == R.id.cond_bad){
-					//３つめを選択
-					condition.setEvaluation(BookCondition.EVALUATION_BAD);
-				}
-			}
+					public void onCheckedChanged(RadioGroup group, int checkedId) {
+						if(checkedId == R.id.cond_excellent){
+							//１つめを選択
+							condition.setEvaluation(BookCondition.EVALUATION_EXCELLENT);
+						}else if(checkedId == R.id.cond_good){
+							//２つめを選択
+							condition.setEvaluation(BookCondition.EVALUATION_GOOD);
+						}else if(checkedId == R.id.cond_bad){
+							//３つめを選択
+							condition.setEvaluation(BookCondition.EVALUATION_BAD);
+						}
+					}
 
-		});
+				});
 //本の状態ラジオボタンここまで
 //書き込み線ラジオボタンここから
 		((RadioGroup)findViewById(R.id.rLined)).setOnCheckedChangeListener
@@ -171,22 +175,22 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 		btnAddKiiCloud.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-		//備考欄のテキストここから
+				//備考欄のテキストここから
 				EditText noteField = (EditText) (findViewById (R.id.edtNote));
 				assert noteField != null;
 				String noteStr = noteField.getText().toString ();
 				// 入力された文字を取得して保存
 				condition.setNote(noteStr);
-		//備考欄のテキストここまで
+				//備考欄のテキストここまで
 
 				Size size = info.getSize();
 
-		//本のサイズここから
+				//本のサイズここから
 				EditText heightField = (EditText) (findViewById(R.id.Height));
 				String heightStr = heightField.getText().toString();
 				double height = getValidDouble(heightStr);
 				size.setHeight(height);
-		// 入力された文字を取得して保存
+				// 入力された文字を取得して保存
 
 
 				EditText widthField = (EditText) (findViewById(R.id.Wide));
@@ -203,7 +207,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 				String weightStr = weightField.getText().toString();
 				double weight = getValidDouble(weightStr);
 				size.setWeight(weight);
-		//本のサイズここまで
+				//本のサイズここまで
 
 				KiiUser user = KiiUser.getCurrentUser();
 				if (user == null || user.getID() == null) {
@@ -211,6 +215,41 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 					Toast.makeText(BookDetailActivity.this, "エラー: ユーザ情報が取得できません", Toast.LENGTH_SHORT).show();
 					return;
 				}
+				KiiUser kiiUser = KiiUser.getCurrentUser();
+				assert kiiUser != null;
+				String userId = kiiUser.getID();
+				LogUtil.d (TAG, "userID = " + userId);
+				KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
+					@Override
+					public void success(int token, Member member) {
+						if (!member.hasValidImageUrl()) {
+							return;
+						}
+
+						final String ownerImageUrl = member.getImageUrl();
+						Log.d(TAG, "imageUrl: " + ownerImageUrl);
+						targetBook.setOwnerImageUrl(ownerImageUrl);
+						targetBook.save(false, new KiiModel.KiiSaveCallback() {
+							@Override
+							public void success(int token, KiiObject object) {
+								Intent intent = new Intent();
+								setResult(Activity.RESULT_OK, intent);
+								finish();
+							}
+
+							@Override
+							public void failure(@Nullable Exception e) {
+
+							}
+						});
+					}
+
+					@Override
+					public void failure(Exception e) {
+
+					}
+				});
+
 				targetBook.setOwnerId(user.getID());
 				info.setSize(size);
 				targetBook.setInfo(info);
