@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -63,27 +64,17 @@ public class SwapBookActivity extends AppCompatActivity
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
 
-    // Search Param
-    private String search_Isbn;
-
-    //    private String search_Keyword;
-    private FloatingActionButton mFab;
-
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swap_book);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("交換した本");
         setSupportActionBar(toolbar);
 
         //カメラボタン
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +91,7 @@ public class SwapBookActivity extends AppCompatActivity
                 setProfileInMenu(drawerView);
             }
         };
+        assert drawer != null;
         drawer.setDrawerListener(toggle);
 
         //         this, binding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -107,6 +99,7 @@ public class SwapBookActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
         //navigationViewにアイコンと名前ここから
@@ -114,6 +107,7 @@ public class SwapBookActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
 //        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+        assert user != null;
         final String userId = user.getID();
         KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
@@ -140,18 +134,18 @@ public class SwapBookActivity extends AppCompatActivity
         });
 
         TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
-        userName.setText(user.getUsername().toString());
+        userName.setText(user.getUsername());
         //navigationViewにアイコンと名前ここまで
 
         // binding.navView.setNavigationItemSelectedListener(this);
 
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        assert tabLayout != null;
         tabLayout.setupWithViewPager(viewPager);
-
     }
 
         private void setupViewPager(ViewPager viewPager) {
@@ -194,6 +188,7 @@ public class SwapBookActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -241,7 +236,7 @@ public class SwapBookActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,  String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case ZXING_CAMERA_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -252,7 +247,6 @@ public class SwapBookActivity extends AppCompatActivity
                 } else {
                     Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
                 }
-                return;
         }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -289,11 +283,10 @@ public class SwapBookActivity extends AppCompatActivity
         String format = extras.getString("READ_FORMAT");
         Toast.makeText(this, "Contents = " + code +
                 ", Format = " + format, Toast.LENGTH_SHORT).show();
-        this.search_Isbn = code;
         // 書籍情報を検索
         Intent intent = new Intent(SwapBookActivity.this,BookSearchListActivity.class);
         QueryParamSet queryParamSet = new QueryParamSet();
-        queryParamSet.addQueryParam(BookInfo.ISBN,this.search_Isbn);
+        queryParamSet.addQueryParam(BookInfo.ISBN, code);
         intent.putExtra(QueryParamSet.class.getSimpleName(), queryParamSet );
         startActivityForResult(intent, ACT_BOOK_SEARCH_LIST);
     }
@@ -343,6 +336,7 @@ public class SwapBookActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

@@ -40,6 +40,7 @@ public class InquiryActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inquiry);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        assert toolbar != null;
         toolbar.setTitle("お問い合わせ");
         setSupportActionBar(toolbar);
 
@@ -77,10 +78,11 @@ public class InquiryActivity extends AppCompatActivity
                         }
                     });
                     TextView userName = (TextView) drawerView.findViewById(R.id.tv_user_name);
-                    userName.setText(kiiUser.getUsername().toString());
+                    userName.setText(kiiUser.getUsername());
                 }
             }
         };
+        assert drawer != null;
         drawer.setDrawerListener(toggle);
 
         //         this, binding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -88,6 +90,7 @@ public class InquiryActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
         //navigationViewにアイコンここから
@@ -146,6 +149,7 @@ public class InquiryActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -244,6 +248,7 @@ public class InquiryActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

@@ -31,7 +31,6 @@ public class HondanaBooksFragment extends Fragment {
 
     private Genre mGenre;
 
-    private GridView mGridView;
     private HondanaBookAdapter mGridAdapter;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -74,7 +73,7 @@ public class HondanaBooksFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_kii_books, container, false);
 
         // Inflate the layout for this fragment
-        mGridView = (GridView) view.findViewById(R.id.gridView);
+        GridView mGridView = (GridView) view.findViewById(R.id.gridView);
         mGridView.setAdapter(mGridAdapter);
 
         // SwipeRefreshLayoutの設定

@@ -15,7 +15,6 @@ import com.books.hondana.activity.SelectedBooksActivity;
 
 public class NeutralEvaluationFragment extends Fragment
         implements AdapterView.OnItemClickListener {
-    private BaseAdapter adapter;
     // Isle of Wight in U.K.
     private static final String[] evaluations = {
             // Scenes of Isle of Wight
@@ -60,7 +59,7 @@ public class NeutralEvaluationFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         ListView listView = (ListView) view.findViewById(R.id.list);
-        adapter = new EvaluationListViewAdapter(this.getContext(), R.layout.part_evaluation_list, evaluations, users, comments, date, photos);
+        BaseAdapter adapter = new EvaluationListViewAdapter(this.getContext(), R.layout.part_evaluation_list, evaluations, users, comments, date, photos);
 
         // ListViewにadapterをセット
         listView.setAdapter(adapter);

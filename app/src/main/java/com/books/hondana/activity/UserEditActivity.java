@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -148,6 +149,7 @@ public class UserEditActivity extends AppCompatActivity {
             }
             //画面に画像を表示
             ImageView iv = (ImageView) findViewById (R.id.image_view1);
+            assert iv != null;
             iv.setImageURI (result);
 
 
@@ -169,7 +171,7 @@ public class UserEditActivity extends AppCompatActivity {
                 //ビットマップを取得
                 Bitmap bmp = MediaStore.Images.Media.getBitmap (
                         this.getContentResolver (), selectedFileUri);
-                //一時保存するディレクトリ。アプリに応じてgsappの部分を変更したほうが良い
+                //一時保存するディレクトリ。
                 String cacheDir = getCacheDir () + File.separator + "hondana";
                 //ディレクトリ作成
                 File createDir = new File (cacheDir);
@@ -214,8 +216,7 @@ public class UserEditActivity extends AppCompatActivity {
                     return null;
                 }
                 //これがファイルのパス
-                String picturePath = cursor.getString (columnIndex);
-                return picturePath;
+                return cursor.getString (columnIndex);
             } finally {
                 cursor.close ();
             }
@@ -226,6 +227,7 @@ public class UserEditActivity extends AppCompatActivity {
     public void onPostButtonClicked(View v) {
         //入力文字を得る
         EditText mCommentField = (EditText) (findViewById (R.id.comment_field));
+        assert mCommentField != null;
         profile = mCommentField.getText ().toString ();
         LogUtil.d ("comment", ":" + profile + ":");
 
@@ -289,11 +291,8 @@ public class UserEditActivity extends AppCompatActivity {
         object.set("image", "");
         object.save (new KiiObjectCallBack () {
             @Override
-            public void onSaveCompleted(int token, KiiObject object, Exception exception) {
-                if (exception != null) {
-                    // Error handling
-                    return;
-                }
+            public void onSaveCompleted(int token, @NonNull KiiObject object, Exception exception) {
+
             }
         });
 
@@ -317,7 +316,7 @@ public class UserEditActivity extends AppCompatActivity {
                                 // ObjectBodyの公開設定する
                                 object.publishBody (new KiiObjectPublishCallback () {
                                     @Override
-                                    public void onPublishCompleted(String url, KiiObject kiiObject, Exception e) {
+                                    public void onPublishCompleted(String url, @NonNull KiiObject kiiObject, Exception e) {
                                         LogUtil.d(TAG, ("公開されました！"));
                                         //画像のURL付きでusersに投稿する。
                                         postImages (url);

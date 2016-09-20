@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -37,7 +38,6 @@ public class EvaluationActivity extends AppCompatActivity {
 
    
     private TabLayout tabLayout;
-    private ViewPager viewPager;
 
 
     // Intent Parameter
@@ -49,12 +49,6 @@ public class EvaluationActivity extends AppCompatActivity {
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
 
-    // Search Param
-    private String search_Isbn;
-
-    //    private String search_Keyword;
-    private FloatingActionButton mFab;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +58,7 @@ public class EvaluationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //カメラボタン
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,10 +67,11 @@ public class EvaluationActivity extends AppCompatActivity {
         });
 
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+        assert tabLayout != null;
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
@@ -176,7 +171,7 @@ public class EvaluationActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,  String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case ZXING_CAMERA_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -187,7 +182,6 @@ public class EvaluationActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
                 }
-                return;
         }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -224,11 +218,10 @@ public class EvaluationActivity extends AppCompatActivity {
         String format = extras.getString("READ_FORMAT");
         Toast.makeText(this, "Contents = " + code +
                 ", Format = " + format, Toast.LENGTH_SHORT).show();
-        this.search_Isbn = code;
         // 書籍情報を検索
         Intent intent = new Intent(EvaluationActivity.this,BookSearchListActivity.class);
         QueryParamSet queryParamSet = new QueryParamSet();
-        queryParamSet.addQueryParam(BookInfo.ISBN, this.search_Isbn);
+        queryParamSet.addQueryParam(BookInfo.ISBN, code);
         intent.putExtra(QueryParamSet.class.getSimpleName(), queryParamSet);
         startActivityForResult(intent, ACT_BOOK_SEARCH_LIST);
     }

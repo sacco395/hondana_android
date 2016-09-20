@@ -1,6 +1,7 @@
 package com.books.hondana.setting;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +19,6 @@ import com.kii.cloud.storage.callback.KiiUserUpdateCallback;
 public class SettingAddressActivity extends AppCompatActivity {
 
     private static final String TAG = "SettingAddressActivity";
-    private Button postButton;
     private String AddressNote;
     KiiUser user = KiiUser.getCurrentUser();
 
@@ -42,13 +42,16 @@ public class SettingAddressActivity extends AppCompatActivity {
 
         final String address = user.getString("address");
         if (address.equals("")) {
+            assert UserAddress != null;
             UserAddress.setText("登録されていません");
         } else {
+            assert UserAddress != null;
             UserAddress.setText(address);
         }
 
-        postButton = (Button) findViewById(R.id.post_button);
+        Button postButton = (Button) findViewById(R.id.post_button);
         // ボタンにフォーカスを移動させる
+        assert postButton != null;
         postButton.setFocusable(true);
         postButton.setFocusableInTouchMode(true);
         postButton.requestFocus();
@@ -65,7 +68,7 @@ public class SettingAddressActivity extends AppCompatActivity {
 
                 user.update(null, userFields, new KiiUserUpdateCallback() {
                     @Override
-                    public void onUpdateCompleted(KiiUser KiiUser, Exception exception) {
+                    public void onUpdateCompleted(@NonNull KiiUser KiiUser, Exception exception) {
                         if (exception != null) {
                             // Error handling
                             return;
