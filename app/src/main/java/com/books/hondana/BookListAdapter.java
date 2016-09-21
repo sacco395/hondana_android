@@ -20,7 +20,6 @@ public class BookListAdapter extends ArrayAdapter<Book>  {
 	private final static String TAG = BookListAdapter.class.getSimpleName();
 
 	private LayoutInflater inflater;
-	private String imgUrl;
 	private Context context;
 	private ImageView imageView;
 	private List<Book> bookList;
@@ -66,7 +65,7 @@ public class BookListAdapter extends ArrayAdapter<Book>  {
 		titleText.setText(info.getTitle());
 		publisherText.setText(info.getPublisher());
 		authorText.setText(info.getAuthor());
-		imgUrl = info.getImageUrl();
+		String imgUrl = info.getImageUrl();
 
 		// 画像データのダウンロードと設定
 		ImageLoader imageLoader = ImageLoader.getInstance();

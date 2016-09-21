@@ -64,6 +64,7 @@ public class TodoActivity extends AppCompatActivity
         BaseAdapter adapter = new TodoListViewAdapter(this.getApplicationContext(), R.layout.part_todo_list, date, todo, photos);
 
         // ListViewにadapterをセット
+        assert listView != null;
         listView.setAdapter (adapter);
 
         // 後で使います

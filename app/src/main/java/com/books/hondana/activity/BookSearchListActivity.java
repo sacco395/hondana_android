@@ -33,7 +33,6 @@ public class BookSearchListActivity extends AppCompatActivity
 	final static String TAG = BookMainActivity.class.getSimpleName();
 
 	private ProgressDialog progressDialog = null;
-	private QueryParamSet queryParamSet;
 	private String isbn;
 
 	private List<Book> bookList = null;
@@ -41,9 +40,6 @@ public class BookSearchListActivity extends AppCompatActivity
 	private List<Book> google_bookList = null;
 
 	private ListView mainListView;
-
-	private BookSearchConnection rakutenSearchConnection;
-	private BookSearchConnection googleSearchConnection;
 
 	private SearchAPI searchAPI=SearchAPI.RAKUTEN;
 
@@ -73,7 +69,8 @@ public class BookSearchListActivity extends AppCompatActivity
 		google_bookList = new ArrayList<>();
 		///////////////////////////////////////////////////////////////
 		Intent intent = this.getIntent();
-		queryParamSet = (QueryParamSet)intent.getExtras().get("SEARCH_PARAM");
+		QueryParamSet queryParamSet = (QueryParamSet) intent.getExtras().get("SEARCH_PARAM");
+		assert queryParamSet != null;
 		isbn = queryParamSet.getSearchValue(BookInfo.ISBN);
 
 		///////////////////////////////////////////////////////////////
@@ -88,7 +85,7 @@ public class BookSearchListActivity extends AppCompatActivity
 		dispStartMessage(SearchAPI.RAKUTEN);
 		QueryParamSet queryParamSet = new QueryParamSet();
 		queryParamSet.addQueryParam(QueryParamSet.ISBN, isbn);
-		rakutenSearchConnection = new RakutenBookSearch(this,queryParamSet);
+		BookSearchConnection rakutenSearchConnection = new RakutenBookSearch(this, queryParamSet);
 		rakutenSearchConnection.searchBooks( 1, new BookSearchConnection.SearchFinishListener() {
 			@Override
 			public void didFinish(int err, List<Book> resultList) {
@@ -124,7 +121,7 @@ public class BookSearchListActivity extends AppCompatActivity
 		dispStartMessage(SearchAPI.GOOGLE);
 		QueryParamSet queryParamSet = new QueryParamSet();
 		queryParamSet.addQueryParam(QueryParamSet.ISBN, isbn);
-		googleSearchConnection = new GoogleBookSearch(this,queryParamSet);
+		BookSearchConnection googleSearchConnection = new GoogleBookSearch(this, queryParamSet);
 		googleSearchConnection.searchBooks( 1, new BookSearchConnection.SearchFinishListener() {
 			@Override
 			public void didFinish(int err, List<Book> resultList) {

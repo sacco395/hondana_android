@@ -37,6 +37,7 @@ public class SimpleScannerActivity extends BaseScannerActivity implements ZXingS
                 return new CustomViewFinderView(context);
             }
         };
+        assert contentFrame != null;
         contentFrame.addView(mScannerView);
     }
 

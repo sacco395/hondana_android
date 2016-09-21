@@ -18,8 +18,6 @@ import com.books.hondana.R;
 public class InfoActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener {
 
-    private BaseAdapter adapter;
-
 
     private static final String[] info = {
             // Scenes of Isle of Wight
@@ -50,6 +48,7 @@ public class InfoActivity extends AppCompatActivity
 
         // ツールバーをアクションバーとしてセット
         Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
+        assert toolbar != null;
         toolbar.setTitle ("あなたへのお知らせ");
         setSupportActionBar (toolbar);
 
@@ -64,9 +63,10 @@ public class InfoActivity extends AppCompatActivity
 
         // BaseAdapter を継承したadapterのインスタンスを生成
 
-        adapter = new InfoListViewAdapter (this.getApplicationContext (), R.layout.part_info_list, info ,date, photos);
+        BaseAdapter adapter = new InfoListViewAdapter(this.getApplicationContext(), R.layout.part_info_list, info, date, photos);
 
         // ListViewにadapterをセット
+        assert listView != null;
         listView.setAdapter (adapter);
 
         // 後で使います

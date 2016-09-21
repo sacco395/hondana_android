@@ -55,26 +55,32 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 		smell = condition.getSmell();
 
 		CheckBox cbBand = (CheckBox) findViewById(R.id.chkBand);
+		assert cbBand != null;
 		cbBand.setChecked(false);
 		cbBand.setOnClickListener(this);
 
 		CheckBox cbSunburned = (CheckBox) findViewById(R.id.chkSunburned);
+		assert cbSunburned != null;
 		cbSunburned.setChecked(false);
 		cbSunburned.setOnClickListener(this);
 
 		CheckBox cbScratched = (CheckBox) findViewById(R.id.chkScratched);
+		assert cbScratched != null;
 		cbScratched.setChecked(false);
 		cbScratched.setOnClickListener(this);
 
 		CheckBox cbCigarSmell = (CheckBox) findViewById(R.id.chkCigarSmell);
+		assert cbCigarSmell != null;
 		cbCigarSmell.setChecked(false);
 		cbCigarSmell.setOnClickListener(this);
 
 		CheckBox cbPet = (CheckBox) findViewById(R.id.chkPetSmell);
+		assert cbPet != null;
 		cbPet.setChecked(false);
 		cbPet.setOnClickListener(this);
 
 		CheckBox cbMold = (CheckBox) findViewById(R.id.chkMoldSmell);
+		assert cbMold != null;
 		cbMold.setChecked(false);
 		cbMold.setOnClickListener(this);
 
@@ -85,18 +91,24 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 			// 画像データのダウンロードと設定
 			ImageLoader imageLoader = ImageLoader.getInstance();
 			ImageView imgView = (ImageView)findViewById(R.id.imgBookDetail);
+			assert imgView != null;
 			imageLoader.displayImage(imgUrl,imgView);
 		}
 
 		TextView tv_title = (TextView) findViewById(R.id.textView_title);
+		assert tv_title != null;
 		tv_title.setText(info.getTitle());
 		TextView tv_author = (TextView) findViewById(R.id.textView_author);
+		assert tv_author != null;
 		tv_author.setText(info.getAuthor());
 		TextView tv_isbn = (TextView)findViewById(R.id.textView_isbn);
+		assert tv_isbn != null;
 		tv_isbn.setText(info.getIsbn());
 		TextView tv_publisher = (TextView)findViewById(R.id.textView_publisher);
+		assert tv_publisher != null;
 		tv_publisher.setText(info.getPublisher());
 		TextView tv_issueDate = (TextView)findViewById(R.id.textView_issueDate);
+		assert tv_issueDate != null;
 		tv_issueDate.setText(info.getIssueDate());
 
 		final BookCondition condition = new BookCondition();
@@ -168,6 +180,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
 		Button btnAddKiiCloud = (Button) findViewById(R.id.btnAddKiiBook);
 		// ボタンにフォーカスを移動させる
+		assert btnAddKiiCloud != null;
 		btnAddKiiCloud.setFocusable(true);
 		btnAddKiiCloud.setFocusableInTouchMode(true);
 		btnAddKiiCloud.requestFocus();
@@ -187,6 +200,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
 				//本のサイズここから
 				EditText heightField = (EditText) (findViewById(R.id.Height));
+				assert heightField != null;
 				String heightStr = heightField.getText().toString();
 				double height = getValidDouble(heightStr);
 				size.setHeight(height);
@@ -194,16 +208,19 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
 
 				EditText widthField = (EditText) (findViewById(R.id.Wide));
+				assert widthField != null;
 				String widthStr = widthField.getText().toString();
 				double width = getValidDouble(widthStr);
 				size.setWidth(width);
 
 				EditText thicknessField = (EditText) (findViewById(R.id.Depth));
+				assert thicknessField != null;
 				String thicknessStr = thicknessField.getText().toString();
 				double thickness = getValidDouble(thicknessStr);
 				size.setThickness(thickness);
 
 				EditText weightField = (EditText) (findViewById(R.id.Weight));
+				assert weightField != null;
 				String weightStr = weightField.getText().toString();
 				double weight = getValidDouble(weightStr);
 				size.setWeight(weight);

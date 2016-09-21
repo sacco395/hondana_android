@@ -23,9 +23,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Administrator on 2016/07/13.
- */
 public class HondanaBookAdapter extends BaseAdapter {
 
     private static final String TAG = HondanaBookAdapter.class.getSimpleName();

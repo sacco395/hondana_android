@@ -15,8 +15,7 @@ import com.books.hondana.activity.SelectedBooksActivity;
 
 public class ReceivedRequestFragment extends Fragment
     implements AdapterView.OnItemClickListener {
-        private BaseAdapter adapter;
-        // Isle of Wight in U.K.
+    // Isle of Wight in U.K.
         private static final String[] scenes = {
                 // Scenes of Isle of Wight
                 "デザイン思考は世界を変える",
@@ -51,7 +50,7 @@ public class ReceivedRequestFragment extends Fragment
             super.onViewCreated(view, savedInstanceState);
 
             ListView listView = (ListView) view.findViewById(R.id.list);
-            adapter = new PRBookListViewAdapter (this.getContext(), R.layout.part_book_list, scenes, authors, photos);
+            BaseAdapter adapter = new PRBookListViewAdapter(this.getContext(), R.layout.part_book_list, scenes, authors, photos);
 
             // ListViewにadapterをセット
             listView.setAdapter(adapter);

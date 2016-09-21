@@ -1,8 +1,6 @@
 package com.books.hondana;
 
-/**
- * Created by sacco on 2016/09/11.
- */
+
 public class MyBookList {
     //保存するデータ全てを変数で定義します。
     private String id;

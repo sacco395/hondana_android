@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -135,6 +136,7 @@ public class BookMainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
         //navigationViewにアイコンここから
@@ -288,7 +290,7 @@ public class BookMainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,  String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case ZXING_CAMERA_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -299,7 +301,6 @@ public class BookMainActivity extends AppCompatActivity
                 } else {
                     Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
                 }
-                return;
         }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -337,11 +338,10 @@ public class BookMainActivity extends AppCompatActivity
         String format = extras.getString("READ_FORMAT");
         Toast.makeText(this, "Contents = " + code +
                 ", Format = " + format, Toast.LENGTH_SHORT).show();
-        String search_Isbn = code;
         // 書籍情報を検索
         Intent intent = new Intent(BookMainActivity.this,BookSearchListActivity.class);
         QueryParamSet queryParamSet = new QueryParamSet();
-        queryParamSet.addQueryParam(BookInfo.ISBN, search_Isbn);
+        queryParamSet.addQueryParam(BookInfo.ISBN, code);
         intent.putExtra( "SEARCH_PARAM", queryParamSet );
         startActivityForResult(intent, ACT_BOOK_SEARCH_LIST);
     }
@@ -422,6 +422,7 @@ public class BookMainActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
