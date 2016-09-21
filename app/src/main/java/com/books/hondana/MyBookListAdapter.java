@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.books.hondana.activity.SendBookActivity;
+import com.books.hondana.activity.BookInfoActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -44,7 +44,7 @@ public class MyBookListAdapter extends ArrayAdapter<MyBookList> {
             //クリックした時
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), SendBookActivity.class);
+                Intent intent = new Intent(view.getContext(), BookInfoActivity.class);
 
                 // 渡したいデータとキーを指定する。urlという名前でリンクの文字列を渡しています。
                 MyBookList MyBookList = getItem(position);
