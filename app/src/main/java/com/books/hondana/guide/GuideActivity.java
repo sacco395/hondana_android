@@ -78,10 +78,11 @@ public class GuideActivity extends AppCompatActivity
                         }
                     });
                     TextView userName = (TextView) drawerView.findViewById(R.id.tv_user_name);
-                    userName.setText(kiiUser.getUsername().toString());
+                    userName.setText(kiiUser.getUsername());
                 }
             }
         };
+        assert drawer != null;
         drawer.setDrawerListener(toggle);
 
         //         this, binding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -89,6 +90,7 @@ public class GuideActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
         //navigationViewにアイコンここから
@@ -123,6 +125,7 @@ public class GuideActivity extends AppCompatActivity
         String[] item01 = getResources().getStringArray(R.array.array01);
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, item01);
+        assert list != null;
         list.setAdapter(adapter);
 
         // リスト項目がクリックされた時の処理
@@ -159,6 +162,7 @@ public class GuideActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -258,6 +262,7 @@ public class GuideActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

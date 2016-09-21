@@ -20,9 +20,11 @@ public class SelectedBooksActivity extends AppCompatActivity {
         int selectedPhoto = intent.getIntExtra("Photo", 0);
 
         TextView textView = (TextView)findViewById(R.id.selected_text);
+        assert textView != null;
         textView.setText(selectedText);
 
         ImageView  imageView = (ImageView) findViewById(R.id.selected_photo);
+        assert imageView != null;
         imageView.setImageResource(selectedPhoto);
     }
 

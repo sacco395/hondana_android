@@ -56,37 +56,48 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
             // 画像データのダウンロードと設定
             ImageLoader imageLoader = ImageLoader.getInstance();
             ImageView imgView = (ImageView) findViewById(R.id.imageViewBookInfo);
+            assert imgView != null;
             imageLoader.displayImage(imgUrl, imgView);
         }
 
         TextView tv_title = (TextView) findViewById(R.id.textViewBookInfoTitle);
+        assert tv_title != null;
         tv_title.setText(info.getTitle());
         TextView tv_author = (TextView) findViewById(R.id.textViewBookInfoAuthor);
+        assert tv_author != null;
         tv_author.setText(info.getAuthor());
         TextView tv_isbn = (TextView) findViewById(R.id.textViewBookInfoIsbn);
+        assert tv_isbn != null;
         tv_isbn.setText(info.getIsbn());
         TextView tv_publisher = (TextView) findViewById(R.id.textViewBookInfoPublisher);
+        assert tv_publisher != null;
         tv_publisher.setText(info.getIsbn());
         TextView tv_issueDate = (TextView) findViewById(R.id.textViewBookInfoDataOfIssue);
+        assert tv_issueDate != null;
         tv_issueDate.setText(info.getIssueDate());
 
         BookCondition condition = book.getCondition();
         TextView tv_bookCondition = (TextView) findViewById(R.id.bookInfoCondition);
+        assert tv_bookCondition != null;
         tv_bookCondition.setText(condition.getEvaluationText());
 
         ImageView iv_bookCondition = (ImageView) findViewById(R.id.bookInfoBookConditionIcon);
         int resId = condition.getIconDrawableResId();
         if (resId == 0) return;
         Drawable conditionDrawable = ResourcesCompat.getDrawable(getResources(), resId, null);
+        assert iv_bookCondition != null;
         iv_bookCondition.setImageDrawable(conditionDrawable);
 
         TextView tv_bookLine = (TextView) findViewById(R.id.bookInfoLine);
+        assert tv_bookLine != null;
         tv_bookLine.setText(condition.getLinedText());
 
         TextView tv_bookBroken = (TextView) findViewById(R.id.bookInfoBroken);
+        assert tv_bookBroken != null;
         tv_bookBroken.setText(condition.getBandText());
 
         TextView tv_bookNotes = (TextView) findViewById(R.id.bookInfoNotes);
+        assert tv_bookNotes != null;
         tv_bookNotes.setText(condition.getNote());
 
 //本のその他の状態
@@ -135,6 +146,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
 
         TextView tv_bookEtc = (TextView) findViewById(R.id.bookInfoEtc);
+        assert tv_bookEtc != null;
         tv_bookEtc.setText(etcText);
 //本のその他の状態ここまで
 
@@ -142,10 +154,12 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
         //本のサイズここから
         TextView tv_bookInfoSize = (TextView) findViewById(R.id.bookInfoSize);
+        assert tv_bookInfoSize != null;
         tv_bookInfoSize.setText(MessageFormat.format ("縦{0}cm × 横{1}cm × 厚さ{2}cm", size.getHeight(), size.getWidth(), size.getThickness()));
 
 
         TextView tv_bookInfoWeight = (TextView) findViewById(R.id.bookInfoWeight);
+        assert tv_bookInfoWeight != null;
         tv_bookInfoWeight.setText(size.getWeight() + "g");
 
         //本のサイズここまで
@@ -161,12 +175,14 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
             public void success(int token, Member member) {
                 final String name = member.getName();
                 Log.d(TAG, "name: " + name);
+                assert bookOwner != null;
                 bookOwner.setText(name);
                 if (!member.hasValidImageUrl()) {
                     return;
                 }
                 final String imageUrl = member.getImageUrl();
                 Log.d(TAG, "imageUrl: " + imageUrl);
+                assert userIcon != null;
                 imageLoader.displayImage(imageUrl, userIcon);
             }
 

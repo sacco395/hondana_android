@@ -14,9 +14,6 @@ import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.kii.cloud.storage.callback.KiiUserCallBack;
 
-/**
- * Created by MOOG on 16/08/19.
- */
 public class PhoneAuthActivity extends Activity {
 
     private static final String TAG = "PhoneAuthActivity";
@@ -51,6 +48,7 @@ public class PhoneAuthActivity extends Activity {
             final KiiUser user = KiiUser.getCurrentUser();
             // register the user asynchronously
 
+            assert user != null;
             user.verifyPhone(new KiiUserCallBack() {
                 @Override
                 public void onVerifyPhoneCompleted(int token, Exception e) {

@@ -60,6 +60,7 @@ public class SettingActivity extends AppCompatActivity
                 setProfileInMenu(drawerView);
             }
         };
+        assert drawer != null;
         drawer.setDrawerListener(toggle);
 
         //         this, binding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -67,6 +68,7 @@ public class SettingActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
         //navigationViewにアイコンと名前ここから
@@ -74,6 +76,7 @@ public class SettingActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
 //        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
+        assert user != null;
         final String userId = user.getID();
         KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
@@ -99,7 +102,7 @@ public class SettingActivity extends AppCompatActivity
         });
 
         TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
-        userName.setText(user.getUsername().toString());
+        userName.setText(user.getUsername());
         //navigationViewにアイコンと名前ここまで
 
         // binding.navView.setNavigationItemSelectedListener(this);
@@ -108,6 +111,7 @@ public class SettingActivity extends AppCompatActivity
         String[] item01 = getResources().getStringArray(R.array.array02);
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, item01);
+        assert list != null;
         list.setAdapter(adapter);
 
         // リスト項目がクリックされた時の処理
@@ -138,6 +142,7 @@ public class SettingActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -236,6 +241,7 @@ public class SettingActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

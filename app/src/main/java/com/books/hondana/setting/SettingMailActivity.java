@@ -1,6 +1,7 @@
 package com.books.hondana.setting;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +19,6 @@ import com.kii.cloud.storage.callback.KiiUserUpdateCallback;
 public class SettingMailActivity extends AppCompatActivity {
 
     private static final String TAG = "SettingAddressActivity";
-    private Button postButton;
     private String Note;
     KiiUser user = KiiUser.getCurrentUser();
 
@@ -40,13 +40,16 @@ public class SettingMailActivity extends AppCompatActivity {
         TextView UserMail = (TextView) findViewById(R.id.tv_user_address);
         String user_mail = user.getEmail();
         if (user_mail == null) {
+            assert UserMail != null;
             UserMail.setText("登録されていません");
         } else {
+            assert UserMail != null;
             UserMail.setText(user_mail);
         }
 
-        postButton = (Button) findViewById(R.id.post_button);
+        Button postButton = (Button) findViewById(R.id.post_button);
         // ボタンにフォーカスを移動させる
+        assert postButton != null;
         postButton.setFocusable(true);
         postButton.setFocusableInTouchMode(true);
         postButton.requestFocus();
@@ -63,7 +66,7 @@ public class SettingMailActivity extends AppCompatActivity {
 
                 user.update(identityData, null, new KiiUserUpdateCallback() {
                     @Override
-                    public void onUpdateCompleted(KiiUser KiiUser, Exception exception) {
+                    public void onUpdateCompleted(@NonNull KiiUser KiiUser, Exception exception) {
                         if (exception != null) {
                             // Error handling
                             return;

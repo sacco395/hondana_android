@@ -15,9 +15,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 
-/**
- * Created by sacco on 2016/09/11.
- */
 //<MessageRecord>はデータクラスMessageRecordのArrayAdapterであることを示している。このアダプターで管理したいデータクラスを記述されば良い。
 public class BookRequestListAdapter extends ArrayAdapter<MyBookList> {
 

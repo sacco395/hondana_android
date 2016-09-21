@@ -6,9 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.books.hondana.model.Genre;
 
-/**
- * Created by Administrator on 2016/08/02.
- */
+
 public class BookMainFragmentPagerAdapter
         extends FragmentPagerAdapter {
 

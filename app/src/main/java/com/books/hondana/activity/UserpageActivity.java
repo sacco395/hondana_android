@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -69,12 +70,6 @@ public class UserpageActivity extends AppCompatActivity
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
 
-    // Search Param
-    private String search_Isbn;
-
-    //    private String search_Keyword;
-    private FloatingActionButton mFab;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +82,7 @@ public class UserpageActivity extends AppCompatActivity
 
 
         //カメラボタン
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,15 +100,18 @@ public class UserpageActivity extends AppCompatActivity
                 setProfileInMenu(drawerView);
             }
         };
+        assert drawer != null;
         drawer.setDrawerListener(toggle);
 
         toggle.syncState();
 
 
         TextView Username = (TextView)findViewById(R.id.user_name);
-        Username.setText(user.getUsername ().toString());
+        assert Username != null;
+        Username.setText(user.getUsername());
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -143,7 +141,7 @@ public class UserpageActivity extends AppCompatActivity
         });
 
         TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
-        userName.setText(user.getUsername ().toString());
+        userName.setText(user.getUsername());
 
         LinearLayout UserEdit = (LinearLayout)findViewById(R.id.user_edit);
 
@@ -203,6 +201,7 @@ public class UserpageActivity extends AppCompatActivity
         //ListViewのViewを取得
         ListView listView = (ListView) findViewById(R.id.list_view);
         //GridViewにアダプターをセット。
+        assert listView != null;
         listView.setAdapter(mAdapter);
 
         //一覧のデータを作成して表示します。
@@ -211,6 +210,7 @@ public class UserpageActivity extends AppCompatActivity
         //ListViewのViewを取得
         ListView listView2 = (ListView) findViewById(R.id.list_view02);
         //GridViewにアダプターをセット。
+        assert listView2 != null;
         listView2.setAdapter(mAdapter2);
 
         //一覧のデータを作成して表示します。
@@ -246,6 +246,7 @@ public class UserpageActivity extends AppCompatActivity
                         //検索結果をListで得る
                         List<KiiObject> objLists = result.getResult();
                         //得られたListをMyBookListに設定する
+                        assert objLists != null;
                         for (KiiObject obj : objLists) {
                             //_id(KiiCloudのキー)を得る。空の時は""が得られる。jsonで
                             String id = obj.getString("_id", "");
@@ -289,6 +290,7 @@ public class UserpageActivity extends AppCompatActivity
                         //検索結果をListで得る
                         List<KiiObject> objLists = result.getResult();
                         //得られたListをMyBookListに設定する
+                        assert objLists != null;
                         for (KiiObject obj : objLists) {
                             //_id(KiiCloudのキー)を得る。空の時は""が得られる。jsonで
                             String id = obj.getString("_id", "");
@@ -313,6 +315,7 @@ public class UserpageActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -356,7 +359,7 @@ public class UserpageActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,  String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case ZXING_CAMERA_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -367,7 +370,6 @@ public class UserpageActivity extends AppCompatActivity
                 } else {
                     Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
                 }
-                return;
         }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -404,11 +406,10 @@ public class UserpageActivity extends AppCompatActivity
         String format = extras.getString("READ_FORMAT");
         Toast.makeText(this, "Contents = " + code +
                 ", Format = " + format, Toast.LENGTH_SHORT).show();
-        this.search_Isbn = code;
         // 書籍情報を検索
         Intent intent = new Intent(UserpageActivity.this,BookSearchListActivity.class);
         QueryParamSet queryParamSet = new QueryParamSet();
-        queryParamSet.addQueryParam(BookInfo.ISBN,this.search_Isbn);
+        queryParamSet.addQueryParam(BookInfo.ISBN, code);
         intent.putExtra( "SEARCH_PARAM", queryParamSet );
         startActivityForResult(intent, ACT_BOOK_SEARCH_LIST);
     }
@@ -463,6 +464,7 @@ public class UserpageActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
