@@ -11,7 +11,7 @@ public class MyBookList {
     private String author;
 
     //データを１つ作成する関数です。項目が増えたら増やしましょう。
-    public MyBookList(String id, String image_url, String title, String author) {
+    public MyBookList(String id, String title, String author) {
         this.id = id;
         this.image_url = image_url;
         this.title = title;
