@@ -42,6 +42,7 @@ import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserpageActivity extends AppCompatActivity
@@ -70,7 +71,17 @@ public class UserpageActivity extends AppCompatActivity
         toolbar.setTitle(user.getUsername ().toString() + "さん");
         setSupportActionBar(toolbar);
 
-        mListAdapter = new MyBookListAdapter(this);
+        mListAdapter = new MyBookListAdapter(new ArrayList<Book>(), new MyBookListAdapter.BookItemClickListener() {
+            @Override
+            public void onClick(Book book) {
+                Intent intent = new Intent(getApplicationContext(), BookInfoActivity.class);
+                intent.putExtra(Book.class.getSimpleName(), book);
+
+                LogUtil.d(TAG, "onItemClick: " + book);
+                startActivity(intent);
+            }
+        });
+
 
         ListView mListView = (ListView) findViewById(R.id.list_view);
         assert mListView != null;
