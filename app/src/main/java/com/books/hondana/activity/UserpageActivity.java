@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -24,11 +25,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.MyBookList;
 import com.books.hondana.MyBookListAdapter;
 import com.books.hondana.R;
+import com.books.hondana.connection.KiiBookConnection;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.connection.QueryParamSet;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
@@ -37,17 +39,9 @@ import com.books.hondana.model.Member;
 import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.start.StartActivity;
 import com.books.hondana.util.LogUtil;
-import com.kii.cloud.storage.Kii;
-import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.callback.KiiQueryCallBack;
-import com.kii.cloud.storage.query.KiiClause;
-import com.kii.cloud.storage.query.KiiQuery;
-import com.kii.cloud.storage.query.KiiQueryResult;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserpageActivity extends AppCompatActivity
@@ -55,9 +49,7 @@ public class UserpageActivity extends AppCompatActivity
 
     private static final String TAG = "UserpageActivity";
 
-    private MyBookListAdapter mAdapter;
-
-    final ImageLoader imageLoader = ImageLoader.getInstance();
+    MyBookListAdapter mListAdapter;
 
     // Intent Parameter
     private static final int ACT_READ_BARCODE = 1;
@@ -78,6 +70,9 @@ public class UserpageActivity extends AppCompatActivity
         toolbar.setTitle(user.getUsername ().toString() + "さん");
         setSupportActionBar(toolbar);
 
+        ListView mListView = (ListView) findViewById(R.id.list_view);
+        assert mListView != null;
+        mListView.setAdapter(mListAdapter);
 
         //カメラボタン
         FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab);
@@ -192,64 +187,19 @@ public class UserpageActivity extends AppCompatActivity
                     }
                 });
 
-//アダプターを作成します。newでクラスをインスタンス化しています。
-        mAdapter = new MyBookListAdapter(this);
+        KiiBookConnection.fetchPostedBooks(userId, new KiiObjectListCallback<Book>(){
+            @Override
+            public void success(int token, List<Book> result) {
+                Log.d(TAG, "success: size=" + result.size());
+                mListAdapter.add(result);
+                mListAdapter.notifyDataSetChanged();
+            }
 
-        //ListViewのViewを取得
-        ListView listView = (ListView) findViewById(R.id.list_view);
-        //GridViewにアダプターをセット。
-        assert listView != null;
-        listView.setAdapter(mAdapter);
-
-        //一覧のデータを作成して表示します。
-        fetch();
-    }
-
-    //KiiCLoud対応のfetchです。
-    //自分で作った関数です。一覧のデータを作成して表示します。
-    KiiUser kiiUser = KiiUser.getCurrentUser();
-    String userId = kiiUser.getID();
-
-    private void fetch() {
-        KiiQuery query = new KiiQuery(KiiClause.and(
-                KiiClause.equals("owner_id", userId)));
-
-        query.sortByDesc("_created");
-        Kii.bucket("appbooks")
-                .query(new KiiQueryCallBack<KiiObject>() {
-
-                    @Override
-                    public void onQueryCompleted(int token, KiiQueryResult<KiiObject> result, Exception exception) {
-                        if (exception != null) {
-                            return;
-                        }
-                        //空のMyBookListデータの配列を作成
-                        ArrayList<MyBookList> MyBooks = new ArrayList<MyBookList>();
-                        //検索結果をListで得る
-                        List<KiiObject> objLists = result.getResult();
-                        //得られたListをMyBookListに設定する
-                        assert objLists != null;
-                        for (KiiObject obj : objLists) {
-                            //_id(KiiCloudのキー)を得る。空の時は""が得られる。jsonで
-                            String id = obj.getString("_id", "");
-                            LogUtil.d(TAG,"id:" + id);
-//                            String url = obj.getString("image_url", "");
-//                            LogUtil.d(TAG,"image_url:" + url);
-                            String title = obj.getString("title", "");
-                            LogUtil.d(TAG,"title:" + title);
-                            String author = obj.getString("author", "");
-                            LogUtil.d(TAG,"author:" + author);
-
-
-                            //MyBookListを新しく作ります。
-                            MyBookList list = new MyBookList(id, title, author);
-                            //MyBookListの配列に追加します。
-                            MyBooks.add(list);
-                        }
-                        //データをアダプターにセットしています。これで表示されます。
-                        mAdapter.setMyBookList(MyBooks);
-                    }
-                }, query);//
+            @Override
+            public void failure(@Nullable Exception e) {
+                LogUtil.w(TAG, e);
+            }
+        });
     }
 
 
