@@ -86,4 +86,35 @@ public class KiiBookConnection {
         }
         return books;
     }
+
+
+    public static void fetchPostedBooks(String userId, KiiObjectListCallback<Book> callback) {
+        KiiClause clause = KiiClause.equals(Book.OWNER_ID, userId);
+        KiiQuery ownerIdQuery = new KiiQuery(clause);
+        queryBookBucket(ownerIdQuery, callback);
+    }
+
+    private static void queryBookBucket(KiiQuery query, final KiiObjectListCallback<Book> callback) {
+        KiiBucket kiiBucket = Kii.bucket(Book.BUCKET_NAME);
+        kiiBucket.query(
+                new KiiQueryCallBack<KiiObject>() {
+                    public void onQueryCompleted(int token, KiiQueryResult<KiiObject> result, Exception e) {
+                        // Error
+                        if (result == null || result.getResult() == null) {
+                            Log.e(TAG, "onQueryCompleted: ", e);
+                            callback.failure(e);
+                            return;
+                        }
+                        // Success
+                        try {
+                            List<Book> books = convert(result.getResult());
+                            callback.success(token, books);
+                        } catch (JSONException e1) {
+                            Log.e(TAG, "onQueryCompleted: ", e1);
+                            callback.failure(e);
+                        }
+                    }
+                },
+                query);
+    }
 }

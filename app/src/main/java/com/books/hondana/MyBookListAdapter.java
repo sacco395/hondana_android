@@ -1,86 +1,120 @@
 package com.books.hondana;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.books.hondana.activity.SendBookActivity;
+import com.books.hondana.model.Book;
+import com.books.hondana.model.BookInfo;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
+public class MyBookListAdapter extends BaseAdapter {
 
+    private static final String TAG = MyBookListAdapter.class.getSimpleName();
 
-//<MessageRecord>はデータクラスMessageRecordのArrayAdapterであることを示している。このアダプターで管理したいデータクラスを記述されば良い。
-public class MyBookListAdapter extends ArrayAdapter<MyBookList> {
+    private ArrayList<Book> mBooks;
+    private BookItemClickListener mListener;
 
-
-    //アダプターを作成する関数。コンストラクター。クラス名と同じです。
-    public MyBookListAdapter(Context context) {
-
-        super(context, R.layout.part_book_list);
+    public MyBookListAdapter(ArrayList<Book> books, BookItemClickListener listener) {
+        this.mBooks = books;
+        this.mListener = listener;
     }
 
-    //表示するViewを返します。これがListVewの１つのセルとして表示されます。表示されるたびに実行されます。
+    public void add(List<Book> books) {
+        mBooks.addAll(books);
+    }
+
+    public void add(Book book) {
+        mBooks.add(book);
+    }
+
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        //convertViewをチェックし、Viewがないときは新しくViewを作成します。convertViewがセットされている時は未使用なのでそのまま再利用します。メモリーに優しい。
+    public int getCount() {
+        return mBooks.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return mBooks.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int position, View convertView, final ViewGroup parent) {
+
+        // ViewHolder パターンというのがあって、これによってパフォーマンスの向上が見込めます
+        // http://outofmem.hatenablog.com/entry/2014/10/29/040510
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.part_my_book_list, parent, false);
+            Context context = parent.getContext();
+            LayoutInflater inflater = LayoutInflater.from(context);
+
+            // row というレイアウトの名前は、何も伝えていません。
+            // また、あたかもリスト表示の1アイテムであるかのような印象を与えます。(実際にはGrid)
+            // item_book とかいいかと思います。
+            View itemLayout = inflater.inflate(R.layout.part_my_book_list, null);
+
+            // ID の命名もう少し考えた方がいいです。
+            // 辞書引いてでも、しっくりくる名前を考えるべきです。Title って聞いたら、
+            // 文字列を連想して、TextView かと思ってしまいます。
+            // ここでは表紙の画像なので、imgCovert とかがいいかと。
+            ImageView ivCover = (ImageView) itemLayout.findViewById(R.id.iv_BookImg);
+            TextView tvTitle = (TextView) itemLayout.findViewById(R.id.tv_BookTitle);
+            TextView tvAuthor = (TextView) itemLayout.findViewById(R.id.tv_BookAuthor);
+            itemLayout.setTag(new ViewHolder(ivCover, tvTitle, tvAuthor));
+
+            convertView = itemLayout;
         }
 
-        //レイアウトにある画像と文字のViewを所得します。
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.iv_BookImg);
-        TextView title = (TextView) convertView.findViewById(R.id.tv_BookTitle);
-        TextView author = (TextView) convertView.findViewById(R.id.tv_BookAuthor);
+        final ViewHolder holder = (ViewHolder) convertView.getTag();
 
-
+        final Book book = mBooks.get(position);
         convertView.setOnClickListener(new View.OnClickListener() {
-            //クリックした時
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), SendBookActivity.class);
-
-                // 渡したいデータとキーを指定する。urlという名前でリンクの文字列を渡しています。
-                MyBookList MyBookList = getItem(position);
-                String id = MyBookList.getId();
-                intent.putExtra("_id", id);
-
-                // 遷移先の画面を呼び出す
-                view.getContext().startActivity(intent);
+            public void onClick(View v) {
+                mListener.onClick(book);
             }
         });
 
+        BookInfo info = book.getInfo();
+        String coverUrl = info.getImageUrl();
 
-        //表示するセルの位置からデータをMessageRecordのデータを取得します
-        MyBookList imageRecord = getItem(position);
+        // http://square.github.io/picasso/
+        Picasso.with(convertView.getContext())
+                .load(coverUrl)
+                .into(holder.ivCover);
 
-        //mImageLoaderを使って画像をダウンロードし、Viewにセットします。
-        String image_url = imageRecord.getImageUrl();
-        Picasso.with(convertView.getContext()).load(image_url).into(imageView);
+        holder.tvTitle.setText(info.getTitle());
+        holder.tvAuthor.setText(info.getAuthor());
 
-        //Viewに文字をセットします。
-        title.setText(imageRecord.getTitle());
-        author.setText(imageRecord.getAuthor());
 
-        //1つのセルのViewを返します。
         return convertView;
     }
 
-    //データをセットしなおす関数
-    public void setMyBookList(List<MyBookList> objects) {
-        //ArrayAdapterを空にする。
-        clear();
-        //テータの数だけMessageRecordを追加します。
-        for (MyBookList object : objects) {
-            add(object);
+    public interface BookItemClickListener {
+        void onClick(Book book);
+    }
+
+    private static class ViewHolder {
+        public ImageView ivCover;
+        public TextView tvTitle;
+        public TextView tvAuthor;
+
+        public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvAuthor) {
+            this.ivCover = ivCover;
+            this.tvTitle = tvTitle;
+            this.tvAuthor = tvAuthor;
         }
-        //データの変更を通知します。
-        notifyDataSetChanged();
     }
 }
+
