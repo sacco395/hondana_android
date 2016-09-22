@@ -70,6 +70,8 @@ public class UserpageActivity extends AppCompatActivity
         toolbar.setTitle(user.getUsername ().toString() + "さん");
         setSupportActionBar(toolbar);
 
+        mListAdapter = new MyBookListAdapter(this);
+
         ListView mListView = (ListView) findViewById(R.id.list_view);
         assert mListView != null;
         mListView.setAdapter(mListAdapter);
