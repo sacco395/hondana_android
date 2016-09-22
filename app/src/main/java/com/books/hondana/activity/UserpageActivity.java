@@ -68,7 +68,9 @@ public class UserpageActivity extends AppCompatActivity
         setContentView(R.layout.activity_userpage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         KiiUser user = KiiUser.getCurrentUser();
-        toolbar.setTitle(user.getUsername ().toString() + "さん");
+        assert toolbar != null;
+        assert user != null;
+        toolbar.setTitle(user.getUsername() + "さん");
         setSupportActionBar(toolbar);
 
         mListAdapter = new MyBookListAdapter(new ArrayList<Book>(), new MyBookListAdapter.BookItemClickListener() {
