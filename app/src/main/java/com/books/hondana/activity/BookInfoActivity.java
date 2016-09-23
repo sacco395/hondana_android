@@ -92,9 +92,9 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         assert tv_bookLine != null;
         tv_bookLine.setText(condition.getLinedText());
 
-        TextView tv_bookBroken = (TextView) findViewById(R.id.bookInfoBroken);
-        assert tv_bookBroken != null;
-        tv_bookBroken.setText(condition.getBandText());
+        TextView tv_bookFolded = (TextView) findViewById(R.id.bookInfoFolded);
+        assert tv_bookFolded != null;
+        tv_bookFolded.setText(condition.getFoldedText());
 
         TextView tv_bookNotes = (TextView) findViewById(R.id.bookInfoNotes);
         assert tv_bookNotes != null;

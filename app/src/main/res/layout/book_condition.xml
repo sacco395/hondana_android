@@ -348,13 +348,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:id="@+id/rBroken">
+                android:id="@+id/rFolded">
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="なし"
-                    android:id="@+id/rBroken_no"
+                    android:id="@+id/rFolded_no"
                     android:textSize="11dp"
                     android:textColor="@android:color/black" />
 
@@ -362,7 +362,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5P未満"
-                    android:id="@+id/rBroken_5"
+                    android:id="@+id/rFolded_5"
                     android:textSize="11dp"
                     android:textColor="@android:color/black" />
 
@@ -370,7 +370,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5P以上 10P未満"
-                    android:id="@+id/rBroken_5_10"
+                    android:id="@+id/rFolded_5_10"
                     android:textSize="11dp"
                     android:textColor="@android:color/black" />
 
@@ -378,7 +378,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10P以上"
-                    android:id="@+id/rBroken_10over"
+                    android:id="@+id/rFolded_10over"
                     android:textSize="11dp"
                     android:textColor="@android:color/black" />
             </RadioGroup>

@@ -132,13 +132,6 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         this.folded = folded;
     }
 
-    public int getBroken() {
-        return broken;
-    }
-
-    public void setBroken(int broken) {
-        this.broken = broken;
-    }
 
     public boolean isSunburned() {
         return sunburned;
@@ -228,13 +221,13 @@ public class BookCondition extends JSONConvertible implements Parcelable {
     public String getLinedText() {
         switch (lined) {
             case LINED_ZERO_TO_FIVE:
-                return "0 ~ 5 ページ折れ";
+                return "0 ~ 5 ページ書き込み線";
             case LINED_FIVE_TO_TEN:
-                return "5 ~ 10 ページ折れ";
+                return "5 ~ 10 ページ書き込み線";
             case LINED_MORE_THAN_TEN:
-                return "10 ページ以上折れ";
+                return "10 ページ以上書き込み線";
             default:
-                return "折れなし";
+                return "書き込み線なし";
         }
     }
 
