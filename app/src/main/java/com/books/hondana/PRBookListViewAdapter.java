@@ -1,80 +1,48 @@
 package com.books.hondana;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.books.hondana.activity.SelectedBooksActivity;
+import com.books.hondana.model.Book;
+import com.books.hondana.model.BookInfo;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PRBookListViewAdapter extends BaseAdapter {
 
-    static class ViewHolder {
-        TextView textView;
-        TextView textView2;
-        ImageView imageView;
+    private static final String TAG = PRBookListViewAdapter.class.getSimpleName();
+
+    private ArrayList<Book> mBooks;
+    private BookItemClickListener mListener;
+
+    public PRBookListViewAdapter(ArrayList<Book> books, BookItemClickListener listener) {
+        this.mBooks = books;
+        this.mListener = listener;
     }
 
-    private LayoutInflater inflater;
-    private int itemLayoutId;
-    private String[] titles;
-    private String[] authors;
-    private int[] ids;
-
-    public PRBookListViewAdapter(Context context, int itemLayoutId, String[] titles, String[] authors, int[] photos) {
-        super();
-        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.itemLayoutId = itemLayoutId;
-        this.titles = titles;
-        this.authors = authors;
-        this.ids = photos;
+    public void add(List<Book> books) {
+        mBooks.addAll(books);
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        // 最初だけ View を inflate して、それを再利用する
-        if (convertView == null) {
-
-            convertView = inflater.inflate(itemLayoutId, parent, false);
-            // ViewHolder を生成
-            holder = new ViewHolder();
-            holder.textView = (TextView) convertView.findViewById(R.id.textView);
-            holder.textView2 = (TextView) convertView.findViewById(R.id.textView2);
-            holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
-            convertView.setTag(holder);
-        }
-        // holder を使って再利用
-        else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        // holder の imageView にセット
-        holder.imageView.setImageResource(ids[position]);
-        // 現在の position にあるファイル名リストを holder の textView にセット
-        holder.textView.setText(titles[position]);
-        holder.textView2.setText(authors[position]);
-
-        return convertView;
+    public void add(Book book) {
+        mBooks.add(book);
     }
 
     @Override
     public int getCount() {
-        // texts 配列の要素数
-        return titles.length;
+        return mBooks.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mBooks.get(position);
     }
 
     @Override
@@ -82,66 +50,71 @@ public class PRBookListViewAdapter extends BaseAdapter {
         return 0;
     }
 
-    public static class PassedRequestFragment extends Fragment
-            implements AdapterView.OnItemClickListener {
-        private BaseAdapter adapter;
-        // Isle of Wight in U.K.
-        private static final String[] titles = {
-                // Scenes of Isle of Wight
-                "デザイン思考は世界を変える",
-                "十月の旅人",
-                "無印良品は仕組みが９割",
-        };
+    @Override
+    public View getView(int position, View convertView, final ViewGroup parent) {
 
-        private static final String[] authors = {
-                // Scenes of Isle of Wight
-                "ティム・ブラウン",
-                "レイ・ブラッドベリ",
-                "松井忠三",
-        };
+        // ViewHolder パターンというのがあって、これによってパフォーマンスの向上が見込めます
+        // http://outofmem.hatenablog.com/entry/2014/10/29/040510
+        if (convertView == null) {
+            Context context = parent.getContext();
+            LayoutInflater inflater = LayoutInflater.from(context);
 
-        // ちょっと冗長的ですが分かり易くするために
-        private static final int[] photos = {
-                R.drawable.changedesign,
-                R.drawable.october,
-                R.drawable.muji,
-        };
+            // row というレイアウトの名前は、何も伝えていません。
+            // また、あたかもリスト表示の1アイテムであるかのような印象を与えます。(実際にはGrid)
+            // item_book とかいいかと思います。
+            View itemLayout = inflater.inflate(R.layout.part_my_book_list, null);
 
+            // ID の命名もう少し考えた方がいいです。
+            // 辞書引いてでも、しっくりくる名前を考えるべきです。Title って聞いたら、
+            // 文字列を連想して、TextView かと思ってしまいます。
+            // ここでは表紙の画像なので、imgCovert とかがいいかと。
+            ImageView ivCover = (ImageView) itemLayout.findViewById(R.id.iv_BookImg);
+            TextView tvTitle = (TextView) itemLayout.findViewById(R.id.tv_BookTitle);
+            TextView tvAuthor = (TextView) itemLayout.findViewById(R.id.tv_BookAuthor);
+            itemLayout.setTag(new ViewHolder(ivCover, tvTitle, tvAuthor));
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            // Inflate the layout for this fragment
-            return inflater.inflate(R.layout.fragment_passed_books, container, false);
+            convertView = itemLayout;
         }
 
-        @Override
-        public void onViewCreated(View view, Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
+        final ViewHolder holder = (ViewHolder) convertView.getTag();
 
-            ListView listView = (ListView) view.findViewById(R.id.list);
-            adapter = new PRBookListViewAdapter (this.getContext(), R.layout.part_book_list, titles, authors, photos);
+        final Book book = mBooks.get(position);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onClick(book);
+            }
+        });
 
-            // ListViewにadapterをセット
-            listView.setAdapter(adapter);
+        BookInfo info = book.getInfo();
+        String coverUrl = info.getImageUrl();
 
-            // 後で使います
-            listView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
+        // http://square.github.io/picasso/
+        Picasso.with(convertView.getContext())
+                .load(coverUrl)
+                .into(holder.ivCover);
 
-        }
+        holder.tvTitle.setText(info.getTitle());
+        holder.tvAuthor.setText(info.getAuthor());
 
 
-        @Override
-        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-            Intent intent = new Intent(this.getContext(), SelectedBooksActivity.class);
-            // clickされたpositionのtextとphotoのID
-            String selectedText = titles[position];
-            int selectedPhoto = photos[position];
-            // インテントにセット
-            intent.putExtra("Text", selectedText);
-            intent.putExtra("Photo", selectedPhoto);
-            // Activity をスイッチする
-            startActivity(intent);
+        return convertView;
+    }
+
+    public interface BookItemClickListener {
+        void onClick(Book book);
+    }
+
+    private static class ViewHolder {
+        public ImageView ivCover;
+        public TextView tvTitle;
+        public TextView tvAuthor;
+
+        public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvAuthor) {
+            this.ivCover = ivCover;
+            this.tvTitle = tvTitle;
+            this.tvAuthor = tvAuthor;
         }
     }
 }
+

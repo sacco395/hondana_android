@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 
 import com.books.hondana.activity.SelectedBooksActivity;
 
@@ -41,21 +39,21 @@ public class PassedBooksFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_passed_books, container, false);
+        return inflater.inflate(R.layout.fragment_request_books, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ListView listView = (ListView) view.findViewById(R.id.list);
-        BaseAdapter adapter = new PRBookListViewAdapter(this.getContext(), R.layout.part_book_list, titles, authors, photos);
-
-        // ListViewにadapterをセット
-        listView.setAdapter(adapter);
+//        ListView listView = (ListView) view.findViewById(R.id.list);
+//        BaseAdapter adapter = new PRBookListViewAdapter(this.getContext(), R.layout.part_book_list, titles, authors, photos);
+//
+//        // ListViewにadapterをセット
+//        listView.setAdapter(adapter);
 
         // 後で使います
-        listView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
+//        listView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
 
     }
 

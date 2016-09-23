@@ -1,4 +1,3 @@
-//取引中の本
 package com.books.hondana.activity;
 
 import android.Manifest;
@@ -74,6 +73,7 @@ public class RequestActivity extends AppCompatActivity
 
         //カメラボタン
         FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab);
+        assert mFab != null;
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,19 +93,15 @@ public class RequestActivity extends AppCompatActivity
         assert drawer != null;
         drawer.setDrawerListener(toggle);
 
-        //         this, binding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        // binding.drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
-        //navigationViewにアイコンと名前ここから
         KiiUser user = KiiUser.getCurrentUser();
         View header = navigationView.getHeaderView(0);
         final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
-//        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
         assert user != null;
         final String userId = user.getID();
 
@@ -135,9 +131,6 @@ public class RequestActivity extends AppCompatActivity
 
         TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
         userName.setText(user.getUsername());
-        //navigationViewにアイコンと名前ここまで
-
-        // binding.navView.setNavigationItemSelectedListener(this);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -198,22 +191,12 @@ public class RequestActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.swap_book, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -341,13 +324,7 @@ public class RequestActivity extends AppCompatActivity
         return true;
     }
     void setProfileInMenu(View drawerView) {
-//        tvUserName.setText(user.getName());
-//        Picasso.with(this)
-//                .load(user.getIconUrl())
-//                .into(ivUserIcon);
         LinearLayout llUserContainer = (LinearLayout) drawerView.findViewById(R.id.ll_user_container);
-        TextView tvUserName = (TextView) drawerView.findViewById(R.id.tv_user_name);
-        ImageView ivUserIcon = (ImageView) drawerView.findViewById(R.id.iv_user_icon);
 
         llUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
