@@ -3,6 +3,7 @@ package com.books.hondana.activity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.BookMainFragmentPagerAdapter;
+import com.books.hondana.R;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.QueryParamSet;
@@ -37,7 +39,6 @@ import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;
-import com.books.hondana.R;
 import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.start.StartActivity;
 import com.books.hondana.util.LogUtil;
@@ -78,6 +79,7 @@ public class BookMainActivity extends AppCompatActivity
 
         //カメラボタン
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        assert fab != null;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +133,7 @@ public class BookMainActivity extends AppCompatActivity
                 }
             }
         };
+        assert drawer != null;
         drawer.setDrawerListener(toggle);
 
         toggle.syncState();
@@ -205,71 +208,50 @@ public class BookMainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_search:{
-//                if (kiiUser != null) {
-//                    Intent intent = new Intent(this, SearchActivity.class);
-//                    startActivity(intent,
-//                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-//                } else {
-//                    Intent intent = new Intent(this, StartActivity.class);
-//                    startActivity(intent);
-//                    showToast("会員登録をお願いします！");
-//                }
-//                break;
-//一時的にコメントアウト
+                if (kiiUser != null) {
+                    Intent intent = new Intent(this, SearchActivity.class);
+                    startActivity(intent,
+                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    Intent intent = new Intent(this, StartActivity.class);
+                    startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
+                break;
+
             }
 
 
             case R.id.nav_notifications: {
-//                if (kiiUser != null) {
-//                    Intent intent = new Intent(this, InfoActivity.class);
-//                    startActivity(intent,
-//                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-//                } else {
-//                    Intent intent = new Intent(this, StartActivity.class);
-//                    startActivity(intent);
-//                    showToast("会員登録をお願いします！");
-//                }
-//                break;
-//一時的にコメントアウト
+                if (kiiUser != null) {
+                    Intent intent = new Intent(this, InfoActivity.class);
+                    startActivity(intent,
+                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    Intent intent = new Intent(this, StartActivity.class);
+                    startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
+                break;
             }
 
             case R.id.nav_todo:{
-//                if (kiiUser != null) {
-//                    Intent intent = new Intent(this, TodoActivity.class);
-//                    startActivity(intent,
-//                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-//                } else {
-//                    Intent intent = new Intent(this, StartActivity.class);
-//                    startActivity(intent);
-//                    showToast("会員登録をお願いします！");
-//                }
-//
-//                break;
-//一時的にコメントアウト
+                if (kiiUser != null) {
+                    Intent intent = new Intent(this, TodoActivity.class);
+                    startActivity(intent,
+                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    Intent intent = new Intent(this, StartActivity.class);
+                    startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
+
+                break;
             }
         }
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
         return super.onOptionsItemSelected(item);
     }
 
-    // the user can add items from the options menu.
-    // create that menu here - from the res/menu/menu.xml file
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        super.onCreateOptionsMenu(menu);
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu, menu);
-//        return true;
-//    }
-//
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        //BookMainActivity.this.addItem(null);
-//        return true;
-//    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //  Barcode Scanner 起動関連
@@ -368,36 +350,35 @@ public class BookMainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_like) {
-//            if (kiiUser != null) {
-//                Intent intent = new Intent(this, LikesActivity.class);
-//                startActivity(intent);
-//            } else {
-//                Intent intent = new Intent(this, StartActivity.class);
-//                startActivity(intent);
-//                showToast("会員登録をお願いします！");
-//            }
-//一時的にコメントアウト
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, LikesActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
 
         } else if (id == R.id.nav_exchange) {
-//            if (kiiUser != null) {
-//                Intent intent = new Intent(this, SwapBookActivity.class);
-//                startActivity(intent);
-//            } else {
-//                Intent intent = new Intent(this, StartActivity.class);
-//                startActivity(intent);
-//                showToast("会員登録をお願いします！");
-//            }
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, SwapBookActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
 
 
         } else if (id == R.id.nav_transaction) {
-//            if (kiiUser != null) {
-//                Intent intent = new Intent(this, RequestActivity.class);
-//                startActivity(intent);
-//            } else {
-//                Intent intent = new Intent(this, StartActivity.class);
-//                startActivity(intent);
-//                showToast("会員登録をお願いします！");
-//            }
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, RequestActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
 
 
         } else if (id == R.id.nav_set) {
@@ -426,24 +407,17 @@ public class BookMainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
     void setProfileInMenu(View drawerView) {
-//        tvUserName.setText(user.getName());
-//        Picasso.with(this)
-//                .load(user.getIconUrl())
-//                .into(ivUserIcon);
         LinearLayout llUserContainer = (LinearLayout) drawerView.findViewById(R.id.ll_user_container);
-        TextView tvUserName = (TextView) drawerView.findViewById(R.id.tv_user_name);
-        ImageView ivUserIcon = (ImageView) drawerView.findViewById(R.id.iv_user_icon);
 
-        /*llUserContainer.setOnClickListener(new View.OnClickListener() {
+        llUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.d(TAG, "kiiUser: " + kiiUser);
+                LogUtil.d(TAG, "onClick");
                 Intent intent = new Intent(BookMainActivity.this, UserpageActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
     }
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();

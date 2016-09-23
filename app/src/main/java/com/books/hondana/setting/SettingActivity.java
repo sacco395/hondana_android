@@ -21,16 +21,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.R;
+import com.books.hondana.activity.BookMainActivity;
+import com.books.hondana.activity.InquiryActivity;
+import com.books.hondana.activity.LikesActivity;
+import com.books.hondana.activity.RequestActivity;
+import com.books.hondana.activity.SwapBookActivity;
+import com.books.hondana.activity.UserEditActivity;
+import com.books.hondana.activity.UserpageActivity;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Member;
-import com.books.hondana.R;
 import com.books.hondana.start.StartActivity;
-import com.books.hondana.activity.BookMainActivity;
-import com.books.hondana.activity.InquiryActivity;
-import com.books.hondana.activity.UserEditActivity;
-import com.books.hondana.activity.UserpageActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -187,37 +190,34 @@ public class SettingActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_like) {
-//            if (kiiUser != null) {
-//                Intent intent = new Intent(this, LikesActivity.class);
-//                startActivity(intent);
-//            } else {
-//                Intent intent = new Intent(this, StartActivity.class);
-//                startActivity(intent);
-//                showToast("会員登録をお願いします！");
-//            }
-//一時的にコメントアウト
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, LikesActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
 
         } else if (id == R.id.nav_exchange) {
-//            if (kiiUser != null) {
-//                Intent intent = new Intent(this, SwapBookActivity.class);
-//                startActivity(intent);
-//            } else {
-//                Intent intent = new Intent(this, StartActivity.class);
-//                startActivity(intent);
-//                showToast("会員登録をお願いします！");
-//            }
-//一時的にコメントアウト
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, SwapBookActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
 
         } else if (id == R.id.nav_transaction) {
-//            if (kiiUser != null) {
-//                Intent intent = new Intent(this, RequestActivity.class);
-//                startActivity(intent);
-//            } else {
-//                Intent intent = new Intent(this, StartActivity.class);
-//                startActivity(intent);
-//                showToast("会員登録をお願いします！");
-//            }
-//一時的にコメントアウト
+            if (kiiUser != null) {
+                Intent intent = new Intent(this, RequestActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                showToast("会員登録をお願いします！");
+            }
 
         } else if (id == R.id.nav_set) {
             if (kiiUser != null) {
@@ -247,13 +247,7 @@ public class SettingActivity extends AppCompatActivity
     }
 
     void setProfileInMenu(View drawerView) {
-//        tvUserName.setText(user.getName());
-//        Picasso.with(this)
-//                .load(user.getIconUrl())
-//                .into(ivUserIcon);
         LinearLayout llUserContainer = (LinearLayout) drawerView.findViewById(R.id.ll_user_container);
-        TextView tvUserName = (TextView) drawerView.findViewById(R.id.tv_user_name);
-        ImageView ivUserIcon = (ImageView) drawerView.findViewById(R.id.iv_user_icon);
 
         llUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
