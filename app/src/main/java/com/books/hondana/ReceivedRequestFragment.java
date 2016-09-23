@@ -11,9 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.books.hondana.activity.SendBookActivity;
-import com.books.hondana.connection.KiiBookConnection;
 import com.books.hondana.connection.KiiObjectListCallback;
+import com.books.hondana.connection.KiiRequestConnection;
 import com.books.hondana.model.Book;
+import com.books.hondana.model.Request;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class ReceivedRequestFragment extends Fragment {
 
-    private static final String TAG = PassedRequestFragment.class.getSimpleName();
+    private static final String TAG = ReceivedRequestFragment.class.getSimpleName();
 
     PRBookListViewAdapter mListAdapter;
 
@@ -52,12 +53,10 @@ public class ReceivedRequestFragment extends Fragment {
         String userId = kiiUser.getID();
         LogUtil.d(TAG, "userID = " + userId);
 
-        KiiBookConnection.fetchPostedBooks(userId, new KiiObjectListCallback<Book>() {
+        KiiRequestConnection.fetchRequestsByOthers(userId, new KiiObjectListCallback<Request>() {
             @Override
-            public void success(int token, List<Book> result) {
+            public void success(int token, List<Request> result) {
                 Log.d(TAG, "success: size=" + result.size());
-                mListAdapter.add(result);
-                mListAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -67,6 +66,7 @@ public class ReceivedRequestFragment extends Fragment {
         });
         return view;
     }
+
 }
 
 

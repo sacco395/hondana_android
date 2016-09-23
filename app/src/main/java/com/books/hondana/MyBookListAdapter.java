@@ -97,7 +97,6 @@ public class MyBookListAdapter extends BaseAdapter {
         holder.tvTitle.setText(info.getTitle());
         holder.tvAuthor.setText(info.getAuthor());
 
-
         return convertView;
     }
 

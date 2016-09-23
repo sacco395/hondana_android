@@ -222,7 +222,7 @@ public class Request extends KiiModel implements Parcelable {
         pdfLabelId = object.getString(PDF_LABEL_ID);
         bookId = object.getString(BOOK_ID);
         requestedDate = object.getString(REQUESTED_DATE);
-        sentDate = object.getString(sentDate);
+//        sentDate = object.getString(sentDate);
         receivedDate = object.getString(RECEIVED_DATE);
         evaluatedDate = object.getString(EVALUATED_DATE);
     }
