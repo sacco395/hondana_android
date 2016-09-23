@@ -314,7 +314,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ページの折れ"
-                android:id="@+id/bookInfoBroken"
+                android:id="@+id/bookInfoFolded"
                 android:layout_marginLeft="10dp" />
 
             <!--細い区切り線-->

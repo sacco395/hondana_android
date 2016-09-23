@@ -112,7 +112,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 		tv_issueDate.setText(info.getIssueDate());
 
 		final BookCondition condition = new BookCondition();
-//本の状態ラジオボタンここから
+
 		((RadioGroup)findViewById(R.id.rCondition)).setOnCheckedChangeListener
 				(new RadioGroup.OnCheckedChangeListener () {
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -129,8 +129,8 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 					}
 
 				});
-//本の状態ラジオボタンここまで
-//書き込み線ラジオボタンここから
+
+
 		((RadioGroup)findViewById(R.id.rLined)).setOnCheckedChangeListener
 				(new RadioGroup.OnCheckedChangeListener () {
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -150,28 +150,28 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 					}
 
 				});
-//書き込み線ラジオボタンここまで
-//ページの折れラジオボタンここから
-		((RadioGroup)findViewById(R.id.rBroken)).setOnCheckedChangeListener
+
+
+		((RadioGroup)findViewById(R.id.rFolded)).setOnCheckedChangeListener
 				(new RadioGroup.OnCheckedChangeListener () {
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
-						if(checkedId == R.id.rBroken_no){
+						if(checkedId == R.id.rFolded_no){
 							//１つめを選択
-							condition.setBroken(BookCondition.BROKEN_NONE);
-						}else if(checkedId == R.id.rBroken_5){
+							condition.setFolded(BookCondition.FOLDED_NONE);
+						}else if(checkedId == R.id.rFolded_5){
 							//２つめを選択
-							condition.setBroken(BookCondition.BROKEN_ZERO_TO_FIVE);
-						}else if(checkedId == R.id.rBroken_5_10){
+							condition.setFolded(BookCondition.FOLDED_ZERO_TO_FIVE);
+						}else if(checkedId == R.id.rFolded_5_10){
 							//３つめを選択
-							condition.setBroken(BookCondition.BROKEN_FIVE_TO_TEN);
-						}else if(checkedId == R.id.rBroken_10over){
+							condition.setFolded(BookCondition.FOLDED_FIVE_TO_TEN);
+						}else if(checkedId == R.id.rFolded_10over){
 							//３つめを選択
-							condition.setBroken(BookCondition.BROKEN_MORE_THAN_TEN);
+							condition.setFolded(BookCondition.FOLDED_MORE_THAN_TEN);
 						}
 					}
 
 				});
-//ページの折れラジオボタンここまで
+
 
 		if (!DateUtil.isOneYearAfter(info.getIssueDate())) {
 			Toast.makeText(BookDetailActivity.this,"一年前以上に発行された書籍ではありません。",
