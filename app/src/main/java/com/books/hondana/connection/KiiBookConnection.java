@@ -46,6 +46,7 @@ public class KiiBookConnection {
                 genre.clause(), // Genre 絞り込み
                 KiiClause.lessThan(KiiModel.CREATED_AT, from) // 日時絞り込み
         );
+
         Log.d(TAG, "fetch: " + clauseWithTime.toString());
 
         KiiQuery query = new KiiQuery(clauseWithTime);

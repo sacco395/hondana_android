@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import com.books.hondana.activity.SelectedBooksActivity;
 
 
-public class ReceivedBooksFragment extends Fragment
+public class HadArriveBooksFragment extends Fragment
     implements AdapterView.OnItemClickListener {
     // Isle of Wight in U.K.
         private static final String[] titles = {

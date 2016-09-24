@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.books.hondana.activity.SendBookActivity;
+import com.books.hondana.activity.BookInfoActivity;
 import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.connection.KiiRequestConnection;
 import com.books.hondana.model.Book;
@@ -21,9 +21,9 @@ import com.kii.cloud.storage.KiiUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReceivedRequestFragment extends Fragment {
+public class SentRequestFragment extends Fragment {
 
-    private static final String TAG = ReceivedRequestFragment.class.getSimpleName();
+    private static final String TAG = SentRequestFragment.class.getSimpleName();
 
     PRBookListViewAdapter mListAdapter;
 
@@ -37,7 +37,7 @@ public class ReceivedRequestFragment extends Fragment {
         mListAdapter = new PRBookListViewAdapter(new ArrayList<Book>(), new PRBookListViewAdapter.BookItemClickListener() {
             @Override
             public void onClick(Book book) {
-                Intent intent = new Intent(getContext(), SendBookActivity.class);
+                Intent intent = new Intent(getContext(), BookInfoActivity.class);
                 intent.putExtra(Book.class.getSimpleName(), book);
 
                 LogUtil.d(TAG, "onItemClick: " + book);
@@ -53,7 +53,7 @@ public class ReceivedRequestFragment extends Fragment {
         String userId = kiiUser.getID();
         LogUtil.d(TAG, "userID = " + userId);
 
-        KiiRequestConnection.fetchRequestsByOthers(userId, new KiiObjectListCallback<Request>() {
+        KiiRequestConnection.fetchRequestsByUser(userId, new KiiObjectListCallback<Request>() {
             @Override
             public void success(int token, List<Request> result) {
                 Log.d(TAG, "success: size=" + result.size());
@@ -66,7 +66,6 @@ public class ReceivedRequestFragment extends Fragment {
         });
         return view;
     }
-
 }
 
 
