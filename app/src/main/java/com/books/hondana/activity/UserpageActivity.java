@@ -178,6 +178,7 @@ public class UserpageActivity extends AppCompatActivity
 
 
         final ImageView userIcon = (ImageView) findViewById(R.id.user_icon);
+        final TextView userProfile = (TextView) findViewById(R.id.tv_user_profile);
 
         KiiUser kiiUser = KiiUser.getCurrentUser();
         assert kiiUser != null;
@@ -194,6 +195,12 @@ public class UserpageActivity extends AppCompatActivity
                         Log.d(TAG, "imageUrl: " + imageUrl);
                         Picasso.with(UserpageActivity.this).load(imageUrl).into(navUserIcon);
                         Picasso.with(UserpageActivity.this).load(imageUrl).into(userIcon);
+
+                        final String UserProfile = member.getProfile();
+                        Log.d(TAG, "profile: " + UserProfile);
+                        assert UserProfile != null;
+                        userProfile.setText(UserProfile);
+
                     }
 
                     @Override

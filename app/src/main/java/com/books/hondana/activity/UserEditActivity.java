@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.books.hondana.R;
+import com.books.hondana.connection.KiiMemberConnection;
+import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.model.Member;
+import com.books.hondana.model.abst.KiiModel;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiObject;
@@ -196,7 +201,7 @@ public class UserEditActivity extends AppCompatActivity {
         EditText mCommentField = (EditText) (findViewById(R.id.comment_field));
         assert mCommentField != null;
         profile = mCommentField.getText().toString();
-        LogUtil.d ("comment", ":" + profile + ":");
+        LogUtil.d ("profile", ":" + profile + ":");
 
         //未入力の時はエラー.""は文字が空
         if (profile.equals("")) {
@@ -215,84 +220,88 @@ public class UserEditActivity extends AppCompatActivity {
     }
 
     //投稿処理。画像のUploadがうまくいったときは、urlに公開のURLがセットされる
-    public void postImages(String url) {
-        //バケット名を設定。
-        KiiObject object = Kii.bucket("members").object();
-
-        KiiUser kiiUser = KiiUser.getCurrentUser();
-        object.set("name", kiiUser.getUsername());
-        LogUtil.d(TAG, "name: " + kiiUser);
-        //Json形式でKeyのprofileをセット.{"comment":"こめんとです","imageUrl":"http://xxx.com/xxxx"}
-        object.set("profile", profile);
-        object.set("image_url", url);
-
-        //データをKiiCloudに保存
-        object.save(new KiiObjectCallBack() {
-            //保存結果が帰ってくるコールバック関数。自動的に呼び出される。
+    KiiUser kiiUser = KiiUser.getCurrentUser();
+    final String userId = kiiUser.getID();
+    final String user_name = kiiUser.getUsername();
+    public void postImages(final String url) {
+        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
-            public void onSaveCompleted(int token, @NonNull KiiObject object, Exception exception) {
-                //エラーがないとき
-                if (exception == null) {
-                    // Intent のインスタンスを取得する。getApplicationContext()で自分のコンテキストを取得。遷移先のアクティビティーを.classで指定
-                    Intent intent = new Intent(getApplicationContext(), UserpageActivity.class);
-                    //Activityを終了します。
-                    finish();
-                } else {
-                    LogUtil.e(TAG, "投稿されません。。。", exception);
-                }
+            public void success(int token, Member member) {
+                member.setName(user_name);
+                member.setImageUrl(url);
+                member.setProfile(profile);
+                member.save(false, new KiiModel.KiiSaveCallback() {
+                    @Override
+                    public void success(int token, KiiObject object) {
+                        Intent intent = new Intent(getApplicationContext(), UserpageActivity.class);
+                        //Activityを終了します。
+                        finish();
+                    }
+
+                    @Override
+                    public void failure(@Nullable Exception e) {
+                        LogUtil.e(TAG, "投稿されません。。。", e);
+                    }
+                });
+            }
+
+            @Override
+            public void failure(Exception e) {
+
             }
         });
     }
 
-    //KiiCloudのimagesバケットにオブジェクトを作成する。参考：チュートリアル、http://www.riaxdnp.jp/?p=6775
-    private void uploadFile(String path) {
-        //イメージを保存するバケット名を設定。すべてここに保存してusersにはそのhttpパスを設定する。
-        KiiObject object = Kii.bucket("images").object();
-        object.set("image", "");
-        object.save (new KiiObjectCallBack() {
-            @Override
-            public void onSaveCompleted(int token, @NonNull KiiObject object, Exception exception) {
 
-            }
-        });
+                    //KiiCloudのimagesバケットにオブジェクトを作成する。参考：チュートリアル、http://www.riaxdnp.jp/?p=6775
+                    private void uploadFile(String path) {
+                        //イメージを保存するバケット名を設定。すべてここに保存してusersにはそのhttpパスを設定する。
+                        KiiObject object = Kii.bucket("images").object();
+                        object.set("image", "");
+                        object.save(new KiiObjectCallBack() {
+                            @Override
+                            public void onSaveCompleted(int token, @NonNull KiiObject object, Exception exception) {
 
-        //Up後に公開設定するので保存
-        mKiiImageObject = object;
-        File f = new File(path);
-        //KiiCloudにUPするインスタンス
-        KiiUploader uploader = object.uploader(this, f);
-        //非同期でUpする。
-        uploader.transferAsync(new KiiRTransferCallback() {
-            //完了した時
-            @Override
-            public void onTransferCompleted(@NonNull KiiRTransfer operator, Exception e) {
-                if (e == null) {
-                    //成功の時
-                    //画像を一覧で表示するため、公開状態にする。参考：http://www.riaxdnp.jp/?p=6841
-                    // URI指定Objをリフレッシュして、最新状態にする
-                    mKiiImageObject.refresh(new KiiObjectCallBack() {
-                        public void onRefreshCompleted(int token, @NonNull KiiObject object, Exception e) {
-                            if (e == null) {
-                                // ObjectBodyの公開設定する
-                                object.publishBody(new KiiObjectPublishCallback() {
-                                    @Override
-                                    public void onPublishCompleted(String url, @NonNull KiiObject kiiObject, Exception e) {
-                                        LogUtil.d(TAG,("公開されました！"));
-                                        //画像のURL付きでusersに投稿する。
-                                        postImages(url);
-                                    }
-                                });
                             }
-                        }
-                    });
+                        });
+
+                        //Up後に公開設定するので保存
+                        mKiiImageObject = object;
+                        File f = new File(path);
+                        //KiiCloudにUPするインスタンス
+                        KiiUploader uploader = object.uploader(this, f);
+                        //非同期でUpする。
+                        uploader.transferAsync(new KiiRTransferCallback() {
+                            //完了した時
+                            @Override
+                            public void onTransferCompleted(@NonNull KiiRTransfer operator, Exception e) {
+                                if (e == null) {
+                                    //成功の時
+                                    //画像を一覧で表示するため、公開状態にする。参考：http://www.riaxdnp.jp/?p=6841
+                                    // URI指定Objをリフレッシュして、最新状態にする
+                                    mKiiImageObject.refresh(new KiiObjectCallBack() {
+                                        public void onRefreshCompleted(int token, @NonNull KiiObject object, Exception e) {
+                                            if (e == null) {
+                                                // ObjectBodyの公開設定する
+                                                object.publishBody(new KiiObjectPublishCallback() {
+                                                    @Override
+                                                    public void onPublishCompleted(String url, @NonNull KiiObject kiiObject, Exception e) {
+                                                        LogUtil.d(TAG, ("公開されました！"));
+                                                        //画像のURL付きでusersに投稿する。
+                                                        postImages(url);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
 
 
-                } else {
-                    LogUtil.d(TAG, ("公開されないっす"));
-                }
-            }
-        });
-    }
+                                } else {
+                                    LogUtil.d(TAG, ("公開されないっす"));
+                                }
+                            }
+                        });
+                    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
