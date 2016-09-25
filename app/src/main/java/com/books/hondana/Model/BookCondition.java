@@ -101,7 +101,7 @@ public class BookCondition extends JSONConvertible implements Parcelable {
      *
      * 初期値は普通の 1
      */
-    private int evaluation = 1;
+    private int evaluation;
 
     private Smell smell;
 
