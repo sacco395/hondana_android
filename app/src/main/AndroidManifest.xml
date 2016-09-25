@@ -100,16 +100,14 @@
             </intent-filter>
         </activity>
         <activity
-
             android:name=".activity.RequestBookActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SendBookActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ReceivedBookActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BaseScannerActivity"
             android:screenOrientation="portrait" />
@@ -147,19 +145,21 @@
         <activity
             android:name=".activity.BookInfoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".guide.GuideRegisterActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".guide.GuideBukuActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".guide.GuideSendingActivity"
-            android:screenOrientation="portrait">
-        </activity>
+        <activity
+            android:name=".guide.GuideRegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".guide.GuideBukuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".guide.GuideSendingActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.UserEditActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".evaluation.EvaluatedActivity">
-        </activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".evaluation.EvaluatedActivity" />
+        <activity android:name=".guide.GuideBundleActivity" />
+        <activity android:name=".activity.UserPolicyActivity"></activity>
     </application>
 
 </manifest>

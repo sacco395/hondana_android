@@ -14,13 +14,21 @@
         android:paddingRight="10dip"
         android:paddingTop="16dip" >
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewInputSms"
+            android:id="@+id/textViewInputSms"
+            android:layout_gravity="center_horizontal"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp" />
+
         <EditText
             android:id="@+id/code_field"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dip"
             android:gravity="left|center_vertical"
-            android:hint="認証コードを入力してください"
+            android:hint="4桁のコードを入力"
             android:background="@drawable/editor_background"
             android:inputType="number"
             android:minWidth="250dip"
@@ -29,8 +37,18 @@
             android:paddingRight="2dip"
             android:paddingTop="2dip"
             android:scrollHorizontally="true"
-            android:singleLine="true" >
+            android:singleLine="true"
+            android:layout_marginTop="30dp">
         </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewAboutSms"
+            android:id="@+id/textViewAboutSms"
+            android:layout_gravity="center_horizontal"
+            android:textSize="13sp"
+            android:layout_marginTop="30dp" />
 
     </LinearLayout>
 
@@ -51,7 +69,7 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_margin="4dip"
             android:layout_weight="1"
-            android:background="@drawable/signup_button_background"
+            android:background="@drawable/shape_rounded_corners"
             android:minWidth="100dip"
             android:onClick="handleAuth"
             android:padding="2dip"

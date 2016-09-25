@@ -9,21 +9,23 @@
         android:orientation="vertical"
         android:background="#F1F0EE" >
 
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:id="@+id/imageView4"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/step03" />
-
-        <!--本の発送・梱包方法について-->
+        <!--同梱について-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/textViewGuideSendingTitle"
-            android:id="@+id/textViewGuideSendingTitle"
+            android:text="@string/textViewGuideBundleTitle"
+            android:layout_marginTop="20dp"
+            android:id="@+id/textViewGuideBundleTitle"
             android:layout_gravity="center_horizontal"
             android:textSize="24sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewGuideBundle"
+            android:id="@+id/textViewGuideBundle"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp" />
 
         <!--区切り線-->
         <View
@@ -35,67 +37,36 @@
             android:layout_marginTop="12dip"
             android:layout_marginBottom="12dip" />
 
-        <!--1.クリックポストについて-->
+        <!--クリックポストについて-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/textViewGuideSending1_1"
+            android:text="@string/textViewGuideBundle1_1"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="10dp"
-            android:id="@+id/textViewGuideSending1_1"
+            android:id="@+id/textViewGuideBundle1_1"
             android:textColor="#F26964"
             android:textStyle="bold"
             android:textSize="24sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:text="@string/textViewGuideSending1_2"
-            android:id="@+id/textViewGuideSending1_2"
-            android:textSize="17sp" />
 
         <ImageView
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:id="@+id/imageViewClickPostSending"
+            android:id="@+id/imageViewClickPostBundle"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/hondana_bundle" />
 
-        <!--区切り線-->
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:background="#E6E5E1"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginBottom="12dp" />
-
-        <!--2.宛名ラベルをつくる-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/textViewGuideSending2_1"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/textViewGuideSending2_1"
-            android:textColor="#F26964"
-            android:textStyle="bold"
-            android:textSize="24sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="10dp"
-            android:text="@string/textViewGuideSending2_2"
-            android:id="@+id/textViewGuideSending2_2"
-            android:textSize="17sp" />
-
+            android:id="@+id/textViewGuideBundle1_2"
+            android:text="@string/textViewGuideBundle1_2"
+            android:textSize="17sp"
+            android:layout_marginRight="10dp" />
         <!--区切り線-->
         <View
             android:layout_width="wrap_content"
@@ -103,18 +74,18 @@
             android:background="#E6E5E1"
             android:layout_marginLeft="6dip"
             android:layout_marginRight="6dip"
-            android:layout_marginTop="10dip"
+            android:layout_marginTop="12dip"
             android:layout_marginBottom="12dip" />
 
-        <!--3.宛名ラベルを貼って本を発送する-->
+        <!--同梱可能な冊数-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/textViewGuideSending3_1"
-            android:layout_marginTop="30dp"
+            android:text="@string/textViewGuideBundle2_1"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
-            android:id="@+id/textViewGuideSending3_1"
+            android:id="@+id/textViewGuideBundle2_1"
             android:textColor="#F26964"
             android:textStyle="bold"
             android:textSize="24sp" />
@@ -122,12 +93,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="10dp"
-            android:text="@string/textViewGuideSending3_2"
-            android:id="@+id/textViewGuideSending3_2"
-            android:textSize="17sp" />
+            android:id="@+id/textViewGuideBundle2_2"
+            android:text="@string/textViewGuideBundle2_2"
+            android:textSize="17sp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp" />
 
     </LinearLayout>
 </ScrollView>

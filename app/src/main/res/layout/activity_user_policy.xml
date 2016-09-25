@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <!--利用規約-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewUserPolicyTitle1_1"
+            android:layout_marginTop="20dp"
+            android:id="@+id/textViewUserPolicyTitle1_1"
+            android:layout_gravity="center_horizontal"
+            android:textSize="24sp"/>
+
+        <!--区切り線-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#E6E5E1"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="12dip"
+            android:layout_marginBottom="12dip" />
+
+        <!--利用規約について-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewUserPolicyTitle1_2"
+            android:text="@string/textViewUserPolicyTitle1_2"
+            android:textSize="14sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp" />
+
+        <!--第1条-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="第1条"
+            android:id="@+id/textViewUserPolicy1_1"
+            android:textSize="14sp"
+            android:layout_marginLeft="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/textViewUserPolicy1_2"
+            android:text="@string/textViewGuideRegister1_2"
+            android:textSize="14sp" />
+
+        <!--第2条-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="第1条"
+            android:id="@+id/textViewUserPolicy2_1"
+            android:textSize="14sp"
+            android:layout_marginLeft="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/textViewUserPolicy2_2"
+            android:text="@string/textViewGuideRegister1_2"
+            android:textSize="14sp" />
+
+        <!--第3条-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="第1条"
+            android:id="@+id/textViewUserPolicy3_1"
+            android:textSize="14sp"
+            android:layout_marginLeft="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/textViewUserPolicy3_2"
+            android:text="@string/textViewGuideRegister1_2"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</ScrollView>

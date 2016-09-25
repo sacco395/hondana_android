@@ -21,6 +21,12 @@
         <item>住所</item>
     </string-array>
 
+    <!--新規会員登録ページに使用-->
+    <string name="textViewAboutRegister">ホンダナでは皆さんが安心して取引ができるように\n本人確認のための電話番号認証を行っています。\n電話番号は第三者から見られることはありません。</string>
+    <string name="CheckBoxAgreeRegister">利用規約に同意する</string>
+    <string name="sync_sign_up_button">電話番号認証を行う</string>
+    <string name="textViewInputSms">SMSに送信された4桁のコードを入力してください</string>
+    <string name="textViewAboutSms">数分経ってもSMSに4桁のコードが届かない場合は\nこちらから一度登録なしでホンダナをご利用ください。</string>
 
     <string name="btn_a">戻る</string>
     <string name="btn_b">戻る</string>
@@ -68,12 +74,12 @@
     <string name="buttonSending">"発送完了"</string>
 
 
-    //発送者への評価ページに使用//
+    <!--発送者への評価ページに使用-->
     <string name="evaluateText01">"受け取りの連絡をしましょう"</string>
 
     <string name="evaluateText02">"本が発送されました。\n本が到着したら、受け取り完了の連絡をしましょう。"</string>
 
-    //評価機能ができたら復活//
+    <!--評価機能ができたら復活-->
     <!--<string name="evaluateText01">"受け取り評価をしてください"</string>-->
 
     <!--<string name="evaluateText02">"本が発送されました。\n本が到着したら、出品者の評価をしてください。"</string>-->
@@ -153,7 +159,7 @@
     <string name="Mail">"ドメイン指定受信をしていると返答が届きませんのでご注意ください。\n【ドメイン指定】 @spica-travel.com"</string>
     <string name="buttonMail">"メールで問い合わせる"</string>
 
-    //受取相手への評価ページに使用//
+    <!--受取相手への評価ページに使用-->
     <string name="evaluatedText01">"送付相手の評価をしてください"</string>
 
     <string name="evaluatedText02">"送付相手が本が受け取りました。\n評価をしてブクを受け取りましょう。"</string>
@@ -209,7 +215,7 @@
 
     <string name="textViewGuideSending1_1">1.クリックポストについて</string>
 
-    <string name="textViewGuideSending1_2">ホンダナでは、日本郵便の配送サービス\n「クリックポスト」を利用しています。\n全国一律164円で\n重さ1kg、厚さ3cm、A4サイズまでの荷物を\n送ることができます。</string>
+    <string name="textViewGuideSending1_2">・全国一律送料164円\n・A4サイズ、厚さ3cm、重さ1kgまでOK\n・追跡サービスあり\n・ポスト投函OK\n\nホンダナで推奨している配送サービス\n「クリックポスト」では\n全国一律164円でA4サイズ\n(縦340mm×横250mm×厚さ30mm)\n重さ1kgまでの荷物を送ることができます。\nお近くのポストに投函するだけで\nかんたんに発送できます。</string>
 
     <string name="textViewGuideSending2_1">2.宛名ラベルをつくる</string>
 
@@ -217,6 +223,18 @@
 
     <string name="textViewGuideSending3_1">3.宛名ラベルを貼って本を発送する</string>
 
-    <string name="textViewGuideSending3_2">本を手渡す人は、交換リクエストと一緒に届く\n相手の宛名ラベルを印刷し、\n梱包した本に貼り付けて発送しましょう。</string>
+    <string name="textViewGuideSending3_2">本を手渡す人は、交換リクエストと一緒に届く\n相手の宛名ラベルを印刷し、\n梱包した本に貼り付けて発送しましょう。\n（切手は不要です）</string>
+
+    <!--同梱について-->
+    <string name="textViewGuideBundleTitle">同梱について</string>
+    <string name="textViewGuideBundle">同梱を希望する方、同梱をお願いされた方は\nかならずお読みください。</string>
+    <string name="textViewGuideBundle1_1">クリックポストについて</string>
+    <string name="textViewGuideBundle1_2">・全国一律送料164円\n・A4サイズ、厚さ3cm、重さ1kgまでOK\n・追跡サービスあり\n・ポスト投函OK\n\nホンダナで推奨している配送サービス\n「クリックポスト」では\n全国一律164円でA4サイズ\n(縦340mm×横250mm×厚さ30mm)\n重さ1kgまでの荷物を送ることができます。\n\nお近くのポストに投函するだけで\nかんたんに発送できます。</string>
+    <string name="textViewGuideBundle2_1">同梱できる冊数のめやす</string>
+    <string name="textViewGuideBundle2_2">一般的な文庫本なら約7〜8冊、\nハードカバー（ビジネス書など）なら約2冊を\n一度に同梱できます。\n同梱を希望する方は、交換リクエスト時の\n参考にしてください。</string>
+    <!--利用規約-->
+    <string name="textViewUserPolicyTitle1_1">利用規約</string>
+    <string name="textViewUserPolicyTitle1_2">この利用規約（以下「本規約」といいます）は、スピカ旅行社（以下「当社」といいます）が提供する本の交換アプリ「ホンダナ」（以下「本アプリ」といいます）の利用に関わる事項を定めるものです。</string>
+
 
 </resources>
