@@ -32,6 +32,7 @@ import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.connection.QueryParamSet;
+import com.books.hondana.evaluation.EvaluationActivity;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
@@ -153,9 +154,9 @@ public class UserpageActivity extends AppCompatActivity
 
         LinearLayout UserEdit = (LinearLayout)findViewById(R.id.user_edit);
 
-        //評価機能がついたら復活
-//        LinearLayout Evaluation = (LinearLayout)findViewById(R.id.evaluation);
-//
+
+        LinearLayout Evaluation = (LinearLayout)findViewById(R.id.evaluation);
+
         assert UserEdit != null;
         UserEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,19 +167,20 @@ public class UserpageActivity extends AppCompatActivity
             }
         });
 
-////評価機能がついたら復活
-//        Evaluation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                LogUtil.d(TAG, "onClick");
-//                Intent intent = new Intent(UserpageActivity.this, EvaluationActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+
+        Evaluation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtil.d(TAG, "onClick");
+                Intent intent = new Intent(UserpageActivity.this, EvaluationActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         final ImageView userIcon = (ImageView) findViewById(R.id.user_icon);
         final TextView userProfile = (TextView) findViewById(R.id.tv_user_profile);
+        final TextView userPoint = (TextView) findViewById(R.id.user_point);
 
         KiiUser kiiUser = KiiUser.getCurrentUser();
         assert kiiUser != null;
@@ -198,8 +200,14 @@ public class UserpageActivity extends AppCompatActivity
 
                         final String UserProfile = member.getProfile();
                         Log.d(TAG, "profile: " + UserProfile);
-                        assert UserProfile != null;
+                        assert userProfile != null;
                         userProfile.setText(UserProfile);
+
+                        final int UserPoint = member.getPoint();
+                        String point = Integer.toString(UserPoint);
+                        Log.d(TAG, "profile: " + point);
+                        assert userPoint != null;
+                        userPoint.setText(point);
 
                     }
 

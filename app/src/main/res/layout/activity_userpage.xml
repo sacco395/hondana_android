@@ -60,7 +60,7 @@
                     <TextView
                         android:text="User"
                         android:id="@+id/user_name"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="20dp"
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
 
                         <TextView
                             android:text="ブク："
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="2dp"
                             android:layout_marginLeft="20dp"
                             android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
@@ -84,20 +84,17 @@
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:textColor="#000" />
-
                         <TextView
                             android:id="@+id/user_point"
-                            android:layout_marginTop="5dp"
                             android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp"
+                            android:textSize="22sp"
                             android:textStyle="bold"
                             android:textColor="#000" />
-
                         <TextView
                             android:text="ブク"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="2dp"
                             android:layout_marginLeft="5dp"
                             android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
@@ -106,66 +103,56 @@
                             android:textStyle="bold"
                             android:textColor="#000" />
                     </LinearLayout>
-                    <!--<TextView-->
-                        <!--android:text="（うち期限付きブク：4ブク）"-->
-                        <!--android:layout_marginTop="5dp"-->
-                        <!--android:layout_marginLeft="20dp"-->
-                        <!--android:layout_gravity="center_vertical"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textSize="12sp"-->
-                        <!--android:textColor="#000" />-->
+                        <TextView
+                            android:text="自己紹介文"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:id="@+id/tv_user_profile" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!--評価機能ができたら復活-->
-            <!--<LinearLayout-->
-            <!--android:orientation="horizontal"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingTop="@dimen/activity_vertical_margin"-->
-            <!--android:id="@+id/evaluation">-->
+            <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:id="@+id/evaluation">
 
-            <!--<TextView-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:textSize="16sp"-->
-            <!--android:drawableLeft="@drawable/icon_good"-->
-            <!--android:drawablePadding="5dp"-->
-            <!--android:textColor="#666"-->
-            <!--android:text="良い : 3"-->
-            <!--/>-->
-            <!--<TextView-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:textSize="16sp"-->
-            <!--android:drawableLeft="@drawable/icon_neutral"-->
-            <!--android:drawablePadding="5dp"-->
-            <!--android:textColor="#666"-->
-            <!--android:text="普通 : 2"-->
-            <!--/>-->
-            <!--<TextView-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:textSize="16sp"-->
-            <!--android:drawableLeft="@drawable/icon_bad"-->
-            <!--android:drawablePadding="5dp"-->
-            <!--android:textColor="#666"-->
-            <!--android:text="悪い : 1"-->
-            <!--/>-->
-            <!--</LinearLayout>-->
             <TextView
-                android:text="自己紹介文"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:id="@+id/tv_user_profile" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/icon_good"
+            android:drawablePadding="5dp"
+            android:textColor="#666"
+            android:text="良い : 3"
+            />
+            <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/icon_neutral"
+            android:drawablePadding="5dp"
+            android:textColor="#666"
+            android:text="普通 : 2"
+            />
+            <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/icon_bad"
+            android:drawablePadding="5dp"
+            android:textColor="#666"
+            android:text="悪い : 1"
+            />
+            </LinearLayout>
             <!--区切り線-->
             <View
                 android:layout_marginTop="5dp"
