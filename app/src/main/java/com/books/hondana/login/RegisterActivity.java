@@ -80,6 +80,7 @@ public class RegisterActivity extends Activity {
         try {
             KiiUser user = KiiUser.createWithPhone(username, phone);
             String country = "JP";
+            user.set("address","");
             user.setCountry(country);
             // register the user asynchronously
             user.register(new KiiUserCallBack() {
