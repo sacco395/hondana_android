@@ -1,4 +1,4 @@
-//本の受け取り完了（発送者への評価）
+//取引完了（clientIdへの評価）
 package com.books.hondana.evaluation;
 
 import android.content.Context;

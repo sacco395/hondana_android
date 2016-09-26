@@ -1,4 +1,4 @@
-//本の受け取り完了（発送者への評価）
+//本の受け取り完了（serverIdへの評価）
 package com.books.hondana.activity;
 
 import android.content.Context;
