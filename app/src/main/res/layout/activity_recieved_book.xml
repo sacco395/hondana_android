@@ -105,7 +105,7 @@
         android:orientation="horizontal"
         android:layout_width="350dp"
         android:layout_height="match_parent"
-        android:id="@+id/RadioGroup"
+        android:id="@+id/evaluation"
         android:weightSum="1"
         android:gravity="center">
 
@@ -114,7 +114,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/radioButtonGood"
-        android:id="@+id/radioButton1"
+        android:id="@+id/eva_excellent"
         android:layout_weight="0.35"
         android:checked="false" />
 
@@ -123,7 +123,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/radioButtonNeutral"
-        android:id="@+id/radioButton2"
+        android:id="@+id/eva_good"
         android:checked="false"
         android:layout_weight="0.35" />
 
@@ -132,7 +132,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/radioButtonBad"
-        android:id="@+id/radioButton3"
+        android:id="@+id/eva_bad"
         android:checked="false" />
         </RadioGroup>
         </LinearLayout>
@@ -146,7 +146,7 @@
         <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/evaluation_comment"
         android:hint="@string/evaluateText03"
         android:inputType="none"
         android:layout_marginTop="24dp"
