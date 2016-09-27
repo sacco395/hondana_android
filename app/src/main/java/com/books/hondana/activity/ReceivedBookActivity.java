@@ -25,6 +25,7 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
 
     private Request request;
     private Book book;
+    private Evaluation targetEvaluation;
 
 
 //    public static Intent createIntent(Context context, Request request) {
@@ -74,19 +75,19 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
 //                Toast.makeText(ReceivedBookActivity.this, "保存に失敗しました。", Toast.LENGTH_SHORT).show();
 //            }
 //        });
-        final Evaluation evaluationByClient = new Evaluation();
+
         ((RadioGroup)findViewById(R.id.evaluation)).setOnCheckedChangeListener
                 (new RadioGroup.OnCheckedChangeListener () {
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                         if(checkedId == R.id.eva_excellent){
                             //１つめを選択
-                            evaluationByClient.setEvaluationByClient(Evaluation.EVALUATION_EXCELLENT);
+                            targetEvaluation.setEvaluationByClient(Evaluation.EVALUATION_EXCELLENT);
                         }else if(checkedId == R.id.eva_good){
                             //２つめを選択
-                            evaluationByClient.setEvaluationByClient(Evaluation.EVALUATION_GOOD);
+                            targetEvaluation.setEvaluationByClient(Evaluation.EVALUATION_GOOD);
                         }else if(checkedId == R.id.eva_bad){
                             //３つめを選択
-                            evaluationByClient.setEvaluationByClient(Evaluation.EVALUATION_BAD);
+                            targetEvaluation.setEvaluationByClient(Evaluation.EVALUATION_BAD);
                         }
                     }
 
@@ -96,10 +97,11 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
         assert noteField != null;
         String noteStr = noteField.getText().toString ();
         // 入力された文字を取得して保存
-        evaluationByClient.setCommentByClient(noteStr);
+        targetEvaluation.setCommentByClient(noteStr);
         KiiUser currentUser = KiiUser.getCurrentUser ();
-        evaluationByClient.setServerId(currentUser.getID());
-        evaluationByClient.save(false, new KiiModel.KiiSaveCallback() {
+        targetEvaluation.setServerId(currentUser.getID());
+        targetEvaluation.setEvaluationByClient(evaluationByClient);
+        targetEvaluation.save(false, new KiiModel.KiiSaveCallback() {
             @Override
             public void success(int token, KiiObject object) {
                 Intent intent = new Intent();
