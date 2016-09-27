@@ -1,10 +1,11 @@
 package com.books.hondana.setting;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -12,9 +13,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.books.hondana.R;
+import com.books.hondana.connection.KiiMemberConnection;
+import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.model.Member;
+import com.books.hondana.model.abst.KiiModel;
+import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
-import com.kii.cloud.storage.UserFields;
-import com.kii.cloud.storage.callback.KiiUserUpdateCallback;
 
 public class SettingAddressActivity extends AppCompatActivity {
 
@@ -38,16 +42,26 @@ public class SettingAddressActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        TextView UserAddress = (TextView) findViewById(R.id.tv_user_address);
+        final TextView UserAddress = (TextView) findViewById(R.id.tv_user_address);
 
-        final String address = user.getString("address");
-        if (address.equals("")) {
-            assert UserAddress != null;
-            UserAddress.setText("登録されていません");
-        } else {
-            assert UserAddress != null;
-            UserAddress.setText(address);
-        }
+        KiiUser kiiUser = KiiUser.getCurrentUser();
+        assert kiiUser != null;
+        final String userId = kiiUser.getID();
+        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
+            @Override
+            public void success(int token, Member member) {
+                final String address = member.getAddress();
+                Log.d(TAG, "address: " + address);
+                assert UserAddress != null;
+                UserAddress.setText(address);
+            }
+
+            @Override
+            public void failure(Exception e) {
+                UserAddress.setText("登録されていません");
+                Log.e(TAG, "failure: ", e);
+            }
+        });
 
         Button postButton = (Button) findViewById(R.id.post_button);
         // ボタンにフォーカスを移動させる
@@ -59,26 +73,33 @@ public class SettingAddressActivity extends AppCompatActivity {
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //備考欄のテキストここから
                 final EditText noteField = (EditText) (findViewById(R.id.address_field));
                 assert noteField != null;
                 AddressNote = noteField.getText().toString();
-                UserFields userFields = new UserFields();
-                userFields.set("address", AddressNote);
-
-                user.update(null, userFields, new KiiUserUpdateCallback() {
+                KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
                     @Override
-                    public void onUpdateCompleted(@NonNull KiiUser KiiUser, Exception exception) {
-                        if (exception != null) {
-                            // Error handling
-                            return;
-                        } else {
-                            TextView UserAddress = (TextView) findViewById(R.id.tv_user_address);
-                            assert UserAddress != null;
-                            UserAddress.setText(address);
-                            finish();
-                            startActivity(getIntent());
-                        }
+                    public void success(int token, Member member) {
+                        member.setAddress(AddressNote);
+                        member.save(false, new KiiModel.KiiSaveCallback() {
+                            @Override
+                            public void success(int token, KiiObject object) {
+                                TextView UserAddress = (TextView) findViewById(R.id.tv_user_address);
+                                assert UserAddress != null;
+                                UserAddress.setText(AddressNote);
+                                finish();
+                                startActivity(getIntent());
+                            }
+
+                            @Override
+                            public void failure(@Nullable Exception e) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void failure(Exception e) {
+
                     }
                 });
             }

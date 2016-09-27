@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".login_register.PhoneAuthActivity"
+            android:name=".login.PhoneAuthActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BookMainActivity"
