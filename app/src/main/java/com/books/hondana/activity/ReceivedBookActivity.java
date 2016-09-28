@@ -12,8 +12,12 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.books.hondana.R;
+import com.books.hondana.connection.KiiMemberConnection;
+import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.model.Member;
 import com.books.hondana.model.Request;
 import com.books.hondana.model.abst.KiiModel;
+import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.utils.Log;
 
@@ -26,6 +30,7 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
     private static final String TAG = ReceivedBookActivity.class.getSimpleName();
 
     private Request request;
+
 
     public static Intent createIntent(Context context, Request request) {
         Intent intent = new Intent(context, ReceivedBookActivity.class);
@@ -90,6 +95,22 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
             public void failure(@Nullable Exception e) {
                 Log.e(TAG, "failure: ", e);
                 Toast.makeText(ReceivedBookActivity.this, "保存に失敗しました。", Toast.LENGTH_SHORT).show();
+            }
+        });
+        final String serverId = request.getServerId();
+        LogUtil.d(TAG,"server_id:"+serverId);
+        int diff = +1;
+        KiiMemberConnection.updatePoint(serverId, diff, new KiiObjectCallback<Member>() {
+            @Override
+            public void success(int token, Member member) {
+                int current = member.getPoint();
+                android.util.Log.d(TAG, "point:" + current);
+                member.setPoint(current +1);
+            }
+
+            @Override
+            public void failure(Exception e) {
+
             }
         });
     }

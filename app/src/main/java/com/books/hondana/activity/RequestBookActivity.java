@@ -252,7 +252,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
             public void success(int token, Member member) {
                 int current = member.getPoint();
                 Log.d(TAG, "point:" + current);
-                //member.setPoint(current -1);
+                member.setPoint(current -1);
             }
 
             @Override
