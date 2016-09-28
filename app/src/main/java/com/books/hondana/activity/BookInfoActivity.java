@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.R;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.model.Book;
@@ -22,7 +23,6 @@ import com.books.hondana.model.Member;
 import com.books.hondana.model.Request;
 import com.books.hondana.model.Size;
 import com.books.hondana.model.Smell;
-import com.books.hondana.R;
 import com.books.hondana.start.StartActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
@@ -197,7 +197,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         LogUtil.d(TAG, "onClick");
 
-        KiiUser currentUser = KiiUser.getCurrentUser ();
+        final KiiUser currentUser = KiiUser.getCurrentUser ();
+
         if (currentUser == null) {
             Log.d(TAG, "onClick: Current KiiUser is null!");
             Intent intent = new Intent(this, StartActivity.class);
@@ -205,10 +206,28 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
             showToast("会員登録をお願いします！");
             return;
         }
-        LogUtil.d (TAG, "kiiUser: " + currentUser);
 
-        Request request = Request.createNew(currentUser.getID(), book);
-        startActivity(RequestBookActivity.createIntent (this, request));
+        final String userId = currentUser.getID();
+        LogUtil.d (TAG, "userId: " + userId);
+        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
+            @Override
+            public void success(int token, Member member) {
+                int current = member.getPoint();
+                Log.d(TAG, "point:" + current);
+                if(current < 1){
+                    Toast.makeText(getApplicationContext(), "ブクが足りないのでリクエストできません", Toast.LENGTH_LONG).show();
+                    finish();
+                }else {
+                    Request request = Request.createNew(currentUser.getID(), book);
+                    startActivity(RequestBookActivity.createIntent(BookInfoActivity.this, request));
+                }
+            }
+
+            @Override
+            public void failure(Exception e) {
+
+            }
+        });
     }
 
     private void showToast(String message) {
