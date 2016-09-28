@@ -22,7 +22,7 @@
     </string-array>
 
     <!--新規会員登録ページに使用-->
-    <string name="textViewAboutRegister">ホンダナでは皆さんが安心して取引ができるように\n本人確認のための電話番号認証を行っています。\n電話番号は第三者から見られることはありません。</string>
+    <string name="textViewAboutRegister">ホンダナでは皆さんが安心して取引ができるように\n本人確認のためSMS(ショートメッセージサービス)を\n利用して認証を行います。\n電話番号は第三者に公開されることはありません。</string>
     <string name="CheckBoxAgreeRegister">利用規約に同意する</string>
     <string name="sync_sign_up_button">電話番号認証を行う</string>
     <string name="textViewInputSms">SMSに送信された4桁のコードを入力してください</string>
@@ -227,9 +227,30 @@
     <string name="textViewGuideBundle1_2">・全国一律送料164円\n・A4サイズ、厚さ3cm、重さ1kgまでOK\n・追跡サービスあり\n・ポスト投函OK\n\nホンダナで推奨している配送サービス\n「クリックポスト」では\n全国一律164円でA4サイズ\n(縦340mm×横250mm×厚さ30mm)\n重さ1kgまでの荷物を送ることができます。\n\nお近くのポストに投函するだけで\nかんたんに発送できます。</string>
     <string name="textViewGuideBundle2_1">同梱できる冊数のめやす</string>
     <string name="textViewGuideBundle2_2">一般的な文庫本なら約7〜8冊、\nハードカバー（ビジネス書など）なら約2冊を\n一度に同梱できます。\n同梱を希望する方は、交換リクエスト時の\n参考にしてください。</string>
+
     <!--利用規約-->
     <string name="textViewUserPolicyTitle1_1">利用規約</string>
     <string name="textViewUserPolicyTitle1_2">この利用規約（以下「本規約」といいます）は、スピカ旅行社（以下「当社」といいます）が提供する本の交換アプリ「ホンダナ」（以下「本アプリ」といいます）の利用に関わる事項を定めるものです。</string>
+    <string name="textViewUserPolicy1">第1条\nテスト</string>
+    <string name="textViewUserPolicy2">第1条\nテスト</string>
+    <string name="textViewUserPolicy3">第1条\nテスト</string>
+    <string name="textViewUserPolicy4">第1条\nテスト</string>
+    <string name="textViewUserPolicy5">第1条\nテスト</string>
+    <string name="textViewUserPolicy6">第1条\nテスト</string>
+    <string name="textViewUserPolicy7">第1条\nテスト</string>
+    <string name="textViewUserPolicy8">第1条\nテスト</string>
+    <string name="textViewUserPolicy9">第1条\nテスト</string>
+    <string name="textViewUserPolicy10">第1条\nテスト</string>
+    <string name="textViewUserPolicy11">第1条\nテスト</string>
+    <string name="textViewUserPolicy12">第1条\nテスト</string>
+    <string name="textViewUserPolicy13">第1条\nテスト</string>
+    <string name="textViewUserPolicy14">第1条\nテスト</string>
+    <string name="textViewUserPolicy15">第1条\nテスト</string>
+    <string name="textViewUserPolicy16">第1条\nテスト</string>
+    <string name="textViewUserPolicy17">第1条\nテスト</string>
+    <string name="textViewUserPolicy18">第1条\nテスト</string>
+    <string name="textViewUserPolicy19">第1条\nテスト</string>
+    <string name="textViewUserPolicy20">第1条\nテスト</string>
 
 
 </resources>
