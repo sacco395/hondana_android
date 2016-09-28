@@ -205,7 +205,7 @@ public class UserpageActivity extends AppCompatActivity
 
                         final int UserPoint = member.getPoint();
                         String point = Integer.toString(UserPoint);
-                        Log.d(TAG, "profile: " + point);
+                        Log.d(TAG, "point: " + point);
                         assert userPoint != null;
                         userPoint.setText(point);
 
