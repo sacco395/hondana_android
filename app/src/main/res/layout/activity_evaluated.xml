@@ -16,12 +16,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-        <!--送付相手の評価をしてください-->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/evaluateText01"
+            android:text="@string/evaluatedText01"
             android:id="@+id/textView1"
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/view"

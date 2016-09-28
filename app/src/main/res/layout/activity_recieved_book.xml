@@ -51,108 +51,107 @@
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
 
-        <!--評価機能ができたら復活-->
-        <!--&lt;!&ndash;区切り線&ndash;&gt;-->
-        <!--<View-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="20dip"-->
-        <!--android:background="#F1F0EE"-->
-        <!--android:layout_marginLeft="6dip"-->
-        <!--android:layout_marginRight="6dip"-->
-        <!--android:layout_marginTop="6dip"-->
-        <!--android:layout_marginBottom="12dip" />-->
-        <!--</LinearLayout>-->
+        <!--区切り線-->
+        <View
+        android:layout_width="wrap_content"
+        android:layout_height="20dip"
+        android:background="#F1F0EE"
+        android:layout_marginLeft="6dip"
+        android:layout_marginRight="6dip"
+        android:layout_marginTop="6dip"
+        android:layout_marginBottom="12dip" />
+        </LinearLayout>
 
-        <!--&lt;!&ndash;ラジオボタンの評価アイコン&ndash;&gt;-->
-        <!--<LinearLayout-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp">-->
-        <!--<ImageView-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="0.35"-->
-        <!--android:id="@+id/icon_good"-->
-        <!--android:src="@drawable/icon_good"-->
-        <!--android:layout_marginTop="26dp" />-->
+        <!--ラジオボタンの評価アイコン-->
+        <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.35"
+        android:id="@+id/icon_good"
+        android:src="@drawable/icon_good"
+        android:layout_marginTop="26dp" />
 
-        <!--<ImageView-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="0.35"-->
-        <!--android:id="@+id/icon_neutral"-->
-        <!--android:src="@drawable/icon_neutral"-->
-        <!--android:layout_marginTop="26dp" />-->
+        <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.35"
+        android:id="@+id/icon_neutral"
+        android:src="@drawable/icon_neutral"
+        android:layout_marginTop="26dp" />
 
-        <!--<ImageView-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="0.35"-->
-        <!--android:id="@+id/icon_bad"-->
-        <!--android:src="@drawable/icon_bad"-->
-        <!--android:layout_marginTop="26dp" />-->
-        <!--</LinearLayout>-->
+        <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.35"
+        android:id="@+id/icon_bad"
+        android:src="@drawable/icon_bad"
+        android:layout_marginTop="26dp" />
+        </LinearLayout>
 
 
-        <!--&lt;!&ndash;RadioButtonから1つだけ選択させる&ndash;&gt;-->
-        <!--<LinearLayout-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:weightSum="1"-->
-        <!--android:gravity="center">-->
+        <!--RadioButtonから1つだけ選択させる-->
+        <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:gravity="center">
 
-        <!--<RadioGroup-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_width="350dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/RadioGroup"-->
-        <!--android:weightSum="1"-->
-        <!--android:gravity="center">-->
+        <RadioGroup
+        android:orientation="horizontal"
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:id="@+id/evaluation"
+        android:weightSum="1"
+        android:gravity="center">
 
-        <!--&lt;!&ndash;良い&ndash;&gt;-->
-        <!--<RadioButton-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/radioButtonGood"-->
-        <!--android:id="@+id/radioButton1"-->
-        <!--android:layout_weight="0.35"-->
-        <!--android:checked="false" />-->
+        <!--良い-->
+        <RadioButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/radioButtonGood"
+        android:id="@+id/eva_excellent"
+        android:layout_weight="0.35"
+        android:checked="false" />
 
-        <!--&lt;!&ndash;普通&ndash;&gt;-->
-        <!--<RadioButton-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/radioButtonNeutral"-->
-        <!--android:id="@+id/radioButton2"-->
-        <!--android:checked="false"-->
-        <!--android:layout_weight="0.35" />-->
+        <!--普通-->
+        <RadioButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/radioButtonNeutral"
+        android:id="@+id/eva_good"
+        android:checked="false"
+        android:layout_weight="0.35" />
 
-        <!--&lt;!&ndash;悪い&ndash;&gt;-->
-        <!--<RadioButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/radioButtonBad"-->
-        <!--android:id="@+id/radioButton3"-->
-        <!--android:checked="false" />-->
-        <!--</RadioGroup>-->
-        <!--</LinearLayout>-->
+        <!--悪い-->
+        <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/radioButtonBad"
+        android:id="@+id/eva_bad"
+        android:checked="false" />
+        </RadioGroup>
+        </LinearLayout>
 
-        <!--&lt;!&ndash;評価コメント入力&ndash;&gt;-->
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical" >-->
+        <!--評価コメント入力-->
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-        <!--<EditText-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/editText"-->
-        <!--android:hint="@string/evaluateText03"-->
-        <!--android:inputType="none"-->
-        <!--android:layout_marginTop="24dp"-->
-        <!--android:layout_below="@+id/RadioGroup"-->
-        <!--android:layout_centerHorizontal="true" />-->
+        <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/evaluation_comment"
+        android:hint="@string/evaluateText03"
+        android:inputType="none"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/RadioGroup"
+        android:layout_centerHorizontal="true" />
 
 
 

@@ -77,7 +77,7 @@ public class UserpageActivity extends AppCompatActivity
         mListAdapter = new MyBookListAdapter(new ArrayList<Book>(), new MyBookListAdapter.BookItemClickListener() {
             @Override
             public void onClick(Book book) {
-                Intent intent = new Intent(getApplicationContext(), BookInfoActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ReceivedBookActivity.class);
                 intent.putExtra(Book.class.getSimpleName(), book);
 
                 LogUtil.d(TAG, "onItemClick: " + book);

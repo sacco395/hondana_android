@@ -17,9 +17,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.books.hondana.R;
+import com.books.hondana.connection.KiiMemberConnection;
+import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.model.Member;
 import com.books.hondana.model.Request;
 import com.books.hondana.model.abst.KiiModel;
-import com.books.hondana.R;
 import com.books.hondana.util.LogUtil;
 import com.books.hondana.util.UriUtil;
 import com.kii.cloud.storage.KiiObject;
@@ -236,7 +239,24 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(RequestBookActivity.this, "本のリクエストに失敗しました。", Toast.LENGTH_SHORT).show();
             }
         });
+        KiiUser kiiUser = KiiUser.getCurrentUser();
+        final String userId = kiiUser.getID();
+        int diff = -1;
+        KiiMemberConnection.updatePoint(userId, diff, new KiiObjectCallback<Member> () {
+            @Override
+            public void success(int token, Member member) {
+                int current = member.getPoint();
+                Log.d(TAG, "point:" + current);
+                member.setPoint(current -1);
+            }
+
+            @Override
+            public void failure(Exception e) {
+
+            }
+        });
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

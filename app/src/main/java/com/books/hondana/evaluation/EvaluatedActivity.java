@@ -1,4 +1,4 @@
-//本の受け取り完了（発送者への評価）
+//取引完了（clientIdへの評価）
 package com.books.hondana.evaluation;
 
 import android.content.Context;
@@ -53,7 +53,7 @@ public class EvaluatedActivity extends AppCompatActivity implements View.OnClick
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss", Locale.JAPAN);
         String dateString = simpleDateFormat.format (date); // 2016-09-03 17:24:33
 
-        request.setEvaluatedDate(dateString);
+//        request.setEvaluatedDate(dateString);
         request.save(false, new KiiModel.KiiSaveCallback() {
             @Override
             public void success(int token, KiiObject object) {
