@@ -71,7 +71,7 @@ public class UserpageActivity extends AppCompatActivity
         KiiUser user = KiiUser.getCurrentUser();
         assert toolbar != null;
         assert user != null;
-//        toolbar.setTitle(user.getUsername() + "さん");
+        toolbar.setTitle(user.getUsername() + "さん");
         setSupportActionBar(toolbar);
 
         mListAdapter = new MyBookListAdapter(new ArrayList<Book>(), new MyBookListAdapter.BookItemClickListener() {
@@ -205,7 +205,7 @@ public class UserpageActivity extends AppCompatActivity
 
                         final int UserPoint = member.getPoint();
                         String point = Integer.toString(UserPoint);
-                        Log.d(TAG, "profile: " + point);
+                        Log.d(TAG, "point: " + point);
                         assert userPoint != null;
                         userPoint.setText(point);
 
