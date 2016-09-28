@@ -235,6 +235,7 @@ public class UserEditActivity extends AppCompatActivity {
                     public void success(int token, KiiObject object) {
                         Intent intent = new Intent(getApplicationContext(), UserpageActivity.class);
                         //Activityを終了します。
+                        startActivity(intent);
                         finish();
                     }
 
