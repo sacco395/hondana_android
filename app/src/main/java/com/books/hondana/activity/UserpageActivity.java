@@ -37,6 +37,7 @@ import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;
+import com.books.hondana.model.Request;
 import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.start.StartActivity;
 import com.books.hondana.util.LogUtil;
@@ -68,7 +69,7 @@ public class UserpageActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userpage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        KiiUser user = KiiUser.getCurrentUser();
+        final KiiUser user = KiiUser.getCurrentUser();
         assert toolbar != null;
         assert user != null;
         toolbar.setTitle(user.getUsername() + "さん");
@@ -77,11 +78,13 @@ public class UserpageActivity extends AppCompatActivity
         mListAdapter = new MyBookListAdapter(new ArrayList<Book>(), new MyBookListAdapter.BookItemClickListener() {
             @Override
             public void onClick(Book book) {
-                Intent intent = new Intent(getApplicationContext(), ReceivedBookActivity.class);
-                intent.putExtra(Book.class.getSimpleName(), book);
+                Request request = Request.createNew(user.getID(), book);
+                startActivity(ReceivedBookActivity.createIntent(UserpageActivity.this, request));
+//                Intent intent = new Intent(getApplicationContext(), BookInfoActivity.class);
+//                intent.putExtra(Book.class.getSimpleName(), book);
 
                 LogUtil.d(TAG, "onItemClick: " + book);
-                startActivity(intent);
+//                startActivity(intent);
             }
         });
 
