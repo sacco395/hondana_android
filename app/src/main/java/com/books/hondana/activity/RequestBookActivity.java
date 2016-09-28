@@ -108,6 +108,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                 case R.id.buttonRequest:
                     // クリック処理（交換リクエストの日時とユーザーIDを保存）
                     saveRequestDate ();
+                    saveMinusPoint();
                     break;
                 default:
                     break;
@@ -239,15 +240,19 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(RequestBookActivity.this, "本のリクエストに失敗しました。", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void saveMinusPoint(){
         KiiUser kiiUser = KiiUser.getCurrentUser();
+        assert kiiUser != null;
         final String userId = kiiUser.getID();
         int diff = -1;
-        KiiMemberConnection.updatePoint(userId, diff, new KiiObjectCallback<Member> () {
+        KiiMemberConnection.updatePoint(userId, diff, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {
                 int current = member.getPoint();
                 Log.d(TAG, "point:" + current);
-                member.setPoint(current -1);
+                //member.setPoint(current -1);
             }
 
             @Override

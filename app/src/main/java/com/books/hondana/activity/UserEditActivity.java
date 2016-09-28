@@ -252,7 +252,6 @@ public class UserEditActivity extends AppCompatActivity {
         });
     }
 
-
                     //KiiCloudのimagesバケットにオブジェクトを作成する。参考：チュートリアル、http://www.riaxdnp.jp/?p=6775
                     private void uploadFile(String path) {
                         //イメージを保存するバケット名を設定。すべてここに保存してusersにはそのhttpパスを設定する。
