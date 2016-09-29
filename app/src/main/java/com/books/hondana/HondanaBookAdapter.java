@@ -92,10 +92,9 @@ public class HondanaBookAdapter extends BaseAdapter {
             ImageView ivCondition = (ImageView) itemLayout.findViewById(R.id.MainBookConditionIcon);
             TextView tvTitle = (TextView) itemLayout.findViewById(R.id.rowTextTitle);
             TextView tvAuthor = (TextView) itemLayout.findViewById(R.id.rowTextAuthor);
-
-            ImageView ivOwnerImage = (ImageView) itemLayout.findViewById(R.id.user_icon);
             TextView tvOwnerName = (TextView) itemLayout.findViewById(R.id.book_owner);
-            itemLayout.setTag(new ViewHolder(ivCover, ivCondition, tvTitle, tvAuthor, ivOwnerImage, tvOwnerName));
+
+            itemLayout.setTag(new ViewHolder(ivCover, ivCondition, tvTitle, tvAuthor,tvOwnerName));
 
             convertView = itemLayout;
         }
@@ -134,18 +133,8 @@ public class HondanaBookAdapter extends BaseAdapter {
             @Override
             public void success(int token, Member member) {
                 final String name = member.getName();
-                Log.d(TAG, "name: " + name);
+//                Log.d(TAG, "name: " + name);
                 holder.tvOwnerName.setText(name);
-
-                if (!member.hasValidImageUrl()) {
-                    return;
-                }
-
-                final String imageUrl = member.getImageUrl();
-                Log.d(TAG, "imageUrl: " + imageUrl);
-                Picasso.with(parent.getContext())
-                        .load(imageUrl)
-                        .into(holder.ivOwnerIcon);
             }
 
             @Override
@@ -165,15 +154,13 @@ public class HondanaBookAdapter extends BaseAdapter {
         public ImageView ivConditionIcon;
         public TextView tvTitle;
         public TextView tvAuthor;
-        public ImageView ivOwnerIcon;
         public TextView tvOwnerName;
 
-        public ViewHolder(ImageView ivCover, ImageView ivConditionIcon, TextView tvTitle, TextView tvAuthor, ImageView ivOwnerIcon, TextView tvOwnerName) {
+        public ViewHolder(ImageView ivCover, ImageView ivConditionIcon, TextView tvTitle, TextView tvAuthor, TextView tvOwnerName) {
             this.ivCover = ivCover;
             this.ivConditionIcon = ivConditionIcon;
             this.tvTitle = tvTitle;
             this.tvAuthor = tvAuthor;
-            this.ivOwnerIcon = ivOwnerIcon;
             this.tvOwnerName = tvOwnerName;
         }
     }

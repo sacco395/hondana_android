@@ -233,36 +233,6 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 				assert kiiUser != null;
 				String userId = kiiUser.getID();
 				LogUtil.d (TAG, "userID = " + userId);
-//				KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
-//					@Override
-//					public void success(int token, Member member) {
-//						if (!member.hasValidImageUrl()) {
-//							return;
-//						}
-//
-//						final String ownerImageUrl = member.getImageUrl();
-//						Log.d(TAG, "imageUrl: " + ownerImageUrl);
-//						targetBook.setOwnerImageUrl(ownerImageUrl);
-//						targetBook.save(false, new KiiModel.KiiSaveCallback() {
-//							@Override
-//							public void success(int token, KiiObject object) {
-//								Intent intent = new Intent();
-//								setResult(Activity.RESULT_OK, intent);
-//								finish();
-//							}
-//
-//							@Override
-//							public void failure(@Nullable Exception e) {
-//
-//							}
-//						});
-//					}
-//
-//					@Override
-//					public void failure(Exception e) {
-//
-//					}
-//				});
 
 				targetBook.setOwnerId(user.getID());
 				info.setSize(size);
