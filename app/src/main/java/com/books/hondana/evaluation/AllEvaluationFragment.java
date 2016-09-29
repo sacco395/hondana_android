@@ -2,106 +2,68 @@ package com.books.hondana.evaluation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.books.hondana.R;
-import com.books.hondana.activity.SelectedBooksActivity;
+import com.books.hondana.activity.UserpageActivity;
+import com.books.hondana.connection.KiiObjectListCallback;
+import com.books.hondana.connection.KiiRequestConnection;
+import com.books.hondana.model.Request;
+import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.KiiUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class AllEvaluationFragment extends Fragment
-    implements AdapterView.OnItemClickListener {
-    // Isle of Wight in U.K.
-        private static final String[] scenes = {
-                // Scenes of Isle of Wight
-                "良い : 送った相手",
-                "良い : 送ってもらった相手",
-                "良い : 送った相手",
-                "普通 : 送った相手",
-                "普通 : 送ってもらった相手",
-                "悪い : 送った相手",
-        };
+public class AllEvaluationFragment extends Fragment {
 
-        private static final String[] authors = {
-                // Scenes of Isle of Wight
-                "スピカ",
-                "らっこ",
-                "さきこ",
-                "たく",
-                "ポニータ",
-                "ミカ",
-        };
+    private static final String TAG = AllEvaluationFragment.class.getSimpleName ();
 
+    EvaluationListViewAdapter mListAdapter;
 
-        private static final String[] comments = {
-                // Scenes of Isle of Wight
-                "本日届きました。ありがとうございました。",
-                "",
-                "また機会がありましたらよろしくお願いします。",
-                "本日届きました。ありがとうございました。",
-                "",
-                "",
-        };
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate (R.layout.fragment_passed_books, container, false);
 
-        private static final String[] date = {
-                // Scenes of Isle of Wight
-                "2016.00.00 00:00",
-                "2016.00.00 00:00",
-                "2016.00.00 00:00",
-                "2016.00.00 00:00",
-                "2016.00.00 00:00",
-                "2016.00.00 00:00",
-        };
-        // ちょっと冗長的ですが分かり易くするために
-        private static final int[] photos = {
-                R.drawable.usericon,
-                R.drawable.usericon,
-                R.drawable.usericon,
-                R.drawable.usericon,
-                R.drawable.usericon,
-                R.drawable.usericon,
-        };
+        mListAdapter = new EvaluationListViewAdapter (new ArrayList<Request> (), new EvaluationListViewAdapter.EvaluationClickListener () {
+            @Override
+            public void onClick(Request request) {
+                Intent intent = new Intent (getContext (), UserpageActivity.class);
+                intent.putExtra (Request.class.getSimpleName (), request);
+
+                LogUtil.d (TAG, "onItemClick: " + request);
+                startActivity (intent);
+            }
+        });
+
+        ListView mListView = (ListView) view.findViewById (R.id.list);
+        assert mListView != null;
+        mListView.setAdapter (mListAdapter);
 
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            // Inflate the layout for this fragment
-            return inflater.inflate(R.layout.fragment_passed_books, container, false);
-        }
+        KiiUser kiiUser = KiiUser.getCurrentUser ();
+        String userId = kiiUser.getID ();
+        LogUtil.d (TAG, "userID = " + userId);
 
-        @Override
-        public void onViewCreated(View view, Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
+        KiiRequestConnection.fetchRequestsByOthers (userId, new KiiObjectListCallback<Request> () {
+            @Override
+            public void success(int token, List<Request> result) {
+                LogUtil.d (TAG, "success: size=" + result.size ());
+            }
 
-            ListView listView = (ListView) view.findViewById(R.id.list);
-            BaseAdapter adapter = new EvaluationListViewAdapter(this.getContext(), R.layout.part_evaluation_list, scenes, authors, comments, date, photos);
-
-            // ListViewにadapterをセット
-            listView.setAdapter(adapter);
-
-            // 後で使います
-            listView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
-
-        }
-
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-            Intent intent = new Intent(this.getContext(), SelectedBooksActivity.class);
-            // clickされたpositionのtextとphotoのID
-            String selectedText = scenes[position];
-            int selectedPhoto = photos[position];
-            // インテントにセット
-            intent.putExtra("Text", selectedText);
-            intent.putExtra("Photo", selectedPhoto);
-            // Activity をスイッチする
-            startActivity(intent);
-        }
+            @Override
+            public void failure(@Nullable Exception e) {
+                LogUtil.w (TAG, e);
+            }
+        });
+        return view;
     }
-
+}

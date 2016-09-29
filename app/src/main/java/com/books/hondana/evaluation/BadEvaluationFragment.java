@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.books.hondana.R;
@@ -54,13 +53,13 @@ public class BadEvaluationFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         ListView listView = (ListView) view.findViewById(R.id.list);
-        BaseAdapter adapter = new EvaluationListViewAdapter(this.getContext(), R.layout.part_evaluation_list, evaluations, users, comments, date, photos);
-
-        // ListViewにadapterをセット
-        listView.setAdapter(adapter);
-
-        // 後で使います
-        listView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
+//        BaseAdapter adapter = new EvaluationListViewAdapter(this.getContext(), R.layout.part_evaluation_list, evaluations, users, comments, date, photos);
+//
+//        // ListViewにadapterをセット
+//        listView.setAdapter(adapter);
+//
+//        // 後で使います
+//        listView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
 
     }
 

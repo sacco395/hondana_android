@@ -1,4 +1,3 @@
-//評価一覧
 package com.books.hondana.evaluation;
 
 import android.Manifest;

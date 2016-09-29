@@ -17,17 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.R;
-import com.books.hondana.connection.KiiMemberConnection;
-import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookCondition;
 import com.books.hondana.model.BookInfo;
-import com.books.hondana.model.Member;
 import com.books.hondana.model.Size;
 import com.books.hondana.model.Smell;
 import com.books.hondana.model.abst.KiiModel;
 import com.books.hondana.util.DateUtil;
-import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -232,40 +228,40 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 					Toast.makeText(BookDetailActivity.this, "エラー: ユーザ情報が取得できません", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				KiiUser kiiUser = KiiUser.getCurrentUser();
-				assert kiiUser != null;
-				String userId = kiiUser.getID();
-				LogUtil.d (TAG, "userID = " + userId);
-				KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
-					@Override
-					public void success(int token, Member member) {
-						if (!member.hasValidImageUrl()) {
-							return;
-						}
-
-						final String ownerImageUrl = member.getImageUrl();
-						Log.d(TAG, "imageUrl: " + ownerImageUrl);
-						targetBook.setOwnerImageUrl(ownerImageUrl);
-						targetBook.save(false, new KiiModel.KiiSaveCallback() {
-							@Override
-							public void success(int token, KiiObject object) {
-								Intent intent = new Intent();
-								setResult(Activity.RESULT_OK, intent);
-								finish();
-							}
-
-							@Override
-							public void failure(@Nullable Exception e) {
-
-							}
-						});
-					}
-
-					@Override
-					public void failure(Exception e) {
-
-					}
-				});
+//				KiiUser kiiUser = KiiUser.getCurrentUser();
+//				assert kiiUser != null;
+//				String userId = kiiUser.getID();
+//				LogUtil.d (TAG, "userID = " + userId);
+//				KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
+//					@Override
+//					public void success(int token, Member member) {
+//						if (!member.hasValidImageUrl()) {
+//							return;
+//						}
+//
+//						final String ownerImageUrl = member.getImageUrl();
+//						Log.d(TAG, "imageUrl: " + ownerImageUrl);
+//						targetBook.setOwnerImageUrl(ownerImageUrl);
+//						targetBook.save(false, new KiiModel.KiiSaveCallback() {
+//							@Override
+//							public void success(int token, KiiObject object) {
+//								Intent intent = new Intent();
+//								setResult(Activity.RESULT_OK, intent);
+//								finish();
+//							}
+//
+//							@Override
+//							public void failure(@Nullable Exception e) {
+//
+//							}
+//						});
+//					}
+//
+//					@Override
+//					public void failure(Exception e) {
+//
+//					}
+//				});
 
 				targetBook.setOwnerId(user.getID());
 				info.setSize(size);

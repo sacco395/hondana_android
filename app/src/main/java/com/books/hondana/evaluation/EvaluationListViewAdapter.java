@@ -1,171 +1,114 @@
 package com.books.hondana.evaluation;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.books.hondana.R;
-import com.books.hondana.activity.SelectedBooksActivity;
+import com.books.hondana.model.Request;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EvaluationListViewAdapter extends BaseAdapter {
 
-    static class ViewHolder {
-        TextView textView;
-        TextView textView2;
-        TextView textView3;
-        TextView textView4;
-        ImageView imageView;
+    private static final String TAG = EvaluationListViewAdapter.class.getSimpleName();
+
+    private ArrayList<Request> mRequests;
+    private EvaluationClickListener mListener;
+
+    public EvaluationListViewAdapter(ArrayList<Request> requests, EvaluationClickListener listener) {
+        this.mRequests = requests;
+        this.mListener = listener;
+    }
+    public void add(List<Request> requests) {
+        mRequests.addAll(requests);
     }
 
-    private LayoutInflater inflater;
-    private int itemLayoutId;
-    private String[] titles;
-    private String[] authors;
-    private String[] comments;
-    private String[] date;
-    private int[] ids;
-
-    public EvaluationListViewAdapter(Context context, int itemLayoutId, String[] scenes, String[] authors, String[] comments, String[] date, int[] photos) {
-        super();
-        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.itemLayoutId = itemLayoutId;
-        this.titles = scenes;
-        this.authors = authors;
-        this.comments = comments;
-        this.date = date;
-        this.ids = photos;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        // 最初だけ View を inflate して、それを再利用する
-        if (convertView == null) {
-
-            convertView = inflater.inflate(itemLayoutId, parent, false);
-            // ViewHolder を生成
-            holder = new ViewHolder();
-            holder.textView = (TextView) convertView.findViewById(R.id.textView);
-            holder.textView2 = (TextView) convertView.findViewById(R.id.textView2);
-            holder.textView3 = (TextView) convertView.findViewById(R.id.textView3);
-            holder.textView4 = (TextView) convertView.findViewById(R.id.textView4);
-            holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
-            convertView.setTag(holder);
-        }
-        // holder を使って再利用
-        else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        // holder の imageView にセット
-        holder.imageView.setImageResource(ids[position]);
-        // 現在の position にあるファイル名リストを holder の textView にセット
-        holder.textView.setText(titles[position]);
-        holder.textView2.setText(authors[position]);
-        holder.textView3.setText(comments[position]);
-        holder.textView4.setText(date[position]);
-
-        return convertView;
+    public void add(Request request) {
+        mRequests.add(request);
     }
 
     @Override
     public int getCount() {
-        // texts 配列の要素数
-        return titles.length;
+        return mRequests.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mRequests.get(position);
     }
 
     @Override
     public long getItemId(int position) {
         return 0;
     }
+    @Override
+    public View getView(int position, View convertView, final ViewGroup parent) {
 
-    public static class AllEvaluationFragment extends Fragment
-            implements AdapterView.OnItemClickListener {
-        private BaseAdapter adapter;
-        // Isle of Wight in U.K.
-        private static final String[] scenes = {
-                // Scenes of Isle of Wight
-                "デザイン思考は世界を変える",
-                "十月の旅人",
-                "無印良品は仕組みが９割",
-        };
+        if (convertView == null) {
+            Context context = parent.getContext();
+            LayoutInflater inflater = LayoutInflater.from(context);
 
-        private static final String[] authors = {
-                // Scenes of Isle of Wight
-                "ティム・ブラウン",
-                "レイ・ブラッドベリ",
-                "松井忠三",
-        };
-        private static final String[] comments = {
-                // Scenes of Isle of Wight
-                "本日届きました。ありがとうございました。",
-                "ほげ",
-                "また機会がありましたらよろしくお願いします。",
-        };
+            View itemLayout = inflater.inflate(R.layout.part_evaluation_list, null);
 
-        private static final String[] date = {
-                // Scenes of Isle of Wight
-                "2016.00.00 00:00",
-                "2016.00.00 00:00",
-                "2016.00.00 00:00",
-        };
+            ImageView ivClientUserIcon = (ImageView) itemLayout.findViewById(R.id.client_user_icon);
+            ImageView ivEvaluationIcon = (ImageView) itemLayout.findViewById(R.id.evaluation_icon);
+            TextView tvClientUser = (TextView) itemLayout.findViewById(R.id.client_user);
+            TextView tvEvaluationComment = (TextView) itemLayout.findViewById(R.id.evaluation_comment);
+            TextView tvEvaluatedDate = (TextView) itemLayout.findViewById(R.id.evaluated_date);
+            itemLayout.setTag(new ViewHolder(ivClientUserIcon, ivEvaluationIcon, tvClientUser,tvEvaluationComment,tvEvaluatedDate));
 
-        // ちょっと冗長的ですが分かり易くするために
-        private static final int[] photos = {
-                R.drawable.changedesign,
-                R.drawable.october,
-                R.drawable.muji,
-        };
-
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            // Inflate the layout for this fragment
-            return inflater.inflate(R.layout.fragment_passed_books, container, false);
+            convertView = itemLayout;
         }
 
-        @Override
-        public void onViewCreated(View view, Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
+        final ViewHolder holder = (ViewHolder) convertView.getTag();
 
-            ListView listView = (ListView) view.findViewById(R.id.list);
-            adapter = new EvaluationListViewAdapter (this.getContext(), R.layout.part_book_list, scenes, authors, comments, date, photos);
+        final Request request = mRequests.get(position);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onClick(request);
+            }
+        });
+//
+//        Member clientIconUrl = member.getImageUrl();
+//        String coverUrl = clientIconUrl.getImageUrl();
+//
+//        // http://square.github.io/picasso/
+//        Picasso.with(convertView.getContext())
+//                .load(coverUrl)
+//                .into(holder.ivCover);
+//
+//        holder.tvTitle.setText(info.getTitle());
+//        holder.tvAuthor.setText(info.getAuthor());
 
-            // ListViewにadapterをセット
-            listView.setAdapter(adapter);
 
-            // 後で使います
-            listView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
+        return convertView;
+    }
 
-        }
+    public interface EvaluationClickListener {
+        void onClick(Request request);
+    }
 
+    private static class ViewHolder {
+        public ImageView ivClientUserIcon;
+        public ImageView ivEvaluationIcon;
+        public TextView tvClientUser;
+        public TextView tvEvaluationComment;
+        public TextView tvEvaluatedDate;
 
-        @Override
-        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-            Intent intent = new Intent(this.getContext(), SelectedBooksActivity.class);
-            // clickされたpositionのtextとphotoのID
-            String selectedText = scenes[position];
-            int selectedPhoto = photos[position];
-            // インテントにセット
-            intent.putExtra("Text", selectedText);
-            intent.putExtra("Photo", selectedPhoto);
-            // Activity をスイッチする
-            startActivity(intent);
+        public ViewHolder(ImageView ivClientUserIcon,ImageView ivEvaluationIcon, TextView tvClientUser, TextView tvEvaluationComment, TextView tvEvaluatedDate) {
+            this.ivClientUserIcon = ivClientUserIcon;
+            this.ivEvaluationIcon = ivEvaluationIcon;
+            this.tvClientUser = tvClientUser;
+            this.tvEvaluationComment = tvEvaluationComment;
+            this.tvEvaluatedDate = tvEvaluatedDate;
         }
     }
 }
+
