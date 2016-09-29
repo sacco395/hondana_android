@@ -1,5 +1,4 @@
 package com.books.hondana;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.model.Book;
@@ -19,34 +17,30 @@ import com.books.hondana.model.BookCondition;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 public class HondanaBookAdapter extends BaseAdapter {
-
     private static final String TAG = HondanaBookAdapter.class.getSimpleName();
-
     private ArrayList<Book> mBooks;
     private BookItemClickListener mListener;
 
+    private Map<String, Member> mCache;
     public HondanaBookAdapter(ArrayList<Book> books, BookItemClickListener listener) {
         this.mBooks = books;
         this.mListener = listener;
+        mCache = new HashMap<>();
     }
-
     public void clear() {
         mBooks.clear();
     }
-
     public void add(List<Book> books) {
         mBooks.addAll(books);
     }
-
     public void add(Book book) {
         mBooks.add(book);
     }
-
     @Nullable
     public Book getLastItem() {
         if (mBooks.isEmpty()) {
@@ -54,36 +48,29 @@ public class HondanaBookAdapter extends BaseAdapter {
         }
         return mBooks.get(getCount() - 1);
     }
-
     @Override
     public int getCount() {
         return mBooks.size();
     }
-
     @Override
     public Object getItem(int position) {
         return mBooks.get(position);
     }
-
     @Override
     public long getItemId(int position) {
         return 0;
     }
-
     @Override
     public View getView(int position, View convertView, final ViewGroup parent) {
-
         // ViewHolder パターンというのがあって、これによってパフォーマンスの向上が見込めます
         // http://outofmem.hatenablog.com/entry/2014/10/29/040510
         if (convertView == null) {
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
-
             // row というレイアウトの名前は、何も伝えていません。
             // また、あたかもリスト表示の1アイテムであるかのような印象を与えます。(実際にはGrid)
             // item_book とかいいかと思います。
             View itemLayout = inflater.inflate(R.layout.row, null);
-
             // ID の命名もう少し考えた方がいいです。
             // 辞書引いてでも、しっくりくる名前を考えるべきです。Title って聞いたら、
             // 文字列を連想して、TextView かと思ってしまいます。
@@ -93,14 +80,10 @@ public class HondanaBookAdapter extends BaseAdapter {
             TextView tvTitle = (TextView) itemLayout.findViewById(R.id.rowTextTitle);
             TextView tvAuthor = (TextView) itemLayout.findViewById(R.id.rowTextAuthor);
             TextView tvOwnerName = (TextView) itemLayout.findViewById(R.id.book_owner);
-
             itemLayout.setTag(new ViewHolder(ivCover, ivCondition, tvTitle, tvAuthor,tvOwnerName));
-
             convertView = itemLayout;
         }
-
         final ViewHolder holder = (ViewHolder) convertView.getTag();
-
         final Book book = mBooks.get(position);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,15 +91,12 @@ public class HondanaBookAdapter extends BaseAdapter {
                 mListener.onClick(book);
             }
         });
-
         BookInfo info = book.getInfo();
         String coverUrl = info.getImageUrl();
-
         // http://square.github.io/picasso/
         Picasso.with(convertView.getContext())
                 .load(coverUrl)
                 .into(holder.ivCover);
-
         BookCondition condition = book.getCondition();
         int resId = condition.getIconDrawableResId();
         if (resId != 0) {
@@ -124,19 +104,22 @@ public class HondanaBookAdapter extends BaseAdapter {
             Drawable conditionDrawable = ResourcesCompat.getDrawable(context.getResources(), resId, null);
             holder.ivConditionIcon.setImageDrawable(conditionDrawable);
         }
-
         holder.tvTitle.setText(info.getTitle());
         holder.tvAuthor.setText(info.getAuthor());
-
         final String userId = book.getOwnerId();
+
+        final Member cache = mCache.get(userId);
+        if (cache != null) {
+            setUserInfo(holder, cache);
+            return convertView;
+        }
+
         KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {
-                final String name = member.getName();
-//                Log.d(TAG, "name: " + name);
-                holder.tvOwnerName.setText(name);
+                mCache.put(userId, member);
+                setUserInfo(holder, member);
             }
-
             @Override
             public void failure(Exception e) {
                 Log.e(TAG, "failure: ", e);
@@ -145,17 +128,18 @@ public class HondanaBookAdapter extends BaseAdapter {
         return convertView;
     }
 
+    private void setUserInfo(ViewHolder holder, Member member) {
+        holder.tvOwnerName.setText(member.getName());
+    }
     public interface BookItemClickListener {
         void onClick(Book book);
     }
-
     private static class ViewHolder {
         public ImageView ivCover;
         public ImageView ivConditionIcon;
         public TextView tvTitle;
         public TextView tvAuthor;
         public TextView tvOwnerName;
-
         public ViewHolder(ImageView ivCover, ImageView ivConditionIcon, TextView tvTitle, TextView tvAuthor, TextView tvOwnerName) {
             this.ivCover = ivCover;
             this.ivConditionIcon = ivConditionIcon;
@@ -165,4 +149,3 @@ public class HondanaBookAdapter extends BaseAdapter {
         }
     }
 }
-

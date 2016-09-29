@@ -38,9 +38,11 @@ import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;
 import com.books.hondana.model.Request;
+import com.books.hondana.model.abst.KiiModel;
 import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.start.StartActivity;
 import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
 import com.squareup.picasso.Picasso;
 
@@ -62,6 +64,7 @@ public class UserpageActivity extends AppCompatActivity
     ////////////////////////////////////////
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
+    private Member member;
 
 
     @Override
@@ -187,7 +190,7 @@ public class UserpageActivity extends AppCompatActivity
 
         KiiUser kiiUser = KiiUser.getCurrentUser();
         assert kiiUser != null;
-        String userId = kiiUser.getID();
+        final String userId = kiiUser.getID();
         LogUtil.d (TAG, "userID = " + userId);
         KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
                     @Override
@@ -206,12 +209,11 @@ public class UserpageActivity extends AppCompatActivity
                         assert userProfile != null;
                         userProfile.setText(UserProfile);
 
-                        final int UserPoint = member.getPoint();
+                        final int UserPoint = member.getPoint() + member.getPointsByBooks();
                         String point = Integer.toString(UserPoint);
                         Log.d(TAG, "point: " + point);
                         assert userPoint != null;
                         userPoint.setText(point);
-
                     }
 
                     @Override
@@ -226,8 +228,32 @@ public class UserpageActivity extends AppCompatActivity
                 Log.d(TAG, "success: size=" + result.size());
                 mListAdapter.add(result);
                 mListAdapter.notifyDataSetChanged();
-            }
 
+                int postedBook = result.size();
+                final int pointsByBooks = postedBook / 10;
+                Log.d(TAG, "pointsByBooks:" + pointsByBooks);
+
+                int diff = 0;
+                KiiMemberConnection.updatePoint(userId, diff, new KiiObjectCallback<Member>() {
+                    @Override
+                    public void success(int token, Member member) {
+                        member.setPointsByBooks(pointsByBooks);
+                        member.save(false, new KiiModel.KiiSaveCallback() {
+                            @Override
+                            public void success(int token, KiiObject object) {
+
+                            }
+
+                            @Override
+                            public void failure(@Nullable Exception e) {
+                            }
+                        });
+                    }
+                    @Override
+                    public void failure(Exception e) {
+                    }
+                });
+            }
             @Override
             public void failure(@Nullable Exception e) {
                 LogUtil.w(TAG, e);
