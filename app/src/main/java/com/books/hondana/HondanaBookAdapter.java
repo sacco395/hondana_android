@@ -3,20 +3,19 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.books.hondana.connection.KiiMemberConnection;
-import com.books.hondana.connection.KiiObjectCallback;
+
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookCondition;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -106,31 +105,11 @@ public class HondanaBookAdapter extends BaseAdapter {
         }
         holder.tvTitle.setText(info.getTitle());
         holder.tvAuthor.setText(info.getAuthor());
-        final String userId = book.getOwnerId();
+        holder.tvOwnerName.setText(book.getOwnerName());
 
-        final Member cache = mCache.get(userId);
-        if (cache != null) {
-            setUserInfo(holder, cache);
-            return convertView;
-        }
-
-        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
-            @Override
-            public void success(int token, Member member) {
-                mCache.put(userId, member);
-                setUserInfo(holder, member);
-            }
-            @Override
-            public void failure(Exception e) {
-                Log.e(TAG, "failure: ", e);
-            }
-        });
         return convertView;
     }
 
-    private void setUserInfo(ViewHolder holder, Member member) {
-        holder.tvOwnerName.setText(member.getName());
-    }
     public interface BookItemClickListener {
         void onClick(Book book);
     }

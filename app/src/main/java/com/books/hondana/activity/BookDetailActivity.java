@@ -233,8 +233,12 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 				assert kiiUser != null;
 				String userId = kiiUser.getID();
 				LogUtil.d (TAG, "userID = " + userId);
+				String userName = kiiUser.getUsername();
+				LogUtil.d (TAG, "userName = " + userName);
+
 
 				targetBook.setOwnerId(user.getID());
+				targetBook.setOwnerName(user.getUsername());
 				info.setSize(size);
 				targetBook.setInfo(info);
 				condition.setSmell(smell);
