@@ -217,6 +217,7 @@ public class UserpageActivity extends AppCompatActivity
                     }
 
                     @Override
+
                     public void failure(Exception e) {
                         Log.w(TAG, e);
                     }

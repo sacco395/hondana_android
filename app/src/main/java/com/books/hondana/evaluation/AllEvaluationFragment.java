@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.books.hondana.R;
 import com.books.hondana.activity.UserpageActivity;
@@ -57,13 +58,21 @@ public class AllEvaluationFragment extends Fragment {
             @Override
             public void success(int token, List<Request> result) {
                 LogUtil.d (TAG, "success: size=" + result.size ());
+                mListAdapter.add(result);
+                mListAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void failure(@Nullable Exception e) {
+                Intent intent = new Intent(getContext (), UserpageActivity.class);
+                startActivity(intent);
+                showToast("あなたへの評価はまだありません");
                 LogUtil.w (TAG, e);
             }
         });
         return view;
+    }
+    private void showToast(String message) {
+        Toast.makeText(getContext (), message, Toast.LENGTH_LONG).show();
     }
 }
