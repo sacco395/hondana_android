@@ -1,6 +1,8 @@
 package com.books.hondana.evaluation;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.books.hondana.R;
+import com.books.hondana.connection.KiiMemberConnection;
+import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.model.Member;
 import com.books.hondana.model.Request;
+import com.books.hondana.util.LogUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,18 +82,40 @@ public class EvaluationListViewAdapter extends BaseAdapter {
                 mListener.onClick(request);
             }
         });
-//
-//        Member clientIconUrl = member.getImageUrl();
-//        String coverUrl = clientIconUrl.getImageUrl();
-//
-//        // http://square.github.io/picasso/
-//        Picasso.with(convertView.getContext())
-//                .load(coverUrl)
-//                .into(holder.ivCover);
-//
-//        holder.tvTitle.setText(info.getTitle());
-//        holder.tvAuthor.setText(info.getAuthor());
+        int resId = request.getIconDrawableResId();
+        if (resId != 0) {
+            Context context = convertView.getContext();
+            Drawable evaluationDrawable = ResourcesCompat.getDrawable(context.getResources(), resId, null);
+            holder.ivEvaluationIcon.setImageDrawable(evaluationDrawable);
+        }
 
+        holder.tvEvaluationComment.setText(request.getEvaluateMessage());
+        holder.tvEvaluatedDate.setText(request.getReceivedDate());
+
+        final String clientId = request.getClientId();
+        KiiMemberConnection.fetch(clientId, new KiiObjectCallback<Member> () {
+            @Override
+            public void success(int token, Member member) {
+                final String name = member.getName();
+                LogUtil.d(TAG, "name: " + name);
+                holder.tvClientUser.setText(name);
+
+                if (!member.hasValidImageUrl()) {
+                    return;
+                }
+
+                final String imageUrl = member.getImageUrl();
+                LogUtil.d(TAG, "imageUrl: " + imageUrl);
+                Picasso.with(parent.getContext())
+                        .load(imageUrl)
+                        .into(holder.ivClientUserIcon);
+            }
+
+            @Override
+            public void failure(Exception e) {
+                LogUtil.e(TAG, "failure: ", e);
+            }
+        });
 
         return convertView;
     }

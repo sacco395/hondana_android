@@ -6,6 +6,7 @@
 
     <ImageView
         android:id="@+id/client_user_icon"
+        android:src="@drawable/usericon"
         android:scaleType="centerCrop"
         android:layout_margin="16dp"
         android:layout_width="40dp"

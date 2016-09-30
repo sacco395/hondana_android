@@ -92,6 +92,7 @@ public class KiiBookConnection {
         KiiClause clause = KiiClause.equals(Book.OWNER_ID, userId);
         KiiQuery ownerIdQuery = new KiiQuery(clause);
         queryBookBucket(ownerIdQuery, callback);
+        ownerIdQuery.sortByDesc("_created");
     }
 
     private static void queryBookBucket(KiiQuery query, final KiiObjectListCallback<Book> callback) {

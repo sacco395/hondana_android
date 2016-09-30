@@ -54,7 +54,7 @@ public class AllEvaluationFragment extends Fragment {
         String userId = kiiUser.getID ();
         LogUtil.d (TAG, "userID = " + userId);
 
-        KiiRequestConnection.fetchRequestsByOthers (userId, new KiiObjectListCallback<Request> () {
+        KiiRequestConnection.fetchEvaluatedByOthers(userId, new KiiObjectListCallback<Request> () {
             @Override
             public void success(int token, List<Request> result) {
                 LogUtil.d (TAG, "success: size=" + result.size ());
@@ -64,9 +64,6 @@ public class AllEvaluationFragment extends Fragment {
 
             @Override
             public void failure(@Nullable Exception e) {
-                Intent intent = new Intent(getContext (), UserpageActivity.class);
-                startActivity(intent);
-                showToast("あなたへの評価はまだありません");
                 LogUtil.w (TAG, e);
             }
         });

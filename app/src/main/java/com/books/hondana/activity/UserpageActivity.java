@@ -75,7 +75,7 @@ public class UserpageActivity extends AppCompatActivity
         final KiiUser user = KiiUser.getCurrentUser();
         assert toolbar != null;
         assert user != null;
-        toolbar.setTitle(user.getUsername() + "さん");
+//        toolbar.setTitle(user.getUsername() + "さん");
         setSupportActionBar(toolbar);
 
         mListAdapter = new MyBookListAdapter(new ArrayList<Book>(), new MyBookListAdapter.BookItemClickListener() {

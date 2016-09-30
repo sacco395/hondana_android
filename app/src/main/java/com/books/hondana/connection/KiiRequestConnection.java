@@ -68,6 +68,14 @@ public class KiiRequestConnection {
         queryRequestBucket(userIdQuery, callback);
     }
 
+
+    public static void fetchEvaluatedByOthers(String userId, KiiObjectListCallback<Request> callback) {
+        KiiQuery EvaluatedQuery = new KiiQuery(KiiClause.and(
+                KiiClause.equals(Request.SERVER_ID, userId),
+                KiiClause.notEquals(Request.RECEIVED_DATE, "")));
+        queryRequestBucket(EvaluatedQuery, callback);
+    }
+
     /**
      * KiiQuery を元に、Request のバケツを検索、リストを取得
      * @param query 検索条件
