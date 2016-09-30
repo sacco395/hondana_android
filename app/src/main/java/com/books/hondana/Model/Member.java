@@ -188,7 +188,7 @@ public class Member extends KiiModel implements Parcelable {
         profile = kiiObject.getString(PROFILE);
         imageUrl = kiiObject.getString(IMAGE_URL);
         point = kiiObject.getInt(POINT);
-        pointsByBooks = kiiObject.getInt(POINTS_BY_BOOKS);
+        pointsByBooks = kiiObject.getInt(POINTS_BY_BOOKS,0);
         favoriteAuthors = new AuthorList(kiiObject.getJSONObject(FAVORITE_AUTHORS));
         deleted = kiiObject.getBoolean(DELETED);
     }
