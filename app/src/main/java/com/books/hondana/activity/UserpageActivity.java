@@ -187,6 +187,7 @@ public class UserpageActivity extends AppCompatActivity
         final ImageView userIcon = (ImageView) findViewById(R.id.user_icon);
         final TextView userProfile = (TextView) findViewById(R.id.tv_user_profile);
         final TextView userPoint = (TextView) findViewById(R.id.user_point);
+        final TextView numberOfBooks = (TextView) findViewById(R.id.numberOfBooks);
 
         KiiUser kiiUser = KiiUser.getCurrentUser();
         assert kiiUser != null;
@@ -226,6 +227,9 @@ public class UserpageActivity extends AppCompatActivity
             @Override
             public void success(int token, List<Book> result) {
                 Log.d(TAG, "success: size=" + result.size());
+                int num = result.size();
+                String number = String.valueOf(num);
+                numberOfBooks.setText(number);
                 mListAdapter.add(result);
                 mListAdapter.notifyDataSetChanged();
 
