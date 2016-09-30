@@ -15,7 +15,7 @@
 
         <!--本の画像-->
         <ImageView
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
             android:id="@+id/imgCovert"
             android:adjustViewBounds="false"
@@ -32,7 +32,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="130dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <!--本のタイトル-->
@@ -63,49 +63,34 @@
                 android:maxLines="1" />
 
         </LinearLayout>
-
-        <!--本へのいいね！-->
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView2"
-            android:src="@drawable/abc_btn_rating_star_off_mtrl_alpha"
-            android:tint="#C8C8C8"
-            android:layout_gravity="right" />
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
-
-        <!--ユーザーアイコン-->
-        <ImageView
-            android:id="@+id/user_icon"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/usericon" />
+        <TextView
+            android:id="@+id/owner"
+            android:text="本の持ち主:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp" />
         <!--ユーザー名-->
             <TextView
                 android:id="@+id/book_owner"
                 android:text="ユーザー名"
                 android:layout_marginLeft="8dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp" />
-        <!--本へのいいね！-->
+        <!--本の状態アイコン-->
         <ImageView
-            android:layout_width="30dp"
+            android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:id="@+id/MainBookConditionIcon"
             android:src="@drawable/book_icon_good"
-            android:layout_marginLeft="32dp" />
-
+            android:layout_gravity="right" />
     </LinearLayout>
 </LinearLayout>

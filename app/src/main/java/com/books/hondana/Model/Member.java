@@ -27,6 +27,7 @@ public class Member extends KiiModel implements Parcelable {
     public static final String PROFILE = "profile";
     public static final String IMAGE_URL = "image_url";
     public static final String POINT = "point";
+    public static final String POINTS_BY_BOOKS = "points_by_books";
     public static final String FAVORITE_AUTHORS = "favorite_authors";
     public static final String DELETED = "deleted";
 
@@ -41,6 +42,8 @@ public class Member extends KiiModel implements Parcelable {
     private String imageUrl;
 
     private int point;
+
+    private int pointsByBooks;
 
     private AuthorList favoriteAuthors;
 
@@ -88,6 +91,7 @@ public class Member extends KiiModel implements Parcelable {
         profile = "";
         imageUrl = "";
         point = 1;
+        pointsByBooks = 0;
         favoriteAuthors = new AuthorList();
     }
 
@@ -143,6 +147,14 @@ public class Member extends KiiModel implements Parcelable {
         this.point = point;
     }
 
+    public int getPointsByBooks() {
+        return pointsByBooks;
+    }
+
+    public void setPointsByBooks(int pointsByBooks) {
+        this.pointsByBooks = pointsByBooks;
+    }
+
     public AuthorList getFavoriteAuthors() {
         return favoriteAuthors;
     }
@@ -176,6 +188,7 @@ public class Member extends KiiModel implements Parcelable {
         profile = kiiObject.getString(PROFILE);
         imageUrl = kiiObject.getString(IMAGE_URL);
         point = kiiObject.getInt(POINT);
+        pointsByBooks = kiiObject.getInt(POINTS_BY_BOOKS,0);
         favoriteAuthors = new AuthorList(kiiObject.getJSONObject(FAVORITE_AUTHORS));
         deleted = kiiObject.getBoolean(DELETED);
     }
@@ -191,6 +204,7 @@ public class Member extends KiiModel implements Parcelable {
         source.set(PROFILE, profile);
         source.set(IMAGE_URL, imageUrl);
         source.set(POINT, point);
+        source.set(POINTS_BY_BOOKS, pointsByBooks);
         source.set(FAVORITE_AUTHORS, favoriteAuthors.toJSON());
         source.set(DELETED, deleted);
         return source;
@@ -213,6 +227,7 @@ public class Member extends KiiModel implements Parcelable {
         dest.writeString(this.profile);
         dest.writeString(this.imageUrl);
         dest.writeInt(this.point);
+        dest.writeInt(this.pointsByBooks);
         dest.writeParcelable(this.favoriteAuthors, flags);
         dest.writeByte(this.deleted ? (byte) 1 : (byte) 0);
     }
@@ -228,6 +243,7 @@ public class Member extends KiiModel implements Parcelable {
         this.profile = in.readString();
         this.imageUrl = in.readString();
         this.point = in.readInt();
+        this.pointsByBooks = in.readInt();
         this.favoriteAuthors = in.readParcelable(AuthorList.class.getClassLoader());
         this.deleted = in.readByte() != 0;
     }
