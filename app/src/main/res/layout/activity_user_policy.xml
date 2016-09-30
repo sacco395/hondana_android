@@ -46,7 +46,8 @@
             android:text="@string/textViewUserPolicy1"
             android:id="@+id/textViewUserPolicy1"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
         <!--第2条-->
         <TextView
@@ -55,7 +56,8 @@
             android:text="@string/textViewUserPolicy2"
             android:id="@+id/textViewUserPolicy2"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
 
         <!--第3条-->
         <TextView
@@ -64,7 +66,8 @@
             android:text="@string/textViewUserPolicy3"
             android:id="@+id/textViewUserPolicy3"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
 
         <!--第4条-->
         <TextView
@@ -73,7 +76,8 @@
             android:text="@string/textViewUserPolicy4"
             android:id="@+id/textViewUserPolicy4"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
 
         <!--第5条-->
         <TextView
@@ -82,7 +86,8 @@
             android:text="@string/textViewUserPolicy5"
             android:id="@+id/textViewUserPolicy5"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
 
         <!--第6条-->
         <TextView
@@ -91,7 +96,8 @@
             android:text="@string/textViewUserPolicy6"
             android:id="@+id/textViewUserPolicy6"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
 
         <!--第7条-->
         <TextView
@@ -100,7 +106,8 @@
             android:text="@string/textViewUserPolicy7"
             android:id="@+id/textViewUserPolicy7"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
 
         <!--第8条-->
         <TextView
@@ -109,7 +116,8 @@
             android:text="@string/textViewUserPolicy8"
             android:id="@+id/textViewUserPolicy8"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
         <!--第9条-->
         <TextView
@@ -118,7 +126,8 @@
             android:text="@string/textViewUserPolicy9"
             android:id="@+id/textViewUserPolicy9"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
         <!--第10条-->
         <TextView
@@ -127,7 +136,8 @@
             android:text="@string/textViewUserPolicy10"
             android:id="@+id/textViewUserPolicy10"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
         <!--第11条-->
         <TextView
@@ -136,7 +146,8 @@
             android:text="@string/textViewUserPolicy11"
             android:id="@+id/textViewUserPolicy11"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
         <!--第12条-->
         <TextView
@@ -145,7 +156,8 @@
             android:text="@string/textViewUserPolicy12"
             android:id="@+id/textViewUserPolicy12"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
         <!--第13条-->
         <TextView
@@ -154,7 +166,8 @@
             android:text="@string/textViewUserPolicy13"
             android:id="@+id/textViewUserPolicy13"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
         <!--第14条-->
         <TextView
@@ -163,7 +176,8 @@
             android:text="@string/textViewUserPolicy14"
             android:id="@+id/textViewUserPolicy14"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
         <!--第15条-->
         <TextView
@@ -172,7 +186,8 @@
             android:text="@string/textViewUserPolicy15"
             android:id="@+id/textViewUserPolicy15"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
         <!--第16条-->
         <TextView
@@ -181,7 +196,8 @@
             android:text="@string/textViewUserPolicy16"
             android:id="@+id/textViewUserPolicy16"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
         <!--第17条-->
         <TextView
@@ -190,7 +206,8 @@
             android:text="@string/textViewUserPolicy17"
             android:id="@+id/textViewUserPolicy17"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
         <!--第18条-->
         <TextView
@@ -199,7 +216,8 @@
             android:text="@string/textViewUserPolicy18"
             android:id="@+id/textViewUserPolicy18"
             android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
         <!--第19条-->
         <TextView
