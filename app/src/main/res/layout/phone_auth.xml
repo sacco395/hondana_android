@@ -41,15 +41,6 @@
             android:layout_marginTop="30dp">
         </EditText>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/textViewAboutSms"
-            android:id="@+id/textViewAboutSms"
-            android:layout_gravity="center_horizontal"
-            android:textSize="13sp"
-            android:layout_marginTop="30dp" />
-
     </LinearLayout>
 
     <LinearLayout

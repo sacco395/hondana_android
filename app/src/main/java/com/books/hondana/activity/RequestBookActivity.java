@@ -246,7 +246,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         KiiUser kiiUser = KiiUser.getCurrentUser();
         assert kiiUser != null;
         final String userId = kiiUser.getID();
-        int diff = -1;
+        int diff = 0;
         KiiMemberConnection.updatePoint(userId, diff, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {
