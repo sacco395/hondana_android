@@ -21,10 +21,13 @@ public class Book extends KiiModel implements Parcelable {
     public static final String BUCKET_NAME = "appbooks";
 
     public static final String OWNER_ID = "owner_id";
+    public static final String OWNER_NAME = "owner_name";
     public static final String INFO = "info";
     public static final String CONDITION = "condition";
 
     private String ownerId;
+
+    private String ownerName;
 
     private BookInfo info;
 
@@ -54,6 +57,7 @@ public class Book extends KiiModel implements Parcelable {
 
     private Book() {
         ownerId = "";
+        ownerName = "";
         info = new BookInfo();
         condition = new BookCondition();
         genres = new GenreList();
@@ -69,6 +73,14 @@ public class Book extends KiiModel implements Parcelable {
 
     public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public BookInfo getInfo() {
@@ -103,6 +115,7 @@ public class Book extends KiiModel implements Parcelable {
     @Override
     public void setValuesFrom(KiiObject object) throws JSONException {
         ownerId = object.getString(OWNER_ID);
+        ownerName = object.getString(OWNER_NAME);
         info = new BookInfo(object.getJSONObject(INFO));
         condition = new BookCondition(object.getJSONObject(CONDITION));
         genres = new GenreList();
@@ -115,6 +128,7 @@ public class Book extends KiiModel implements Parcelable {
             source = bucket().object();
         }
         source.set(OWNER_ID, ownerId);
+        source.set(OWNER_NAME, ownerName);
         source.set(INFO, info.toJSON());
         source.set(CONDITION, condition.toJSON());
         genres.putValueInto(source);
@@ -133,6 +147,7 @@ public class Book extends KiiModel implements Parcelable {
         dest.writeLong(this.createdAt);
         dest.writeLong(this.updatedAt);
         dest.writeString(this.ownerId);
+        dest.writeString(this.ownerName);
         dest.writeParcelable(this.info, flags);
         dest.writeParcelable(this.condition, flags);
         dest.writeParcelable(this.genres, flags);
@@ -144,6 +159,7 @@ public class Book extends KiiModel implements Parcelable {
         this.createdAt = in.readLong();
         this.updatedAt = in.readLong();
         this.ownerId = in.readString();
+        this.ownerName = in.readString();
         this.info = in.readParcelable(BookInfo.class.getClassLoader());
         this.condition = in.readParcelable(BookCondition.class.getClassLoader());
         this.genres = in.readParcelable(GenreList.class.getClassLoader());

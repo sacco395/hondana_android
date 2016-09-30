@@ -160,8 +160,12 @@
                 android:layout_height="20dip"
                 android:background="#E6E5E1" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <TextView
-                android:text="あなたが登録した本一覧"
+                android:text="あなたが登録した本"
                 android:textColor="#2FCDB4"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
@@ -170,6 +174,26 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="14sp" />
+            <TextView
+                android:text="0"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="120dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="26sp"
+                android:id="@+id/numberOfBooks"/>
+            <TextView
+                android:text="冊"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+        </LinearLayout>
 
             <ListView
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -186,7 +210,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             app:fabSize="normal"
-            android:src="@drawable/hondana_camera_icon" />
+            app:srcCompat="@drawable/hondana_camera_icon" />
 
     </android.support.design.widget.CoordinatorLayout>
 
