@@ -14,6 +14,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.books.hondana.connection.KiiBookConnection;
+import com.books.hondana.connection.KiiGenreConnection;
 import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.Genre;
@@ -35,6 +36,8 @@ public class HondanaBooksFragment extends Fragment {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    private KiiGenreConnection connection;
+
     // ロード中を示すフラグ。無限ロードを防ぐため。
     private boolean mIsLoading = false;
 
@@ -54,6 +57,8 @@ public class HondanaBooksFragment extends Fragment {
         if (getArguments() != null) {
             mGenre = (Genre) getArguments().getSerializable(Genre.class.getSimpleName());
         }
+
+        connection = new KiiGenreConnection(mGenre);
 
         mGridAdapter = new HondanaBookAdapter(new ArrayList<Book>(), new HondanaBookAdapter.BookItemClickListener() {
             @Override
@@ -93,17 +98,8 @@ public class HondanaBooksFragment extends Fragment {
                 }
 
                 if ((firstVisibleItem + visibleItemCount) == totalItemCount) {
-                    Book last = mGridAdapter.getLastItem();
-                    if (last == null) {
-                        kickLoadHondanaBooks(0);
-                        return;
-                    }
-                    // FIXME: 9/9/16 Kii これかなりイケてないのでなんかいい感じにしたい。
-                    if (last.getCreatedAt() <= 1470909532550L) {
-                        // サーバにこれ以上本がない
-                        return;
-                    }
-                    kickLoadHondanaBooks(last.getCreatedAt());
+                    mIsLoading = true;
+                    kickLoadHondanaBooks(false);
                 }
             }
         });
@@ -124,7 +120,7 @@ public class HondanaBooksFragment extends Fragment {
     }
 
     private void refresh() {
-        kickLoadHondanaBooks(0);
+        kickLoadHondanaBooks(true);
         mGridAdapter.clear();
     }
 
@@ -134,10 +130,10 @@ public class HondanaBooksFragment extends Fragment {
      *             この時間以前に作成された KiiBook を取ってくる
      *             0 を指定したら、リフレッシュ
      */
-    private void kickLoadHondanaBooks(long from) {
+    private void kickLoadHondanaBooks(boolean refresh) {
         mIsLoading = true;
 
-        KiiBookConnection.fetch(mGenre, from, LOAD_BOOKS_COUNT_LIMIT, new KiiObjectListCallback<Book>() {
+        connection.fetch(0, refresh, new KiiObjectListCallback<Book>() {
             @Override
             public void success(int token, List<Book> result) {
                 Log.d(TAG, "success: size=" + result.size());
