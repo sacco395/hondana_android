@@ -59,7 +59,7 @@ public class KiiRequestConnection {
      * @param userId KiiUser#getUserID
      * @param callback
      */
-    public static void fetchRequetsRelatedToUser(String userId, KiiObjectListCallback<Request> callback) {
+    public static void fetchRequestsRelatedToUser(String userId, KiiObjectListCallback<Request> callback) {
         KiiClause clause = KiiClause.or(
                 KiiClause.equals(Request.CLIENT_ID, userId),
                 KiiClause.equals(Request.SERVER_ID, userId)

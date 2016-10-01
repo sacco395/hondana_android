@@ -7,7 +7,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
+import com.books.hondana.login.LoginActivity;
 import com.books.hondana.start.StartActivity;
 import com.books.hondana.util.LogUtil;
 
@@ -24,26 +26,21 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // スプラッシュ用のビューを取得する
+
         setContentView(R.layout.activity_splash);
 
-        //SharePreferences prefは自動ログインのため保存されているaccess tokenを読み出す。tokenがあればログインできる
-        //紫色は定数
         SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
         final String token = pref.getString(getString(R.string.save_token), "");//保存されていない時は""
 
-        //tokenがないとき。
         if(token.equals("")){
-            //画面を作る
-            // 2秒したらMainActivityを呼び出してSplashActivityを終了する
+
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    // StartActivityを呼び出す
                     Intent intent = new Intent(getApplicationContext(),
                             StartActivity.class);
                     startActivity(intent);
-                    // SplashActivityを終了する
+
                     SplashActivity.this.finish();
                 }
             }, 2 * 1000); // 2000ミリ秒後（2秒後）に実行
@@ -62,6 +59,12 @@ public class SplashActivity extends Activity {
                                 if (exception != null) {
                                     // Error handling
                                     LogUtil.e(TAG, "onRefreshCompleted: ", exception);
+                                    Toast.makeText(SplashActivity.this, "再度ログインしてください",
+                                            Toast.LENGTH_LONG).show();
+
+                                    Intent intent = new Intent(getApplicationContext(),
+                                            LoginActivity.class);
+                                    startActivity(intent);
                                     return;
                                 }
                                 mHandler.postDelayed(new Runnable() {
@@ -79,7 +82,12 @@ public class SplashActivity extends Activity {
                             }
                         });
                     } else {
-                        LogUtil.e(TAG, "onLoginCompleted: ", exception);
+                        LogUtil.e(TAG, "onLoginCompleted: 自動ログインできません", exception);
+
+                        Toast.makeText(SplashActivity.this, "ホンダナからのお知らせ　　　　　通信状態を確認の上、もう一度お試しください",
+                                Toast.LENGTH_LONG).show();
+
+                        finish();
                     }
                 }
             }, token);
