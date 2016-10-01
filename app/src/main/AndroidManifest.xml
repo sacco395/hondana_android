@@ -157,9 +157,15 @@
         <activity
             android:name=".activity.UserEditActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".evaluation.EvaluatedActivity" />
-        <activity android:name=".guide.GuideBundleActivity" />
-        <activity android:name=".activity.UserPolicyActivity"></activity>
+        <activity
+            android:name=".evaluation.EvaluatedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".guide.GuideBundleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UserPolicyActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

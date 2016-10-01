@@ -28,13 +28,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.model.exception.KiiModelException;
+import com.books.hondana.R;
+import com.books.hondana.activity.UserPolicyActivity;
 import com.books.hondana.model.Member;
 import com.books.hondana.model.abst.KiiModel;
-import com.books.hondana.R;
+import com.books.hondana.model.exception.KiiModelException;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
@@ -60,6 +63,20 @@ public class RegisterActivity extends Activity {
         mPhoneField = (TextView) findViewById(R.id.phone_field);
         mUsernameField = (TextView) findViewById(R.id.username_field);
         mPasswordField = (TextView) findViewById(R.id.password_field);
+
+        ((CheckBox)findViewById(R.id.CheckBoxAgreeRegister)).setChecked(true);
+        ((CheckBox)findViewById(R.id.CheckBoxAgreeRegister)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    //OFFに変更した時// TODO: 10/1 電話番号認証時にチェック判定on/off
+                    Toast.makeText(RegisterActivity.this, "利用規約を読んで同意するにチェックを入れてください",
+                            Toast.LENGTH_LONG).show();
+                }else{
+                    //ONに変更した時
+
+                }
+            }
+        });
 
     }
 
@@ -120,6 +137,11 @@ public class RegisterActivity extends Activity {
         }
 
     }
+    public void terms(View view) {
+        Intent intent = new Intent(this, UserPolicyActivity.class);
+        startActivity(intent);
+    }
+
 
     private void createMember(KiiUser user) {
         Member member;
