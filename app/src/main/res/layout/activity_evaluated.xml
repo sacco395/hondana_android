@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.35"
             android:id="@+id/icon_good"
-            android:src="@drawable/icon_good"
+            android:src="@drawable/icon_excellent"
             android:layout_marginTop="26dp" />
 
         <ImageView
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.35"
             android:id="@+id/icon_neutral"
-            android:src="@drawable/icon_neutral"
+            android:src="@drawable/icon_good"
             android:layout_marginTop="26dp" />
 
         <ImageView

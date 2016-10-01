@@ -170,9 +170,9 @@ public class Request extends KiiModel implements Parcelable {
     public int getIconDrawableResId() {
         switch (evaluationByClient) {
             case 0:
-                return R.drawable.icon_good;
+                return R.drawable.icon_excellent;
             case 1:
-                return R.drawable.icon_neutral;
+                return R.drawable.icon_good;
             case 2:
                 return R.drawable.icon_bad;
             default:
