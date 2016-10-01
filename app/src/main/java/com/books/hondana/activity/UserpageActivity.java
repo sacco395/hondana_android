@@ -31,6 +31,7 @@ import com.books.hondana.connection.KiiBookConnection;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.KiiObjectListCallback;
+import com.books.hondana.connection.KiiRequestConnection;
 import com.books.hondana.connection.QueryParamSet;
 import com.books.hondana.evaluation.EvaluationActivity;
 import com.books.hondana.guide.GuideActivity;
@@ -188,6 +189,9 @@ public class UserpageActivity extends AppCompatActivity
         final TextView userProfile = (TextView) findViewById(R.id.tv_user_profile);
         final TextView userPoint = (TextView) findViewById(R.id.user_point);
         final TextView numberOfBooks = (TextView) findViewById(R.id.numberOfBooks);
+        final TextView numberOfExcellent = (TextView) findViewById(R.id.numberOfExcellent);
+        final TextView numberOfGood = (TextView) findViewById(R.id.numberOfGood);
+        final TextView numberOfBad = (TextView) findViewById(R.id.numberOfBad);
 
         KiiUser kiiUser = KiiUser.getCurrentUser();
         assert kiiUser != null;
@@ -218,10 +222,57 @@ public class UserpageActivity extends AppCompatActivity
                     }
 
                     @Override
+
                     public void failure(Exception e) {
                         Log.w(TAG, e);
                     }
                 });
+
+        KiiRequestConnection.fetchEvaluatedExcellent(userId, new KiiObjectListCallback<Request> () {
+            @Override
+            public void success(int token, List<Request> result) {
+                LogUtil.d (TAG, "success: size=" + result.size ());
+                int num = result.size();
+                String number = String.valueOf(num);
+                numberOfExcellent.setText(number);
+            }
+
+            @Override
+            public void failure(@Nullable Exception e) {
+                LogUtil.w (TAG, e);
+            }
+        });
+
+        KiiRequestConnection.fetchEvaluatedGood(userId, new KiiObjectListCallback<Request> () {
+            @Override
+            public void success(int token, List<Request> result) {
+                LogUtil.d (TAG, "success: size=" + result.size ());
+                int num = result.size();
+                String number = String.valueOf(num);
+                numberOfGood.setText(number);
+            }
+
+            @Override
+            public void failure(@Nullable Exception e) {
+                LogUtil.w (TAG, e);
+            }
+        });
+
+        KiiRequestConnection.fetchEvaluatedBad(userId, new KiiObjectListCallback<Request> () {
+            @Override
+            public void success(int token, List<Request> result) {
+                LogUtil.d (TAG, "success: size=" + result.size ());
+                int num = result.size();
+                String number = String.valueOf(num);
+                numberOfBad.setText(number);
+            }
+
+            @Override
+            public void failure(@Nullable Exception e) {
+                LogUtil.w (TAG, e);
+            }
+        });
+
 
         KiiBookConnection.fetchPostedBooks(userId, new KiiObjectListCallback<Book>(){
             @Override

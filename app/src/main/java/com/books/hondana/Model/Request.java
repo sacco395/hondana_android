@@ -2,6 +2,8 @@ package com.books.hondana.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+
+import com.books.hondana.R;
 import com.books.hondana.model.abst.KiiModel;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
@@ -146,8 +148,8 @@ public class Request extends KiiModel implements Parcelable {
 
     public int getEvaluationByClient() { return evaluationByClient; }
 
-    public static String getEvaluateMessage(){
-        return getEvaluateMessage();
+    public String getEvaluateMessage(){
+        return evaluateMessage;
     }
     public void setEvaluateMessage(String evaluateMessage){
         this.evaluateMessage = evaluateMessage;
@@ -163,6 +165,18 @@ public class Request extends KiiModel implements Parcelable {
                 return "悪い";
             default:
                 return "普通";
+        }
+    }
+    public int getIconDrawableResId() {
+        switch (evaluationByClient) {
+            case 0:
+                return R.drawable.icon_excellent;
+            case 1:
+                return R.drawable.icon_good;
+            case 2:
+                return R.drawable.icon_bad;
+            default:
+                return 1;
         }
     }
 
@@ -210,7 +224,7 @@ public class Request extends KiiModel implements Parcelable {
         pdfLabelId = object.getString(PDF_LABEL_ID);
         bookId = object.getString(BOOK_ID);
         requestedDate = object.getString(REQUESTED_DATE);
-        sentDate = object.getString(sentDate);
+        sentDate = object.getString(SENT_DATE);
         receivedDate = object.getString(RECEIVED_DATE);
         //evaluatedDate = object.getString(EVALUATED_DATE);
         evaluationByClient = object.getInt(EVALUATION_BY_CLIENT);
