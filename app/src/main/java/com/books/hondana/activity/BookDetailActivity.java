@@ -229,6 +229,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 					Toast.makeText(BookDetailActivity.this, "エラー: ユーザ情報が取得できません", Toast.LENGTH_SHORT).show();
 					return;
 				}
+
 				KiiUser kiiUser = KiiUser.getCurrentUser();
 				assert kiiUser != null;
 				String userId = kiiUser.getID();

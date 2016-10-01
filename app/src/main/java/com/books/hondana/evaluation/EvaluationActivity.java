@@ -1,4 +1,3 @@
-//評価一覧
 package com.books.hondana.evaluation;
 
 import android.Manifest;
@@ -91,12 +90,12 @@ public class EvaluationActivity extends AppCompatActivity {
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabTwo.setText("良い");
-        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_good, 0, 0);
+        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_excellent, 0, 0);
         tabLayout.getTabAt(1).setCustomView(tabTwo);
 
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabThree.setText("普通");
-        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_neutral, 0, 0);
+        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon_good, 0, 0);
         tabLayout.getTabAt(2).setCustomView(tabThree);
 
         TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
@@ -110,8 +109,8 @@ public class EvaluationActivity extends AppCompatActivity {
         EvaluationTabAdapter adapter
                 = new EvaluationTabAdapter(getSupportFragmentManager());
         adapter.addFragment(new AllEvaluationFragment(), "すべて");
-        adapter.addFragment(new GoodEvaluationFragment(), "良い");
-        adapter.addFragment(new NeutralEvaluationFragment(), "普通");
+        adapter.addFragment(new ExcellentEvaluationFragment (), "良い");
+        adapter.addFragment(new GoodEvaluationFragment (), "普通");
         adapter.addFragment(new BadEvaluationFragment(), "悪い");
         viewPager.setAdapter(adapter);
     }

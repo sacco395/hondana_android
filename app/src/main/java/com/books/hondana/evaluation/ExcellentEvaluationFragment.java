@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AllEvaluationFragment extends Fragment {
+public class ExcellentEvaluationFragment extends Fragment {
 
-    private static final String TAG = AllEvaluationFragment.class.getSimpleName ();
+    private static final String TAG = ExcellentEvaluationFragment.class.getSimpleName ();
 
     EvaluationListViewAdapter mListAdapter;
 
@@ -53,7 +53,7 @@ public class AllEvaluationFragment extends Fragment {
         String userId = kiiUser.getID ();
         LogUtil.d (TAG, "userID = " + userId);
 
-        KiiRequestConnection.fetchEvaluatedByOthers(userId, new KiiObjectListCallback<Request> () {
+        KiiRequestConnection.fetchEvaluatedExcellent(userId, new KiiObjectListCallback<Request> () {
             @Override
             public void success(int token, List<Request> result) {
                 LogUtil.d (TAG, "success: size=" + result.size ());

@@ -69,6 +69,40 @@ public class KiiRequestConnection {
     }
 
     /**
+     * ユーザが評価されたリストを取得
+     */
+    public static void fetchEvaluatedByOthers(String userId, KiiObjectListCallback<Request> callback) {
+        KiiQuery EvaluatedQuery = new KiiQuery(KiiClause.and(
+                KiiClause.equals(Request.SERVER_ID, userId),
+                KiiClause.notEquals(Request.RECEIVED_DATE, "")));
+        queryRequestBucket(EvaluatedQuery, callback);
+    }
+
+    public static void fetchEvaluatedExcellent(String userId, KiiObjectListCallback<Request> callback) {
+        KiiQuery EvaluatedQuery = new KiiQuery(KiiClause.and(
+                KiiClause.equals(Request.SERVER_ID, userId),
+                KiiClause.equals(Request.EVALUATION_BY_CLIENT, 0),
+                KiiClause.notEquals(Request.RECEIVED_DATE, "")));
+        queryRequestBucket(EvaluatedQuery, callback);
+    }
+
+    public static void fetchEvaluatedGood(String userId, KiiObjectListCallback<Request> callback) {
+        KiiQuery EvaluatedQuery = new KiiQuery(KiiClause.and(
+                KiiClause.equals(Request.SERVER_ID, userId),
+                KiiClause.equals(Request.EVALUATION_BY_CLIENT, 1),
+                KiiClause.notEquals(Request.RECEIVED_DATE, "")));
+        queryRequestBucket(EvaluatedQuery, callback);
+    }
+
+    public static void fetchEvaluatedBad(String userId, KiiObjectListCallback<Request> callback) {
+        KiiQuery EvaluatedQuery = new KiiQuery(KiiClause.and(
+                KiiClause.equals(Request.SERVER_ID, userId),
+                KiiClause.equals(Request.EVALUATION_BY_CLIENT, 2),
+                KiiClause.notEquals(Request.RECEIVED_DATE, "")));
+        queryRequestBucket(EvaluatedQuery, callback);
+    }
+
+    /**
      * KiiQuery を元に、Request のバケツを検索、リストを取得
      * @param query 検索条件
      * @param callback
