@@ -23,7 +23,7 @@ public class Request extends KiiModel implements Parcelable {
     public static final String PDF_CONTENT_TYPE = "application/pdf";
     public static final String CLIENT_ID = "client_id";
     public static final String SERVER_ID = "server_id";
-    public static final String PDF_LABEL_ID = "pdf_label_id";
+    public static final String PDF_URL = "pdf_url";
     public static final String BOOK_ID = "book_id";
     public static final String REQUESTED_DATE = "requested_date";
     public static final String SENT_DATE = "sent_date";
@@ -31,7 +31,6 @@ public class Request extends KiiModel implements Parcelable {
     //public static final String EVALUATED_DATE = "evaluated_date";
     public static final String EVALUATION_BY_CLIENT = "evaluation_by_client";
     public static final String EVALUATE_MESSAGE = "evaluate_message";
-    public static final String LIKE = "like";
     private String id;
     /**
      * リクエストをしたユーザID
@@ -49,10 +48,11 @@ public class Request extends KiiModel implements Parcelable {
     private String requestedDate;
     private String sentDate;
     private String receivedDate;
+    private String pdf_url;
     //private String evaluatedDate;
     private int evaluationByClient;
     private String evaluateMessage;
-    private boolean like;
+
     /**
      * Request を、新規に作成する。すでにサーバに保存されているオブジェクトの取得は、
      * {@link com.books.hondana.connection.KiiRequestConnection} を使用すること
@@ -84,9 +84,9 @@ public class Request extends KiiModel implements Parcelable {
         requestedDate = "";
         sentDate = "";
         receivedDate = "";
+        pdf_url = "";
         //evaluatedDate = "";
         evaluateMessage = "";
-        like = false;
     }
 
     public static final int EVALUATION_EXCELLENT = 0;
@@ -114,11 +114,11 @@ public class Request extends KiiModel implements Parcelable {
     public void setServerId(String serverId) {
         this.serverId = serverId;
     }
-    public String getPdfLabelId() {
-        return pdfLabelId;
+    public String getPdfUrl() {
+        return pdf_url;
     }
-    public void setPdfLabelId(String pdfLabelId) {
-        this.pdfLabelId = pdfLabelId;
+    public void setPdfUrl(String pdf_url) {
+        this.pdf_url = pdf_url;
     }
     public String getBookId() {
         return bookId;
@@ -158,13 +158,6 @@ public class Request extends KiiModel implements Parcelable {
         this.evaluateMessage = evaluateMessage;
     }
 
-    public boolean isStared() {
-        return like;
-    }
-
-    public void setStared(boolean like) {
-        this.like = like;
-    }
 
     public String getEvaluationByClientText() {
         switch (evaluationByClient) {
@@ -216,7 +209,7 @@ public class Request extends KiiModel implements Parcelable {
      * @param expiresIn 公開期限（秒）
      * @param callback See {@link KiiObjectPublishCallback}
      */
-    public void publishPdfWithExpation(int expiresIn, PdfPublishCallback callback) {
+    public void publishPdfWithExpiration(int expiresIn, PdfPublishCallback callback) {
         if (source == null || id == null) {
             callback.failure(new IllegalStateException("KiiObject が空です。"));
             return;
@@ -232,7 +225,7 @@ public class Request extends KiiModel implements Parcelable {
     public void setValuesFrom(KiiObject object) throws JSONException {
         clientId = object.getString(CLIENT_ID);
         serverId = object.getString(SERVER_ID);
-        pdfLabelId = object.getString(PDF_LABEL_ID);
+        pdf_url = object.getString(PDF_URL);
         bookId = object.getString(BOOK_ID);
         requestedDate = object.getString(REQUESTED_DATE);
         sentDate = object.getString(SENT_DATE);
@@ -240,7 +233,6 @@ public class Request extends KiiModel implements Parcelable {
         //evaluatedDate = object.getString(EVALUATED_DATE);
         evaluationByClient = object.getInt(EVALUATION_BY_CLIENT);
         evaluateMessage = object.getString(EVALUATE_MESSAGE);
-        like = object.getBoolean(LIKE);
 
     }
     @Override
@@ -250,7 +242,7 @@ public class Request extends KiiModel implements Parcelable {
         }
         source.set(CLIENT_ID, clientId);
         source.set(SERVER_ID, serverId);
-        source.set(PDF_LABEL_ID, pdfLabelId);
+        source.set(PDF_URL, pdf_url);
         source.set(BOOK_ID, bookId);
         source.set(REQUESTED_DATE, requestedDate);
         source.set(SENT_DATE, sentDate);
@@ -258,7 +250,6 @@ public class Request extends KiiModel implements Parcelable {
         //source.set(EVALUATED_DATE, evaluatedDate);
         source.set(EVALUATION_BY_CLIENT, evaluationByClient);
         source.set(EVALUATE_MESSAGE, evaluateMessage);
-        source.set(LIKE, like);
         return source;
     }
     @Override
@@ -270,7 +261,7 @@ public class Request extends KiiModel implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.clientId);
         dest.writeString(this.serverId);
-        dest.writeString(this.pdfLabelId);
+        dest.writeString(this.pdf_url);
         dest.writeString(this.bookId);
         dest.writeString(this.requestedDate);
         dest.writeString(this.sentDate);
@@ -278,13 +269,12 @@ public class Request extends KiiModel implements Parcelable {
         //dest.writeString(this.evaluatedDate);
         dest.writeInt(this.evaluationByClient);
         dest.writeString(this.evaluateMessage);
-        dest.writeByte(this.like ? (byte) 1 : (byte) 0);
     }
     protected Request(Parcel in) {
         this.id = in.readString();
         this.clientId = in.readString();
         this.serverId = in.readString();
-        this.pdfLabelId = in.readString();
+        this.pdf_url = in.readString();
         this.bookId = in.readString();
         this.requestedDate = in.readString();
         this.sentDate = in.readString();
@@ -292,7 +282,6 @@ public class Request extends KiiModel implements Parcelable {
         //this.evaluatedDate = in.readString();
         this.evaluationByClient = in.readInt();
         this.evaluateMessage = in.readString();
-        this.like = in.readByte() !=0;
 
     }
     public static final Creator<Request> CREATOR = new Creator<Request>() {

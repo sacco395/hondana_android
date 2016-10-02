@@ -207,7 +207,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
                     break;
 
                 case R.id.bookInfoLike:
-                    clickToStared();
+                    //clickToStared();
                     break;
             }
         }
@@ -250,16 +250,16 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    private void clickToStared(){ //星のクリックしての処理
-        final ImageView  = (ImageView) findViewById(R.id.bookInfoLike);//星の画像
-        final ImageView userIcon = (ImageView) findViewById(R.id.user_icon);//星の画像
-        KiiUser kiiUser = KiiUser.getCurrentUser();
-        boolean request.
-        if(like){
-
-        }
-
-    }
+//    private void clickToStared(){ //星のクリックしての処理
+//        final ImageView  = (ImageView) findViewById(R.id.bookInfoLike);//星の画像
+//        final ImageView userIcon = (ImageView) findViewById(R.id.user_icon);//星の画像
+//        KiiUser kiiUser = KiiUser.getCurrentUser();
+//        boolean request.
+//        if(like){
+//
+//        }
+//
+//    }
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();

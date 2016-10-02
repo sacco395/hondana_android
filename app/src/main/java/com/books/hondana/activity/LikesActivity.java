@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -16,7 +15,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,8 +27,6 @@ import com.books.hondana.MyBookListAdapter;
 import com.books.hondana.R;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
-import com.books.hondana.connection.KiiObjectListCallback;
-import com.books.hondana.connection.KiiRequestConnection;
 import com.books.hondana.connection.QueryParamSet;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
@@ -43,7 +39,6 @@ import com.kii.cloud.storage.KiiUser;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LikesActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -86,7 +81,7 @@ public class LikesActivity extends AppCompatActivity
             }
         });
 
-        fetchStared();
+        //fetchStared();
 
 
         //カメラボタン
@@ -154,25 +149,25 @@ public class LikesActivity extends AppCompatActivity
     }
         //navigationViewにアイコンと名前ここまで
 
-    private void fetchStared(){
-        KiiUser kiiUser = KiiUser.getCurrentUser();
-        assert kiiUser != null;
-        final String userId = kiiUser.getID();
-        KiiRequestConnection.fetchStared(userId, new KiiObjectListCallback<Request>() {
-            @Override
-            public void success(int token, List<Request> result) {
-                Log.d(TAG, "success: size=" + result.size());
-
-                mListAdapter.add((Book) result);
-                mListAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void failure(@Nullable Exception e) {
-
-            }
-        });
-    }
+//    private void fetchStared(){
+//        KiiUser kiiUser = KiiUser.getCurrentUser();
+//        assert kiiUser != null;
+//        final String userId = kiiUser.getID();
+//        KiiRequestConnection.fetchStared(userId, new KiiObjectListCallback<Request>() {
+//            @Override
+//            public void success(int token, List<Request> result) {
+//                Log.d(TAG, "success: size=" + result.size());
+//
+//                mListAdapter.add((Book) result);
+//                mListAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void failure(@Nullable Exception e) {
+//
+//            }
+//        });
+//    }
 
     @Override
     public void onBackPressed() {

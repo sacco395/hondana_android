@@ -102,13 +102,13 @@ public class KiiRequestConnection {
         queryRequestBucket(EvaluatedQuery, callback);
     }
 
-    public static void fetchStared(String userId, KiiObjectListCallback<Request> callback){
-        KiiQuery StaredQuery = new KiiQuery(KiiClause.and(
-                KiiClause.equals(Request.CLIENT_ID, userId),
-                KiiClause.equals(Request.BOOK_ID, ""),
-                KiiClause.equals(Request.LIKE, true)));
-        queryRequestBucket(StaredQuery, callback);
-    }
+//    public static void fetchStared(String userId, String book_Id, KiiObjectListCallback<Request> callback){
+//        KiiQuery StaredQuery = new KiiQuery(KiiClause.and(
+//                KiiClause.equals(Request.CLIENT_ID, userId),
+//                //KiiClause.equals(Request.BOOK_ID, book_Id),
+//                KiiClause.equals(Request.LIKE, true)));
+//        queryRequestBucket(StaredQuery, callback);
+//    }
 
     /**
      * KiiQuery を元に、Request のバケツを検索、リストを取得
