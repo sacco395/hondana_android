@@ -107,7 +107,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
 
                 case R.id.buttonRequest:
                     // クリック処理（交換リクエストの日時とユーザーIDを保存）
-                    saveRequestDate ();
+                    saveRequestDate();
                     saveMinusPoint();
                     break;
                 default:

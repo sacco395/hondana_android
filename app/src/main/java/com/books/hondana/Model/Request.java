@@ -15,7 +15,7 @@ import java.io.File;
 /**
  * リクエストに関する情報を保持
  * 取引が進むごとに、対応するフィールドに日付がセットされる
- * Request -> Send -> Receive -> Evaluate
+ * Request -> Send -> Receive
  * の順に行われる
  */
 public class Request extends KiiModel implements Parcelable {
@@ -31,6 +31,7 @@ public class Request extends KiiModel implements Parcelable {
     //public static final String EVALUATED_DATE = "evaluated_date";
     public static final String EVALUATION_BY_CLIENT = "evaluation_by_client";
     public static final String EVALUATE_MESSAGE = "evaluate_message";
+    public static final String LIKE = "like";
     private String id;
     /**
      * リクエストをしたユーザID
@@ -51,6 +52,7 @@ public class Request extends KiiModel implements Parcelable {
     //private String evaluatedDate;
     private int evaluationByClient;
     private String evaluateMessage;
+    private boolean like;
     /**
      * Request を、新規に作成する。すでにサーバに保存されているオブジェクトの取得は、
      * {@link com.books.hondana.connection.KiiRequestConnection} を使用すること
@@ -84,6 +86,7 @@ public class Request extends KiiModel implements Parcelable {
         receivedDate = "";
         //evaluatedDate = "";
         evaluateMessage = "";
+        like = false;
     }
 
     public static final int EVALUATION_EXCELLENT = 0;
@@ -153,6 +156,14 @@ public class Request extends KiiModel implements Parcelable {
     }
     public void setEvaluateMessage(String evaluateMessage){
         this.evaluateMessage = evaluateMessage;
+    }
+
+    public boolean isStared() {
+        return like;
+    }
+
+    public void setStared(boolean like) {
+        this.like = like;
     }
 
     public String getEvaluationByClientText() {
@@ -229,6 +240,8 @@ public class Request extends KiiModel implements Parcelable {
         //evaluatedDate = object.getString(EVALUATED_DATE);
         evaluationByClient = object.getInt(EVALUATION_BY_CLIENT);
         evaluateMessage = object.getString(EVALUATE_MESSAGE);
+        like = object.getBoolean(LIKE);
+
     }
     @Override
     public KiiObject createKiiObject() throws JSONException {
@@ -245,6 +258,7 @@ public class Request extends KiiModel implements Parcelable {
         //source.set(EVALUATED_DATE, evaluatedDate);
         source.set(EVALUATION_BY_CLIENT, evaluationByClient);
         source.set(EVALUATE_MESSAGE, evaluateMessage);
+        source.set(LIKE, like);
         return source;
     }
     @Override
@@ -264,6 +278,7 @@ public class Request extends KiiModel implements Parcelable {
         //dest.writeString(this.evaluatedDate);
         dest.writeInt(this.evaluationByClient);
         dest.writeString(this.evaluateMessage);
+        dest.writeByte(this.like ? (byte) 1 : (byte) 0);
     }
     protected Request(Parcel in) {
         this.id = in.readString();
@@ -277,6 +292,8 @@ public class Request extends KiiModel implements Parcelable {
         //this.evaluatedDate = in.readString();
         this.evaluationByClient = in.readInt();
         this.evaluateMessage = in.readString();
+        this.like = in.readByte() !=0;
+
     }
     public static final Creator<Request> CREATOR = new Creator<Request>() {
         @Override

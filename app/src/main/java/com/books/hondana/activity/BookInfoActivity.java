@@ -37,6 +37,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
     private Book book;
 
+    private Request request;
+
     final ImageLoader imageLoader = ImageLoader.getInstance();
 
 
@@ -165,6 +167,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         //本のサイズここまで
 
         findViewById(R.id.buttonPreRequest).setOnClickListener(this);
+        findViewById(R.id.bookInfoLike).setOnClickListener(this);
 
         final TextView bookOwner = (TextView) findViewById(R.id.textViewBookInfoUserName);
         final ImageView userIcon = (ImageView) findViewById(R.id.bookInfoUserIcon);
@@ -196,6 +199,23 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         LogUtil.d(TAG, "onClick");
+        if (v != null) {
+            switch (v.getId()) {
+                case R.id.buttonPreRequest:
+                    // クリック処理
+                    clickToRequest();
+                    break;
+
+                case R.id.bookInfoLike:
+                    clickToStared();
+                    break;
+            }
+        }
+    }
+
+
+    private void clickToRequest() {
+        LogUtil.d(TAG, "onClick");
 
         final KiiUser currentUser = KiiUser.getCurrentUser ();
 
@@ -212,7 +232,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {
-                int current = member.getPoint();
+                int current = member.getPoint() + member.getPointsByBooks();
                 Log.d(TAG, "point:" + current);
                 if(current < 1){
                     Toast.makeText(getApplicationContext(), "ブクが足りないのでリクエストできません", Toast.LENGTH_LONG).show();
@@ -228,6 +248,17 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
             }
         });
+    }
+
+    private void clickToStared(){ //星のクリックしての処理
+        final ImageView  = (ImageView) findViewById(R.id.bookInfoLike);//星の画像
+        final ImageView userIcon = (ImageView) findViewById(R.id.user_icon);//星の画像
+        KiiUser kiiUser = KiiUser.getCurrentUser();
+        boolean request.
+        if(like){
+
+        }
+
     }
 
     private void showToast(String message) {
