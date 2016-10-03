@@ -24,7 +24,7 @@ public class ReceivedRequestBookFragment extends Fragment {
 
     private static final String TAG = ReceivedRequestBookFragment.class.getSimpleName();
 
-    ExhibitedBookListViewAdapter mListAdapter;
+    ReceivedRequestBookListViewAdapter mListAdapter;
 
 //    private Book mBook;
 //
@@ -60,7 +60,7 @@ public class ReceivedRequestBookFragment extends Fragment {
         final KiiUser user = KiiUser.getCurrentUser();
         assert user != null;
 
-        mListAdapter = new ExhibitedBookListViewAdapter (new ArrayList<Book> (), new ExhibitedBookListViewAdapter.ExhibitedBookClickListener () {
+        mListAdapter = new ReceivedRequestBookListViewAdapter (new ArrayList<Book> (), new ReceivedRequestBookListViewAdapter.ReceivedRequestBookClickListener () {
             @Override
             public void onClick(Book book) {
                 Request request = Request.createNew(user.getID(), book);
