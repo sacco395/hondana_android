@@ -35,7 +35,7 @@ import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.QueryParamSet;
 import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
-import com.books.hondana.HadArriveBooksFragment;
+//import com.books.hondana.HadArriveBooksFragment;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;
@@ -152,7 +152,7 @@ public class ArrivedBookActivity extends AppCompatActivity
         private void setupViewPager(ViewPager viewPager) {
             Tab2ViewPagerAdapter adapter = new Tab2ViewPagerAdapter(getSupportFragmentManager());
             adapter.addFragment(new SentRequestFragment(), "取引中");
-            adapter.addFragment(new HadArriveBooksFragment(), "取引完了");
+//            adapter.addFragment(new HadArriveBooksFragment(), "取引完了");
             viewPager.setAdapter(adapter);
         }
 
