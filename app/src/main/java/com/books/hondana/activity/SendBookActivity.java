@@ -4,10 +4,7 @@ package com.books.hondana.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,12 +16,8 @@ import android.widget.Toast;
 import com.books.hondana.R;
 import com.books.hondana.model.Request;
 import com.books.hondana.model.abst.KiiModel;
-import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
-import com.kii.cloud.storage.callback.KiiObjectBodyCallback;
-import com.kii.cloud.storage.callback.KiiObjectCallBack;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -69,7 +62,7 @@ public class SendBookActivity extends AppCompatActivity
         if (v != null) {
             switch (v.getId()) {
                 case R.id.buttonDownload:
-                    downLoadPdf();
+                    downloadPdf();
                     break;
 
                 case R.id.buttonCancel:
@@ -124,40 +117,7 @@ public class SendBookActivity extends AppCompatActivity
         });
     }
 
-    private void downLoadPdf() {
-        Uri objUri = Uri.parse(request.getPdfUrl());
-        KiiObject object = KiiObject.createByUri(objUri);
-        object.refresh(new KiiObjectCallBack() {
-            @Override
-            public void onRefreshCompleted(int token, @NonNull KiiObject object, Exception exception) {
-                if (exception != null) {
-                    // Error handling
-                    return;
-                }
-                File pdfFile = new File(
-                        Environment.getExternalStorageDirectory(), "myDownload.pdf");
-                object.downloadBody(pdfFile, new KiiObjectBodyCallback() {
-                    @Override
-                    public void onTransferStart(@NonNull KiiObject kiiObject) {
-                    }
+    public void downloadPdf(){
 
-                    @Override
-                    public void onTransferProgress(@NonNull KiiObject object, long completedInBytes, long totalSizeinBytes) {
-                        float progress = (float) completedInBytes / (float) totalSizeinBytes * 100.0f;
-                    }
-
-                    @Override
-                    public void onTransferCompleted(@NonNull KiiObject kiiObject, Exception exception) {
-                        if (exception != null) {
-                            String file = request.getPdfUrl();
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-                            startActivity(intent);
-                            LogUtil.d(TAG, ("PDFがダウンロードされました！"));
-                        }
-                    }
-                });
-            }
-        });
     }
 }
