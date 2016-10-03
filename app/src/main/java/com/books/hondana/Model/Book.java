@@ -24,6 +24,7 @@ public class Book extends KiiModel implements Parcelable {
     public static final String OWNER_NAME = "owner_name";
     public static final String INFO = "info";
     public static final String CONDITION = "condition";
+    public static final String STATUS = "status";
 
     private String ownerId;
 
