@@ -4,7 +4,9 @@ package com.books.hondana.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +20,7 @@ import com.books.hondana.model.Request;
 import com.books.hondana.model.abst.KiiModel;
 import com.kii.cloud.storage.KiiObject;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -62,7 +65,8 @@ public class SendBookActivity extends AppCompatActivity
         if (v != null) {
             switch (v.getId()) {
                 case R.id.buttonDownload:
-                    downloadPdf();
+                    String file = File.
+                            downLoadPdf();
                     break;
 
                 case R.id.buttonCancel:
@@ -117,7 +121,26 @@ public class SendBookActivity extends AppCompatActivity
         });
     }
 
-    public void downloadPdf(){
+    private void downLoadPdf(final File pdfFile) {
+        request.downloadPdf(pdfFile, new Request.PdfDownloadCallback() {
 
+            @Override
+            public void onTransferStart(@NonNull KiiObject kiiObject) {
+
+            }
+
+            @Override
+            public void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(pdfFile), "application/pdf");
+                startActivity(intent);
+            }
+
+            @Override
+            public void onTransferProgress(@NonNull KiiObject kiiObject, long l, long l1) {
+
+            }
+        });
     }
 }
+

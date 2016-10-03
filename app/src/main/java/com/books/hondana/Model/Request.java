@@ -248,24 +248,14 @@ public class Request extends KiiModel implements Parcelable {
         source.publishBodyExpiresIn(expiresIn, callback);
     }
 
-
-    public void downloadPdf(File pdfFile, PdfDownloadCallback callback){
-        source.downloadBody(pdfFile, new KiiObjectBodyCallback() {
-            @Override
-            public void onTransferStart(@NonNull KiiObject kiiObject) {
-
-            }
-
-            @Override
-            public void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e) {
-
-            }
-
-            @Override
-            public void onTransferProgress(@NonNull KiiObject kiiObject, long l, long l1) {
-
-            }
-        });
+    /**
+     * フィールドの値を保存しかつ、PDF
+     だ     *
+     * @param pdfFile  公開期限（秒）
+     * @param callback See {@link KiiObjectBodyCallback}
+     */
+    public void downloadPdf(File pdfFile, KiiObjectBodyCallback callback){
+        source.downloadBody(pdfFile, callback);
     }
 
     //public void setEvaluatedDate(String evaluatedDate) {this.evaluatedDate = evaluatedDate;}
@@ -362,11 +352,14 @@ public class Request extends KiiModel implements Parcelable {
         void failure(IllegalStateException e);
     }
 
-    public interface PdfDownloadCallback extends KiiObjectBodyCallback {
-        void onTransferStart();
+    public interface PdfDownloadCallback extends KiiObjectBodyCallback{
+        @Override
+        void onTransferStart(@NonNull KiiObject kiiObject);
 
-        void onTransferProgress(long percent);
+        @Override
+        void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e);
 
-        void onTransferCompleted();
+        @Override
+        void onTransferProgress(@NonNull KiiObject kiiObject, long l, long l1);
     }
 }
