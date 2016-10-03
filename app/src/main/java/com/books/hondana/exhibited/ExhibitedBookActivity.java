@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -29,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.R;
 import com.books.hondana.activity.ArrivedBookActivity;
 import com.books.hondana.activity.BookDetailActivity;
 import com.books.hondana.activity.BookMainActivity;
@@ -37,11 +37,8 @@ import com.books.hondana.activity.InquiryActivity;
 import com.books.hondana.activity.LikesActivity;
 import com.books.hondana.activity.SimpleScannerActivity;
 import com.books.hondana.activity.UserpageActivity;
-import com.books.hondana.R;
-import com.books.hondana.connection.KiiBookConnection;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
-import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.connection.QueryParamSet;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
@@ -62,7 +59,7 @@ public class ExhibitedBookActivity extends AppCompatActivity
 
     final ImageLoader imageLoader = ImageLoader.getInstance();
 
-    ExhibitedBookViewPagerAdapter adapter;
+    private TabLayout tabLayout;
 
     // Intent Parameter
     private static final int ACT_READ_BARCODE = 1;
@@ -116,24 +113,12 @@ public class ExhibitedBookActivity extends AppCompatActivity
         assert user != null;
         final String userId = user.getID();
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
-        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         assert tabLayout != null;
-
-        KiiBookConnection.fetchPostedBooks(userId, new KiiObjectListCallback<Book>(){
-            @Override
-            public void success(int token, List<Book> result) {
-                Log.d(TAG, "success: size=" + result.size());
-//                setupViewPager(viewPager, result);
-//                tabLayout.setupWithViewPager(viewPager);
-            }
-
-            @Override
-            public void failure(@Nullable Exception e) {
-                LogUtil.w(TAG, e);
-            }
-        });
+        tabLayout.setupWithViewPager(viewPager);
 
         KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
@@ -164,54 +149,43 @@ public class ExhibitedBookActivity extends AppCompatActivity
 
     }
 
-    private void setupViewPager(ViewPager viewPager, List<Book> userBooks) {
-        adapter = new ExhibitedBookViewPagerAdapter(getSupportFragmentManager(), userBooks);
+    private void setupViewPager(ViewPager viewPager) {
+        ExhibitedTabAdapter adapter
+                = new ExhibitedTabAdapter(getSupportFragmentManager());
+        adapter.addFragment(new ExhibitedBookFragment (), "出品中");
+        adapter.addFragment(new ReceivedRequestBookFragment (), "取引中");
+        adapter.addFragment(new HadSendBookFragment (), "取引完了");
         viewPager.setAdapter(adapter);
     }
 
-    class ExhibitedBookViewPagerAdapter extends FragmentPagerAdapter {
+    class ExhibitedTabAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        private List<Book> books;
-
-        public ExhibitedBookViewPagerAdapter(FragmentManager manager, List<Book> books) {
+        public ExhibitedTabAdapter(FragmentManager manager) {
             super(manager);
-            this.books = books;
         }
 
         @Override
         public Fragment getItem(int position) {
-            ArrayList<Book> bookArrayList = new ArrayList<>(books);
-            Log.d(TAG, "getItem: " + position);
-            switch (position) {
-                case 0:
-                    return ExhibitedBookFragment.newInstance(bookArrayList);
-                case 1:
-                    return ExhibitedBookFragment.newInstance(bookArrayList);
-                case 2:
-                    return ExhibitedBookFragment.newInstance(bookArrayList);
-            }
-            return null;
+            return mFragmentList.get(position);
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "1";
-                case 1:
-                    return "2";
-                case 2:
-                    return "3";
-            }
-            return null;
+            return mFragmentTitleList.get(position);
         }
     }
-
 
     @Override
     public void onBackPressed() {

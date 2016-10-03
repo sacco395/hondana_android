@@ -1,4 +1,4 @@
-package com.books.hondana;
+package com.books.hondana.exhibited;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.books.hondana.R;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.squareup.picasso.Picasso;
@@ -15,14 +16,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyBookListAdapter extends BaseAdapter {
+public class ExhibitedBookListViewAdapter extends BaseAdapter {
 
-    private static final String TAG = MyBookListAdapter.class.getSimpleName();
+    private static final String TAG = ExhibitedBookListViewAdapter.class.getSimpleName();
 
     private ArrayList<Book> mBooks;
-    private BookItemClickListener mListener;
+    private ExhibitedBookClickListener mListener;
 
-    public MyBookListAdapter(ArrayList<Book> books, BookItemClickListener listener) {
+    public ExhibitedBookListViewAdapter(ArrayList<Book> books, ExhibitedBookClickListener listener) {
         this.mBooks = books;
         this.mListener = listener;
     }
@@ -100,7 +101,7 @@ public class MyBookListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public interface BookItemClickListener {
+    public interface ExhibitedBookClickListener {
         void onClick(Book book);
     }
 
@@ -116,4 +117,3 @@ public class MyBookListAdapter extends BaseAdapter {
         }
     }
 }
-

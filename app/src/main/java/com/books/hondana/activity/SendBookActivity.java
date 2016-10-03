@@ -1,6 +1,8 @@
+//本の発送完了（ラベルダウンロード）
 package com.books.hondana.activity;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +14,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.books.hondana.R;
-import com.books.hondana.model.Book;
 import com.books.hondana.model.Request;
 import com.books.hondana.model.abst.KiiModel;
 import com.kii.cloud.storage.KiiObject;
@@ -26,18 +27,25 @@ public class SendBookActivity extends AppCompatActivity
 
     private static final String TAG = SendBookActivity.class.getSimpleName();
 
-    private Book book;
+    private Request request;
 
-    public Request request;
-
+    public static Intent createIntent(Context context, Request request) {
+        Intent intent = new Intent (context, SendBookActivity.class);
+        intent.putExtra (Request.class.getSimpleName(), request);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_book);
 
-        book = getIntent().getParcelableExtra(Book.class.getSimpleName());
-
+        //上記のcreateIntentでデータを受け取る
+        request = getIntent ().getParcelableExtra(Request.class.getSimpleName());
+        //kiiBookがないのはおかしいのでcreateIntentを使うように怒る
+        if (request == null) {
+            throw new IllegalArgumentException ("createIntentを使ってください");
+        }
 
         findViewById(R.id.buttonDownload).setOnClickListener(this);
         findViewById(R.id.buttonCancel).setOnClickListener(this);

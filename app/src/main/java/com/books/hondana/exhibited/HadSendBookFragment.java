@@ -20,9 +20,9 @@ import com.kii.cloud.storage.KiiUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExhibitedBookFragment extends Fragment {
+public class HadSendBookFragment extends Fragment {
 
-    private static final String TAG = ExhibitedBookFragment.class.getSimpleName();
+    private static final String TAG = HadSendBookFragment.class.getSimpleName();
 
     ExhibitedBookListViewAdapter mListAdapter;
 
@@ -77,7 +77,7 @@ public class ExhibitedBookFragment extends Fragment {
         String userId = kiiUser.getID ();
         LogUtil.d (TAG, "userID = " + userId);
 
-        KiiBookConnection.fetchExhibitedBooks(userId, new KiiObjectListCallback<Book> () {
+        KiiBookConnection.fetchHadSendBooks(userId, new KiiObjectListCallback<Book> () {
             @Override
             public void success(int token, List<Book> result) {
                 LogUtil.d (TAG, "success: size=" + result.size ());
@@ -93,5 +93,3 @@ public class ExhibitedBookFragment extends Fragment {
         return view;
     }
 }
-
-

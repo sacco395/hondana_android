@@ -3,8 +3,6 @@ package com.books.hondana.connection;
 import android.util.Log;
 
 import com.books.hondana.model.Book;
-import com.books.hondana.model.Genre;
-import com.books.hondana.model.abst.KiiModel;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;
@@ -30,14 +28,6 @@ public class KiiBookConnection {
         throw new RuntimeException("Do not instantiate this Class!");
     }
 	
-    private static List<Book> convert(List<KiiObject> bookObjects) throws JSONException {
-        List<Book> books = new ArrayList<>();
-        for (KiiObject object : bookObjects) {
-            books.add(Book.createFrom(object));
-        }
-        return books;
-    }
-
 
     public static void fetchPostedBooks(String userId, KiiObjectListCallback<Book> callback) {
         KiiClause clause = KiiClause.equals(Book.OWNER_ID, userId);
@@ -45,6 +35,41 @@ public class KiiBookConnection {
         queryBookBucket(ownerIdQuery, callback);
         ownerIdQuery.sortByDesc("_created");
     }
+
+    public static void fetchExhibitedBooks(String userId, KiiObjectListCallback<Book> callback) {
+        KiiClause clause = KiiClause.and(
+                KiiClause.equals(Book.OWNER_ID, userId),
+                KiiClause.equals(Book.STATE, 0)
+        );
+        KiiQuery RequestingByOthersBookQuery = new KiiQuery(clause);
+        queryBookBucket(RequestingByOthersBookQuery, callback);
+        RequestingByOthersBookQuery.sortByDesc("_created");
+    }
+
+
+    /**
+     * 出品した本の取引状態
+     */
+    public static void fetchReceivedRequestBooks(String userId, KiiObjectListCallback<Book> callback) {
+        KiiClause clause = KiiClause.and(
+                KiiClause.equals(Book.OWNER_ID, userId),
+                KiiClause.equals(Book.STATE, 1)
+        );
+        KiiQuery RequestingByOthersBookQuery = new KiiQuery(clause);
+        queryBookBucket(RequestingByOthersBookQuery, callback);
+        RequestingByOthersBookQuery.sortByDesc("_created");
+    }
+
+    public static void fetchHadSendBooks(String userId, KiiObjectListCallback<Book> callback) {
+        KiiClause clause = KiiClause.and(
+                KiiClause.equals(Book.OWNER_ID, userId),
+                KiiClause.equals(Book.STATE, 2)
+        );
+        KiiQuery RequestingByOthersBookQuery = new KiiQuery(clause);
+        queryBookBucket(RequestingByOthersBookQuery, callback);
+        RequestingByOthersBookQuery.sortByDesc("_created");
+    }
+
 
     private static void queryBookBucket(KiiQuery query, final KiiObjectListCallback<Book> callback) {
         KiiBucket kiiBucket = Kii.bucket(Book.BUCKET_NAME);
@@ -68,5 +93,12 @@ public class KiiBookConnection {
                     }
                 },
                 query);
+    }
+    private static List<Book> convert(List<KiiObject> bookObjects) throws JSONException {
+        List<Book> books = new ArrayList<>();
+        for (KiiObject object : bookObjects) {
+            books.add(Book.createFrom(object));
+        }
+        return books;
     }
 }

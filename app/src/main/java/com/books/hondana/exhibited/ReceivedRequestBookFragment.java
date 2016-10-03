@@ -1,6 +1,5 @@
 package com.books.hondana.exhibited;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,19 +9,20 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.books.hondana.R;
-import com.books.hondana.activity.BookInfoActivity;
+import com.books.hondana.activity.SendBookActivity;
 import com.books.hondana.connection.KiiBookConnection;
 import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.model.Book;
+import com.books.hondana.model.Request;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExhibitedBookFragment extends Fragment {
+public class ReceivedRequestBookFragment extends Fragment {
 
-    private static final String TAG = ExhibitedBookFragment.class.getSimpleName();
+    private static final String TAG = ReceivedRequestBookFragment.class.getSimpleName();
 
     ExhibitedBookListViewAdapter mListAdapter;
 
@@ -57,14 +57,16 @@ public class ExhibitedBookFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate (R.layout.fragment_request_books, container, false);
 
+        final KiiUser user = KiiUser.getCurrentUser();
+        assert user != null;
+
         mListAdapter = new ExhibitedBookListViewAdapter (new ArrayList<Book> (), new ExhibitedBookListViewAdapter.ExhibitedBookClickListener () {
             @Override
             public void onClick(Book book) {
-                Intent intent = new Intent (getContext (), BookInfoActivity.class);
-                intent.putExtra (Book.class.getSimpleName (), book);
+                Request request = Request.createNew(user.getID(), book);
+                startActivity(SendBookActivity.createIntent(getContext (), request));
 
                 LogUtil.d (TAG, "onItemClick: " + book);
-                startActivity (intent);
             }
         });
 
@@ -77,7 +79,7 @@ public class ExhibitedBookFragment extends Fragment {
         String userId = kiiUser.getID ();
         LogUtil.d (TAG, "userID = " + userId);
 
-        KiiBookConnection.fetchExhibitedBooks(userId, new KiiObjectListCallback<Book> () {
+        KiiBookConnection.fetchReceivedRequestBooks(userId, new KiiObjectListCallback<Book> () {
             @Override
             public void success(int token, List<Book> result) {
                 LogUtil.d (TAG, "success: size=" + result.size ());
@@ -93,5 +95,3 @@ public class ExhibitedBookFragment extends Fragment {
         return view;
     }
 }
-
-
