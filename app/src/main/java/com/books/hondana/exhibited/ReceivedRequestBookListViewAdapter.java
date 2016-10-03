@@ -87,7 +87,36 @@ public class ReceivedRequestBookListViewAdapter extends BaseAdapter {
                 .into(holder.ivCover);
 
         holder.tvTitle.setText("「" + info.getTitle() + "」の発送をしましょう");
-//        holder.tvMessage.setText(info.getAuthor());
+
+//        String bookId = book.getId ();
+//        LogUtil.d(TAG, "bookId: " + bookId);
+//        KiiRequestConnection.fetchRequestsByOthers(bookId, new KiiObjectCallback<Request> () {
+//            @Override
+//            public void success(int token, Request request) {
+//                final String requestDate = request.getRequestedDate ();
+//                LogUtil.d (TAG, "requestDate: " + requestDate);
+//                holder.tvDate.setText (requestDate);
+//            }
+//
+//            @Override
+//            public void failure(Exception e) {
+//                LogUtil.e(TAG, "failure: ", e);
+//            }
+//        });
+//
+//        KiiMemberConnection.fetch(clientId, new KiiObjectCallback<Member> () {
+//            @Override
+//            public void success(int token, Member member) {
+//                final String name = member.getName();
+//                LogUtil.d(TAG, "name: " + name);
+//                holder.tvMessage.setText(name + "さんがあなたにリクエストをしました。");
+//            }
+//
+//            @Override
+//            public void failure(Exception e) {
+//                LogUtil.e(TAG, "failure: ", e);
+//            }
+//        });
 
         return convertView;
     }
@@ -100,13 +129,13 @@ public class ReceivedRequestBookListViewAdapter extends BaseAdapter {
         public ImageView ivCover;
         public TextView tvTitle;
         public TextView tvMessage;
-        public TextView tv_date;
+        public TextView tvDate;
 
-        public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvMessage, TextView tv_date) {
+        public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvMessage, TextView tvDate) {
             this.ivCover = ivCover;
             this.tvTitle = tvTitle;
             this.tvMessage = tvMessage;
-            this.tv_date = tv_date;
+            this.tvDate = tvDate;
         }
     }
 }

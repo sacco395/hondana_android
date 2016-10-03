@@ -17,7 +17,7 @@
         <item
             android:id="@+id/nav_exchange"
             android:icon="@drawable/ic_autorenew_black_24dp"
-            android:title="交換した本" />
+            android:title="受け取った本" />
     </group>
     <group android:id="@+id/group_4">
         <item
