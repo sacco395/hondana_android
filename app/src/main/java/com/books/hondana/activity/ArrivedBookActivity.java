@@ -28,16 +28,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.R;
+import com.books.hondana.SentRequestFragment;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.QueryParamSet;
+import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
+import com.books.hondana.HadArriveBooksFragment;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;
-import com.books.hondana.PassedBooksFragment;
-import com.books.hondana.R;
-import com.books.hondana.ReceivedBooksFragment;
 import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
@@ -48,10 +49,10 @@ import java.util.List;
 
 
 
-public class SwapBookActivity extends AppCompatActivity
+public class ArrivedBookActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = SwapBookActivity.class.getSimpleName();
+    private static final String TAG = ArrivedBookActivity.class.getSimpleName();
 
     final ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -150,8 +151,8 @@ public class SwapBookActivity extends AppCompatActivity
 
         private void setupViewPager(ViewPager viewPager) {
             Tab2ViewPagerAdapter adapter = new Tab2ViewPagerAdapter(getSupportFragmentManager());
-            adapter.addFragment(new PassedBooksFragment(), "手渡した本");
-            adapter.addFragment(new ReceivedBooksFragment(), "受け取った本");
+            adapter.addFragment(new SentRequestFragment(), "取引中");
+            adapter.addFragment(new HadArriveBooksFragment(), "取引完了");
             viewPager.setAdapter(adapter);
         }
 
@@ -284,7 +285,7 @@ public class SwapBookActivity extends AppCompatActivity
         Toast.makeText(this, "Contents = " + code +
                 ", Format = " + format, Toast.LENGTH_SHORT).show();
         // 書籍情報を検索
-        Intent intent = new Intent(SwapBookActivity.this,BookSearchListActivity.class);
+        Intent intent = new Intent(ArrivedBookActivity.this,BookSearchListActivity.class);
         QueryParamSet queryParamSet = new QueryParamSet();
         queryParamSet.addQueryParam(BookInfo.ISBN, code);
         intent.putExtra(QueryParamSet.class.getSimpleName(), queryParamSet );
@@ -294,7 +295,7 @@ public class SwapBookActivity extends AppCompatActivity
     private void kickListSearchResult(Intent data){
         Bundle extras = data.getExtras();
         Book book = extras.getParcelable(Book.class.getSimpleName());
-        Intent intent = new Intent(SwapBookActivity.this,BookDetailActivity.class);
+        Intent intent = new Intent(ArrivedBookActivity.this,BookDetailActivity.class);
         intent.putExtra(Book.class.getSimpleName(), book);
         startActivityForResult(intent, ACT_BOOK_DETAIL_TO_ADD);
     }
@@ -314,11 +315,11 @@ public class SwapBookActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(this, SwapBookActivity.class);
+            Intent intent = new Intent(this, ArrivedBookActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_transaction) {
-            Intent intent = new Intent(this, RequestActivity.class);
+            Intent intent = new Intent(this, ExhibitedBookActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_set) {
@@ -353,7 +354,7 @@ public class SwapBookActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 LogUtil.d(TAG, "onClick");
-                Intent intent = new Intent(SwapBookActivity.this, UserpageActivity.class);
+                Intent intent = new Intent(ArrivedBookActivity.this, UserpageActivity.class);
                 startActivity(intent);
             }
         });

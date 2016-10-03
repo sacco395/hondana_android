@@ -19,22 +19,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.R;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.QueryParamSet;
+import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;
-import com.books.hondana.PRBookListViewAdapter;
-import com.books.hondana.R;
 import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
@@ -159,11 +158,11 @@ public class LikesActivity extends AppCompatActivity
 
         // BaseAdapter を継承したadapterのインスタンスを生成
 
-        BaseAdapter adapter = new PRBookListViewAdapter(this.getApplicationContext(), R.layout.part_book_list, titles, authors, photos);
+//        BaseAdapter adapter = new PRBookListViewAdapter(this.getApplicationContext(), R.layout.part_book_list, titles, authors, photos);
 
         // ListViewにadapterをセット
         assert listView != null;
-        listView.setAdapter(adapter);
+//        listView.setAdapter(adapter);
 
         // 後で使います
         listView.setOnItemClickListener(this);
@@ -316,11 +315,11 @@ public class LikesActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(this, SwapBookActivity.class);
+            Intent intent = new Intent(this, ArrivedBookActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_transaction) {
-            Intent intent = new Intent(this, RequestActivity.class);
+            Intent intent = new Intent(this, ExhibitedBookActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_set) {

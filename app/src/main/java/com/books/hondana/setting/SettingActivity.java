@@ -25,8 +25,8 @@ import com.books.hondana.R;
 import com.books.hondana.activity.BookMainActivity;
 import com.books.hondana.activity.InquiryActivity;
 import com.books.hondana.activity.LikesActivity;
-import com.books.hondana.activity.RequestActivity;
-import com.books.hondana.activity.SwapBookActivity;
+import com.books.hondana.exhibited.ExhibitedBookActivity;
+import com.books.hondana.activity.ArrivedBookActivity;
 import com.books.hondana.activity.UserEditActivity;
 import com.books.hondana.activity.UserpageActivity;
 import com.books.hondana.connection.KiiMemberConnection;
@@ -201,7 +201,7 @@ public class SettingActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_exchange) {
             if (kiiUser != null) {
-                Intent intent = new Intent(this, SwapBookActivity.class);
+                Intent intent = new Intent(this, ArrivedBookActivity.class);
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(this, StartActivity.class);
@@ -211,7 +211,7 @@ public class SettingActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_transaction) {
             if (kiiUser != null) {
-                Intent intent = new Intent(this, RequestActivity.class);
+                Intent intent = new Intent(this, ExhibitedBookActivity.class);
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(this, StartActivity.class);

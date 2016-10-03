@@ -29,7 +29,7 @@ public class KiiBookConnection {
     private KiiBookConnection() {
         throw new RuntimeException("Do not instantiate this Class!");
     }
-
+	
     private static List<Book> convert(List<KiiObject> bookObjects) throws JSONException {
         List<Book> books = new ArrayList<>();
         for (KiiObject object : bookObjects) {

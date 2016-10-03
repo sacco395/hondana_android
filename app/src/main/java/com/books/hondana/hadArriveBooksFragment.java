@@ -7,16 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 
 import com.books.hondana.activity.SelectedBooksActivity;
 
 
-public class ReceivedRequestFragment extends Fragment
+public class HadArriveBooksFragment extends Fragment
     implements AdapterView.OnItemClickListener {
     // Isle of Wight in U.K.
-        private static final String[] scenes = {
+        private static final String[] titles = {
                 // Scenes of Isle of Wight
                 "デザイン思考は世界を変える",
                 "十月の旅人",
@@ -42,21 +40,21 @@ public class ReceivedRequestFragment extends Fragment
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             // Inflate the layout for this fragment
-            return inflater.inflate(R.layout.fragment_passed_books, container, false);
+            return inflater.inflate(R.layout.fragment_request_books, container, false);
         }
 
         @Override
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
 
-            ListView listView = (ListView) view.findViewById(R.id.list);
-            BaseAdapter adapter = new PRBookListViewAdapter(this.getContext(), R.layout.part_book_list, scenes, authors, photos);
-
-            // ListViewにadapterをセット
-            listView.setAdapter(adapter);
-
-            // 後で使います
-            listView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
+//            ListView listView = (ListView) view.findViewById(R.id.list);
+//            BaseAdapter adapter = new PRBookListViewAdapter(this.getContext(), R.layout.part_book_list, titles, authors, photos);
+//
+//            // ListViewにadapterをセット
+//            listView.setAdapter(adapter);
+//
+//            // 後で使います
+//            listView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
 
         }
 
@@ -65,7 +63,7 @@ public class ReceivedRequestFragment extends Fragment
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
             Intent intent = new Intent(this.getContext(), SelectedBooksActivity.class);
             // clickされたpositionのtextとphotoのID
-            String selectedText = scenes[position];
+            String selectedText = titles[position];
             int selectedPhoto = photos[position];
             // インテントにセット
             intent.putExtra("Text", selectedText);

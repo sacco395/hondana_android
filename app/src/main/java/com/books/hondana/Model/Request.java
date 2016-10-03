@@ -24,6 +24,7 @@ public class Request extends KiiModel implements Parcelable {
     public static final String CLIENT_ID = "client_id";
     public static final String SERVER_ID = "server_id";
     public static final String PDF_LABEL_ID = "pdf_label_id";
+
     public static final String BOOK_ID = "book_id";
     public static final String REQUESTED_DATE = "requested_date";
     public static final String SENT_DATE = "sent_date";
