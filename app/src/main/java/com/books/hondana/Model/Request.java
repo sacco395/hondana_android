@@ -43,7 +43,6 @@ public class Request extends KiiModel implements Parcelable {
     /**
      * 配送に使う宛名ラベルの PDF ファイルが保存されている KiiObject の ID
      */
-    private String pdfLabelId;
     private String bookId;
     private String requestedDate;
     private String sentDate;
@@ -79,7 +78,6 @@ public class Request extends KiiModel implements Parcelable {
     private Request() {
         clientId = "";
         serverId = "";
-        pdfLabelId = "";
         bookId = "";
         requestedDate = "";
         sentDate = "";
@@ -216,6 +214,7 @@ public class Request extends KiiModel implements Parcelable {
         }
         source.publishBodyExpiresIn(expiresIn, callback);
     }
+
     //public void setEvaluatedDate(String evaluatedDate) {this.evaluatedDate = evaluatedDate;}
     @Override
     public KiiBucket bucket() {

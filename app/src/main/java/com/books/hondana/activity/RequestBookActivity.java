@@ -102,7 +102,8 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
 
                 case R.id.buttonCancel:
                     // クリック処理
-                    finish();
+                    //finish();
+                    startActivity(SendBookActivity.createIntent(RequestBookActivity.this, request));
                     break;
 
                 case R.id.buttonRequest:
