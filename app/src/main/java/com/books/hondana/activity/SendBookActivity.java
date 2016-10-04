@@ -130,7 +130,7 @@ public class SendBookActivity extends AppCompatActivity
 
             }
 
-            @Override
+            @Override//繋がっていないため未チェック
             public void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.fromFile(pdfFile), "application/pdf");

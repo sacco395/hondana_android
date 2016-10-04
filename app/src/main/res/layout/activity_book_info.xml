@@ -40,13 +40,16 @@
             android:textSize="20sp" />
 
         <!--本へのいいね-->
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bookInfoLike"
-            app:srcCompat="@drawable/star_off"
+            android:state_activated="false"
+            app:srcCompat="@drawable/star_selector"
             android:layout_gravity="right"
             android:layout_marginRight="20dp" />
+
 
         <!--著者名リード-->
         <TextView
