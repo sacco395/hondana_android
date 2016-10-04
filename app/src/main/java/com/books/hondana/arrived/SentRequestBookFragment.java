@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.books.hondana.R;
-import com.books.hondana.activity.SendBookActivity;
+import com.books.hondana.activity.ReceivedBookActivity;
 import com.books.hondana.connection.KiiBookConnection;
+import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.KiiObjectListCallback;
-import com.books.hondana.exhibited.ReceivedRequestBookListViewAdapter;
+import com.books.hondana.connection.KiiRequestConnection;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.Request;
 import com.books.hondana.util.LogUtil;
@@ -25,7 +26,7 @@ public class SentRequestBookFragment extends Fragment {
 
     private static final String TAG = SentRequestBookFragment.class.getSimpleName();
 
-    ReceivedRequestBookListViewAdapter mListAdapter;
+    SentRequestBookListViewAdapter mListAdapter;
 
 //    private Book mBook;
 //
@@ -60,14 +61,26 @@ public class SentRequestBookFragment extends Fragment {
 
         final KiiUser user = KiiUser.getCurrentUser();
         assert user != null;
+        final String clientUserId = user.getID ();
+        LogUtil.d (TAG, "clientUserId = " + clientUserId);
 
-        mListAdapter = new ReceivedRequestBookListViewAdapter (new ArrayList<Book> (), new ReceivedRequestBookListViewAdapter.ReceivedRequestBookClickListener () {
+
+        mListAdapter = new SentRequestBookListViewAdapter (new ArrayList<Book> (), new SentRequestBookListViewAdapter.SentRequestBookClickListener() {
             @Override
             public void onClick(Book book) {
-                Request request = Request.createNew(user.getID(), book);
-                startActivity(SendBookActivity.createIntent(getContext (), request));
-
                 LogUtil.d (TAG, "onItemClick: " + book);
+                String bookId = book.getId ();
+                KiiRequestConnection.fetchRequestByBookId (bookId, clientUserId, new KiiObjectCallback<Request> () {
+                    @Override
+                    public void success(int token, Request request) {
+                        startActivity(ReceivedBookActivity.createIntent(getContext(), request));
+                    }
+
+                    @Override
+                    public void failure(Exception e) {
+                        LogUtil.w (TAG, e);
+                    }
+                });
             }
         });
 
@@ -76,11 +89,7 @@ public class SentRequestBookFragment extends Fragment {
         mListView.setAdapter (mListAdapter);
 
 
-        KiiUser kiiUser = KiiUser.getCurrentUser ();
-        String userId = kiiUser.getID ();
-        LogUtil.d (TAG, "userID = " + userId);
-
-        KiiBookConnection.fetchReceivedRequestBooks(userId, new KiiObjectListCallback<Book> () {
+        KiiBookConnection.fetchSentRequestBooks(new KiiObjectListCallback<Book> () {
             @Override
             public void success(int token, List<Book> result) {
                 LogUtil.d (TAG, "success: size=" + result.size ());

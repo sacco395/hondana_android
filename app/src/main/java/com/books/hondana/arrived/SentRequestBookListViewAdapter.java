@@ -21,9 +21,9 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
     private static final String TAG = SentRequestBookListViewAdapter.class.getSimpleName();
 
     private ArrayList<Book> mBooks;
-    private ReceivedRequestBookClickListener mListener;
+    private SentRequestBookClickListener mListener;
 
-    public SentRequestBookListViewAdapter(ArrayList<Book> books, ReceivedRequestBookClickListener listener) {
+    public SentRequestBookListViewAdapter(ArrayList<Book> books, SentRequestBookClickListener listener) {
         this.mBooks = books;
         this.mListener = listener;
     }
@@ -57,7 +57,7 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
 
-            View itemLayout = inflater.inflate(R.layout.part_todo_list, null);
+            View itemLayout = inflater.inflate(R.layout.part_todo_evaluate_list, null);
 
             ImageView ivCover = (ImageView) itemLayout.findViewById(R.id.iv_BookImg);
             TextView tvTitle = (TextView) itemLayout.findViewById(R.id.tv_BookTitle);
@@ -87,7 +87,7 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
                 .load(coverUrl)
                 .into(holder.ivCover);
 
-        holder.tvTitle.setText("「" + info.getTitle() + "」の発送をしましょう");
+        holder.tvTitle.setText("「" + info.getTitle() + "」が発送されました");
 
 //        String bookId = book.getId ();
 //        LogUtil.d(TAG, "bookId: " + bookId);
@@ -122,7 +122,7 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public interface ReceivedRequestBookClickListener {
+    public interface SentRequestBookClickListener {
         void onClick(Book book);
     }
 

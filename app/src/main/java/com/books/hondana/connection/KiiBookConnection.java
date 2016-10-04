@@ -42,8 +42,9 @@ public class KiiBookConnection {
                 KiiClause.equals(Book.STATE, 0)
         );
         KiiQuery RequestingByOthersBookQuery = new KiiQuery(clause);
-        queryBookBucket(RequestingByOthersBookQuery, callback);
         RequestingByOthersBookQuery.sortByDesc("_created");
+        queryBookBucket(RequestingByOthersBookQuery, callback);
+
     }
 
 
@@ -56,8 +57,9 @@ public class KiiBookConnection {
                 KiiClause.equals(Book.STATE, 1)
         );
         KiiQuery RequestingByOthersBookQuery = new KiiQuery(clause);
-        queryBookBucket(RequestingByOthersBookQuery, callback);
         RequestingByOthersBookQuery.sortByDesc("_created");
+        queryBookBucket(RequestingByOthersBookQuery, callback);
+
     }
 
     public static void fetchHadSendBooks(String userId, KiiObjectListCallback<Book> callback) {
@@ -66,10 +68,20 @@ public class KiiBookConnection {
                 KiiClause.equals(Book.STATE, 2)
         );
         KiiQuery RequestingByOthersBookQuery = new KiiQuery(clause);
-        queryBookBucket(RequestingByOthersBookQuery, callback);
         RequestingByOthersBookQuery.sortByDesc("_created");
+        queryBookBucket(RequestingByOthersBookQuery, callback);
     }
 
+
+    /**
+     * リクエストした本の取引状態
+     */
+    public static void fetchSentRequestBooks(KiiObjectListCallback<Book> callback) {
+        KiiClause clause = KiiClause.equals(Book.STATE, 1);
+        KiiQuery RequestingByOthersBookQuery = new KiiQuery(clause);
+        RequestingByOthersBookQuery.sortByDesc("_created");
+        queryBookBucket(RequestingByOthersBookQuery, callback);
+    }
 
     private static void queryBookBucket(KiiQuery query, final KiiObjectListCallback<Book> callback) {
         KiiBucket kiiBucket = Kii.bucket(Book.BUCKET_NAME);

@@ -39,9 +39,7 @@ import com.books.hondana.activity.UserpageActivity;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.QueryParamSet;
-import com.books.hondana.exhibited.ExhibitedBookFragment;
-import com.books.hondana.exhibited.HadSendBookFragment;
-import com.books.hondana.exhibited.ReceivedRequestBookFragment;
+import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
@@ -78,7 +76,7 @@ public class HadArrivedBookActivity extends AppCompatActivity
         setContentView(R.layout.activity_request);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("登録した本");
+        toolbar.setTitle("受け取った本");
         setSupportActionBar(toolbar);
 
         //カメラボタン
@@ -154,9 +152,8 @@ public class HadArrivedBookActivity extends AppCompatActivity
     private void setupViewPager(ViewPager viewPager) {
         ExhibitedTabAdapter adapter
                 = new ExhibitedTabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ExhibitedBookFragment (), "出品中");
-        adapter.addFragment(new ReceivedRequestBookFragment (), "取引中");
-        adapter.addFragment(new HadSendBookFragment (), "取引完了");
+        adapter.addFragment(new SentRequestBookFragment(), "取引中");
+        adapter.addFragment(new HadArrivedBookFragment(), "取引完了");
         viewPager.setAdapter(adapter);
     }
 
@@ -312,7 +309,7 @@ public class HadArrivedBookActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_transaction) {
-            Intent intent = new Intent(this, HadArrivedBookActivity.class);
+            Intent intent = new Intent(this, ExhibitedBookActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_set) {

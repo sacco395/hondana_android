@@ -84,13 +84,10 @@ public class UserpageActivity extends AppCompatActivity
         mListAdapter = new MyBookListAdapter(new ArrayList<Book>(), new MyBookListAdapter.BookItemClickListener() {
             @Override
             public void onClick(Book book) {
-                Request request = Request.createNew(user.getID(), book);
-                startActivity(ReceivedBookActivity.createIntent(UserpageActivity.this, request));
-//                Intent intent = new Intent(getApplicationContext(), BookInfoActivity.class);
-//                intent.putExtra(Book.class.getSimpleName(), book);
+                Intent intent = new Intent(getApplicationContext(), BookInfoActivity.class);
+                intent.putExtra(Book.class.getSimpleName(), book);
 
                 LogUtil.d(TAG, "onItemClick: " + book);
-//                startActivity(intent);
             }
         });
 
