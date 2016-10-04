@@ -158,7 +158,7 @@
             android:name=".activity.UserEditActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".evaluation.EvaluatedActivity"
+            android:name=".evaluation.ToEvaluateActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".guide.GuideBundleActivity"
