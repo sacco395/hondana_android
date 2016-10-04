@@ -27,6 +27,8 @@
     <string name="sync_sign_up_button">電話番号認証を行う</string>
     <string name="textViewInputSms">SMSに送信された4桁のコードを入力してください</string>
     <string name="textViewAboutSms">数分経ってもSMSに4桁のコードが届かない場合は\nこちらから一度登録なしでホンダナをご利用ください。</string>
+    <string name="terms"><u>ホンダナ利用規約</u></string>
+
 
     <string name="btn_a">戻る</string>
     <string name="btn_b">戻る</string>

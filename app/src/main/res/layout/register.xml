@@ -76,13 +76,24 @@ android:orientation="vertical" android:id="@+id/main_register">
         android:layout_gravity="center_horizontal"
         android:textSize="13sp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/terms"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:onClick="terms"
+        android:textSize="18sp"
+        android:layout_marginTop="25dp"/>
+
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/CheckBoxAgreeRegister"
         android:id="@+id/CheckBoxAgreeRegister"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="25dp"
+        android:textSize="18sp"/>
 
 </LinearLayout>
 

@@ -5,7 +5,8 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/client_user_icon"
+        android:src="@drawable/usericon"
         android:scaleType="centerCrop"
         android:layout_margin="16dp"
         android:layout_width="40dp"
@@ -14,29 +15,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-        <TextView
-            android:id="@+id/textView"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#666" />
-
-        <TextView
-            android:id="@+id/textView2"
+            android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/evaluation_icon"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_width="18dp"
+            android:layout_height="18dp"/>
+        <TextView
+            android:id="@+id/client_user"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical|center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#000" />
-
+        </LinearLayout>
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/evaluation_comment"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
@@ -46,18 +48,17 @@
             android:textSize="16sp"
             android:textColor="#000" />
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/evaluated_date"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="5dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:drawableLeft="@drawable/ic_query_builder_black_24dp"
             android:drawablePadding="5dp"
             android:textColor="#666"
             />
-
     </LinearLayout>
 </LinearLayout>
