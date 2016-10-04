@@ -54,7 +54,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ArrivedBookActivity"
+            android:name=".activity.HadArrivedBookActivity"
             android:label="@string/title_activity_swap_book"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

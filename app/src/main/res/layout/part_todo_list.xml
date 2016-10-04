@@ -25,9 +25,17 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:textColor="#4b4b4b" />
+        <TextView
+            android:text="交換リクエストが届きました"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#4b4b4b" />
         <!--タイトル部分-->
         <TextView
-            android:id="@+id/tv_bookTitle"
+            android:id="@+id/tv_BookTitle"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
@@ -36,18 +44,18 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#4b4b4b" />
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:drawableLeft="@drawable/ic_query_builder_black_24dp"
-            android:drawablePadding="5dp"
-            android:textColor="#666"
-            />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_date"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="12sp"-->
+            <!--android:drawableLeft="@drawable/ic_query_builder_black_24dp"-->
+            <!--android:drawablePadding="5dp"-->
+            <!--android:textColor="#666"-->
+            <!--/>-->
     </LinearLayout>
 </LinearLayout>

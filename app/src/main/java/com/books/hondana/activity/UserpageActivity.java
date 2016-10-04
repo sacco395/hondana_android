@@ -34,6 +34,7 @@ import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.connection.KiiRequestConnection;
 import com.books.hondana.connection.QueryParamSet;
 import com.books.hondana.evaluation.EvaluationActivity;
+import com.books.hondana.arrived.HadArrivedBookActivity;
 import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
@@ -445,7 +446,7 @@ public class UserpageActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(this, ArrivedBookActivity.class);
+            Intent intent = new Intent(this, HadArrivedBookActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_transaction) {

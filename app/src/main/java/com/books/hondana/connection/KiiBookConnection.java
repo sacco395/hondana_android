@@ -32,8 +32,8 @@ public class KiiBookConnection {
     public static void fetchPostedBooks(String userId, KiiObjectListCallback<Book> callback) {
         KiiClause clause = KiiClause.equals(Book.OWNER_ID, userId);
         KiiQuery ownerIdQuery = new KiiQuery(clause);
-        queryBookBucket(ownerIdQuery, callback);
         ownerIdQuery.sortByDesc("_created");
+        queryBookBucket(ownerIdQuery, callback);
     }
 
     public static void fetchExhibitedBooks(String userId, KiiObjectListCallback<Book> callback) {

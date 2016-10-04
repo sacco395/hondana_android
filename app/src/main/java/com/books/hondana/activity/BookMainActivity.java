@@ -35,6 +35,7 @@ import com.books.hondana.R;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.QueryParamSet;
+import com.books.hondana.arrived.HadArrivedBookActivity;
 import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
@@ -362,7 +363,7 @@ public class BookMainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_exchange) {
             if (kiiUser != null) {
-                Intent intent = new Intent(this, ArrivedBookActivity.class);
+                Intent intent = new Intent(this, HadArrivedBookActivity.class);
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(this, StartActivity.class);

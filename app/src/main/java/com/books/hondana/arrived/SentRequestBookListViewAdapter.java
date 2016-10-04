@@ -1,4 +1,4 @@
-package com.books.hondana.exhibited;
+package com.books.hondana.arrived;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,14 +16,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReceivedRequestBookListViewAdapter extends BaseAdapter {
+public class SentRequestBookListViewAdapter extends BaseAdapter {
 
-    private static final String TAG = ReceivedRequestBookListViewAdapter.class.getSimpleName();
+    private static final String TAG = SentRequestBookListViewAdapter.class.getSimpleName();
 
     private ArrayList<Book> mBooks;
     private ReceivedRequestBookClickListener mListener;
 
-    public ReceivedRequestBookListViewAdapter(ArrayList<Book> books, ReceivedRequestBookClickListener listener) {
+    public SentRequestBookListViewAdapter(ArrayList<Book> books, ReceivedRequestBookClickListener listener) {
         this.mBooks = books;
         this.mListener = listener;
     }

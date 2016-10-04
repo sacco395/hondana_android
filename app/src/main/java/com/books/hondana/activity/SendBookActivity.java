@@ -56,8 +56,14 @@ public class SendBookActivity extends AppCompatActivity
         findViewById(R.id.buttonCancel).setOnClickListener(this);
         findViewById(R.id.buttonSent).setOnClickListener(this);
 
+        TextView tvDate = (TextView)findViewById(R.id.tv_date);
+        String requested_date = request.getRequestedDate ();
+        LogUtil.d(TAG, "requested_date: " + requested_date);
+        tvDate.setText(requested_date);
+
         final TextView ClientName = (TextView)findViewById(R.id.client_name);
         final String clientId = request.getClientId ();
+        LogUtil.d(TAG, "clientId: " + clientId);
         KiiMemberConnection.fetch(clientId, new KiiObjectCallback<Member> () {
             @Override
             public void success(int token, Member member) {

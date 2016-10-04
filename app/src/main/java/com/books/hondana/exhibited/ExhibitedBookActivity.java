@@ -29,7 +29,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.R;
-import com.books.hondana.activity.ArrivedBookActivity;
 import com.books.hondana.activity.BookDetailActivity;
 import com.books.hondana.activity.BookMainActivity;
 import com.books.hondana.activity.BookSearchListActivity;
@@ -37,6 +36,7 @@ import com.books.hondana.activity.InquiryActivity;
 import com.books.hondana.activity.LikesActivity;
 import com.books.hondana.activity.SimpleScannerActivity;
 import com.books.hondana.activity.UserpageActivity;
+import com.books.hondana.arrived.HadArrivedBookActivity;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.QueryParamSet;
@@ -306,7 +306,7 @@ public class ExhibitedBookActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(this, ArrivedBookActivity.class);
+            Intent intent = new Intent(this, HadArrivedBookActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_transaction) {

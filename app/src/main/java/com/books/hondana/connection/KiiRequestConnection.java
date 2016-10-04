@@ -130,6 +130,24 @@ public class KiiRequestConnection {
         }, query);
     }
 
+    public static void fetchByBookId(String bookId, String serverId, KiiObjectCallback<Request> callback) {
+        KiiQuery query = new KiiQuery(
+                KiiClause.and(
+                        KiiClause.equals(Request.SERVER_ID, serverId),
+                        KiiClause.equals(Request.BOOK_ID, bookId)
+                )
+        );
+        query.setLimit(1);
+        query.sortByDesc("_created");
+        KiiBucket requestBucket = Kii.bucket(Request.BUCKET_NAME);
+        requestBucket.query(new KiiQueryCallBack<KiiObject>() {
+            @Override
+            public void onQueryCompleted(int token, @Nullable KiiQueryResult<KiiObject> result, @Nullable Exception e) {
+                // エラーハンドリングと適したコールバック呼び出し
+            }
+        }, query);
+    }
+
     private static List<Request> convert(List<KiiObject> requestObjects) throws JSONException {
         List<Request> requests = new ArrayList<>();
         for (KiiObject object : requestObjects) {
