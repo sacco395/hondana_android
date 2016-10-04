@@ -11,7 +11,9 @@ import android.widget.ListView;
 import com.books.hondana.R;
 import com.books.hondana.activity.SendBookActivity;
 import com.books.hondana.connection.KiiBookConnection;
+import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.KiiObjectListCallback;
+import com.books.hondana.connection.KiiRequestConnection;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.Request;
 import com.books.hondana.util.LogUtil;
@@ -59,14 +61,26 @@ public class ReceivedRequestBookFragment extends Fragment {
 
         final KiiUser user = KiiUser.getCurrentUser();
         assert user != null;
+        final String serverUserId = user.getID ();
+        LogUtil.d (TAG, "serverUserId = " + serverUserId);
+
 
         mListAdapter = new ReceivedRequestBookListViewAdapter (new ArrayList<Book> (), new ReceivedRequestBookListViewAdapter.ReceivedRequestBookClickListener () {
             @Override
             public void onClick(Book book) {
-                Request request = Request.createNew(user.getID(), book);
-                startActivity(SendBookActivity.createIntent(getContext (), request));
-
                 LogUtil.d (TAG, "onItemClick: " + book);
+                String bookId = book.getId ();
+                KiiRequestConnection.fetchByBookId (bookId, serverUserId, new KiiObjectCallback<Request> () {
+                    @Override
+                    public void success(int token, Request request) {
+                        startActivity(SendBookActivity.createIntent(getContext (), request));
+                    }
+
+                    @Override
+                    public void failure(Exception e) {
+                        LogUtil.w (TAG, e);
+                    }
+                });
             }
         });
 
@@ -75,11 +89,7 @@ public class ReceivedRequestBookFragment extends Fragment {
         mListView.setAdapter (mListAdapter);
 
 
-        KiiUser kiiUser = KiiUser.getCurrentUser ();
-        String userId = kiiUser.getID ();
-        LogUtil.d (TAG, "userID = " + userId);
-
-        KiiBookConnection.fetchReceivedRequestBooks(userId, new KiiObjectListCallback<Book> () {
+        KiiBookConnection.fetchReceivedRequestBooks(serverUserId, new KiiObjectListCallback<Book> () {
             @Override
             public void success(int token, List<Book> result) {
                 LogUtil.d (TAG, "success: size=" + result.size ());
