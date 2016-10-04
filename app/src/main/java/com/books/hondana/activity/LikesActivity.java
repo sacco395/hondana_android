@@ -18,7 +18,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,10 +25,10 @@ import android.widget.Toast;
 
 import com.books.hondana.MyBookListAdapter;
 import com.books.hondana.R;
+import com.books.hondana.arrived.HadArrivedBookActivity;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.QueryParamSet;
-import com.books.hondana.arrived.HadArrivedBookActivity;
 import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
@@ -149,25 +148,6 @@ public class LikesActivity extends AppCompatActivity
         TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
         assert user != null;
         userName.setText(user.getUsername());
-
-        //navigationViewにアイコンと名前ここまで
-
-        // binding.navView.setNavigationItemSelectedListener(this);
-
-
-        // ListViewのインスタンスを生成
-        ListView listView = (ListView) findViewById(R.id.list_view);
-
-        // BaseAdapter を継承したadapterのインスタンスを生成
-
-//        BaseAdapter adapter = new PRBookListViewAdapter(this.getApplicationContext(), R.layout.part_book_list, titles, authors, photos);
-
-        // ListViewにadapterをセット
-        assert listView != null;
-//        listView.setAdapter(adapter);
-
-        // 後で使います
-        listView.setOnItemClickListener(this);
     }
         //navigationViewにアイコンと名前ここまで
 
@@ -190,7 +170,6 @@ public class LikesActivity extends AppCompatActivity
 //            }
 //        });
 //    }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

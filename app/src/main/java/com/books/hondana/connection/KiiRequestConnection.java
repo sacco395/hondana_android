@@ -3,6 +3,7 @@ package com.books.hondana.connection;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.books.hondana.model.Member;
 import com.books.hondana.model.Request;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
@@ -137,21 +138,33 @@ public class KiiRequestConnection {
             }
         }, query);
     }
-
-    public static void fetchByBookId(String bookId, String serverId, KiiObjectCallback<Request> callback) {
-        KiiQuery query = new KiiQuery(
+    /**
+     * @param callback
+     */
+    public static void fetchByBookId(String bookId, String serverUserId, final KiiObjectCallback<Request> callback) {
+        final KiiQuery query = new KiiQuery(
                 KiiClause.and(
-                        KiiClause.equals(Request.SERVER_ID, serverId),
+                        KiiClause.equals(Request.SERVER_ID, serverUserId),
                         KiiClause.equals(Request.BOOK_ID, bookId)
                 )
         );
         query.setLimit(1);
         query.sortByDesc("_created");
-        KiiBucket requestBucket = Kii.bucket(Request.BUCKET_NAME);
+        final KiiBucket requestBucket = Kii.bucket(Request.BUCKET_NAME);
         requestBucket.query(new KiiQueryCallBack<KiiObject>() {
             @Override
             public void onQueryCompleted(int token, @Nullable KiiQueryResult<KiiObject> result, @Nullable Exception e) {
                 // エラーハンドリングと適したコールバック呼び出し
+                if (e != null) {
+                    callback.failure(e);
+                    return;
+                }
+                try {
+                    Request request = Request.createFrom(result);
+                    callback.success(token, request);
+                } catch (JSONException e) {
+                    callback.failure(e);
+                }
             }
         }, query);
     }
