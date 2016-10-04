@@ -102,12 +102,13 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
 
                 case R.id.buttonCancel:
                     // クリック処理
-                    finish();
+                    //finish();
+                    startActivity(SendBookActivity.createIntent(RequestBookActivity.this, request));
                     break;
 
                 case R.id.buttonRequest:
                     // クリック処理（交換リクエストの日時とユーザーIDを保存）
-                    saveRequestDate ();
+                    saveRequestDate();
                     saveMinusPoint();
                     break;
                 default:
@@ -172,20 +173,33 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                     return;
                 }
 
-                kiiObject.refresh(new KiiObjectCallBack() {
-                    public void onRefreshCompleted(int token, KiiObject object, Exception exception) {
+                    kiiObject.refresh(new KiiObjectCallBack() {
+                    public void onRefreshCompleted(int token, @NonNull KiiObject object, Exception exception) {
                         int time = 60 * 60 * 72;//72時間後に消去
                         object.publishBodyExpiresIn(time, new KiiObjectPublishCallback() {
                             @Override
-                            public void onPublishCompleted(String url, KiiObject object, Exception exception) {
+                            public void onPublishCompleted(String url, @NonNull KiiObject object, Exception exception) {
                                 if (exception != null) {
                                     // Error handling
-                                    LogUtil.d(TAG, ("公開されてません"));
+                                        LogUtil.d(TAG, ("公開されてません"));
+                                    }
+
+                                request.setPdfUrl(url);
+                                request.save(false, new KiiModel.KiiSaveCallback() {
+                                    @Override
+                                    public void success(int token, KiiObject object) {
+                                        LogUtil.d(TAG, ("PDFが公開されました！"));
+                                    }
+
+                                    @Override
+                                    public void failure(@Nullable Exception e) {
+
+                                    }
+                                });
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
 
                 Toast.makeText(RequestBookActivity.this, "PDFが投稿されました！",
                         Toast.LENGTH_LONG).show();

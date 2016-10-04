@@ -231,7 +231,7 @@ public class UserpageActivity extends AppCompatActivity
         KiiRequestConnection.fetchEvaluatedExcellent(userId, new KiiObjectListCallback<Request> () {
             @Override
             public void success(int token, List<Request> result) {
-                LogUtil.d (TAG, "success: size=" + result.size ());
+                LogUtil.d (TAG, "success: EvaluatedExcellent_size=" + result.size ());
                 int num = result.size();
                 String number = String.valueOf(num);
                 numberOfExcellent.setText(number);
@@ -246,7 +246,7 @@ public class UserpageActivity extends AppCompatActivity
         KiiRequestConnection.fetchEvaluatedGood(userId, new KiiObjectListCallback<Request> () {
             @Override
             public void success(int token, List<Request> result) {
-                LogUtil.d (TAG, "success: size=" + result.size ());
+                LogUtil.d (TAG, "success: EvaluatedGood_size=" + result.size ());
                 int num = result.size();
                 String number = String.valueOf(num);
                 numberOfGood.setText(number);
@@ -261,7 +261,7 @@ public class UserpageActivity extends AppCompatActivity
         KiiRequestConnection.fetchEvaluatedBad(userId, new KiiObjectListCallback<Request> () {
             @Override
             public void success(int token, List<Request> result) {
-                LogUtil.d (TAG, "success: size=" + result.size ());
+                LogUtil.d (TAG, "success: EvaluatedBad_size=" + result.size ());
                 int num = result.size();
                 String number = String.valueOf(num);
                 numberOfBad.setText(number);
@@ -277,9 +277,10 @@ public class UserpageActivity extends AppCompatActivity
         KiiBookConnection.fetchPostedBooks(userId, new KiiObjectListCallback<Book>(){
             @Override
             public void success(int token, List<Book> result) {
-                Log.d(TAG, "success: size=" + result.size());
+                Log.d(TAG, "success: number_my_books=" + result.size());
                 int num = result.size();
                 String number = String.valueOf(num);
+                assert numberOfBooks != null;
                 numberOfBooks.setText(number);
                 mListAdapter.add(result);
                 mListAdapter.notifyDataSetChanged();

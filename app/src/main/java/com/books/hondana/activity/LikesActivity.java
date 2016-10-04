@@ -18,14 +18,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.MyBookListAdapter;
+import com.books.hondana.R;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.QueryParamSet;
@@ -33,16 +32,16 @@ import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;
-import com.books.hondana.PRBookListViewAdapter;
-import com.books.hondana.R;
+import com.books.hondana.model.Request;
 import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.ArrayList;
+
 public class LikesActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        AdapterView.OnItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
 
     private static final String TAG = LikesActivity.class.getSimpleName();
 
@@ -56,40 +55,38 @@ public class LikesActivity extends AppCompatActivity
     ////////////////////////////////////////
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
+    MyBookListAdapter mListAdapter;
 
-    // Isle of Wight in U.K.
-    private static final String[] titles = {
-            // Scenes of Isle of Wight
-            "デザイン思考は世界を変える",
-            "十月の旅人",
-            "無印良品は仕組みが９割",
-    };
-
-    private static final String[] authors = {
-            // Scenes of Isle of Wight
-            "ティム・ブラウン",
-            "レイ・ブラッドベリ",
-            "松井忠三",
-    };
-
-    // ちょっと冗長的ですが分かり易くするために
-    private static final int[] photos = {
-            R.drawable.changedesign,
-            R.drawable.october,
-            R.drawable.muji,
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_likes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final KiiUser user = KiiUser.getCurrentUser();
+        assert toolbar != null;
         toolbar.setTitle("気になる本一覧");
         setSupportActionBar(toolbar);
+
+        mListAdapter = new MyBookListAdapter(new ArrayList<Book>(), new MyBookListAdapter.BookItemClickListener() {
+            @Override
+            public void onClick(Book book) {
+                assert user != null;
+                Request request = Request.createNew(user.getID(), book);
+                startActivity(ReceivedBookActivity.createIntent(LikesActivity.this, request));
+//                Intent intent = new Intent(getApplicationContext(), BookInfoActivity.class);
+//                intent.putExtra(Book.class.getSimpleName(), book);
+
+                LogUtil.d(TAG, "onItemClick: " + book);
+            }
+        });
+
+        //fetchStared();
 
 
         //カメラボタン
         FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab);
+        assert mFab != null;
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,12 +115,11 @@ public class LikesActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //navigationViewにアイコンと名前ここから
-        KiiUser user = KiiUser.getCurrentUser();
+        KiiUser user1 = KiiUser.getCurrentUser();
         View header = navigationView.getHeaderView(0);
         final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
-//        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
-        assert user != null;
-        final String userId = user.getID();
+        assert user1 != null;
+        final String userId = user1.getID();
         KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {
@@ -148,44 +144,30 @@ public class LikesActivity extends AppCompatActivity
         });
 
         TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
+        assert user != null;
         userName.setText(user.getUsername());
+    }
         //navigationViewにアイコンと名前ここまで
 
-        // binding.navView.setNavigationItemSelectedListener(this);
-
-
-        // ListViewのインスタンスを生成
-        ListView listView = (ListView) findViewById(R.id.list_view);
-
-        // BaseAdapter を継承したadapterのインスタンスを生成
-
-        BaseAdapter adapter = new PRBookListViewAdapter(this.getApplicationContext(), R.layout.part_book_list, titles, authors, photos);
-
-        // ListViewにadapterをセット
-        assert listView != null;
-        listView.setAdapter(adapter);
-
-        // 後で使います
-        listView.setOnItemClickListener(this);
-
-    }
-
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        Intent intent = new Intent(this.getApplicationContext(), SelectedBooksActivity.class);
-        // clickされたpositionのtextとphotoのID
-        String selectedText = titles[position];
-        int selectedPhoto = photos[position];
-        // インテントにセット
-        intent.putExtra("Text", selectedText);
-        intent.putExtra("Photo", selectedPhoto);
-        // Activity をスイッチする
-        startActivity(intent);
-    }
-
-
-
+//    private void fetchStared(){
+//        KiiUser kiiUser = KiiUser.getCurrentUser();
+//        assert kiiUser != null;
+//        final String userId = kiiUser.getID();
+//        KiiRequestConnection.fetchStared(userId, new KiiObjectListCallback<Request>() {
+//            @Override
+//            public void success(int token, List<Request> result) {
+//                Log.d(TAG, "success: size=" + result.size());
+//
+//                mListAdapter.add((Book) result);
+//                mListAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void failure(@Nullable Exception e) {
+//
+//            }
+//        });
+//    }
 
     @Override
     public void onBackPressed() {

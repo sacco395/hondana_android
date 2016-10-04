@@ -4,7 +4,9 @@ package com.books.hondana.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,11 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.books.hondana.R;
 import com.books.hondana.model.Request;
 import com.books.hondana.model.abst.KiiModel;
-import com.books.hondana.R;
 import com.kii.cloud.storage.KiiObject;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -29,9 +32,11 @@ public class SendBookActivity extends AppCompatActivity
 
     private Request request;
 
+    private File pdfFile;
+
     public static Intent createIntent(Context context, Request request) {
-        Intent intent = new Intent (context, SendBookActivity.class);
-        intent.putExtra (Request.class.getSimpleName(), request);
+        Intent intent = new Intent(context, SendBookActivity.class);
+        intent.putExtra(Request.class.getSimpleName(), request);
         return intent;
     }
 
@@ -41,10 +46,10 @@ public class SendBookActivity extends AppCompatActivity
         setContentView(R.layout.activity_send_book);
 
         //上記のcreateIntentでデータを受け取る
-        request = getIntent ().getParcelableExtra(Request.class.getSimpleName());
+        request = getIntent().getParcelableExtra(Request.class.getSimpleName());
         //kiiBookがないのはおかしいのでcreateIntentを使うように怒る
         if (request == null) {
-            throw new IllegalArgumentException ("createIntentを使ってください");
+            throw new IllegalArgumentException("createIntentを使ってください");
         }
 
         findViewById(R.id.buttonDownload).setOnClickListener(this);
@@ -62,8 +67,7 @@ public class SendBookActivity extends AppCompatActivity
         if (v != null) {
             switch (v.getId()) {
                 case R.id.buttonDownload:
-                    // クリック処理
-                    finish();
+                    downLoadPdf(pdfFile);
                     break;
 
                 case R.id.buttonCancel:
@@ -73,7 +77,7 @@ public class SendBookActivity extends AppCompatActivity
 
                 case R.id.buttonSent:
                     // クリック処理
-                    saveSendDate ();
+                    saveSendDate();
                     break;
 
 
@@ -82,6 +86,7 @@ public class SendBookActivity extends AppCompatActivity
             }
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -93,10 +98,10 @@ public class SendBookActivity extends AppCompatActivity
 
     //kiiBookに本の発送完了日時を記録して保存する
     private void saveSendDate() {
-        Date date = new Date ();
+        Date date = new Date();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss", Locale.JAPAN);
-        String dateString = simpleDateFormat.format (date); // 2016-09-03 17:24:33
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.JAPAN);
+        String dateString = simpleDateFormat.format(date); // 2016-09-03 17:24:33
 
         request.setSentDate(dateString);
         request.save(false, new KiiModel.KiiSaveCallback() {
@@ -116,4 +121,27 @@ public class SendBookActivity extends AppCompatActivity
             }
         });
     }
+
+    private void downLoadPdf(final File pdfFile) {
+        request.downloadPdf(pdfFile, new Request.PdfDownloadCallback() {
+
+            @Override
+            public void onTransferStart(@NonNull KiiObject kiiObject) {
+
+            }
+
+            @Override
+            public void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(pdfFile), "application/pdf");
+                startActivity(intent);
+            }
+
+            @Override
+            public void onTransferProgress(@NonNull KiiObject kiiObject, long l, long l1) {
+
+            }
+        });
+    }
 }
+
