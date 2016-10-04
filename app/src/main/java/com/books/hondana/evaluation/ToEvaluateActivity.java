@@ -21,14 +21,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class EvaluatedActivity extends AppCompatActivity implements View.OnClickListener {
+public class ToEvaluateActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = EvaluatedActivity.class.getSimpleName();
+    private static final String TAG = ToEvaluateActivity.class.getSimpleName();
 
     private Request request;
 
     public static Intent createIntent(Context context, Request request) {
-        Intent intent = new Intent (context, EvaluatedActivity.class);
+        Intent intent = new Intent (context, ToEvaluateActivity.class);
         intent.putExtra(Request.class.getSimpleName(), request);
         return intent;
     }
@@ -60,7 +60,7 @@ public class EvaluatedActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(getApplicationContext(), "評価を完了しました", Toast.LENGTH_LONG).show();
 
                 //暫定的にTOPページにintentする
-                Intent intent = new Intent(EvaluatedActivity.this, BookMainActivity.class);
+                Intent intent = new Intent(ToEvaluateActivity.this, BookMainActivity.class);
                 startActivity(intent);
             }
 
