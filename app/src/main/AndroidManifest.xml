@@ -116,10 +116,6 @@
             android:label="@string/title_activity_swap_book"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!-- <activity -->
-        <!-- android:name=".activity.BookMainActivity" -->
-        <!-- android:label="@string/title_activity_swap_book" -->
-        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity
             android:name=".activity.TodoActivity"
             android:screenOrientation="portrait" />
@@ -165,6 +161,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.UserPolicyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arrived.HadArrivedBookActivity"
             android:screenOrientation="portrait" />
     </application>
 

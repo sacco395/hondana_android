@@ -249,12 +249,6 @@ public class Request extends KiiModel implements Parcelable {
         source.publishBodyExpiresIn(expiresIn, callback);
     }
 
-    /**
-     * フィールドの値を保存しかつ、PDF
-     だ     *
-     * @param pdfFile  公開期限（秒）
-     * @param callback See {@link KiiObjectBodyCallback}
-     */
     public void downloadPdf(File pdfFile, KiiObjectBodyCallback callback){
         source.downloadBody(pdfFile, callback);
     }
@@ -269,7 +263,7 @@ public class Request extends KiiModel implements Parcelable {
     public void setValuesFrom(KiiObject object) throws JSONException {
         clientId = object.getString(CLIENT_ID);
         serverId = object.getString(SERVER_ID);
-        pdf_url = object.getString(PDF_URL);
+        pdf_url = object.getString(PDF_URL, "");
         bookId = object.getString(BOOK_ID);
         requestedDate = object.getString(REQUESTED_DATE);
         sentDate = object.getString(SENT_DATE);
