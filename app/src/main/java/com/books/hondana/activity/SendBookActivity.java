@@ -32,6 +32,8 @@ public class SendBookActivity extends AppCompatActivity
 
     private Request request;
 
+    private File pdfFile;
+
     public static Intent createIntent(Context context, Request request) {
         Intent intent = new Intent(context, SendBookActivity.class);
         intent.putExtra(Request.class.getSimpleName(), request);
@@ -65,8 +67,7 @@ public class SendBookActivity extends AppCompatActivity
         if (v != null) {
             switch (v.getId()) {
                 case R.id.buttonDownload:
-                    String file = File.
-                            downLoadPdf();
+                    downLoadPdf(pdfFile);
                     break;
 
                 case R.id.buttonCancel:
