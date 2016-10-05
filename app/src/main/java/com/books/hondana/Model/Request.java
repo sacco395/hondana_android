@@ -1,5 +1,6 @@
 package com.books.hondana.model;
 
+import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -249,9 +250,41 @@ public class Request extends KiiModel implements Parcelable {
         source.publishBodyExpiresIn(expiresIn, callback);
     }
 
-    public void downloadPdf(File pdfFile, KiiObjectBodyCallback callback){
-        source.downloadBody(pdfFile, callback);
-    }
+
+    public void downloadPdf(final File pdfFile, PdfDownloadCallback callback) {
+        if (source == null || id == null) {
+            callback.failure(new IllegalStateException("KiiObject が空です。"));
+            return;
+        }
+
+//        source.refresh(new KiiObjectCallBack() {
+//            @Override
+//            public void onRefreshCompleted(int token, @NonNull KiiObject object, Exception exception) {
+//                if (exception != null) {
+//                    // Error handling
+//                    return;
+//                }
+
+                File file = new File(Environment.getExternalStorageDirectory(), "myDownload.pdf");
+
+                source.downloadBody(file, new KiiObjectBodyCallback() {
+                    @Override
+                    public void onTransferStart(@NonNull KiiObject kiiObject) {
+
+                    }
+
+                    @Override
+                    public void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e) {
+
+                    }
+
+                    @Override
+                    public void onTransferProgress(@NonNull KiiObject kiiObject, long l, long l1) {
+
+                    }
+                });
+            }
+
 
     //public void setEvaluatedDate(String evaluatedDate) {this.evaluatedDate = evaluatedDate;}
     @Override
@@ -348,6 +381,7 @@ public class Request extends KiiModel implements Parcelable {
     }
 
     public interface PdfDownloadCallback extends KiiObjectBodyCallback{
+        void failure(IllegalStateException e);
         @Override
         void onTransferStart(@NonNull KiiObject kiiObject);
 
