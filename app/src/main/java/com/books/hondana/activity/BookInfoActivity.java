@@ -171,13 +171,14 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
         final TextView bookOwner = (TextView) findViewById(R.id.textViewBookInfoUserName);
         final ImageView userIcon = (ImageView) findViewById(R.id.bookInfoUserIcon);
+        final ImageView star  = (ImageView) findViewById(R.id.bookInfoLike);
 
         final String userId = book.getOwnerId();
         KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {
                 final String name = member.getName();
-                Log.d(TAG, "name: " + name);
+                Log.d(TAG, "owner_name: " + name);
                 assert bookOwner != null;
                 bookOwner.setText(name);
                 if (!member.hasValidImageUrl()) {
@@ -207,7 +208,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
                     break;
 
                 case R.id.bookInfoLike:
-                    //clickToStared();
+                    LogUtil.d(TAG, "onClickStar");
+                    clickToStared();
                     break;
             }
         }
@@ -250,16 +252,23 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-//    private void clickToStared(){ //星のクリックしての処理
-//        final ImageView  = (ImageView) findViewById(R.id.bookInfoLike);//星の画像
-//        final ImageView userIcon = (ImageView) findViewById(R.id.user_icon);//星の画像
-//        KiiUser kiiUser = KiiUser.getCurrentUser();
-//        boolean request.
-//        if(like){
-//
-//        }
-//
-//    }
+    private void clickToStared() {
+
+        KiiUser kiiUser = KiiUser.getCurrentUser();
+
+        ImageView view = (ImageView) findViewById(R.id.bookInfoLike);
+        assert view != null;
+        view.setImageResource(R.drawable.star_selector);
+        LogUtil.d(TAG, "setImageResource");
+
+        boolean selected = false;
+        if (!selected) {
+            view.setSelected(true);
+
+        }else{
+            view.setSelected(false);
+        }
+    }
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
