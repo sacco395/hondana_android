@@ -70,7 +70,7 @@ public class ReceivedRequestBookFragment extends Fragment {
             public void onClick(Book book) {
                 LogUtil.d (TAG, "onItemClick: " + book);
                 String bookId = book.getId ();
-                KiiRequestConnection.fetchByBookId (bookId, serverUserId, new KiiObjectCallback<Request> () {
+                KiiRequestConnection.fetchByRequestBookId (bookId, serverUserId, new KiiObjectCallback<Request> () {
                     @Override
                     public void success(int token, Request request) {
                         startActivity(SendBookActivity.createIntent(getContext (), request));

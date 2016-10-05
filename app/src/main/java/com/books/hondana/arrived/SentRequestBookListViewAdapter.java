@@ -9,7 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.books.hondana.R;
+import com.books.hondana.connection.KiiBookConnection;
+import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.model.Book;
+import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Request;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +91,24 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
             holder.tvDate.setText(requested_date + "に本にリクエストしました");
         }
 
+        String requestBookId = request.getBookId();
+        final View finalConvertView = convertView;
+        KiiBookConnection.fetchByBookId (requestBookId, new KiiObjectCallback<Book> () {
+            @Override
+            public void success(int token, Book book) {
+                BookInfo info = book.getInfo();
+                String coverUrl = info.getImageUrl();
+
+                Picasso.with(finalConvertView.getContext())
+                        .load(coverUrl)
+                        .into(holder.ivCover);
+            }
+
+            @Override
+            public void failure(Exception e) {
+
+            }
+        });
 
 
 //        // http://square.github.io/picasso/

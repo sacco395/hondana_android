@@ -44,11 +44,12 @@ public class KiiRequestConnection {
     }
 
     public static void fetchSentRequest(String userId, KiiObjectListCallback<Request> callback) {
-        KiiQuery EvaluatedQuery = new KiiQuery (KiiClause.and (
+        KiiQuery SentRequestQuery = new KiiQuery (KiiClause.and (
                 KiiClause.equals (Request.CLIENT_ID, userId),
                 KiiClause.notEquals (Request.REQUESTED_DATE, ""),
                 KiiClause.equals (Request.RECEIVED_DATE, "")));
-        queryRequestBucket (EvaluatedQuery, callback);
+        SentRequestQuery.sortByDesc ("_created");
+        queryRequestBucket (SentRequestQuery, callback);
     }
 
     public static void fetchHadArrived(String userId, KiiObjectListCallback<Request> callback) {
@@ -157,7 +158,7 @@ public class KiiRequestConnection {
     /**
      * @param callback
      */
-    public static void fetchByBookId(final String bookId, final String serverUserId, final KiiObjectCallback<Request> callback) {
+    public static void fetchByRequestBookId(final String bookId, final String serverUserId, final KiiObjectCallback<Request> callback) {
         final KiiQuery query = new KiiQuery(
                 KiiClause.and(
                         KiiClause.equals(Request.SERVER_ID, serverUserId),
