@@ -14,6 +14,7 @@ import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Request;
+import com.books.hondana.util.LogUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -66,9 +67,8 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
 
             ImageView ivCover = (ImageView) itemLayout.findViewById(R.id.iv_bookImg);
             TextView tvTitle = (TextView) itemLayout.findViewById(R.id.tv_bookTitle);
-            TextView tvMessage = (TextView) itemLayout.findViewById(R.id.tv_message);
             TextView tvDate = (TextView) itemLayout.findViewById(R.id.tv_date);
-            itemLayout.setTag(new ViewHolder(ivCover, tvTitle, tvMessage, tvDate));
+            itemLayout.setTag(new ViewHolder(ivCover, tvTitle, tvDate));
 
             convertView = itemLayout;
         }
@@ -88,15 +88,20 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
         if (!Objects.equals (sent_date, "")) {
             holder.tvDate.setText(sent_date + "に本が発送されました\n本が届いたら相手の評価をしましょう");
         } else {
-            holder.tvDate.setText(requested_date + "に本にリクエストしました");
+            holder.tvDate.setText(requested_date);
         }
 
         String requestBookId = request.getBookId();
+        LogUtil.d(TAG,"requestBookId:"+ requestBookId);
+
         final View finalConvertView = convertView;
         KiiBookConnection.fetchByBookId (requestBookId, new KiiObjectCallback<Book> () {
             @Override
             public void success(int token, Book book) {
                 BookInfo info = book.getInfo();
+                String book_title = info.getTitle();
+                holder.tvTitle.setText(book_title + "にリクエストしました");
+
                 String coverUrl = info.getImageUrl();
 
                 Picasso.with(finalConvertView.getContext())
@@ -109,45 +114,6 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
 
             }
         });
-
-
-//        // http://square.github.io/picasso/
-//        Picasso.with(convertView.getContext())
-//                .load(coverUrl)
-//                .into(holder.ivCover);
-//
-//        holder.tvTitle.setText("「" + info.getTitle() + "」が発送されました");
-
-//        String bookId = book.getId ();
-//        LogUtil.d(TAG, "bookId: " + bookId);
-//        KiiRequestConnection.fetchRequestsByOthers(bookId, new KiiObjectCallback<Request> () {
-//            @Override
-//            public void success(int token, Request request) {
-//                final String requestDate = request.getRequestedDate ();
-//                LogUtil.d (TAG, "requestDate: " + requestDate);
-//                holder.tvDate.setText (requestDate);
-//            }
-//
-//            @Override
-//            public void failure(Exception e) {
-//                LogUtil.e(TAG, "failure: ", e);
-//            }
-//        });
-//
-//        KiiMemberConnection.fetch(clientId, new KiiObjectCallback<Member> () {
-//            @Override
-//            public void success(int token, Member member) {
-//                final String name = member.getName();
-//                LogUtil.d(TAG, "name: " + name);
-//                holder.tvMessage.setText(name + "さんがあなたにリクエストをしました。");
-//            }
-//
-//            @Override
-//            public void failure(Exception e) {
-//                LogUtil.e(TAG, "failure: ", e);
-//            }
-//        });
-
         return convertView;
     }
 
@@ -158,14 +124,11 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
     public static class ViewHolder {
         public ImageView ivCover;
         public TextView tvTitle;
-        public TextView tvMessage;
         public TextView tvDate;
 
-        public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvMessage, TextView tvDate) {
-//public ViewHolder(ImageView ivCover, TextView tvTitle) {
+        public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvDate) {
             this.ivCover = ivCover;
             this.tvTitle = tvTitle;
-            this.tvMessage = tvMessage;
             this.tvDate = tvDate;
         }
     }
