@@ -58,7 +58,7 @@ public class Book extends KiiModel implements Parcelable {
      * KiiCloud 上に保存されているものを、KiiObject から生成
      * @param kiiObject
      * @return
-     * @throws JSONException 求めるフィールドがなかった場合に例外をスロー
+     * @throws JSONExceptzion 求めるフィールドがなかった場合に例外をスロー
      */
     public static Book createFrom(KiiObject kiiObject) throws JSONException {
         return new Book(kiiObject);

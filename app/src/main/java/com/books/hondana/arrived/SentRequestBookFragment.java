@@ -10,11 +10,8 @@ import android.widget.ListView;
 
 import com.books.hondana.R;
 import com.books.hondana.activity.ReceivedBookActivity;
-import com.books.hondana.connection.KiiBookConnection;
-import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.connection.KiiRequestConnection;
-import com.books.hondana.model.Book;
 import com.books.hondana.model.Request;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
@@ -65,22 +62,11 @@ public class SentRequestBookFragment extends Fragment {
         LogUtil.d (TAG, "clientUserId = " + clientUserId);
 
 
-        mListAdapter = new SentRequestBookListViewAdapter (new ArrayList<Book> (), new SentRequestBookListViewAdapter.SentRequestBookClickListener() {
+        mListAdapter = new SentRequestBookListViewAdapter (new ArrayList<Request> (), new SentRequestBookListViewAdapter.SentRequestBookClickListener() {
             @Override
-            public void onClick(Book book) {
-                LogUtil.d (TAG, "onItemClick: " + book);
-                String bookId = book.getId ();
-                KiiRequestConnection.fetchRequestByBookId (bookId, clientUserId, new KiiObjectCallback<Request> () {
-                    @Override
-                    public void success(int token, Request request) {
-                        startActivity(ReceivedBookActivity.createIntent(getContext(), request));
-                    }
-
-                    @Override
-                    public void failure(Exception e) {
-                        LogUtil.w (TAG, e);
-                    }
-                });
+            public void onClick(Request request) {
+                LogUtil.d (TAG, "onItemClick: " + request);
+                startActivity(ReceivedBookActivity.createIntent(getContext(), request));
             }
         });
 
@@ -89,19 +75,19 @@ public class SentRequestBookFragment extends Fragment {
         mListView.setAdapter (mListAdapter);
 
 
-        KiiBookConnection.fetchSentRequestBooks(new KiiObjectListCallback<Book> () {
-            @Override
-            public void success(int token, List<Book> result) {
-                LogUtil.d (TAG, "success: size=" + result.size ());
-                mListAdapter.add(result);
-                mListAdapter.notifyDataSetChanged();
-            }
+        KiiRequestConnection.fetchSentRequest (clientUserId, new KiiObjectListCallback<Request> () {
+                    @Override
+                    public void success(int token, List<Request> result) {
+                        LogUtil.d (TAG, "success: size=" + result.size ());
+                        mListAdapter.add(result);
+                        mListAdapter.notifyDataSetChanged();
+                    }
 
-            @Override
-            public void failure(@Nullable Exception e) {
-                LogUtil.w (TAG, e);
-            }
-        });
+                    @Override
+                    public void failure(@Nullable Exception e) {
+                        LogUtil.w (TAG, e);
+                    }
+                });
         return view;
     }
 }

@@ -9,41 +9,41 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.books.hondana.R;
-import com.books.hondana.model.Book;
-import com.books.hondana.model.BookInfo;
-import com.squareup.picasso.Picasso;
+import com.books.hondana.model.Request;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SentRequestBookListViewAdapter extends BaseAdapter {
 
     private static final String TAG = SentRequestBookListViewAdapter.class.getSimpleName();
 
-    private ArrayList<Book> mBooks;
+    private ArrayList<Request> mRequests;
     private SentRequestBookClickListener mListener;
 
-    public SentRequestBookListViewAdapter(ArrayList<Book> books, SentRequestBookClickListener listener) {
-        this.mBooks = books;
+    public SentRequestBookListViewAdapter(ArrayList<Request> requests, SentRequestBookClickListener listener) {
+        this.mRequests = requests;
         this.mListener = listener;
     }
 
-    public void add(List<Book> books) {
-        mBooks.addAll(books);
+    public void add(List<Request>requests) {
+        mRequests.addAll(requests);
     }
 
-    public void add(Book book) {
-        mBooks.add(book);
+    public void add(Request request) {
+        mRequests.add(request);
     }
+    
 
     @Override
     public int getCount() {
-        return mBooks.size();
+        return mRequests.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mBooks.get(position);
+        return mRequests.get(position);
     }
 
     @Override
@@ -59,35 +59,41 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
 
             View itemLayout = inflater.inflate(R.layout.part_todo_evaluate_list, null);
 
-            ImageView ivCover = (ImageView) itemLayout.findViewById(R.id.iv_BookImg);
-            TextView tvTitle = (TextView) itemLayout.findViewById(R.id.tv_BookTitle);
-//            TextView tvMessage = (TextView) itemLayout.findViewById(R.id.tv_message);
-//            TextView tvDate = (TextView) itemLayout.findViewById(R.id.tv_date);
-//            itemLayout.setTag(new ViewHolder(ivCover, tvTitle, tvMessage, tvDate));
-            itemLayout.setTag(new ViewHolder(ivCover, tvTitle));
+            ImageView ivCover = (ImageView) itemLayout.findViewById(R.id.iv_bookImg);
+            TextView tvTitle = (TextView) itemLayout.findViewById(R.id.tv_bookTitle);
+            TextView tvMessage = (TextView) itemLayout.findViewById(R.id.tv_message);
+            TextView tvDate = (TextView) itemLayout.findViewById(R.id.tv_date);
+            itemLayout.setTag(new ViewHolder(ivCover, tvTitle, tvMessage, tvDate));
 
             convertView = itemLayout;
         }
 
         final ViewHolder holder = (ViewHolder) convertView.getTag();
 
-        final Book book = mBooks.get(position);
+        final Request request = mRequests.get(position);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onClick(book);
+                mListener.onClick(request);
             }
         });
 
-        BookInfo info = book.getInfo();
-        String coverUrl = info.getImageUrl();
+        String requested_date = request.getRequestedDate();
+        String sent_date = request.getSentDate();
+        if (!Objects.equals (sent_date, "")) {
+            holder.tvDate.setText(sent_date + "に本が発送されました\n本が届いたら相手の評価をしましょう");
+        } else {
+            holder.tvDate.setText(requested_date + "に本にリクエストしました");
+        }
 
-        // http://square.github.io/picasso/
-        Picasso.with(convertView.getContext())
-                .load(coverUrl)
-                .into(holder.ivCover);
 
-        holder.tvTitle.setText("「" + info.getTitle() + "」が発送されました");
+
+//        // http://square.github.io/picasso/
+//        Picasso.with(convertView.getContext())
+//                .load(coverUrl)
+//                .into(holder.ivCover);
+//
+//        holder.tvTitle.setText("「" + info.getTitle() + "」が発送されました");
 
 //        String bookId = book.getId ();
 //        LogUtil.d(TAG, "bookId: " + bookId);
@@ -123,21 +129,21 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
     }
 
     public interface SentRequestBookClickListener {
-        void onClick(Book book);
+        void onClick(Request request);
     }
 
     public static class ViewHolder {
         public ImageView ivCover;
         public TextView tvTitle;
-//        public TextView tvMessage;
-//        public TextView tvDate;
+        public TextView tvMessage;
+        public TextView tvDate;
 
-//        public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvMessage, TextView tvDate) {
-public ViewHolder(ImageView ivCover, TextView tvTitle) {
+        public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvMessage, TextView tvDate) {
+//public ViewHolder(ImageView ivCover, TextView tvTitle) {
             this.ivCover = ivCover;
             this.tvTitle = tvTitle;
-//            this.tvMessage = tvMessage;
-//            this.tvDate = tvDate;
+            this.tvMessage = tvMessage;
+            this.tvDate = tvDate;
         }
     }
 }

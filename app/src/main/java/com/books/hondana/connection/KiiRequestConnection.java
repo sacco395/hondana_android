@@ -43,6 +43,23 @@ public class KiiRequestConnection {
         queryRequestBucket(clientIdQuery, callback);
     }
 
+    public static void fetchSentRequest(String userId, KiiObjectListCallback<Request> callback) {
+        KiiQuery EvaluatedQuery = new KiiQuery (KiiClause.and (
+                KiiClause.equals (Request.CLIENT_ID, userId),
+                KiiClause.notEquals (Request.REQUESTED_DATE, ""),
+                KiiClause.equals (Request.RECEIVED_DATE, "")));
+        queryRequestBucket (EvaluatedQuery, callback);
+    }
+
+    public static void fetchHadArrived(String userId, KiiObjectListCallback<Request> callback) {
+        KiiQuery EvaluatedQuery = new KiiQuery (KiiClause.and (
+                KiiClause.equals (Request.CLIENT_ID, userId),
+                KiiClause.notEquals (Request.RECEIVED_DATE, "")));
+        queryRequestBucket (EvaluatedQuery, callback);
+    }
+
+
+
     /**
      * ユーザがお願いされているリクエストのリストを取得
      * @param userId KiiUser#getUserID

@@ -9,9 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.books.hondana.R;
-import com.books.hondana.model.Book;
-import com.books.hondana.model.BookInfo;
-import com.squareup.picasso.Picasso;
+import com.books.hondana.model.Request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,30 +18,31 @@ public class ArrivedBookListViewAdapter extends BaseAdapter {
 
     private static final String TAG = ArrivedBookListViewAdapter.class.getSimpleName();
 
-    private ArrayList<Book> mBooks;
-    private ExhibitedBookClickListener mListener;
+    private ArrayList<Request> mRequests;
+    private ArrivedBookClickListener mListener;
 
-    public ArrivedBookListViewAdapter(ArrayList<Book> books, ExhibitedBookClickListener listener) {
-        this.mBooks = books;
+    public ArrivedBookListViewAdapter(ArrayList<Request> requests, ArrivedBookClickListener listener) {
+        this.mRequests = requests;
         this.mListener = listener;
     }
 
-    public void add(List<Book> books) {
-        mBooks.addAll(books);
+    public void add(List<Request>requests) {
+        mRequests.addAll(requests);
     }
 
-    public void add(Book book) {
-        mBooks.add(book);
+    public void add(Request request) {
+        mRequests.add(request);
     }
+
 
     @Override
     public int getCount() {
-        return mBooks.size();
+        return mRequests.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mBooks.get(position);
+        return mRequests.get(position);
     }
 
     @Override
@@ -53,67 +52,92 @@ public class ArrivedBookListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, final ViewGroup parent) {
-
-        // ViewHolder パターンというのがあって、これによってパフォーマンスの向上が見込めます
-        // http://outofmem.hatenablog.com/entry/2014/10/29/040510
         if (convertView == null) {
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
 
-            // row というレイアウトの名前は、何も伝えていません。
-            // また、あたかもリスト表示の1アイテムであるかのような印象を与えます。(実際にはGrid)
-            // item_book とかいいかと思います。
-            View itemLayout = inflater.inflate(R.layout.part_my_book_list, null);
+            View itemLayout = inflater.inflate(R.layout.part_todo_evaluate_list, null);
 
-            // ID の命名もう少し考えた方がいいです。
-            // 辞書引いてでも、しっくりくる名前を考えるべきです。Title って聞いたら、
-            // 文字列を連想して、TextView かと思ってしまいます。
-            // ここでは表紙の画像なので、imgCovert とかがいいかと。
-            ImageView ivCover = (ImageView) itemLayout.findViewById(R.id.iv_BookImg);
-            TextView tvTitle = (TextView) itemLayout.findViewById(R.id.tv_BookTitle);
-            TextView tvAuthor = (TextView) itemLayout.findViewById(R.id.tv_BookAuthor);
-            itemLayout.setTag(new ViewHolder(ivCover, tvTitle, tvAuthor));
+            ImageView ivCover = (ImageView) itemLayout.findViewById(R.id.iv_bookImg);
+            TextView tvTitle = (TextView) itemLayout.findViewById(R.id.tv_bookTitle);
+            TextView tvMessage = (TextView) itemLayout.findViewById(R.id.tv_message);
+            TextView tvDate = (TextView) itemLayout.findViewById(R.id.tv_date);
+            itemLayout.setTag(new ViewHolder(ivCover, tvTitle, tvMessage, tvDate));
 
             convertView = itemLayout;
         }
 
         final ViewHolder holder = (ViewHolder) convertView.getTag();
 
-        final Book book = mBooks.get(position);
+        final Request request = mRequests.get(position);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onClick(book);
+                mListener.onClick(request);
             }
         });
 
-        BookInfo info = book.getInfo();
-        String coverUrl = info.getImageUrl();
+        String received_date = request.getReceivedDate();
+        holder.tvDate.setText(received_date + "に本を受け取りました");
 
-        // http://square.github.io/picasso/
-        Picasso.with(convertView.getContext())
-                .load(coverUrl)
-                .into(holder.ivCover);
 
-        holder.tvTitle.setText(info.getTitle());
-        holder.tvAuthor.setText(info.getAuthor());
+
+//        // http://square.github.io/picasso/
+//        Picasso.with(convertView.getContext())
+//                .load(coverUrl)
+//                .into(holder.ivCover);
+//
+//        holder.tvTitle.setText("「" + info.getTitle() + "」が発送されました");
+
+//        String bookId = book.getId ();
+//        LogUtil.d(TAG, "bookId: " + bookId);
+//        KiiRequestConnection.fetchRequestsByOthers(bookId, new KiiObjectCallback<Request> () {
+//            @Override
+//            public void success(int token, Request request) {
+//                final String requestDate = request.getRequestedDate ();
+//                LogUtil.d (TAG, "requestDate: " + requestDate);
+//                holder.tvDate.setText (requestDate);
+//            }
+//
+//            @Override
+//            public void failure(Exception e) {
+//                LogUtil.e(TAG, "failure: ", e);
+//            }
+//        });
+//
+//        KiiMemberConnection.fetch(clientId, new KiiObjectCallback<Member> () {
+//            @Override
+//            public void success(int token, Member member) {
+//                final String name = member.getName();
+//                LogUtil.d(TAG, "name: " + name);
+//                holder.tvMessage.setText(name + "さんがあなたにリクエストをしました。");
+//            }
+//
+//            @Override
+//            public void failure(Exception e) {
+//                LogUtil.e(TAG, "failure: ", e);
+//            }
+//        });
 
         return convertView;
     }
 
-    public interface ExhibitedBookClickListener {
-        void onClick(Book book);
+    public interface ArrivedBookClickListener {
+        void onClick(Request request);
     }
 
     public static class ViewHolder {
         public ImageView ivCover;
         public TextView tvTitle;
-        public TextView tvAuthor;
+        public TextView tvMessage;
+        public TextView tvDate;
 
-        public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvAuthor) {
+        public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvMessage, TextView tvDate) {
+//public ViewHolder(ImageView ivCover, TextView tvTitle) {
             this.ivCover = ivCover;
             this.tvTitle = tvTitle;
-            this.tvAuthor = tvAuthor;
+            this.tvMessage = tvMessage;
+            this.tvDate = tvDate;
         }
     }
 }
