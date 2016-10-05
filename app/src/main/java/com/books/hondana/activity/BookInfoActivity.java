@@ -263,9 +263,10 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
         boolean selected = false;
         if (!selected) {
-            view.setSelected(false); // -> something_default.pngに切り替わる
+            view.setSelected(true);
+
         }else{
-            view.setSelected(true); // -> something_selected.pngに切り替わる
+            view.setSelected(false);
         }
     }
 

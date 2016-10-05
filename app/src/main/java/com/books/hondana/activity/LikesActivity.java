@@ -25,7 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.MyBookListAdapter;
+import com.books.hondana.LikeBookListAdapter;
 import com.books.hondana.R;
 import com.books.hondana.connection.KiiLikeConnection;
 import com.books.hondana.connection.KiiMemberConnection;
@@ -37,7 +37,6 @@ import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Like;
 import com.books.hondana.model.Member;
-import com.books.hondana.model.Request;
 import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
@@ -61,7 +60,7 @@ public class LikesActivity extends AppCompatActivity
     ////////////////////////////////////////
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
-    MyBookListAdapter mListAdapter;
+    LikeBookListAdapter mListAdapter;
 
 
     @Override
@@ -74,16 +73,16 @@ public class LikesActivity extends AppCompatActivity
         toolbar.setTitle("気になる本一覧");
         setSupportActionBar(toolbar);
 
-        mListAdapter = new MyBookListAdapter(new ArrayList<Book>(), new MyBookListAdapter.BookItemClickListener() {
+        mListAdapter = new LikeBookListAdapter(new ArrayList<Like>(), new LikeBookListAdapter.LikeItemClickListener() {
             @Override
-            public void onClick(Book book) {
+            public void onClick(Like like) {
                 assert user != null;
-                Request request = Request.createNew(user.getID(), book);
-                startActivity(ReceivedBookActivity.createIntent(LikesActivity.this, request));
+//                Request request = Request.createNew(user.getID(), like);
+//                startActivity(ReceivedBookActivity.createIntent(LikesActivity.this, request));
 //                Intent intent = new Intent(getApplicationContext(), BookInfoActivity.class);
 //                intent.putExtra(Book.class.getSimpleName(), book);
 
-                LogUtil.d(TAG, "onItemClick: " + book);
+                LogUtil.d(TAG, "onItemClick: " + like);
             }
         });
 
@@ -167,12 +166,13 @@ public class LikesActivity extends AppCompatActivity
             public void success(int token, List<Like> result) {
                 Log.d(TAG, "success: size=" + result.size());
 
-                mListAdapter.add((Book) result);
+                mListAdapter.add(result);
                 mListAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void failure(@Nullable Exception e) {
+
 
             }
         });
