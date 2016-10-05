@@ -23,8 +23,6 @@ import com.books.hondana.model.Member;
 import com.books.hondana.model.Request;
 import com.books.hondana.model.abst.KiiModel;
 import com.books.hondana.util.LogUtil;
-import com.books.hondana.model.Request;
-import com.books.hondana.model.abst.KiiModel;
 import com.kii.cloud.storage.KiiObject;
 
 import java.io.File;
@@ -151,14 +149,19 @@ public class SendBookActivity extends AppCompatActivity
     }
 
     private void downLoadPdf(final File pdfFile) {
+
         request.downloadPdf(pdfFile, new Request.PdfDownloadCallback() {
+            @Override
+            public void failure(IllegalStateException e) {
+                LogUtil.w(TAG, e);
+            }
 
             @Override
             public void onTransferStart(@NonNull KiiObject kiiObject) {
 
             }
 
-            @Override//繋がっていないため未チェック
+            @Override
             public void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.fromFile(pdfFile), "application/pdf");
