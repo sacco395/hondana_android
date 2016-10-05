@@ -97,7 +97,6 @@ public class MyBookListAdapter extends BaseAdapter {
         holder.tvTitle.setText(info.getTitle());
         holder.tvAuthor.setText(info.getAuthor());
 
-
         return convertView;
     }
 
@@ -105,7 +104,7 @@ public class MyBookListAdapter extends BaseAdapter {
         void onClick(Book book);
     }
 
-    private static class ViewHolder {
+    public static class ViewHolder {
         public ImageView ivCover;
         public TextView tvTitle;
         public TextView tvAuthor;

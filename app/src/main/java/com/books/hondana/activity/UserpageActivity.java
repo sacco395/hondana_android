@@ -34,6 +34,8 @@ import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.connection.KiiRequestConnection;
 import com.books.hondana.connection.QueryParamSet;
 import com.books.hondana.evaluation.EvaluationActivity;
+import com.books.hondana.arrived.HadArrivedBookActivity;
+import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
@@ -82,13 +84,10 @@ public class UserpageActivity extends AppCompatActivity
         mListAdapter = new MyBookListAdapter(new ArrayList<Book>(), new MyBookListAdapter.BookItemClickListener() {
             @Override
             public void onClick(Book book) {
-                Request request = Request.createNew(user.getID(), book);
-                startActivity(ReceivedBookActivity.createIntent(UserpageActivity.this, request));
-//                Intent intent = new Intent(getApplicationContext(), BookInfoActivity.class);
-//                intent.putExtra(Book.class.getSimpleName(), book);
+                Intent intent = new Intent(getApplicationContext(), BookInfoActivity.class);
+                intent.putExtra(Book.class.getSimpleName(), book);
 
                 LogUtil.d(TAG, "onItemClick: " + book);
-//                startActivity(intent);
             }
         });
 
@@ -445,11 +444,11 @@ public class UserpageActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(this, SwapBookActivity.class);
+            Intent intent = new Intent(this, HadArrivedBookActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_transaction) {
-            Intent intent = new Intent(this, RequestActivity.class);
+            Intent intent = new Intent(this, ExhibitedBookActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_set) {

@@ -32,7 +32,7 @@ public class KiiUserBookConnection extends PagingConnection<Book> {
         KiiClause userClause = KiiClause.equals(Book.OWNER_ID, userId);
         KiiClause[] statusesClause = {};
         for (int i = 0; i < statuses.length; i++) {
-            statusesClause[i] = KiiClause.equals(Book.STATUS, statuses[i]);
+            statusesClause[i] = KiiClause.equals(Book.STATE, statuses[i]);
         }
         KiiClause statusClause = KiiClause.or(statusesClause);
         return new KiiQuery(KiiClause.and(userClause, statusClause));

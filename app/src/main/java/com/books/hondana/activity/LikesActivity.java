@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -15,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,22 +25,27 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.MyBookListAdapter;
+import com.books.hondana.LikeBookListAdapter;
 import com.books.hondana.R;
+import com.books.hondana.arrived.HadArrivedBookActivity;
+import com.books.hondana.connection.KiiLikeConnection;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.connection.QueryParamSet;
+import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
+import com.books.hondana.model.Like;
 import com.books.hondana.model.Member;
-import com.books.hondana.model.Request;
 import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LikesActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -55,7 +62,7 @@ public class LikesActivity extends AppCompatActivity
     ////////////////////////////////////////
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
-    MyBookListAdapter mListAdapter;
+    LikeBookListAdapter mListAdapter;
 
 
     @Override
@@ -68,16 +75,16 @@ public class LikesActivity extends AppCompatActivity
         toolbar.setTitle("気になる本一覧");
         setSupportActionBar(toolbar);
 
-        mListAdapter = new MyBookListAdapter(new ArrayList<Book>(), new MyBookListAdapter.BookItemClickListener() {
+        mListAdapter = new LikeBookListAdapter(new ArrayList<Like>(), new LikeBookListAdapter.LikeItemClickListener() {
             @Override
-            public void onClick(Book book) {
+            public void onClick(Like like) {
                 assert user != null;
-                Request request = Request.createNew(user.getID(), book);
-                startActivity(ReceivedBookActivity.createIntent(LikesActivity.this, request));
+//                Request request = Request.createNew(user.getID(), like);
+//                startActivity(ReceivedBookActivity.createIntent(LikesActivity.this, request));
 //                Intent intent = new Intent(getApplicationContext(), BookInfoActivity.class);
 //                intent.putExtra(Book.class.getSimpleName(), book);
 
-                LogUtil.d(TAG, "onItemClick: " + book);
+                LogUtil.d(TAG, "onItemClick: " + like);
             }
         });
 
@@ -146,28 +153,31 @@ public class LikesActivity extends AppCompatActivity
         TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
         assert user != null;
         userName.setText(user.getUsername());
+
+        fetchStared();
     }
         //navigationViewにアイコンと名前ここまで
 
-//    private void fetchStared(){
-//        KiiUser kiiUser = KiiUser.getCurrentUser();
-//        assert kiiUser != null;
-//        final String userId = kiiUser.getID();
-//        KiiRequestConnection.fetchStared(userId, new KiiObjectListCallback<Request>() {
-//            @Override
-//            public void success(int token, List<Request> result) {
-//                Log.d(TAG, "success: size=" + result.size());
-//
-//                mListAdapter.add((Book) result);
-//                mListAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void failure(@Nullable Exception e) {
-//
-//            }
-//        });
-//    }
+    private void fetchStared(){
+        KiiUser kiiUser = KiiUser.getCurrentUser();
+        assert kiiUser != null;
+        final String userId = kiiUser.getID();
+        KiiLikeConnection.fetchStared(userId, new KiiObjectListCallback<Like>() {
+            @Override
+            public void success(int token, List<Like> result) {
+                Log.d(TAG, "success: size=" + result.size());
+
+                mListAdapter.add(result);
+                mListAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void failure(@Nullable Exception e) {
+
+
+            }
+        });
+    }
 
     @Override
     public void onBackPressed() {
@@ -298,11 +308,11 @@ public class LikesActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(this, SwapBookActivity.class);
+            Intent intent = new Intent(this, HadArrivedBookActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_transaction) {
-            Intent intent = new Intent(this, RequestActivity.class);
+            Intent intent = new Intent(this, ExhibitedBookActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_set) {

@@ -24,7 +24,7 @@ public class Book extends KiiModel implements Parcelable {
     public static final String OWNER_NAME = "owner_name";
     public static final String INFO = "info";
     public static final String CONDITION = "condition";
-    public static final String STATUS = "status";
+    public static final String STATE = "state";
 
     private String ownerId;
 
@@ -35,6 +35,14 @@ public class Book extends KiiModel implements Parcelable {
     private BookCondition condition;
 
     private GenreList genres;
+
+    /**
+     * 本の状態
+     * 0: 出品中
+     * 1: 取引中
+     * 2: 取引完了
+     */
+    private int state;
 
     /**
      * 新規に Book オブジェクトを生成する
@@ -50,7 +58,7 @@ public class Book extends KiiModel implements Parcelable {
      * KiiCloud 上に保存されているものを、KiiObject から生成
      * @param kiiObject
      * @return
-     * @throws JSONException 求めるフィールドがなかった場合に例外をスロー
+     * @throws JSONExceptzion 求めるフィールドがなかった場合に例外をスロー
      */
     public static Book createFrom(KiiObject kiiObject) throws JSONException {
         return new Book(kiiObject);
@@ -108,6 +116,26 @@ public class Book extends KiiModel implements Parcelable {
         this.genres = genres;
     }
 
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public String getStateText() {
+        switch (state) {
+            case 0:
+                return "出品中";
+            case 1:
+                return "取引中";
+            case 2:
+                return "取引完了";
+        }
+        return null;
+    }
+
     @Override
     public KiiBucket bucket() {
         return Kii.bucket(BUCKET_NAME);
@@ -152,6 +180,7 @@ public class Book extends KiiModel implements Parcelable {
         dest.writeParcelable(this.info, flags);
         dest.writeParcelable(this.condition, flags);
         dest.writeParcelable(this.genres, flags);
+        dest.writeInt(this.state);
     }
 
     protected Book(Parcel in) {
@@ -164,6 +193,7 @@ public class Book extends KiiModel implements Parcelable {
         this.info = in.readParcelable(BookInfo.class.getClassLoader());
         this.condition = in.readParcelable(BookCondition.class.getClassLoader());
         this.genres = in.readParcelable(GenreList.class.getClassLoader());
+        this.state = in.readInt();
     }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {

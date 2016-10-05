@@ -1,5 +1,6 @@
 package com.books.hondana.model;
 
+import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ public class Request extends KiiModel implements Parcelable {
     public static final String PDF_CONTENT_TYPE = "application/pdf";
     public static final String CLIENT_ID = "client_id";
     public static final String SERVER_ID = "server_id";
+    public static final String PDF_LABEL_ID = "pdf_label_id";
     public static final String PDF_URL = "pdf_url";
     public static final String BOOK_ID = "book_id";
     public static final String REQUESTED_DATE = "requested_date";
@@ -248,15 +250,41 @@ public class Request extends KiiModel implements Parcelable {
         source.publishBodyExpiresIn(expiresIn, callback);
     }
 
-    /**
-     * フィールドの値を保存しかつ、PDF
-     だ     *
-     * @param pdfFile  公開期限（秒）
-     * @param callback See {@link KiiObjectBodyCallback}
-     */
-    public void downloadPdf(File pdfFile, KiiObjectBodyCallback callback){
-        source.downloadBody(pdfFile, callback);
-    }
+
+    public void downloadPdf(final File pdfFile, PdfDownloadCallback callback) {
+        if (source == null || id == null) {
+            callback.failure(new IllegalStateException("KiiObject が空です。"));
+            return;
+        }
+
+//        source.refresh(new KiiObjectCallBack() {
+//            @Override
+//            public void onRefreshCompleted(int token, @NonNull KiiObject object, Exception exception) {
+//                if (exception != null) {
+//                    // Error handling
+//                    return;
+//                }
+
+                File file = new File(Environment.getExternalStorageDirectory(), "myDownload.pdf");
+
+                source.downloadBody(file, new KiiObjectBodyCallback() {
+                    @Override
+                    public void onTransferStart(@NonNull KiiObject kiiObject) {
+
+                    }
+
+                    @Override
+                    public void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e) {
+
+                    }
+
+                    @Override
+                    public void onTransferProgress(@NonNull KiiObject kiiObject, long l, long l1) {
+
+                    }
+                });
+            }
+
 
     //public void setEvaluatedDate(String evaluatedDate) {this.evaluatedDate = evaluatedDate;}
     @Override
@@ -268,7 +296,7 @@ public class Request extends KiiModel implements Parcelable {
     public void setValuesFrom(KiiObject object) throws JSONException {
         clientId = object.getString(CLIENT_ID);
         serverId = object.getString(SERVER_ID);
-        pdf_url = object.getString(PDF_URL);
+        pdf_url = object.getString(PDF_URL, "");
         bookId = object.getString(BOOK_ID);
         requestedDate = object.getString(REQUESTED_DATE);
         sentDate = object.getString(SENT_DATE);
@@ -353,6 +381,7 @@ public class Request extends KiiModel implements Parcelable {
     }
 
     public interface PdfDownloadCallback extends KiiObjectBodyCallback{
+        void failure(IllegalStateException e);
         @Override
         void onTransferStart(@NonNull KiiObject kiiObject);
 

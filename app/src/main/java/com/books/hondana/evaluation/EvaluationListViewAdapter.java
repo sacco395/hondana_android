@@ -60,7 +60,6 @@ public class EvaluationListViewAdapter extends BaseAdapter {
         if (convertView == null) {
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
-
             View itemLayout = inflater.inflate(R.layout.part_evaluation_list, null);
 
             ImageView ivClientUserIcon = (ImageView) itemLayout.findViewById(R.id.client_user_icon);

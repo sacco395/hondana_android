@@ -13,11 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.R;
+import com.books.hondana.connection.KiiMemberConnection;
+import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.model.Member;
 import com.books.hondana.model.Request;
 import com.books.hondana.model.abst.KiiModel;
+import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 
 import java.io.File;
@@ -56,6 +61,27 @@ public class SendBookActivity extends AppCompatActivity
         findViewById(R.id.buttonCancel).setOnClickListener(this);
         findViewById(R.id.buttonSent).setOnClickListener(this);
 
+        TextView tvDate = (TextView)findViewById(R.id.tv_date);
+        String requested_date = request.getRequestedDate ();
+        LogUtil.d(TAG, "requested_date: " + requested_date);
+        tvDate.setText(requested_date);
+
+        final TextView ClientName = (TextView)findViewById(R.id.client_name);
+        final String clientId = request.getClientId ();
+        LogUtil.d(TAG, "clientId: " + clientId);
+        KiiMemberConnection.fetch(clientId, new KiiObjectCallback<Member> () {
+            @Override
+            public void success(int token, Member member) {
+                final String name = member.getName();
+                LogUtil.d(TAG, "name: " + name);
+                ClientName.setText(name + "さんから");
+            }
+
+            @Override
+            public void failure(Exception e) {
+                LogUtil.e(TAG, "failure: ", e);
+            }
+        });
 // ツールバーをアクションバーとしてセット
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar02);
         setSupportActionBar(toolbar);
@@ -123,7 +149,12 @@ public class SendBookActivity extends AppCompatActivity
     }
 
     private void downLoadPdf(final File pdfFile) {
+
         request.downloadPdf(pdfFile, new Request.PdfDownloadCallback() {
+            @Override
+            public void failure(IllegalStateException e) {
+                LogUtil.w(TAG, e);
+            }
 
             @Override
             public void onTransferStart(@NonNull KiiObject kiiObject) {

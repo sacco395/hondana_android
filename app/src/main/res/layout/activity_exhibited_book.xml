@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
@@ -14,39 +15,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".exhibited.ExhibitedBookActivity">
+        tools:context=".activity.ExhibitedBookActivity">
+
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:elevation="4dp"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:foreground="?android:windowContentOverlay"
-                android:layout_below="@+id/toolbar">
-            </FrameLayout>
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="fixed"
-                app:tabGravity="fill"/>
+
+
         </android.support.design.widget.AppBarLayout>
 
-        <ListView
-            android:id="@+id/list_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <!--<include-->
+        <!--layout="@layout/part_toolbar_global_menu_logo"-->
+        <!--app:toolbarViewModel="@{globalToolbarViewModel}"/>-->
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".activity.ExhibitedBookActivity">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6">
+
+                    <!--ジャンルを表示-->
+                    <android.support.v4.view.PagerTitleStrip
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:background="#2FCDB4"
+                        android:textColor="#000000"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"/>
+                </android.support.v4.view.ViewPager>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
@@ -57,12 +76,8 @@
             app:fabSize="normal"
             android:src="@drawable/hondana_camera_icon" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
     </android.support.design.widget.CoordinatorLayout>
+
 
 
     <android.support.design.widget.NavigationView
@@ -73,5 +88,4 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/menu_drawer" />
-
 </android.support.v4.widget.DrawerLayout>

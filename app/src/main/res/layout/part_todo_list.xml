@@ -2,43 +2,60 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:id="@+id/bookList">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_BookImg"
         android:scaleType="centerCrop"
-        android:layout_margin="16dp"
-        android:layout_width="70dp"
-        android:layout_height="100dp" />
+        android:layout_margin="5dp"
+        android:layout_width="50dp"
+        android:layout_height="70dp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
+        android:orientation="vertical">
         <TextView
-            android:id="@+id/textView"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"
+            android:id="@+id/tv_message"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:drawableLeft="@drawable/ic_query_builder_black_24dp"
-            android:drawablePadding="5dp"
-            android:textColor="#666"
-            />
-
+            android:textSize="12sp"
+            android:textColor="#4b4b4b" />
         <TextView
-            android:id="@+id/textView2"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
+            android:text="交換リクエストが届きました"
+            android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#000" />
-
+            android:textSize="12sp"
+            android:textColor="#4b4b4b" />
+        <!--タイトル部分-->
+        <TextView
+            android:id="@+id/tv_BookTitle"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#4b4b4b" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_date"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="12sp"-->
+            <!--android:drawableLeft="@drawable/ic_query_builder_black_24dp"-->
+            <!--android:drawablePadding="5dp"-->
+            <!--android:textColor="#666"-->
+            <!--/>-->
     </LinearLayout>
 </LinearLayout>

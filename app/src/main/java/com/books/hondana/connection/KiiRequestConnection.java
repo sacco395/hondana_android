@@ -43,6 +43,24 @@ public class KiiRequestConnection {
         queryRequestBucket(clientIdQuery, callback);
     }
 
+    public static void fetchSentRequest(String userId, KiiObjectListCallback<Request> callback) {
+        KiiQuery SentRequestQuery = new KiiQuery (KiiClause.and (
+                KiiClause.equals (Request.CLIENT_ID, userId),
+                KiiClause.notEquals (Request.REQUESTED_DATE, ""),
+                KiiClause.equals (Request.RECEIVED_DATE, "")));
+        SentRequestQuery.sortByDesc ("_created");
+        queryRequestBucket (SentRequestQuery, callback);
+    }
+
+    public static void fetchHadArrived(String userId, KiiObjectListCallback<Request> callback) {
+        KiiQuery EvaluatedQuery = new KiiQuery (KiiClause.and (
+                KiiClause.equals (Request.CLIENT_ID, userId),
+                KiiClause.notEquals (Request.RECEIVED_DATE, "")));
+        queryRequestBucket (EvaluatedQuery, callback);
+    }
+
+
+
     /**
      * ユーザがお願いされているリクエストのリストを取得
      * @param userId KiiUser#getUserID
@@ -133,6 +151,89 @@ public class KiiRequestConnection {
                 } catch (JSONException e1) {
                     Log.e(TAG, "onQueryCompleted: ", e1);
                     callback.failure(e);
+                }
+            }
+        }, query);
+    }
+    /**
+     * @param callback
+     */
+    public static void fetchByRequestBookId(final String bookId, final String serverUserId, final KiiObjectCallback<Request> callback) {
+        final KiiQuery query = new KiiQuery(
+                KiiClause.and(
+                        KiiClause.equals(Request.SERVER_ID, serverUserId),
+                        KiiClause.equals(Request.BOOK_ID, bookId)
+                )
+        );
+        query.setLimit(1);
+        query.sortByDesc("_created");
+        final KiiBucket requestBucket = Kii.bucket(Request.BUCKET_NAME);
+        requestBucket.query(new KiiQueryCallBack<KiiObject>() {
+            @Override
+            public void onQueryCompleted(int token, @Nullable KiiQueryResult<KiiObject> result, @Nullable Exception e) {
+                // エラーハンドリングと適したコールバック呼び出し
+                if (e != null) {
+                    callback.failure(e);
+                    return;
+                }
+                // result の null チェック（おそらくエラーが null なかぎり、このようなケースはないと思われるが、念のため）
+                if (result == null || result.getResult() == null) {
+                    Log.e(TAG, "onQueryCompleted: Could not get any result with " +
+                            "serverId=" + serverUserId + " AND bookId=" + bookId);
+                    callback.failure(null);
+                    return;
+                }
+                try {
+                    // KiiQueryResult が持っている KiiObject の List を getResult
+                    // で取得し、その List の一番先頭にあるものを取る
+                    // クエリで Limit を指定しているので、List と言っても、一つしかないはず
+                    KiiObject kiiObject = result.getResult().get(0);
+                    // KiiObject から Request を生成
+                    Request request = Request.createFrom(kiiObject);
+                    callback.success(token, request);
+                } catch (JSONException e1) {
+                    callback.failure(e1);
+                }
+            }
+        }, query);
+    }
+
+
+    public static void fetchRequestByBookId(final String bookId, final String clientUserId, final KiiObjectCallback<Request> callback) {
+        final KiiQuery query = new KiiQuery(
+                KiiClause.and(
+                        KiiClause.equals(Request.CLIENT_ID, clientUserId),
+                        KiiClause.equals(Request.BOOK_ID, bookId)
+                )
+        );
+        query.setLimit(1);
+        query.sortByDesc("_created");
+        final KiiBucket requestBucket = Kii.bucket(Request.BUCKET_NAME);
+        requestBucket.query(new KiiQueryCallBack<KiiObject>() {
+            @Override
+            public void onQueryCompleted(int token, @Nullable KiiQueryResult<KiiObject> result, @Nullable Exception e) {
+                // エラーハンドリングと適したコールバック呼び出し
+                if (e != null) {
+                    callback.failure(e);
+                    return;
+                }
+                // result の null チェック（おそらくエラーが null なかぎり、このようなケースはないと思われるが、念のため）
+                if (result == null || result.getResult() == null) {
+                    Log.e(TAG, "onQueryCompleted: Could not get any result with " +
+                            "serverId=" + clientUserId + " AND bookId=" + bookId);
+                    callback.failure(null);
+                    return;
+                }
+                try {
+                    // KiiQueryResult が持っている KiiObject の List を getResult
+                    // で取得し、その List の一番先頭にあるものを取る
+                    // クエリで Limit を指定しているので、List と言っても、一つしかないはず
+                    KiiObject kiiObject = result.getResult().get(0);
+                    // KiiObject から Request を生成
+                    Request request = Request.createFrom(kiiObject);
+                    callback.success(token, request);
+                } catch (JSONException e1) {
+                    callback.failure(e1);
                 }
             }
         }, query);

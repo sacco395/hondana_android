@@ -1,4 +1,4 @@
-package com.books.hondana;
+package com.books.hondana.exhibited;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.books.hondana.R;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.squareup.picasso.Picasso;
@@ -15,14 +16,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PRBookListViewAdapter extends BaseAdapter {
+public class ExhibitedBookListViewAdapter extends BaseAdapter {
 
-    private static final String TAG = PRBookListViewAdapter.class.getSimpleName();
+    private static final String TAG = ExhibitedBookListViewAdapter.class.getSimpleName();
 
     private ArrayList<Book> mBooks;
-    private BookItemClickListener mListener;
+    private ExhibitedBookClickListener mListener;
 
-    public PRBookListViewAdapter(ArrayList<Book> books, BookItemClickListener listener) {
+    public ExhibitedBookListViewAdapter(ArrayList<Book> books, ExhibitedBookClickListener listener) {
         this.mBooks = books;
         this.mListener = listener;
     }
@@ -97,15 +98,14 @@ public class PRBookListViewAdapter extends BaseAdapter {
         holder.tvTitle.setText(info.getTitle());
         holder.tvAuthor.setText(info.getAuthor());
 
-
         return convertView;
     }
 
-    public interface BookItemClickListener {
+    public interface ExhibitedBookClickListener {
         void onClick(Book book);
     }
 
-    private static class ViewHolder {
+    public static class ViewHolder {
         public ImageView ivCover;
         public TextView tvTitle;
         public TextView tvAuthor;
@@ -117,4 +117,3 @@ public class PRBookListViewAdapter extends BaseAdapter {
         }
     }
 }
-

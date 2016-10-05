@@ -54,12 +54,12 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SwapBookActivity"
+            android:name=".activity.HadArrivedBookActivity"
             android:label="@string/title_activity_swap_book"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.RequestActivity"
+            android:name=".exhibited.ExhibitedBookActivity"
             android:label="@string/title_activity_request"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -116,10 +116,6 @@
             android:label="@string/title_activity_swap_book"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!-- <activity -->
-        <!-- android:name=".activity.BookMainActivity" -->
-        <!-- android:label="@string/title_activity_swap_book" -->
-        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity
             android:name=".activity.TodoActivity"
             android:screenOrientation="portrait" />
@@ -165,6 +161,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.UserPolicyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".arrived.HadArrivedBookActivity"
             android:screenOrientation="portrait" />
     </application>
 

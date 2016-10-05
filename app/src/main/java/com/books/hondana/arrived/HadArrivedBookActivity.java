@@ -1,5 +1,4 @@
-//取引中の本
-package com.books.hondana.activity;
+package com.books.hondana.arrived;
 
 import android.Manifest;
 import android.content.Intent;
@@ -29,16 +28,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.books.hondana.R;
+import com.books.hondana.activity.BookDetailActivity;
+import com.books.hondana.activity.BookMainActivity;
+import com.books.hondana.activity.BookSearchListActivity;
+import com.books.hondana.activity.InquiryActivity;
+import com.books.hondana.activity.LikesActivity;
+import com.books.hondana.activity.SimpleScannerActivity;
+import com.books.hondana.activity.UserpageActivity;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.QueryParamSet;
+import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;
-import com.books.hondana.PassedRequestFragment;
-import com.books.hondana.R;
-import com.books.hondana.ReceivedRequestFragment;
 import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
@@ -47,12 +52,14 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RequestActivity extends AppCompatActivity
+public class HadArrivedBookActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = RequestActivity.class.getSimpleName();
+    private static final String TAG = HadArrivedBookActivity.class.getSimpleName();
 
     final ImageLoader imageLoader = ImageLoader.getInstance();
+
+    private TabLayout tabLayout;
 
     // Intent Parameter
     private static final int ACT_READ_BARCODE = 1;
@@ -69,11 +76,12 @@ public class RequestActivity extends AppCompatActivity
         setContentView(R.layout.activity_request);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("取引中の本");
+        toolbar.setTitle("受け取った本");
         setSupportActionBar(toolbar);
 
         //カメラボタン
         FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab);
+        assert mFab != null;
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,21 +101,24 @@ public class RequestActivity extends AppCompatActivity
         assert drawer != null;
         drawer.setDrawerListener(toggle);
 
-        //         this, binding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        // binding.drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
-        //navigationViewにアイコンと名前ここから
         KiiUser user = KiiUser.getCurrentUser();
         View header = navigationView.getHeaderView(0);
         final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
-//        Picasso.with(this).load("http://www.flamme.co.jp/common/profile/kasumi_arimura.jpg").into(userIcon);
         assert user != null;
         final String userId = user.getID();
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        assert tabLayout != null;
+        tabLayout.setupWithViewPager(viewPager);
 
         KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
@@ -135,31 +146,22 @@ public class RequestActivity extends AppCompatActivity
 
         TextView userName = (TextView) header.findViewById(R.id.tv_user_name);
         userName.setText(user.getUsername());
-        //navigationViewにアイコンと名前ここまで
-
-        // binding.navView.setNavigationItemSelectedListener(this);
-
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        assert tabLayout != null;
-        tabLayout.setupWithViewPager(viewPager);
 
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        Tab2ViewPagerAdapter adapter = new Tab2ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new PassedRequestFragment(), "リクエスト送信中");
-        adapter.addFragment(new ReceivedRequestFragment(), "リクエスト受信中");
+        ExhibitedTabAdapter adapter
+                = new ExhibitedTabAdapter(getSupportFragmentManager());
+        adapter.addFragment(new SentRequestBookFragment(), "取引中");
+        adapter.addFragment(new HadArrivedBookFragment(), "取引完了");
         viewPager.setAdapter(adapter);
     }
 
-    class Tab2ViewPagerAdapter extends FragmentPagerAdapter {
+    class ExhibitedTabAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public Tab2ViewPagerAdapter(FragmentManager manager) {
+        public ExhibitedTabAdapter(FragmentManager manager) {
             super(manager);
         }
 
@@ -184,7 +186,6 @@ public class RequestActivity extends AppCompatActivity
         }
     }
 
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -198,22 +199,12 @@ public class RequestActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.swap_book, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -284,7 +275,7 @@ public class RequestActivity extends AppCompatActivity
         Toast.makeText(this, "Contents = " + code +
                 ", Format = " + format, Toast.LENGTH_SHORT).show();
         // 書籍情報を検索
-        Intent intent = new Intent(RequestActivity.this,BookSearchListActivity.class);
+        Intent intent = new Intent(HadArrivedBookActivity.this,BookSearchListActivity.class);
         QueryParamSet queryParamSet = new QueryParamSet();
         queryParamSet.addQueryParam(BookInfo.ISBN, code);
         intent.putExtra( "SEARCH_PARAM", queryParamSet );
@@ -294,7 +285,7 @@ public class RequestActivity extends AppCompatActivity
     private void kickListSearchResult(Intent data){
         Bundle extras = data.getExtras();
         Book book = extras.getParcelable(Book.class.getSimpleName());
-        Intent intent = new Intent(RequestActivity.this,BookDetailActivity.class);
+        Intent intent = new Intent(HadArrivedBookActivity.this,BookDetailActivity.class);
         intent.putExtra(Book.class.getSimpleName(), book);
         startActivityForResult(intent, ACT_BOOK_DETAIL_TO_ADD);
     }
@@ -314,11 +305,11 @@ public class RequestActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(this, SwapBookActivity.class);
+            Intent intent = new Intent(this, HadArrivedBookActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_transaction) {
-            Intent intent = new Intent(this, RequestActivity.class);
+            Intent intent = new Intent(this, ExhibitedBookActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_set) {
@@ -341,19 +332,13 @@ public class RequestActivity extends AppCompatActivity
         return true;
     }
     void setProfileInMenu(View drawerView) {
-//        tvUserName.setText(user.getName());
-//        Picasso.with(this)
-//                .load(user.getIconUrl())
-//                .into(ivUserIcon);
         LinearLayout llUserContainer = (LinearLayout) drawerView.findViewById(R.id.ll_user_container);
-        TextView tvUserName = (TextView) drawerView.findViewById(R.id.tv_user_name);
-        ImageView ivUserIcon = (ImageView) drawerView.findViewById(R.id.iv_user_icon);
 
         llUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LogUtil.d(TAG, "onClick");
-                Intent intent = new Intent(RequestActivity.this, UserpageActivity.class);
+                Intent intent = new Intent(HadArrivedBookActivity.this, UserpageActivity.class);
                 startActivity(intent);
             }
         });

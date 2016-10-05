@@ -41,6 +41,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
     final ImageLoader imageLoader = ImageLoader.getInstance();
 
+    boolean stared = false;
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -177,7 +179,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void success(int token, Member member) {
                 final String name = member.getName();
-                Log.d(TAG, "name: " + name);
+                Log.d(TAG, "owner_name: " + name);
                 assert bookOwner != null;
                 bookOwner.setText(name);
                 if (!member.hasValidImageUrl()) {
@@ -207,7 +209,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
                     break;
 
                 case R.id.bookInfoLike:
-                    //clickToStared();
+                    LogUtil.d(TAG, "onClickStar");
+                    clickToStared();
                     break;
             }
         }
@@ -250,16 +253,23 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-//    private void clickToStared(){ //星のクリックしての処理
-//        final ImageView  = (ImageView) findViewById(R.id.bookInfoLike);//星の画像
-//        final ImageView userIcon = (ImageView) findViewById(R.id.user_icon);//星の画像
-//        KiiUser kiiUser = KiiUser.getCurrentUser();
-//        boolean request.
-//        if(like){
-//
-//        }
-//
-//    }
+    private void clickToStared() {
+
+        KiiUser kiiUser = KiiUser.getCurrentUser();
+
+        final ImageView star = (ImageView) findViewById(R.id.bookInfoLike);
+        assert star != null;
+        star.setBackgroundResource(R.drawable.star_off);
+        LogUtil.d(TAG, "setImageResource");
+
+        if (stared) {
+            star.setBackgroundResource(R.drawable.star_off);
+
+        }else{
+            star.setBackgroundResource(R.drawable.star_on);
+        }
+        stared = !stared;
+    }
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();

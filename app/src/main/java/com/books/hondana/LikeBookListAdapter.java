@@ -8,41 +8,39 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.books.hondana.model.Book;
-import com.books.hondana.model.BookInfo;
-import com.squareup.picasso.Picasso;
+import com.books.hondana.model.Like;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PRBookListViewAdapter extends BaseAdapter {
+public class LikeBookListAdapter extends BaseAdapter {
 
-    private static final String TAG = PRBookListViewAdapter.class.getSimpleName();
+    private static final String TAG = MyBookListAdapter.class.getSimpleName();
 
-    private ArrayList<Book> mBooks;
-    private BookItemClickListener mListener;
+    private ArrayList<Like> mLikes;
+    private LikeItemClickListener mListener;
 
-    public PRBookListViewAdapter(ArrayList<Book> books, BookItemClickListener listener) {
-        this.mBooks = books;
+    public LikeBookListAdapter(ArrayList<Like> likes, LikeItemClickListener listener) {
+        this.mLikes = likes;
         this.mListener = listener;
     }
 
-    public void add(List<Book> books) {
-        mBooks.addAll(books);
+    public void add(List<Like> likes) {
+        mLikes.addAll(likes);
     }
 
-    public void add(Book book) {
-        mBooks.add(book);
+    public void add(Like like) {
+        mLikes.add(like);
     }
 
     @Override
     public int getCount() {
-        return mBooks.size();
+        return mLikes.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mBooks.get(position);
+        return mLikes.get(position);
     }
 
     @Override
@@ -78,31 +76,32 @@ public class PRBookListViewAdapter extends BaseAdapter {
 
         final ViewHolder holder = (ViewHolder) convertView.getTag();
 
-        final Book book = mBooks.get(position);
+        final Like like = mLikes.get(position);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onClick(book);
+                mListener.onClick(like);
             }
         });
 
-        BookInfo info = book.getInfo();
-        String coverUrl = info.getImageUrl();
-
-        // http://square.github.io/picasso/
-        Picasso.with(convertView.getContext())
-                .load(coverUrl)
-                .into(holder.ivCover);
-
-        holder.tvTitle.setText(info.getTitle());
-        holder.tvAuthor.setText(info.getAuthor());
+        String bookId = like.getBookId();
+//        Like bookId = book.
+//        String coverUrl = info.getImageUrl();
+//
+//        // http://square.github.io/picasso/
+//        Picasso.with(convertView.getContext())
+//                .load(coverUrl)
+//                .into(holder.ivCover);
+//
+//        holder.tvTitle.setText(info.getTitle());
+//        holder.tvAuthor.setText(info.getAuthor());
 
 
         return convertView;
     }
 
-    public interface BookItemClickListener {
-        void onClick(Book book);
+    public interface LikeItemClickListener {
+        void onClick(Like like);
     }
 
     private static class ViewHolder {
