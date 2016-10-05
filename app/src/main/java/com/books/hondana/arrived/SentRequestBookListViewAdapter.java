@@ -99,8 +99,8 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
             @Override
             public void success(int token, Book book) {
                 BookInfo info = book.getInfo();
-                String book_title = info.getTitle();
-                holder.tvTitle.setText(book_title + "にリクエストしました");
+//                String book_title = info.getTitle();
+//                holder.tvTitle.setText(book_title + "にリクエストしました");
 
                 String coverUrl = info.getImageUrl();
 
