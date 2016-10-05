@@ -8,18 +8,24 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.R;
+import com.books.hondana.connection.KiiBookConnection;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.model.Book;
+import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;
 import com.books.hondana.model.Request;
 import com.books.hondana.model.abst.KiiModel;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.utils.Log;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,6 +55,51 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
 
         findViewById(R.id.buttonReceived).setOnClickListener(this);
 
+        TextView tvDate = (TextView)findViewById(R.id.tv_date);
+        String sentDate = request.getSentDate();
+        LogUtil.d(TAG, "sentDate: " + sentDate);
+        tvDate.setText(sentDate);
+
+        final TextView ServerName = (TextView)findViewById(R.id.server_name);
+        final String serverId = request.getServerId();
+        LogUtil.d(TAG, "serverId: " + serverId);
+        KiiMemberConnection.fetch(serverId, new KiiObjectCallback<Member> () {
+            @Override
+            public void success(int token, Member member) {
+                final String name = member.getName();
+                LogUtil.d(TAG, "name: " + name);
+                ServerName.setText("本が到着したら" + name + "さんの評価をしてください");
+            }
+
+            @Override
+            public void failure(Exception e) {
+                LogUtil.e(TAG, "failure: ", e);
+            }
+        });
+
+        final TextView BookTitle = (TextView)findViewById(R.id.tv_BookTitle);
+        final ImageView BookImg = (ImageView)findViewById(R.id.iv_BookImg);
+        final String bookId = request.getBookId();
+        LogUtil.d(TAG, "bookId: " + bookId);
+        KiiBookConnection.fetchByBookId (bookId, new KiiObjectCallback<Book> () {
+            @Override
+            public void success(int token, Book book) {
+                BookInfo info = book.getInfo();
+                String book_title = info.getTitle();
+                BookTitle.setText("「" + book_title + "」が発送されました");
+
+                String coverUrl = info.getImageUrl();
+
+                Picasso.with(ReceivedBookActivity.this)
+                        .load(coverUrl)
+                        .into(BookImg);
+            }
+
+            @Override
+            public void failure(Exception e) {
+                LogUtil.e(TAG, "failure: ", e);
+            }
+        });
 
         ((RadioGroup)findViewById(R.id.evaluation)).setOnCheckedChangeListener
                 (new RadioGroup.OnCheckedChangeListener () {

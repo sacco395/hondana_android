@@ -77,9 +77,7 @@
 
 
     <!--発送者への評価ページに使用-->
-    <string name="evaluateText01">"受け取り評価をしてください"</string>
-
-    <string name="evaluateText02">"本が発送されました。\n本が到着したら、出品者の評価をしてください。"</string>
+    <string name="evaluateText01">"本が到着したら出品者の評価をしてください"</string>
 
     <string name="checkBoxEvaluation">"中身を確認しました"</string>
 

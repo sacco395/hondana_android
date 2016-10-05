@@ -19,7 +19,6 @@
         <!--タイトル部分-->
         <TextView
             android:id="@+id/tv_bookTitle"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
