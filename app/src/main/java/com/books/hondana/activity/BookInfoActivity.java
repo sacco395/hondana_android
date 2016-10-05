@@ -41,6 +41,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
     final ImageLoader imageLoader = ImageLoader.getInstance();
 
+    boolean stared = false;
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -171,7 +173,6 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
         final TextView bookOwner = (TextView) findViewById(R.id.textViewBookInfoUserName);
         final ImageView userIcon = (ImageView) findViewById(R.id.bookInfoUserIcon);
-        final ImageView star  = (ImageView) findViewById(R.id.bookInfoLike);
 
         final String userId = book.getOwnerId();
         KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
@@ -256,18 +257,18 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
         KiiUser kiiUser = KiiUser.getCurrentUser();
 
-        ImageView view = (ImageView) findViewById(R.id.bookInfoLike);
-        assert view != null;
-        view.setImageResource(R.drawable.star_selector);
+        final ImageView star = (ImageView) findViewById(R.id.bookInfoLike);
+        assert star != null;
+        star.setBackgroundResource(R.drawable.star_off);
         LogUtil.d(TAG, "setImageResource");
 
-        boolean selected = false;
-        if (!selected) {
-            view.setSelected(true);
+        if (stared) {
+            star.setBackgroundResource(R.drawable.star_off);
 
         }else{
-            view.setSelected(false);
+            star.setBackgroundResource(R.drawable.star_on);
         }
+        stared = !stared;
     }
 
     private void showToast(String message) {
