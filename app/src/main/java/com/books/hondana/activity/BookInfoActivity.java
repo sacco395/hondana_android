@@ -174,14 +174,16 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         final TextView bookOwner = (TextView) findViewById(R.id.textViewBookInfoUserName);
         final ImageView userIcon = (ImageView) findViewById(R.id.bookInfoUserIcon);
 
+        final String ownerName = book.getOwnerName();
+        assert bookOwner != null;
+        bookOwner.setText(ownerName);
+        Log.d(TAG, "ownerName: " + ownerName);
+
         final String userId = book.getOwnerId();
+        Log.d(TAG, "userId: " + userId);
         KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {
-                final String name = member.getName();
-                Log.d(TAG, "owner_name: " + name);
-                assert bookOwner != null;
-                bookOwner.setText(name);
                 if (!member.hasValidImageUrl()) {
                     return;
                 }
