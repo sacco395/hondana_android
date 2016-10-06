@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".activity.TodoActivity">
+    tools:context=".todo.TodoActivity">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -28,7 +28,5 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
         </FrameLayout>
-
-
-
+        
 </LinearLayout>

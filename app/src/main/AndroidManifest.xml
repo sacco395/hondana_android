@@ -117,9 +117,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.TodoActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.BookSearchListActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -164,6 +161,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".arrived.HadArrivedBookActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".todo.TodoActivity"
             android:screenOrientation="portrait" />
     </application>
 
