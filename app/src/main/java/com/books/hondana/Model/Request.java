@@ -1,6 +1,5 @@
 package com.books.hondana.model;
 
-import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -251,27 +250,30 @@ public class Request extends KiiModel implements Parcelable {
     }
 
 
-    public void downloadPdf(PdfDownloadCallback callback) {
+    public void downloadPdf(final File destinationFile, final DownloadCallback callback) {
 
-        File pdfFile = new File(Environment.getExternalStorageDirectory(), "myDownload.pdf");
-
-                source.downloadBody(pdfFile, new KiiObjectBodyCallback() {
-                    @Override
-                    public void onTransferStart(@NonNull KiiObject kiiObject) {
-
-                    }
-
-                    @Override
-                    public void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e) {
-
-                    }
-
-                    @Override
-                    public void onTransferProgress(@NonNull KiiObject kiiObject, long l, long l1) {
-
-                    }
-                });
+        source.downloadBody(destinationFile, new KiiObjectBodyCallback() {
+            @Override
+            public void onTransferStart(@NonNull KiiObject kiiObject) {
+                callback.start();
             }
+
+            @Override
+            public void onTransferProgress(@NonNull KiiObject kiiObject, long completedInBytes, long totalSizeinBytes) {
+                float progress = (float) completedInBytes / (float) totalSizeinBytes * 100.0f;
+                callback.progress(progress);
+            }
+
+            @Override
+            public void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e) {
+                if (e == null) {
+                    callback.success(destinationFile);
+                    return;
+                }
+                callback.failure(e);
+            }
+        });
+    }
 
 
     //public void setEvaluatedDate(String evaluatedDate) {this.evaluatedDate = evaluatedDate;}
@@ -320,7 +322,10 @@ public class Request extends KiiModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.source, flags);
         dest.writeString(this.id);
+        dest.writeLong(this.createdAt);
+        dest.writeLong(this.updatedAt);
         dest.writeString(this.clientId);
         dest.writeString(this.serverId);
         dest.writeString(this.pdf_url);
@@ -334,7 +339,10 @@ public class Request extends KiiModel implements Parcelable {
     }
 
     protected Request(Parcel in) {
+        this.source = in.readParcelable(KiiObject.class.getClassLoader());
         this.id = in.readString();
+        this.createdAt = in.readLong();
+        this.updatedAt = in.readLong();
         this.clientId = in.readString();
         this.serverId = in.readString();
         this.pdf_url = in.readString();
@@ -345,7 +353,6 @@ public class Request extends KiiModel implements Parcelable {
         //this.evaluatedDate = in.readString();
         this.evaluationByClient = in.readInt();
         this.evaluateMessage = in.readString();
-
     }
 
     public static final Creator<Request> CREATOR = new Creator<Request>() {
@@ -368,15 +375,10 @@ public class Request extends KiiModel implements Parcelable {
         void failure(IllegalStateException e);
     }
 
-    public interface PdfDownloadCallback extends KiiObjectBodyCallback{
-        void failure(IllegalStateException e);
-        @Override
-        void onTransferStart(@NonNull KiiObject kiiObject);
-
-        @Override
-        void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e);
-
-        @Override
-        void onTransferProgress(@NonNull KiiObject kiiObject, long l, long l1);
+    public interface DownloadCallback {
+        void start();
+        void progress(float percent);
+        void success(File file);
+        void failure(@Nullable Exception e);
     }
 }
