@@ -3,7 +3,6 @@ package com.books.hondana.activity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -32,10 +31,10 @@ import android.widget.Toast;
 
 import com.books.hondana.BookMainFragmentPagerAdapter;
 import com.books.hondana.R;
+import com.books.hondana.arrived.HadArrivedBookActivity;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.QueryParamSet;
-import com.books.hondana.arrived.HadArrivedBookActivity;
 import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.model.Book;
@@ -43,6 +42,7 @@ import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;
 import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.start.StartActivity;
+import com.books.hondana.todo.TodoActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -209,39 +209,38 @@ public class BookMainActivity extends AppCompatActivity
         LogUtil.d (TAG, "kiiUser: " + kiiUser);
 
         switch (id) {
-            case R.id.nav_search:{
-                if (kiiUser != null) {
-                    Intent intent = new Intent(this, SearchActivity.class);
-                    startActivity(intent,
-                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-                } else {
-                    Intent intent = new Intent(this, StartActivity.class);
-                    startActivity(intent);
-                    showToast("会員登録をお願いします！");
-                }
-                break;
-
-            }
-
-
-            case R.id.nav_notifications: {
-                if (kiiUser != null) {
-                    Intent intent = new Intent(this, InfoActivity.class);
-                    startActivity(intent,
-                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-                } else {
-                    Intent intent = new Intent(this, StartActivity.class);
-                    startActivity(intent);
-                    showToast("会員登録をお願いします！");
-                }
-                break;
-            }
+//            case R.id.nav_search:{
+//                if (kiiUser != null) {
+//                    Intent intent = new Intent(this, SearchActivity.class);
+//                    startActivity(intent,
+//                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+//                } else {
+//                    Intent intent = new Intent(this, StartActivity.class);
+//                    startActivity(intent);
+//                    showToast("会員登録をお願いします！");
+//                }
+//                break;
+//
+//            }
+//
+//
+//            case R.id.nav_notifications: {
+//                if (kiiUser != null) {
+//                    Intent intent = new Intent(this, InfoActivity.class);
+//                    startActivity(intent,
+//                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+//                } else {
+//                    Intent intent = new Intent(this, StartActivity.class);
+//                    startActivity(intent);
+//                    showToast("会員登録をお願いします！");
+//                }
+//                break;
+//            }
 
             case R.id.nav_todo:{
                 if (kiiUser != null) {
                     Intent intent = new Intent(this, TodoActivity.class);
-                    startActivity(intent,
-                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                    startActivity(intent);
                 } else {
                     Intent intent = new Intent(this, StartActivity.class);
                     startActivity(intent);

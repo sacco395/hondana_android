@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -93,6 +93,8 @@ public class SendBookActivity extends AppCompatActivity
         if (v != null) {
             switch (v.getId()) {
                 case R.id.buttonDownload:
+                    LogUtil.d(TAG, "onClick");
+                    File pdfFile = new File(Environment.getExternalStorageDirectory(), "myDownload.pdf");
                     downLoadPdf(pdfFile);
                     break;
 
@@ -149,28 +151,27 @@ public class SendBookActivity extends AppCompatActivity
     }
 
     private void downLoadPdf(final File pdfFile) {
-
-        request.downloadPdf(pdfFile, new Request.PdfDownloadCallback() {
+        request.downloadPdf(pdfFile, new Request.DownloadCallback() {
             @Override
-            public void failure(IllegalStateException e) {
-                LogUtil.w(TAG, e);
+            public void start() {
+                Log.d(TAG, "start: ");
             }
 
             @Override
-            public void onTransferStart(@NonNull KiiObject kiiObject) {
-
+            public void progress(float percent) {
+                Log.d(TAG, "progress: " + percent);
             }
 
             @Override
-            public void onTransferCompleted(@NonNull KiiObject kiiObject, @Nullable Exception e) {
+            public void success(File file) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(pdfFile), "application/pdf");
+                intent.setDataAndType(Uri.fromFile(file), "application/pdf");
                 startActivity(intent);
             }
 
             @Override
-            public void onTransferProgress(@NonNull KiiObject kiiObject, long l, long l1) {
-
+            public void failure(@Nullable Exception e) {
+                Log.e(TAG, "failure: ", e);
             }
         });
     }

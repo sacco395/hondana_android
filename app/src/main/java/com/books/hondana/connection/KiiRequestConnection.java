@@ -48,7 +48,7 @@ public class KiiRequestConnection {
                 KiiClause.equals (Request.CLIENT_ID, userId),
                 KiiClause.notEquals (Request.REQUESTED_DATE, ""),
                 KiiClause.equals (Request.RECEIVED_DATE, "")));
-        SentRequestQuery.sortByDesc ("_created");
+        SentRequestQuery.sortByDesc ("_modified");
         queryRequestBucket (SentRequestQuery, callback);
     }
 
