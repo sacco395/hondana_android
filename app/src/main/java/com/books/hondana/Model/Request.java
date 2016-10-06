@@ -251,23 +251,11 @@ public class Request extends KiiModel implements Parcelable {
     }
 
 
-    public void downloadPdf(final File pdfFile, PdfDownloadCallback callback) {
-        if (source == null || id == null) {
-            callback.failure(new IllegalStateException("KiiObject が空です。"));
-            return;
-        }
+    public void downloadPdf(PdfDownloadCallback callback) {
 
-//        source.refresh(new KiiObjectCallBack() {
-//            @Override
-//            public void onRefreshCompleted(int token, @NonNull KiiObject object, Exception exception) {
-//                if (exception != null) {
-//                    // Error handling
-//                    return;
-//                }
+        File pdfFile = new File(Environment.getExternalStorageDirectory(), "myDownload.pdf");
 
-                File file = new File(Environment.getExternalStorageDirectory(), "myDownload.pdf");
-
-                source.downloadBody(file, new KiiObjectBodyCallback() {
+                source.downloadBody(pdfFile, new KiiObjectBodyCallback() {
                     @Override
                     public void onTransferStart(@NonNull KiiObject kiiObject) {
 

@@ -150,7 +150,7 @@ public class SendBookActivity extends AppCompatActivity
 
     private void downLoadPdf(final File pdfFile) {
 
-        request.downloadPdf(pdfFile, new Request.PdfDownloadCallback() {
+        request.downloadPdf(new Request.PdfDownloadCallback() {
             @Override
             public void failure(IllegalStateException e) {
                 LogUtil.w(TAG, e);
