@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.books.hondana.R;
@@ -29,10 +31,20 @@ public class TodoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_request);
 
 
+        // ツールバーをアクションバーとしてセット
+        Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
+        toolbar.setTitle ("やることリスト");
+        setSupportActionBar (toolbar);
+
+
+        ActionBar actionBar = getSupportActionBar ();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled (true);
+        }
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         assert tabLayout != null;
         tabLayout.setupWithViewPager(viewPager);
 
