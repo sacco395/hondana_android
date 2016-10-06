@@ -18,18 +18,16 @@ import com.books.hondana.exhibited.ReceivedRequestBookFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class TodoActivity extends AppCompatActivity {
 
     private static final String TAG = TodoActivity.class.getSimpleName();
 
-    private TabLayout tabLayout;
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request);
 
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate (savedInstanceState);
+        setContentView (R.layout.activity_todo);
 
         // ツールバーをアクションバーとしてセット
         Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
@@ -51,18 +49,16 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        TodoTabAdapter adapter
-                = new TodoTabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ReceivedRequestBookFragment(), "リクエスト受信中");
-        adapter.addFragment(new SentRequestBookFragment(), "リクエスト送信中");
+        TodoActivity.ToDoTabAdapter adapter = new TodoActivity.ToDoTabAdapter (getSupportFragmentManager());
+        adapter.addFragment(new ReceivedRequestBookFragment(), "リクエストされた本");
+        adapter.addFragment(new SentRequestBookFragment(), "リクエストした本");
         viewPager.setAdapter(adapter);
     }
-
-    class TodoTabAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
+    class ToDoTabAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<> ();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public TodoTabAdapter(FragmentManager manager) {
+        public ToDoTabAdapter(FragmentManager manager) {
             super(manager);
         }
 
@@ -98,4 +94,6 @@ public class TodoActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
