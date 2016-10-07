@@ -241,7 +241,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
             break;
 
             case 2:
-            Toast.makeText(getApplicationContext(), "交換成立なのでリクエストできません", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "交換成立済みなのでリクエストできません", Toast.LENGTH_LONG).show();
             break;
 
             case 0:
