@@ -307,7 +307,6 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
             like.save(false, new KiiModel.KiiSaveCallback() {
                 @Override
                 public void success(int token, KiiObject object) {
-
                 }
 
                 @Override
@@ -317,8 +316,17 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
             });
         }
 
-    private void clickToDisStared(){
-
+    private void clickToDisStared() {
+//        KiiLikeConnection.fetchStared ();
+//        object.delete (new KiiObjectCallBack () {
+//            @Override
+//            public void onDeleteCompleted(int token, Exception exception) {
+//                if (exception != null) {
+//                    // Error handling
+//                    return;
+//                }
+//            }
+//        });
     }
 
     private void showToast(String message) {
