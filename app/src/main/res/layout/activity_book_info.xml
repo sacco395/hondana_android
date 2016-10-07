@@ -404,6 +404,13 @@
             android:layout_height="20dip"
             android:background="#E6E5E1"
             android:layout_weight="0.16"/>
+
+        <TextView
+            android:id="@+id/book_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#2FCDB4"
+            android:textSize="12sp" />
         <!--交換リクエストボタン-->
         <Button
             android:layout_width="300dp"

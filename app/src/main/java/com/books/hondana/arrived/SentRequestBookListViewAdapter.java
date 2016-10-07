@@ -9,17 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.books.hondana.R;
-import com.books.hondana.connection.KiiBookConnection;
-import com.books.hondana.connection.KiiObjectCallback;
-import com.books.hondana.model.Book;
-import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Request;
-import com.books.hondana.util.LogUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class SentRequestBookListViewAdapter extends BaseAdapter {
 
@@ -85,35 +79,22 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
 
         String requested_date = request.getRequestedDate();
         String sent_date = request.getSentDate();
-        if (!Objects.equals (sent_date, "")) {
-            holder.tvDate.setText(sent_date + "に本が発送されました\n本が届いたら相手の評価をしましょう");
+        String book_title = request.getBookTitle();
+
+        if (!sent_date.equals ("")) {
+            holder.tvDate.setText(sent_date);
+            holder.tvTitle.setText(book_title + "に本が発送されました\n" +
+                    "本が届いたら相手の評価をしましょう");
         } else {
-            holder.tvDate.setText(requested_date + "に本にリクエストしました");
+            holder.tvDate.setText(requested_date);
+            holder.tvTitle.setText("「" + book_title + "」にリクエストしました");
         }
 
-        String requestBookId = request.getBookId();
-        LogUtil.d(TAG,"requestBookId:"+ requestBookId);
+        String coverUrl = request.getBookImageUrl();
 
-        final View finalConvertView = convertView;
-        KiiBookConnection.fetchByBookId (requestBookId, new KiiObjectCallback<Book> () {
-            @Override
-            public void success(int token, Book book) {
-                BookInfo info = book.getInfo();
-//                String book_title = info.getTitle();
-//                holder.tvTitle.setText(book_title + "にリクエストしました");
-
-                String coverUrl = info.getImageUrl();
-
-                Picasso.with(finalConvertView.getContext())
-                        .load(coverUrl)
-                        .into(holder.ivCover);
-            }
-
-            @Override
-            public void failure(Exception e) {
-
-            }
-        });
+        Picasso.with(convertView.getContext())
+                .load(coverUrl)
+                .into(holder.ivCover);
         return convertView;
     }
 

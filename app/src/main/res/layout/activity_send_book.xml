@@ -98,7 +98,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/passedText04"
-            android:id="@+id/passedText04"
+            android:clickable="true"
+            android:onClick="bookPacking"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.05"
             android:textColor="#FF0000" />
@@ -115,40 +116,40 @@
 
 
 
-        <!--同梱を希望している人に発送する場合はチェックを入れてください。-->
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.08"
-            android:paddingLeft="6dip"
-            android:paddingRight="6dip"
-            android:paddingBottom="6dip"
-            android:text="@string/passedText05"
-            android:id="@+id/passedText05"
-            android:layout_gravity="center_horizontal" />
+        <!--&lt;!&ndash;同梱を希望している人に発送する場合はチェックを入れてください。&ndash;&gt;-->
+        <!--<TextView-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="0.08"-->
+            <!--android:paddingLeft="6dip"-->
+            <!--android:paddingRight="6dip"-->
+            <!--android:paddingBottom="6dip"-->
+            <!--android:text="@string/passedText05"-->
+            <!--android:id="@+id/passedText05"-->
+            <!--android:layout_gravity="center_horizontal" />-->
 
 
-        <RadioGroup android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:id="@+id/RadioGroup" >
+        <!--<RadioGroup android:layout_height="wrap_content"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:id="@+id/RadioGroup" >-->
 
-            <!--同梱しました！-->
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/radioButtonBundle"
-                android:id="@+id/radioButtonBundle"
-                android:checked="false" />
+            <!--&lt;!&ndash;同梱しました！&ndash;&gt;-->
+            <!--<RadioButton-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:text="@string/radioButtonBundle"-->
+                <!--android:id="@+id/radioButtonBundle"-->
+                <!--android:checked="false" />-->
 
-            <!--ごめんなさい、同梱できませんでした‥-->
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:text="@string/radioButtonNotBundle"
-                android:id="@+id/radioButtonNotBundle"
-                android:checked="false" />
+            <!--&lt;!&ndash;ごめんなさい、同梱できませんでした‥&ndash;&gt;-->
+            <!--<RadioButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:text="@string/radioButtonNotBundle"-->
+                <!--android:id="@+id/radioButtonNotBundle"-->
+                <!--android:checked="false" />-->
 
-        </RadioGroup>
+        <!--</RadioGroup>-->
 
 
 

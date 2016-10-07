@@ -9,25 +9,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.books.hondana.R;
-import com.books.hondana.connection.KiiBookConnection;
-import com.books.hondana.connection.KiiObjectCallback;
-import com.books.hondana.model.Book;
-import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Request;
-import com.books.hondana.util.LogUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArrivedBookListViewAdapter extends BaseAdapter {
+class ArrivedBookListViewAdapter extends BaseAdapter {
 
     private static final String TAG = ArrivedBookListViewAdapter.class.getSimpleName();
 
     private ArrayList<Request> mRequests;
     private ArrivedBookClickListener mListener;
 
-    public ArrivedBookListViewAdapter(ArrayList<Request> requests, ArrivedBookClickListener listener) {
+    ArrivedBookListViewAdapter(ArrayList<Request> requests, ArrivedBookClickListener listener) {
         this.mRequests = requests;
         this.mListener = listener;
     }
@@ -84,46 +79,31 @@ public class ArrivedBookListViewAdapter extends BaseAdapter {
         });
 
         String received_date = request.getReceivedDate();
-        holder.tvDate.setText(received_date + "に本を受け取りました");
+        holder.tvDate.setText(received_date);
 
-        String requestBookId = request.getBookId();
-        LogUtil.d(TAG,"requestBookId:"+ requestBookId);
+        String book_title = request.getBookTitle();
+        holder.tvTitle.setText("「" + book_title + "」を受け取りました");
 
-        final View finalConvertView = convertView;
-        KiiBookConnection.fetchByBookId (requestBookId, new KiiObjectCallback<Book> () {
-            @Override
-            public void success(int token, Book book) {
-                BookInfo info = book.getInfo();
-//                String book_title = info.getTitle();
-//                holder.tvTitle.setText(book_title + "にリクエストしました");
 
-                String coverUrl = info.getImageUrl();
+        String coverUrl = request.getBookImageUrl();
 
-                Picasso.with(finalConvertView.getContext())
-                        .load(coverUrl)
-                        .into(holder.ivCover);
-            }
-
-            @Override
-            public void failure(Exception e) {
-
-            }
-        });
+        Picasso.with(convertView.getContext())
+                .load(coverUrl)
+                .into(holder.ivCover);
         return convertView;
     }
 
-    public interface ArrivedBookClickListener {
+    interface ArrivedBookClickListener {
         void onClick(Request request);
     }
 
     public static class ViewHolder {
-        public ImageView ivCover;
-        public TextView tvTitle;
-        public TextView tvMessage;
-        public TextView tvDate;
+        ImageView ivCover;
+        TextView tvTitle;
+        TextView tvMessage;
+        TextView tvDate;
 
         public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvMessage, TextView tvDate) {
-//public ViewHolder(ImageView ivCover, TextView tvTitle) {
             this.ivCover = ivCover;
             this.tvTitle = tvTitle;
             this.tvMessage = tvMessage;

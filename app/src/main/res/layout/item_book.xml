@@ -34,7 +34,20 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
+            <!--本の出品状態-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:text="Medium Text"
+                android:id="@+id/book_state"
+                android:textSize="14sp"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:minLines="2"
+                android:maxLines="2"
+                android:textColor="#F26964"
+                android:textStyle="bold" />
             <!--本のタイトル-->
             <TextView
                 android:layout_width="match_parent"
