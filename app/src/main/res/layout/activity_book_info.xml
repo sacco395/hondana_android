@@ -405,12 +405,18 @@
             android:background="#E6E5E1"
             android:layout_weight="0.16"/>
 
+
+
         <TextView
-            android:id="@+id/book_state"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#2FCDB4"
-            android:textSize="12sp" />
+            android:id="@+id/book_state"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#F26964"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"/>
         <!--交換リクエストボタン-->
         <Button
             android:layout_width="300dp"
@@ -419,7 +425,7 @@
             android:id="@+id/buttonPreRequest"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/shape_rounded_corners"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="30dp"/>
         </LinearLayout>
 </ScrollView>

@@ -104,12 +104,17 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         assert tv_bookNotes != null;
         tv_bookNotes.setText(condition.getNote());
 
+        final String bookId = book.getId();
+        LogUtil.d(TAG, "bookId: " + bookId);
 
-        int state = book.getState();
-        LogUtil.d(TAG,"state:" + state);
+        int bookState = book.getState();
+        LogUtil.d(TAG,"bookState:" + bookState);
         TextView tv_bookState = (TextView) findViewById(R.id.book_state);
         assert tv_bookState != null;
-        tv_bookState.setText(book.getStateText());
+        String state_text = book.getStateText();
+        LogUtil.d(TAG,"state_text:" + state_text);
+        tv_bookState.setText(state_text);
+
 
 //本のその他の状態
         // 空の文字列を作成

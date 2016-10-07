@@ -77,7 +77,7 @@ public class HondanaBookAdapter extends BaseAdapter {
             TextView tvAuthor = (TextView) itemLayout.findViewById(R.id.rowTextAuthor);
             TextView tvOwnerName = (TextView) itemLayout.findViewById(R.id.book_owner);
             TextView tvBookState = (TextView) itemLayout.findViewById(R.id.book_state);
-            itemLayout.setTag(new ViewHolder(ivCover, ivCondition, tvTitle, tvAuthor,tvOwnerName,tvBookState));
+            itemLayout.setTag(new ViewHolder(ivCover, ivCondition, tvTitle, tvAuthor, tvOwnerName, tvBookState));
             convertView = itemLayout;
         }
         final ViewHolder holder = (ViewHolder) convertView.getTag();
@@ -88,12 +88,14 @@ public class HondanaBookAdapter extends BaseAdapter {
                 mListener.onClick(book);
             }
         });
+
         BookInfo info = book.getInfo();
         String coverUrl = info.getImageUrl();
         // http://square.github.io/picasso/
         Picasso.with(convertView.getContext())
                 .load(coverUrl)
                 .into(holder.ivCover);
+
         BookCondition condition = book.getCondition();
         int resId = condition.getIconDrawableResId();
         if (resId != 0) {

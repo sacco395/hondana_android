@@ -119,7 +119,6 @@ public class Book extends KiiModel implements Parcelable {
     public int getState() {
         return state;
     }
-
     public void setState(int state) {
         this.state = state;
     }
@@ -130,8 +129,6 @@ public class Book extends KiiModel implements Parcelable {
                 return "交換成立済み";//取引完了
             case 1:
                 return "リクエスト受付済";//取引中
-            case 0:
-                return "";
             default:
                 return "";
         }
@@ -150,6 +147,7 @@ public class Book extends KiiModel implements Parcelable {
         ownerName = object.getString(OWNER_NAME);
         info = new BookInfo(object.getJSONObject(INFO));
         condition = new BookCondition(object.getJSONObject(CONDITION));
+        state = object.getInt(STATE);
         genres = new GenreList();
         genres.getValueFrom(createKiiObject());
     }
