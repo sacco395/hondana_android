@@ -107,8 +107,6 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         final String bookId = book.getId();
         LogUtil.d(TAG, "bookId: " + bookId);
 
-        int bookState = book.getState();
-        LogUtil.d(TAG,"bookState:" + bookState);
         TextView tv_bookState = (TextView) findViewById(R.id.book_state);
         assert tv_bookState != null;
         String state_text = book.getStateText();
@@ -235,36 +233,48 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         LogUtil.d(TAG, "onClick");
 
         final KiiUser currentUser = KiiUser.getCurrentUser ();
+        int bookState = book.getState();
+        LogUtil.d(TAG,"bookState:" + bookState);
+        switch(bookState) {
+            case 1:
+                Toast.makeText(getApplicationContext(), "リクエスト受付済みなのでリクエストできません", Toast.LENGTH_LONG).show();
+            break;
 
-        if (currentUser == null) {
-            Log.d(TAG, "onClick: Current KiiUser is null!");
-            Intent intent = new Intent(this, StartActivity.class);
-            startActivity(intent);
-            showToast("会員登録をお願いします！");
-            return;
-        }
+            case 2:
+            Toast.makeText(getApplicationContext(), "交換成立なのでリクエストできません", Toast.LENGTH_LONG).show();
+            break;
 
-        final String userId = currentUser.getID();
-        LogUtil.d (TAG, "userId: " + userId);
-        KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
-            @Override
-            public void success(int token, Member member) {
-                int current = member.getPoint() + member.getPointsByBooks();
-                Log.d(TAG, "point:" + current);
-                if(current < 1){
-                    Toast.makeText(getApplicationContext(), "ブクが足りないのでリクエストできません", Toast.LENGTH_LONG).show();
-                    finish();
-                }else {
-                    Request request = Request.createNew(currentUser.getID(), book);
-                    startActivity(RequestBookActivity.createIntent(BookInfoActivity.this, request));
+            case 0:
+                if (currentUser == null) {
+                    Log.d(TAG, "onClick: Current KiiUser is null!");
+                    Intent intent = new Intent(this, StartActivity.class);
+                    startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                    return;
                 }
-            }
 
-            @Override
-            public void failure(Exception e) {
+                final String userId = currentUser.getID();
+                LogUtil.d (TAG, "userId: " + userId);
+                KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
+                    @Override
+                    public void success(int token, Member member) {
+                        int current = member.getPoint() + member.getPointsByBooks();
+                        Log.d(TAG, "point:" + current);
+                        if(current < 1){
+                            Toast.makeText(getApplicationContext(), "ブクが足りないのでリクエストできません", Toast.LENGTH_LONG).show();
+                            finish();
+                        }else {
+                            Request request = Request.createNew(currentUser.getID(), book);
+                            startActivity(RequestBookActivity.createIntent(BookInfoActivity.this, request));
+                        }
+                    }
 
-            }
-        });
+                    @Override
+                    public void failure(Exception e) {
+
+                    }
+                });
+        }
     }
 
     private void clickToStared() {
