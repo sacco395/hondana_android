@@ -35,7 +35,7 @@ public class KiiLikeConnection {
 
     public static void fetchStared(String userId, KiiObjectListCallback<Like> callback){
         KiiQuery StaredQuery = new KiiQuery(KiiClause.and(
-                KiiClause.equals(Like.CLIENT_ID, userId),
+                KiiClause.equals(Like.USER_ID, userId),
                 KiiClause.equals(Like.LIKE_ID, true)));
         queryLikeBucket(StaredQuery, callback);
     }

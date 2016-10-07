@@ -228,8 +228,22 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
                 case R.id.bookInfoLike:
                     LogUtil.d(TAG, "onClickStar");
-                    clickToStared();
-                    break;
+                    final ImageView star = (ImageView) findViewById(R.id.bookInfoLike);
+                    assert star != null;
+                    star.setBackgroundResource(R.drawable.star_off);
+                    LogUtil.d(TAG, "setImageResource");
+
+                    if (stared) {
+                        star.setBackgroundResource(R.drawable.star_off);
+
+                        clickToDisStared();
+
+                    } else {
+                        star.setBackgroundResource(R.drawable.star_on);
+
+                        clickToStared();
+                    }
+                    stared = !stared;
             }
         }
     }
@@ -284,27 +298,16 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void clickToStared() {
-
         final KiiUser kiiUser = KiiUser.getCurrentUser();
         assert kiiUser != null;
         final String userId = kiiUser.getID();
         LogUtil.d (TAG, "userID = " + userId);
-
-        final ImageView star = (ImageView) findViewById(R.id.bookInfoLike);
-        assert star != null;
-        star.setBackgroundResource(R.drawable.star_off);
-        LogUtil.d(TAG, "setImageResource");
-
-        if (stared) {
-            star.setBackgroundResource(R.drawable.star_off);
-
-        }else{
-            star.setBackgroundResource(R.drawable.star_on);
-
+        Like like;
+        like = Like.createNew(userId, book);
             like.save(false, new KiiModel.KiiSaveCallback() {
                 @Override
                 public void success(int token, KiiObject object) {
-                    Like.createNew(kiiUser.getID(), book);
+
                 }
 
                 @Override
@@ -314,7 +317,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
             });
         }
 
-        stared = !stared;
+    private void clickToDisStared(){
+
     }
 
     private void showToast(String message) {
