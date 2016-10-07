@@ -16,12 +16,12 @@ public class Like extends KiiModel implements Parcelable {
     public static final String BUCKET_NAME = "likes";
     public static final String BOOK_ID = "book_id";
     public static final String LIKE_ID = "like_id";
-    public static final String CLIENT_ID = "client_id";
+    public static final String USER_ID = "userId";
 
     /**
      * リクエストをしたユーザID
      */
-    private String clientId;
+    private String userId;
     private String bookId;
     private boolean likeId;
     private String id;
@@ -30,13 +30,13 @@ public class Like extends KiiModel implements Parcelable {
      * Request を、新規に作成する。すでにサーバに保存されているオブジェクトの取得は、
      * {@link com.books.hondana.connection.KiiRequestConnection} を使用すること
      *
-     * @param clientId KiiUser#getID
+     * @param userId KiiUser#getID
      * @param book     リクエストの対象の本
      * @return
      */
-    public static Like createNew(String clientId, Book book) {
+    public static Like createNew(String userId, Book book) {
         Like like = new Like();
-        like.setClientId(clientId);
+        like.setUserId(userId);
         like.setBookId(book.getId());
         return like;
     }
@@ -53,7 +53,7 @@ public class Like extends KiiModel implements Parcelable {
     }
 
     private Like() {
-        clientId = "";
+        userId = "";
         likeId = false;
         bookId = "";
     }
@@ -70,12 +70,12 @@ public class Like extends KiiModel implements Parcelable {
         this.id = id;
     }
 
-    public String getClientId() {
-        return clientId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public boolean isLikeId() {
@@ -101,7 +101,7 @@ public class Like extends KiiModel implements Parcelable {
 
     @Override
     public void setValuesFrom(KiiObject object) throws JSONException {
-        clientId = object.getString(CLIENT_ID);
+        userId = object.getString(USER_ID);
         likeId = object.getBoolean(LIKE_ID);
         bookId = object.getString(BOOK_ID);
     }
@@ -111,7 +111,7 @@ public class Like extends KiiModel implements Parcelable {
         if (source == null) {
             source = bucket().object();
         }
-        source.set(CLIENT_ID, clientId);
+        source.set(USER_ID, userId);
         source.set(LIKE_ID, likeId);
         source.set(BOOK_ID, bookId);
         return source;
@@ -125,14 +125,14 @@ public class Like extends KiiModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
-        dest.writeString(this.clientId);
+        dest.writeString(this.userId);
         dest.writeByte(this.likeId ? (byte) 1 : (byte) 0);
         dest.writeString(this.bookId);
     }
 
     protected Like(Parcel in) {
         this.id = in.readString();
-        this.clientId = in.readString();
+        this.userId = in.readString();
         this.likeId = in.readByte() != 0;
         this.bookId = in.readString();
     }
