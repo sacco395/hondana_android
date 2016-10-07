@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.books.hondana.R;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.guide.GuideSendingActivity;
 import com.books.hondana.model.Member;
 import com.books.hondana.model.Request;
 import com.books.hondana.model.abst.KiiModel;
@@ -113,6 +114,10 @@ public class SendBookActivity extends AppCompatActivity
                     break;
             }
         }
+    }
+    public void bookPacking(View view) {
+        Intent intent = new Intent(this, GuideSendingActivity.class);
+        startActivity(intent);
     }
 
     @Override

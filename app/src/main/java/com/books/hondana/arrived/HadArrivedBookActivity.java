@@ -76,7 +76,7 @@ public class HadArrivedBookActivity extends AppCompatActivity
         setContentView(R.layout.activity_request);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("受け取った本");
+        toolbar.setTitle("リクエストした本");
         setSupportActionBar(toolbar);
 
         //カメラボタン

@@ -53,10 +53,11 @@ public class KiiRequestConnection {
     }
 
     public static void fetchHadArrived(String userId, KiiObjectListCallback<Request> callback) {
-        KiiQuery EvaluatedQuery = new KiiQuery (KiiClause.and (
+        KiiQuery HadArrivedQuery = new KiiQuery (KiiClause.and (
                 KiiClause.equals (Request.CLIENT_ID, userId),
                 KiiClause.notEquals (Request.RECEIVED_DATE, "")));
-        queryRequestBucket (EvaluatedQuery, callback);
+        HadArrivedQuery.sortByDesc ("_modified");
+        queryRequestBucket (HadArrivedQuery, callback);
     }
 
 

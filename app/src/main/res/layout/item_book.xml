@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
     android:layout_width="190dp"
     android:padding="10dp"
     android:layout_height="wrap_content"
@@ -34,7 +35,18 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
+            <!--本の出品状態-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:text="Medium Text"
+                android:id="@+id/book_state"
+                android:textSize="14sp"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:textColor="#F26964"
+                android:textStyle="bold" />
             <!--本のタイトル-->
             <TextView
                 android:layout_width="match_parent"
@@ -90,7 +102,7 @@
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:id="@+id/MainBookConditionIcon"
-            android:src="@drawable/book_icon_good"
+            app:srcCompat="@drawable/book_icon_good"
             android:layout_gravity="right" />
     </LinearLayout>
 </LinearLayout>
