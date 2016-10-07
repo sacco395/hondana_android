@@ -237,11 +237,11 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         LogUtil.d(TAG,"bookState:" + bookState);
         switch(bookState) {
             case 1:
-                Toast.makeText(getApplicationContext(), "リクエスト受付済みなのでリクエストできません", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "リクエスト受付済みなので\nリクエストできません", Toast.LENGTH_LONG).show();
             break;
 
             case 2:
-            Toast.makeText(getApplicationContext(), "交換成立済みなのでリクエストできません", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "交換成立済みなので\nリクエストできません", Toast.LENGTH_LONG).show();
             break;
 
             case 0:
