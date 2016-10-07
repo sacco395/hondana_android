@@ -89,7 +89,7 @@ public class LoginActivity extends Activity {
 
                 SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
                 pref.edit().putString(getString(R.string.save_token), user.getAccessToken()).apply();//保存されていない時は""
-                showToast("User authenticated!");
+                showToast("ログインしました!");
 
                 KiiMemberConnection.fetch(user.getID(), new KiiObjectCallback<Member>() {
                     @Override

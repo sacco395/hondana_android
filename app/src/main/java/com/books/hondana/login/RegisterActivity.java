@@ -118,7 +118,6 @@ public class RegisterActivity extends Activity {
                         createMember (user);
                     }
 
-                    // otherwise, something bad happened in the request
                     else {
                         mProgress.cancel();
                         // tell the console and the user there was a failure
@@ -146,13 +145,16 @@ public class RegisterActivity extends Activity {
     private void createMember(KiiUser user) {
         Member member;
         try {
+
             member = Member.createNew(user);
+
         } catch (KiiModelException e) {
             mProgress.cancel();
             Log.e(TAG, "createMember: KiiModelException=", e);
             showToast("ユーザの登録に失敗しました。");
             return;
         }
+
         member.save(false, new KiiModel.KiiSaveCallback() {
             @Override
             public void success(int token, KiiObject object) {

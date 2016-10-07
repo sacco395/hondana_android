@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,12 +20,15 @@ import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookCondition;
 import com.books.hondana.model.BookInfo;
+import com.books.hondana.model.Like;
 import com.books.hondana.model.Member;
 import com.books.hondana.model.Request;
 import com.books.hondana.model.Size;
 import com.books.hondana.model.Smell;
+import com.books.hondana.model.abst.KiiModel;
 import com.books.hondana.start.StartActivity;
 import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -38,6 +42,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
     private Book book;
 
     private Request request;
+
+    private Like like;
 
     final ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -255,7 +261,10 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
     private void clickToStared() {
 
-        KiiUser kiiUser = KiiUser.getCurrentUser();
+        final KiiUser kiiUser = KiiUser.getCurrentUser();
+        assert kiiUser != null;
+        final String userId = kiiUser.getID();
+        LogUtil.d (TAG, "userID = " + userId);
 
         final ImageView star = (ImageView) findViewById(R.id.bookInfoLike);
         assert star != null;
@@ -267,7 +276,20 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
         }else{
             star.setBackgroundResource(R.drawable.star_on);
+
+            like.save(false, new KiiModel.KiiSaveCallback() {
+                @Override
+                public void success(int token, KiiObject object) {
+                    Like.createNew(kiiUser.getID(), book);
+                }
+
+                @Override
+                public void failure(@Nullable Exception e) {
+
+                }
+            });
         }
+
         stared = !stared;
     }
 
