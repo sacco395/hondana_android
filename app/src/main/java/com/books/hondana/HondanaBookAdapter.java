@@ -66,10 +66,7 @@ public class HondanaBookAdapter extends BaseAdapter {
         if (convertView == null) {
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
-            // row というレイアウトの名前は、何も伝えていません。
-            // また、あたかもリスト表示の1アイテムであるかのような印象を与えます。(実際にはGrid)
-            // item_book とかいいかと思います。
-            View itemLayout = inflater.inflate(R.layout.row, null);
+            View itemLayout = inflater.inflate(R.layout.item_book, null);
             // ID の命名もう少し考えた方がいいです。
             // 辞書引いてでも、しっくりくる名前を考えるべきです。Title って聞いたら、
             // 文字列を連想して、TextView かと思ってしまいます。
@@ -79,7 +76,8 @@ public class HondanaBookAdapter extends BaseAdapter {
             TextView tvTitle = (TextView) itemLayout.findViewById(R.id.rowTextTitle);
             TextView tvAuthor = (TextView) itemLayout.findViewById(R.id.rowTextAuthor);
             TextView tvOwnerName = (TextView) itemLayout.findViewById(R.id.book_owner);
-            itemLayout.setTag(new ViewHolder(ivCover, ivCondition, tvTitle, tvAuthor,tvOwnerName));
+            TextView tvBookState = (TextView) itemLayout.findViewById(R.id.book_state);
+            itemLayout.setTag(new ViewHolder(ivCover, ivCondition, tvTitle, tvAuthor,tvOwnerName,tvBookState));
             convertView = itemLayout;
         }
         final ViewHolder holder = (ViewHolder) convertView.getTag();
@@ -106,6 +104,7 @@ public class HondanaBookAdapter extends BaseAdapter {
         holder.tvTitle.setText(info.getTitle());
         holder.tvAuthor.setText(info.getAuthor());
         holder.tvOwnerName.setText(book.getOwnerName());
+        holder.tvBookState.setText(book.getStateText());
 
         return convertView;
     }
@@ -119,12 +118,14 @@ public class HondanaBookAdapter extends BaseAdapter {
         public TextView tvTitle;
         public TextView tvAuthor;
         public TextView tvOwnerName;
-        public ViewHolder(ImageView ivCover, ImageView ivConditionIcon, TextView tvTitle, TextView tvAuthor, TextView tvOwnerName) {
+        public TextView tvBookState;
+        public ViewHolder(ImageView ivCover, ImageView ivConditionIcon, TextView tvTitle, TextView tvAuthor, TextView tvOwnerName,TextView tvBookState) {
             this.ivCover = ivCover;
             this.ivConditionIcon = ivConditionIcon;
             this.tvTitle = tvTitle;
             this.tvAuthor = tvAuthor;
             this.tvOwnerName = tvOwnerName;
+            this.tvBookState = tvBookState;
         }
     }
 }

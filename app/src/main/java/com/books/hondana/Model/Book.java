@@ -126,15 +126,18 @@ public class Book extends KiiModel implements Parcelable {
 
     public String getStateText() {
         switch (state) {
-            case 0:
-                return "出品中";
-            case 1:
-                return "取引中";
             case 2:
-                return "取引完了";
+                return "交換成立済み";//取引完了
+            case 1:
+                return "リクエスト受付済";//取引中
+            case 0:
+                return "";
+            default:
+                return "";
         }
-        return null;
     }
+
+
 
     @Override
     public KiiBucket bucket() {

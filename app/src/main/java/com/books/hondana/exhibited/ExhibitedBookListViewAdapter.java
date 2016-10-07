@@ -60,7 +60,7 @@ public class ExhibitedBookListViewAdapter extends BaseAdapter {
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
 
-            // row というレイアウトの名前は、何も伝えていません。
+            // item_book というレイアウトの名前は、何も伝えていません。
             // また、あたかもリスト表示の1アイテムであるかのような印象を与えます。(実際にはGrid)
             // item_book とかいいかと思います。
             View itemLayout = inflater.inflate(R.layout.part_my_book_list, null);
