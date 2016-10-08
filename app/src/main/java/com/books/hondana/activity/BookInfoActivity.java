@@ -15,8 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.R;
+import com.books.hondana.connection.KiiLikeConnection;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookCondition;
 import com.books.hondana.model.BookInfo;
@@ -28,11 +30,14 @@ import com.books.hondana.model.Smell;
 import com.books.hondana.model.abst.KiiModel;
 import com.books.hondana.start.StartActivity;
 import com.books.hondana.util.LogUtil;
+import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
+import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.MessageFormat;
+import java.util.List;
 
 
 public class BookInfoActivity extends AppCompatActivity implements View.OnClickListener {
@@ -318,6 +323,32 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         }
 
     private void clickToDisStared(){
+        final KiiUser kiiUser = KiiUser.getCurrentUser();
+        assert kiiUser != null;
+        final String userId = kiiUser.getID();
+        LogUtil.d (TAG, "userID = " + userId);
+        final String bookId = book.getId();
+        LogUtil.d (TAG, "bookId = " + bookId);
+        KiiLikeConnection.fetchLikeBookId(bookId, userId, new KiiObjectListCallback<Like> () {
+            @Override
+            public void success(int token, List<Like> result) {
+                KiiObject object = Kii.bucket("likes").object(id);
+                object.delete(new KiiObjectCallBack () {
+                    @Override
+                    public void onDeleteCompleted(int token, Exception exception) {
+                        if (exception != null) {
+                            // Error handling
+                            return;
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void failure(@Nullable Exception e) {
+
+            }
+
 
     }
 

@@ -54,7 +54,7 @@ public class Like extends KiiModel implements Parcelable {
 
     private Like() {
         userId = "";
-        likeId = false;
+        likeId = true;
         bookId = "";
     }
 

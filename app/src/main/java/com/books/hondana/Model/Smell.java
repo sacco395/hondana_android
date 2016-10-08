@@ -61,7 +61,7 @@ public class Smell extends JSONConvertible implements Parcelable {
             // TODO: 9/10/16 文言修正
             return "タバコ臭あり";
         } else {
-            return "タバコ臭なし";
+            return "";//タバコ臭なし
         }
     }
 
@@ -70,7 +70,7 @@ public class Smell extends JSONConvertible implements Parcelable {
             // TODO: 9/10/16 文言修正
             return "ペット臭あり";
         } else {
-            return "ペット臭なし";
+            return "";//ペット臭なし
         }
     }
 
@@ -79,7 +79,7 @@ public class Smell extends JSONConvertible implements Parcelable {
             // TODO: 9/10/16 文言修正
             return "カビ臭あり";
         } else {
-            return "カビ臭なし";
+            return "";//カビ臭なし
         }
     }
 
