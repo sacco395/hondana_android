@@ -17,14 +17,14 @@ public class Like extends KiiModel implements Parcelable {
     public static final String BOOK_ID = "book_id";
     public static final String LIKE_ID = "like_id";
     public static final String USER_ID = "userId";
+    private String id;
 
     /**
-     * リクエストをしたユーザID
+     * きになるを押したユーザID
      */
     private String userId;
     private String bookId;
     private boolean likeId;
-    private String id;
 
     /**
      * Request を、新規に作成する。すでにサーバに保存されているオブジェクトの取得は、

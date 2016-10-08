@@ -18,7 +18,6 @@ import com.books.hondana.R;
 import com.books.hondana.connection.KiiLikeConnection;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
-import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookCondition;
 import com.books.hondana.model.BookInfo;
@@ -37,7 +36,6 @@ import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.MessageFormat;
-import java.util.List;
 
 
 public class BookInfoActivity extends AppCompatActivity implements View.OnClickListener {
@@ -53,6 +51,9 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
     final ImageLoader imageLoader = ImageLoader.getInstance();
 
     boolean stared = false;
+
+    KiiUser kiiUser = KiiUser.getCurrentUser();
+    String userId = kiiUser.getID();
 
 
     @SuppressLint("SetTextI18n")
@@ -302,16 +303,16 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+
+
     private void clickToStared() {
-        final KiiUser kiiUser = KiiUser.getCurrentUser();
-        assert kiiUser != null;
-        final String userId = kiiUser.getID();
-        LogUtil.d (TAG, "userID = " + userId);
-        Like like;
+        final Like like;
         like = Like.createNew(userId, book);
             like.save(false, new KiiModel.KiiSaveCallback() {
                 @Override
                 public void success(int token, KiiObject object) {
+                    String likeId = like.getId();
+                    LogUtil.d (TAG, "likeId = " + likeId);
                 }
 
                 @Override
@@ -323,23 +324,23 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void clickToDisStared(){
-        final KiiUser kiiUser = KiiUser.getCurrentUser();
-        assert kiiUser != null;
-        final String userId = kiiUser.getID();
-        LogUtil.d (TAG, "userID = " + userId);
         final String bookId = book.getId();
         LogUtil.d (TAG, "bookId = " + bookId);
-        KiiLikeConnection.fetchLikeBookId(bookId, userId, new KiiObjectListCallback<Like> () {
+        KiiLikeConnection.fetchLikeBookId(bookId, userId, new KiiObjectCallback<Like> () {
             @Override
-            public void success(int token, List<Like> result) {
-                KiiObject object = Kii.bucket("likes").object(id);
-                object.delete(new KiiObjectCallBack () {
+            public void success(int token, Like like) {
+                LogUtil.d (TAG, "like = " + like);
+                String likeId = like.getId();
+                LogUtil.d (TAG, "likeId = " + likeId);
+                KiiObject object = Kii.bucket("likes").object(likeId);
+                object.delete(new KiiObjectCallBack() {
                     @Override
                     public void onDeleteCompleted(int token, Exception exception) {
                         if (exception != null) {
-                            // Error handling
+                            Log.d(TAG, "削除できません!");
                             return;
                         }
+                        Log.d(TAG, "削除完了!");
                     }
                 });
             }
@@ -348,7 +349,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
             public void failure(@Nullable Exception e) {
 
             }
-
+        });
+    }
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
