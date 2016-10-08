@@ -312,7 +312,6 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
             like.save(false, new KiiModel.KiiSaveCallback() {
                 @Override
                 public void success(int token, KiiObject object) {
-
                 }
 
                 @Override
@@ -321,6 +320,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
                 }
             });
         }
+
 
     private void clickToDisStared(){
         final KiiUser kiiUser = KiiUser.getCurrentUser();
@@ -348,9 +348,6 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
             public void failure(@Nullable Exception e) {
 
             }
-
-
-    }
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
