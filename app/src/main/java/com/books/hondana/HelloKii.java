@@ -41,6 +41,14 @@ public class HelloKii extends Application {
         // 画像ダウンロード用ライブラリの初期化
         initImageLoder();
     }
+	
+	 if (BuildConfig.DEBUG) {
+          // debug build
+          Kii.initialize("f0e4ae6d", "d2a6131aafba06763438e0f1fc6bf452", Site.JP);
+      } else {
+          // release build
+          Kii.initialize(“f05451aa", “d29bfea2bbe0451b0af0fd57494db3b7", Site.JP);
+      }
 
     // 画像ダウンロード用ライブラリの初期化
     private void initImageLoder(){
