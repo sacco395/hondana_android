@@ -306,13 +306,12 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void clickToStared() {
-        final Like like;
+        Like like;
         like = Like.createNew(userId, book);
             like.save(false, new KiiModel.KiiSaveCallback() {
                 @Override
                 public void success(int token, KiiObject object) {
-                    String likeId = like.getId();
-                    LogUtil.d (TAG, "likeId = " + likeId);
+                    LogUtil.d(TAG, "object: " + object.toString());
                 }
 
                 @Override
@@ -329,11 +328,11 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         KiiLikeConnection.fetchLikeBookId(bookId, userId, new KiiObjectCallback<Like> () {
             @Override
             public void success(int token, Like like) {
-                LogUtil.d (TAG, "like = " + like);
                 String likeId = like.getId();
                 LogUtil.d (TAG, "likeId = " + likeId);
-                KiiObject object = Kii.bucket("likes").object(likeId);
-                object.delete(new KiiObjectCallBack() {
+
+                KiiObject likeObject = Kii.bucket(Like.BUCKET_NAME).object(likeId);
+                likeObject.delete(new KiiObjectCallBack() {
                     @Override
                     public void onDeleteCompleted(int token, Exception exception) {
                         if (exception != null) {

@@ -1,12 +1,15 @@
 package com.books.hondana.connection;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.books.hondana.model.Like;
+import com.books.hondana.model.Member;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiBucket;
 import com.kii.cloud.storage.KiiObject;
+import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.kii.cloud.storage.callback.KiiQueryCallBack;
 import com.kii.cloud.storage.query.KiiClause;
 import com.kii.cloud.storage.query.KiiQuery;
@@ -108,5 +111,25 @@ public class KiiLikeConnection {
                 }
             }
         }, query);
+    }
+
+    public static void fetch(String id, final KiiObjectCallback<Like> callback) {
+        KiiObject memberObject = Kii.bucket(Member.BUCKET_NAME).object(id);
+        memberObject.refresh(new KiiObjectCallBack() {
+            @Override
+            public void onRefreshCompleted(int token, @NonNull KiiObject object, @Nullable Exception exception) {
+                super.onRefreshCompleted(token, object, exception);
+                if (exception != null) {
+                    callback.failure(exception);
+                    return;
+                }
+                try {
+                    Like like = Like.createFrom(object);
+                    callback.success(token, like);
+                } catch (JSONException e) {
+                    callback.failure(e);
+                }
+            }
+        });
     }
 }

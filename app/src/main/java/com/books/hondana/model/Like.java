@@ -17,11 +17,12 @@ public class Like extends KiiModel implements Parcelable {
     public static final String BOOK_ID = "book_id";
     public static final String LIKE = "like";
     public static final String USER_ID = "userId";
-    private String id;
+    public static final String LIKE_ID = "likeId";
 
     /**
      * きになるを押したユーザID
      */
+    private String likeId;
     private String userId;
     private String bookId;
     private boolean like;
@@ -52,10 +53,11 @@ public class Like extends KiiModel implements Parcelable {
         return new Like(kiiObject);
     }
 
-    private Like() {
+    public Like() {
         userId = "";
         like = true;
         bookId = "";
+        likeId = "";
     }
 
     private Like(KiiObject kiiObject) throws JSONException {
@@ -68,6 +70,15 @@ public class Like extends KiiModel implements Parcelable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+
+    public String getLikeId() {
+        return likeId;
+    }
+
+    public void setLikeId(String likeId) {
+        this.likeId = likeId;
     }
 
     public String getUserId() {
@@ -104,6 +115,7 @@ public class Like extends KiiModel implements Parcelable {
         userId = object.getString(USER_ID);
         like = object.getBoolean(LIKE);
         bookId = object.getString(BOOK_ID);
+        likeId = object.getString(LIKE_ID);
     }
 
     @Override
@@ -114,6 +126,7 @@ public class Like extends KiiModel implements Parcelable {
         source.set(USER_ID, userId);
         source.set(LIKE, like);
         source.set(BOOK_ID, bookId);
+        source.set(LIKE_ID, likeId);
         return source;
     }
 
@@ -128,6 +141,7 @@ public class Like extends KiiModel implements Parcelable {
         dest.writeString(this.userId);
         dest.writeByte(this.like ? (byte) 1 : (byte) 0);
         dest.writeString(this.bookId);
+        dest.writeString(this.likeId);
     }
 
     protected Like(Parcel in) {
@@ -135,6 +149,7 @@ public class Like extends KiiModel implements Parcelable {
         this.userId = in.readString();
         this.like = in.readByte() != 0;
         this.bookId = in.readString();
+        this.likeId = in.readString();
     }
 
     public static final Creator<Like> CREATOR = new Creator<Like>() {
