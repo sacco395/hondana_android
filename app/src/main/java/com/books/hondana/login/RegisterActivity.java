@@ -38,6 +38,7 @@ import com.books.hondana.activity.UserPolicyActivity;
 import com.books.hondana.model.Member;
 import com.books.hondana.model.abst.KiiModel;
 import com.books.hondana.model.exception.KiiModelException;
+import com.books.hondana.notification.FCMTokenStore;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiObject;
 import com.kii.cloud.storage.KiiUser;
@@ -115,6 +116,8 @@ public class RegisterActivity extends Activity {
                         SharedPreferences pref = getSharedPreferences(getString(R.string.save_data_name), Context.MODE_PRIVATE);
                         pref.edit().putString(getString(R.string.save_token), user.getAccessToken()).apply();
 
+                        postFcmToken();
+
                         createMember (user);
                     }
 
@@ -182,5 +185,19 @@ public class RegisterActivity extends Activity {
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void postFcmToken() {
+        FCMTokenStore.postTokenToKiiCloud(this, new FCMTokenStore.PostTokenCallback() {
+            @Override
+            public void success() {
+                Log.d(TAG, "postFcmToken success: ");
+            }
+
+            @Override
+            public void failure(Exception e) {
+                Log.e(TAG, "postFcmToken failure: ", e);
+            }
+        });
     }
 }

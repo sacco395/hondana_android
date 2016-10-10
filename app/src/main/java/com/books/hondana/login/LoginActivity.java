@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -35,8 +36,10 @@ import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.model.Member;
 import com.books.hondana.R;
 import com.books.hondana.activity.BookMainActivity;
+import com.books.hondana.notification.FCMTokenStore;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
+import com.kii.cloud.storage.callback.KiiPushCallBack;
 import com.kii.cloud.storage.callback.KiiUserCallBack;
 
 public class LoginActivity extends Activity {
@@ -96,6 +99,8 @@ public class LoginActivity extends Activity {
                     public void success(int token, Member member) {
                         LogUtil.d (TAG, "onQueryCompleted: " + member.toString());
 
+                        postFcmToken();
+
                         Intent myIntent = new Intent(LoginActivity.this,
                                 BookMainActivity.class);
                         LoginActivity.this.startActivity(myIntent);
@@ -109,6 +114,20 @@ public class LoginActivity extends Activity {
                 });
             }
         }, phone, password, country);
+    }
+
+    private void postFcmToken() {
+        FCMTokenStore.postTokenToKiiCloud(this, new FCMTokenStore.PostTokenCallback() {
+            @Override
+            public void success() {
+                Log.d(TAG, "postFcmToken success: ");
+            }
+
+            @Override
+            public void failure(Exception e) {
+                Log.e(TAG, "postFcmToken failure: ", e);
+            }
+        });
     }
 
     private void showToast(String message) {
