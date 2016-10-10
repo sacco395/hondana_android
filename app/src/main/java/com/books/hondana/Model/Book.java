@@ -70,6 +70,7 @@ public class Book extends KiiModel implements Parcelable {
         info = new BookInfo();
         condition = new BookCondition();
         genres = new GenreList();
+        state = 0;
     }
 
     private Book(KiiObject kiiObject) throws JSONException {
