@@ -1,28 +1,8 @@
-//
-//
-// Copyright 2012 Kii Corporation
-// http://kii.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-//
-
 package com.books.hondana;
 
 import android.app.Application;
 
 import com.kii.cloud.storage.Kii;
-import com.kii.cloud.storage.Kii.Site;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -31,13 +11,13 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import java.io.File;
 
-public class HelloKii extends Application {
+public class HondanaApplication extends Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
         // initialize the Kii SDK!
-        Kii.initialize("f0e4ae6d", "d2a6131aafba06763438e0f1fc6bf452", Site.JP);
+        Kii.initialize(getString(R.string.kii_app_id), getString(R.string.kii_app_key), Kii.Site.JP);
         // 画像ダウンロード用ライブラリの初期化
         initImageLoder();
     }
