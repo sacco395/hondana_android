@@ -1,1 +1,4 @@
 /build
+/src/debug
+/src/release
+/src/main/java/com/books/hondana/HelloKii.java
