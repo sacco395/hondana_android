@@ -84,7 +84,6 @@ public class KiiLikeConnection {
                 KiiClause.and(
                         KiiClause.equals(Like.BOOK_ID, bookId),
                         KiiClause.equals(Like.USER_ID, userId)
-
                 )
         );
         query.setLimit(1);
@@ -96,14 +95,20 @@ public class KiiLikeConnection {
                 // Error
                 if (result == null || result.getResult() == null) {
                     Log.e(TAG, "onQueryCompleted: ", e);
-//                    callback.failure(e);
+                    callback.failure(e);
                     return;
                 }
                 // Success
                 try {
+                    if (result.getResult().isEmpty()) {
+                        callback.success(token, null);
+                        Log.d(TAG,"お気に入りじゃなかったです");
+                        return;
+                    }
                     KiiObject kiiObject = result.getResult().get(0);
                     Like like = Like.createFrom(kiiObject);
                     callback.success(token, like);
+
                 } catch (JSONException e1) {
                     Log.e(TAG, "onQueryCompleted: ", e1);
                     callback.failure(e);
