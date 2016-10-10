@@ -252,6 +252,22 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
                     stared = !stared;
             }
         }
+
+        String bookId = book.getId();
+        LogUtil.d (TAG, "bookId = " + bookId);
+        final ImageView star = (ImageView) findViewById(R.id.bookInfoLike);
+        KiiLikeConnection.fetchLikeBookId(bookId, userId, new KiiObjectCallback<Like>() {
+            @Override
+            public void success(int token, Like like) {
+                star.setBackgroundResource(R.drawable.star_on);
+            }
+
+            @Override
+            public void failure(Exception e) {
+
+            }
+        });
+
     }
 
 
@@ -323,7 +339,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void clickToDisStared(){
-        final String bookId = book.getId();
+        String bookId = book.getId();
         LogUtil.d (TAG, "bookId = " + bookId);
         KiiLikeConnection.fetchLikeBookId(bookId, userId, new KiiObjectCallback<Like> () {
             @Override

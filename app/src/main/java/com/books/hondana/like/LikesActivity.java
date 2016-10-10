@@ -21,17 +21,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.books.hondana.R;
 import com.books.hondana.activity.BookDetailActivity;
+import com.books.hondana.activity.BookInfoActivity;
 import com.books.hondana.activity.BookMainActivity;
 import com.books.hondana.activity.BookSearchListActivity;
 import com.books.hondana.activity.InquiryActivity;
 import com.books.hondana.activity.SimpleScannerActivity;
 import com.books.hondana.activity.UserpageActivity;
 import com.books.hondana.arrived.HadArrivedBookActivity;
+import com.books.hondana.connection.KiiBookConnection;
 import com.books.hondana.connection.KiiLikeConnection;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
@@ -82,15 +85,29 @@ public class LikesActivity extends AppCompatActivity
         mListAdapter = new LikeBookListAdapter(new ArrayList<Like>(), new LikeBookListAdapter.LikeItemClickListener() {
             @Override
             public void onClick(Like like) {
-                assert user != null;
-//                Request request = Request.createNew(user.getID(), like);
-//                startActivity(ReceivedBookActivity.createIntent(LikesActivity.this, request));
-//                Intent intent = new Intent(getApplicationContext(), BookInfoActivity.class);
-//                intent.putExtra(Book.class.getSimpleName(), book);
+                final String bookId = like.getBookId();
+                LogUtil.d(TAG, "bookId: " + bookId);
+                KiiBookConnection.fetchByBookId(bookId, new KiiObjectCallback<Book>() {
+                    @Override
+                    public void success(int token, Book book) {
+                        Intent intent = new Intent(getApplicationContext(), BookInfoActivity.class);
+                        intent.putExtra(Book.class.getSimpleName(), book);
 
-                LogUtil.d(TAG, "onItemClick: " + like);
+                        LogUtil.d(TAG, "onItemClick: " + book);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void failure(Exception e) {
+                        LogUtil.e(TAG, "failure: ", e);
+                    }
+                });
             }
         });
+
+        ListView mListView = (ListView) findViewById(R.id.list_view);
+        assert mListView != null;
+        mListView.setAdapter(mListAdapter);
 
 
         //カメラボタン
@@ -121,11 +138,11 @@ public class LikesActivity extends AppCompatActivity
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
-        KiiUser user1 = KiiUser.getCurrentUser();
+
         View header = navigationView.getHeaderView(0);
         final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
-        assert user1 != null;
-        final String userId = user1.getID();
+        assert user != null;
+        final String userId = user.getID();
         KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {

@@ -89,6 +89,7 @@ public class UserpageActivity extends AppCompatActivity
                 intent.putExtra(Book.class.getSimpleName(), book);
 
                 LogUtil.d(TAG, "onItemClick: " + book);
+                startActivity (intent);
             }
         });
 

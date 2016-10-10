@@ -8,16 +8,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.books.hondana.MyBookListAdapter;
 import com.books.hondana.R;
 import com.books.hondana.model.Like;
+import com.books.hondana.util.LogUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LikeBookListAdapter extends BaseAdapter {
 
-    private static final String TAG = MyBookListAdapter.class.getSimpleName();
+    private static final String TAG = LikeBookListAdapter.class.getSimpleName();
 
     private ArrayList<Like> mLikes;
     private LikeItemClickListener mListener;
@@ -86,17 +87,17 @@ public class LikeBookListAdapter extends BaseAdapter {
             }
         });
 
-        String bookId = like.getBookId();
-//        Like bookId = book.
-//        String coverUrl = info.getImageUrl();
-//
-//        // http://square.github.io/picasso/
-//        Picasso.with(convertView.getContext())
-//                .load(coverUrl)
-//                .into(holder.ivCover);
-//
-//        holder.tvTitle.setText(info.getTitle());
-//        holder.tvAuthor.setText(info.getAuthor());
+
+        String coverUrl = like.getBookImageUrl();
+
+        // http://square.github.io/picasso/
+        Picasso.with(convertView.getContext())
+                .load(coverUrl)
+                .into(holder.ivCover);
+
+        holder.tvTitle.setText(like.getBookTitle());
+        LogUtil.d(TAG, "book_title:" + like.getBookTitle());
+        holder.tvAuthor.setText(like.getBookAuthor());
 
 
         return convertView;

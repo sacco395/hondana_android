@@ -37,10 +37,9 @@ public class KiiLikeConnection {
 
 
     public static void fetchStared(String userId, KiiObjectListCallback<Like> callback){
-        KiiQuery StaredQuery = new KiiQuery(KiiClause.and(
-                KiiClause.equals(Like.USER_ID, userId),
-                KiiClause.equals(Like.LIKE, true)));
-        queryLikeBucket(StaredQuery, callback);
+        KiiClause clause = KiiClause.equals(Like.USER_ID, userId);
+        KiiQuery stared = new KiiQuery(clause);
+        queryLikeBucket(stared, callback);
     }
 
     /**
@@ -97,7 +96,7 @@ public class KiiLikeConnection {
                 // Error
                 if (result == null || result.getResult() == null) {
                     Log.e(TAG, "onQueryCompleted: ", e);
-                    callback.failure(e);
+//                    callback.failure(e);
                     return;
                 }
                 // Success
