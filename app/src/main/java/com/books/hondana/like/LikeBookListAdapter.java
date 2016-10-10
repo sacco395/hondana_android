@@ -1,4 +1,4 @@
-package com.books.hondana;
+package com.books.hondana.like;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.books.hondana.MyBookListAdapter;
+import com.books.hondana.R;
 import com.books.hondana.model.Like;
 
 import java.util.ArrayList;

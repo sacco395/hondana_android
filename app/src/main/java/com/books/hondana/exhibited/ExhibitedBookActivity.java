@@ -33,7 +33,7 @@ import com.books.hondana.activity.BookDetailActivity;
 import com.books.hondana.activity.BookMainActivity;
 import com.books.hondana.activity.BookSearchListActivity;
 import com.books.hondana.activity.InquiryActivity;
-import com.books.hondana.activity.LikesActivity;
+import com.books.hondana.like.LikesActivity;
 import com.books.hondana.activity.SimpleScannerActivity;
 import com.books.hondana.activity.UserpageActivity;
 import com.books.hondana.arrived.HadArrivedBookActivity;

@@ -37,6 +37,7 @@ import com.books.hondana.evaluation.EvaluationActivity;
 import com.books.hondana.arrived.HadArrivedBookActivity;
 import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
+import com.books.hondana.like.LikesActivity;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;

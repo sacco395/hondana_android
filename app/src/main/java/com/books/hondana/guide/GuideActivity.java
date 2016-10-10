@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.books.hondana.R;
 import com.books.hondana.activity.BookMainActivity;
 import com.books.hondana.activity.InquiryActivity;
-import com.books.hondana.activity.LikesActivity;
+import com.books.hondana.like.LikesActivity;
 import com.books.hondana.arrived.HadArrivedBookActivity;
 import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.activity.UserpageActivity;

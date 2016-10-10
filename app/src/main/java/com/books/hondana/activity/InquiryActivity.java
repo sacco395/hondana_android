@@ -25,6 +25,7 @@ import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.arrived.HadArrivedBookActivity;
 import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
+import com.books.hondana.like.LikesActivity;
 import com.books.hondana.model.Member;
 import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.start.StartActivity;

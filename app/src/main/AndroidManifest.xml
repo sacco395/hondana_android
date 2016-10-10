@@ -45,7 +45,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.LikesActivity"
+            android:name=".like.LikesActivity"
             android:label="@string/title_activity_likes"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

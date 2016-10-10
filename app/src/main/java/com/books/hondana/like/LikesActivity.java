@@ -1,5 +1,4 @@
-//本への気になる一覧
-package com.books.hondana.activity;
+package com.books.hondana.like;
 
 import android.Manifest;
 import android.content.Intent;
@@ -25,8 +24,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.books.hondana.LikeBookListAdapter;
 import com.books.hondana.R;
+import com.books.hondana.activity.BookDetailActivity;
+import com.books.hondana.activity.BookMainActivity;
+import com.books.hondana.activity.BookSearchListActivity;
+import com.books.hondana.activity.InquiryActivity;
+import com.books.hondana.activity.SimpleScannerActivity;
+import com.books.hondana.activity.UserpageActivity;
 import com.books.hondana.arrived.HadArrivedBookActivity;
 import com.books.hondana.connection.KiiLikeConnection;
 import com.books.hondana.connection.KiiMemberConnection;
@@ -88,8 +92,6 @@ public class LikesActivity extends AppCompatActivity
             }
         });
 
-        //fetchStared();
-
 
         //カメラボタン
         FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab);
@@ -113,15 +115,12 @@ public class LikesActivity extends AppCompatActivity
         assert drawer != null;
         drawer.setDrawerListener(toggle);
 
-        //         this, binding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        // binding.drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
-        //navigationViewにアイコンと名前ここから
         KiiUser user1 = KiiUser.getCurrentUser();
         View header = navigationView.getHeaderView(0);
         final ImageView userIcon = (ImageView) header.findViewById(R.id.iv_user_icon);
@@ -156,7 +155,7 @@ public class LikesActivity extends AppCompatActivity
 
         fetchStared();
     }
-        //navigationViewにアイコンと名前ここまで
+
 
     private void fetchStared(){
         KiiUser kiiUser = KiiUser.getCurrentUser();
@@ -192,23 +191,11 @@ public class LikesActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.likes, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
         return super.onOptionsItemSelected(item);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -335,13 +322,7 @@ public class LikesActivity extends AppCompatActivity
         return true;
     }
     void setProfileInMenu(View drawerView) {
-//        tvUserName.setText(user.getName());
-//        Picasso.with(this)
-//                .load(user.getIconUrl())
-//                .into(ivUserIcon);
         LinearLayout llUserContainer = (LinearLayout) drawerView.findViewById(R.id.ll_user_container);
-        TextView tvUserName = (TextView) drawerView.findViewById(R.id.tv_user_name);
-        ImageView ivUserIcon = (ImageView) drawerView.findViewById(R.id.iv_user_icon);
 
         llUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
