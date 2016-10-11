@@ -337,7 +337,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onDeleteCompleted(int token, Exception exception) {
                         if (exception != null) {
-                            Log.d(TAG, "削除できません!");
+                            Log.d(TAG, "削除できないよ!");
                             return;
                         }
                         Log.d(TAG, "削除完了!");
