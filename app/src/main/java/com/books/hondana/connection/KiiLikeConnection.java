@@ -79,7 +79,7 @@ public class KiiLikeConnection {
     }
 
 
-    public static void fetchLikeBookId(final String bookId, final String userId, final KiiObjectCallback<Like> callback) {
+    public static void fetchLikeByBookId(final String bookId, final String userId, final KiiObjectCallback<Like> callback) {
         final KiiQuery query = new KiiQuery(
                 KiiClause.and(
                         KiiClause.equals(Like.BOOK_ID, bookId),

@@ -44,13 +44,8 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
     private Book book;
 
-    private Request request;
-
-    private Like like;
-
     final ImageLoader imageLoader = ImageLoader.getInstance();
 
-    boolean stared = false;
 
     KiiUser kiiUser = KiiUser.getCurrentUser();
     String userId = kiiUser.getID();
@@ -222,7 +217,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         });
 
         final ImageView star = (ImageView) findViewById(R.id.bookInfoLike);
-        KiiLikeConnection.fetchLikeBookId(bookId, userId, new KiiObjectCallback<Like>() {
+        KiiLikeConnection.fetchLikeByBookId(bookId, userId, new KiiObjectCallback<Like>() {
             @Override
             public void success(int token, Like like) {
                 if (like == null) {
@@ -254,23 +249,10 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
                 case R.id.bookInfoLike:
                     LogUtil.d(TAG, "onClickStar");
-                    ImageView star = (ImageView) findViewById(R.id.bookInfoLike);
-                    if (stared) {
-                        assert star != null;
-                        star.setBackgroundResource(R.drawable.star_off);
-
-                        clickToDisStared();
-
-                    } else {
-                        assert star != null;
-                        star.setBackgroundResource(R.drawable.star_on);
-
-                        clickToStared();
+                    clickToStarred();
                     }
-                    stared = !stared;
             }
         }
-    }
 
 
     private void clickToRequest() {
@@ -323,10 +305,10 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
 
 
-    private void clickToStared() {
+    private void clickToStarred() {
         String bookId = book.getId();
         LogUtil.d(TAG, "bookId = " + bookId);
-        KiiLikeConnection.fetchLikeBookId(bookId, userId, new KiiObjectCallback<Like>() {
+        KiiLikeConnection.fetchLikeByBookId(bookId, userId, new KiiObjectCallback<Like>() {
             @Override
             public void success(int token, Like like) {
                 if (like == null) {
@@ -370,38 +352,6 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
             public void failure(Exception e) {
                 Log.e(TAG, "failure: ", e);
 
-            }
-        });
-    }
-
-    private void clickToDisStared(){
-        String bookId = book.getId();
-        LogUtil.d (TAG, "bookId = " + bookId);
-        KiiLikeConnection.fetchLikeBookId(bookId, userId, new KiiObjectCallback<Like> () {
-            @Override
-            public void success(int token, Like like) {
-                String likeId = like.getId();
-                LogUtil.d (TAG, "likeId = " + likeId);
-
-                KiiObject likeObject = Kii.bucket(Like.BUCKET_NAME).object(likeId);
-                likeObject.delete(new KiiObjectCallBack() {
-                    @Override
-                    public void onDeleteCompleted(int token, Exception exception) {
-                        if (exception != null) {
-                            Log.d(TAG, "削除できません!");
-                            return;
-                        }
-                        Log.d(TAG, "削除完了!");
-                        ImageView star = (ImageView) findViewById(R.id.bookInfoLike);
-                        assert star != null;
-                        star.setBackgroundResource(R.drawable.star_off);
-                    }
-                });
-            }
-
-            @Override
-            public void failure(@Nullable Exception e) {
-                Log.e(TAG, "failure: ", e);
             }
         });
     }
