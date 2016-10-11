@@ -15,6 +15,9 @@ import org.json.JSONException;
 public class Like extends KiiModel implements Parcelable {
     public static final String BUCKET_NAME = "likes";
     public static final String BOOK_ID = "book_id";
+    public static final String BOOK_TITLE = "book_title";
+    public static final String BOOK_AUTHOR = "book_author";
+    public static final String BOOK_IMAGE_URL = "book_image_url";
     public static final String LIKE = "like";
     public static final String USER_ID = "userId";
 
@@ -24,6 +27,9 @@ public class Like extends KiiModel implements Parcelable {
     private String likeId;
     private String userId;
     private String bookId;
+    private String bookTitle;
+    private String bookAuthor;
+    private String bookImageUrl;
     private boolean like;
 
     /**
@@ -38,6 +44,10 @@ public class Like extends KiiModel implements Parcelable {
         Like like = new Like();
         like.setUserId(userId);
         like.setBookId(book.getId());
+        BookInfo info = book.getInfo();
+        like.setBookTitle(info.getTitle());
+        like.setBookAuthor(info.getAuthor());
+        like.setBookImageUrl(info.getImageUrl());
         return like;
     }
 
@@ -56,6 +66,9 @@ public class Like extends KiiModel implements Parcelable {
         userId = "";
         like = true;
         bookId = "";
+        bookTitle = "";
+        bookAuthor = "";
+        bookImageUrl = "";
     }
 
     private Like(KiiObject kiiObject) throws JSONException {
@@ -68,15 +81,6 @@ public class Like extends KiiModel implements Parcelable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-
-    public String getLikeId() {
-        return likeId;
-    }
-
-    public void setLikeId(String likeId) {
-        this.likeId = likeId;
     }
 
     public String getUserId() {
@@ -103,6 +107,30 @@ public class Like extends KiiModel implements Parcelable {
         this.bookId = bookId;
     }
 
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
+    }
+
+    public String getBookAuthor() {
+        return bookAuthor;
+    }
+
+    public void setBookAuthor(String bookAuthor) {
+        this.bookAuthor = bookAuthor;
+    }
+
+    public String getBookImageUrl() {
+        return bookImageUrl;
+    }
+
+    public void setBookImageUrl(String bookImageUrl) {
+        this.bookImageUrl = bookImageUrl;
+    }
+
     @Override
     public KiiBucket bucket() {
         return Kii.bucket(BUCKET_NAME);
@@ -113,6 +141,9 @@ public class Like extends KiiModel implements Parcelable {
         userId = object.getString(USER_ID);
         like = object.getBoolean(LIKE);
         bookId = object.getString(BOOK_ID);
+        bookTitle = object.getString(BOOK_TITLE);
+        bookAuthor = object.getString(BOOK_AUTHOR);
+        bookImageUrl = object.getString(BOOK_IMAGE_URL);
     }
 
     @Override
@@ -123,6 +154,9 @@ public class Like extends KiiModel implements Parcelable {
         source.set(USER_ID, userId);
         source.set(LIKE, like);
         source.set(BOOK_ID, bookId);
+        source.set(BOOK_TITLE, bookTitle);
+        source.set(BOOK_AUTHOR, bookAuthor);
+        source.set(BOOK_IMAGE_URL, bookImageUrl);
         return source;
     }
 
@@ -137,6 +171,9 @@ public class Like extends KiiModel implements Parcelable {
         dest.writeString(this.userId);
         dest.writeByte(this.like ? (byte) 1 : (byte) 0);
         dest.writeString(this.bookId);
+        dest.writeString(this.bookTitle);
+        dest.writeString(this.bookAuthor);
+        dest.writeString(this.bookImageUrl);
     }
 
     protected Like(Parcel in) {
@@ -144,6 +181,9 @@ public class Like extends KiiModel implements Parcelable {
         this.userId = in.readString();
         this.like = in.readByte() != 0;
         this.bookId = in.readString();
+        this.bookTitle = in.readString();
+        this.bookAuthor = in.readString();
+        this.bookImageUrl = in.readString();
     }
 
     public static final Creator<Like> CREATOR = new Creator<Like>() {

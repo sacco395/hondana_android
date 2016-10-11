@@ -1,7 +1,6 @@
 package com.books.hondana;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,8 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.books.hondana.activity.SelectedBooksActivity;
 
 public class InfoListViewAdapter extends BaseAdapter {
 
@@ -133,15 +130,15 @@ public class InfoListViewAdapter extends BaseAdapter {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-            Intent intent = new Intent(this.getContext(), SelectedBooksActivity.class);
-            // clickされたpositionのtextとphotoのID
-            String selectedText = info[position];
-            int selectedPhoto = photos[position];
-            // インテントにセット
-            intent.putExtra("Text", selectedText);
-            intent.putExtra("Photo", selectedPhoto);
-            // Activity をスイッチする
-            startActivity(intent);
+//            Intent intent = new Intent(this.getContext(), SelectedBooksActivity.class);
+//            // clickされたpositionのtextとphotoのID
+//            String selectedText = info[position];
+//            int selectedPhoto = photos[position];
+//            // インテントにセット
+//            intent.putExtra("Text", selectedText);
+//            intent.putExtra("Photo", selectedPhoto);
+//            // Activity をスイッチする
+//            startActivity(intent);
         }
     }
 }

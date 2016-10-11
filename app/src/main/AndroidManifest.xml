@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".HelloKii"
+        android:name=".HondanaApplication"
         android:allowBackup="true"
         android:icon="@mipmap/hondana_launcher_icon"
         android:label="@string/title_MyActivity"
@@ -49,10 +49,6 @@
             android:label="@string/title_activity_likes"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.SelectedBooksActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.HadArrivedBookActivity"
             android:label="@string/title_activity_swap_book"

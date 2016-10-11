@@ -37,10 +37,9 @@ public class KiiLikeConnection {
 
 
     public static void fetchStared(String userId, KiiObjectListCallback<Like> callback){
-        KiiQuery StaredQuery = new KiiQuery(KiiClause.and(
-                KiiClause.equals(Like.USER_ID, userId),
-                KiiClause.equals(Like.LIKE, true)));
-        queryLikeBucket(StaredQuery, callback);
+        KiiClause clause = KiiClause.equals(Like.USER_ID, userId);
+        KiiQuery stared = new KiiQuery(clause);
+        queryLikeBucket(stared, callback);
     }
 
     /**
@@ -80,12 +79,11 @@ public class KiiLikeConnection {
     }
 
 
-    public static void fetchLikeBookId(final String bookId, final String userId, final KiiObjectCallback<Like> callback) {
+    public static void fetchLikeByBookId(final String bookId, final String userId, final KiiObjectCallback<Like> callback) {
         final KiiQuery query = new KiiQuery(
                 KiiClause.and(
                         KiiClause.equals(Like.BOOK_ID, bookId),
                         KiiClause.equals(Like.USER_ID, userId)
-
                 )
         );
         query.setLimit(1);
@@ -102,9 +100,15 @@ public class KiiLikeConnection {
                 }
                 // Success
                 try {
+                    if (result.getResult().isEmpty()) {
+                        callback.success(token, null);
+                        Log.d(TAG,"お気に入りじゃなかったです");
+                        return;
+                    }
                     KiiObject kiiObject = result.getResult().get(0);
                     Like like = Like.createFrom(kiiObject);
                     callback.success(token, like);
+
                 } catch (JSONException e1) {
                     Log.e(TAG, "onQueryCompleted: ", e1);
                     callback.failure(e);

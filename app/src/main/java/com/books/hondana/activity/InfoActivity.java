@@ -1,7 +1,6 @@
 //あなたへのお知らせ
 package com.books.hondana.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -76,15 +75,15 @@ public class InfoActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        Intent intent = new Intent(this.getApplicationContext(), SelectedBooksActivity.class);
-        // clickされたpositionのtextとphotoのID
-        String selectedText = info[position];
-        int selectedPhoto = photos[position];
-        // インテントにセット
-        intent.putExtra("Text", selectedText);
-        intent.putExtra("Photo", selectedPhoto);
-        // Activity をスイッチする
-        startActivity(intent);
+//        Intent intent = new Intent(this.getApplicationContext(), SelectedBooksActivity.class);
+//        // clickされたpositionのtextとphotoのID
+//        String selectedText = info[position];
+//        int selectedPhoto = photos[position];
+//        // インテントにセット
+//        intent.putExtra("Text", selectedText);
+//        intent.putExtra("Photo", selectedPhoto);
+//        // Activity をスイッチする
+//        startActivity(intent);
     }
 
 
