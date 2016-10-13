@@ -50,11 +50,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.HadArrivedBookActivity"
-            android:label="@string/title_activity_swap_book"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".exhibited.ExhibitedBookActivity"
             android:label="@string/title_activity_request"
             android:screenOrientation="portrait"
