@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.books.hondana.R;
@@ -72,6 +73,11 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.buttonRequest).setOnClickListener(this);
         findViewById(R.id.buttonSelectFile).setOnClickListener(this);
 
+        CheckBox cbParcel = (CheckBox) findViewById(R.id.parcelCheckBox);
+        assert cbParcel != null;
+        cbParcel.setChecked(false);
+        cbParcel.setOnClickListener(this);
+
 
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -113,6 +119,15 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                 default:
                     break;
             }
+        }
+        if (!(v instanceof CheckBox)) {
+            return;
+        }
+        CheckBox cb = (CheckBox) v;
+        switch (cb.getId()) {
+            case R.id.parcelCheckBox:
+                request.setParcel(cb.isChecked());
+                break;
         }
     }
 

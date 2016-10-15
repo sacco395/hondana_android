@@ -80,36 +80,36 @@
             android:layout_marginBottom="15dp"
             android:background="@drawable/shape_rounded_corners" />
 
-        <!--&lt;!&ndash;区切り線&ndash;&gt;-->
-        <!--<View-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="20dip"-->
-            <!--android:background="#F1F0EE"-->
-            <!--android:layout_marginLeft="6dip"-->
-            <!--android:layout_marginRight="6dip"-->
-            <!--android:layout_marginTop="20dip"-->
-            <!--android:layout_marginBottom="20dip" />-->
+        <!--区切り線-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#F1F0EE"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="20dip"
+            android:layout_marginBottom="20dip" />
 
-        <!--&lt;!&ndash;同梱を希望する場合はチェックを入れてください。&ndash;&gt;-->
-        <!--<TextView-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="0.1"-->
-            <!--android:paddingLeft="6dip"-->
-            <!--android:paddingRight="6dip"-->
-            <!--android:paddingBottom="6dip"-->
-            <!--android:text="@string/requestText04"-->
-            <!--android:id="@+id/textView4"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_marginLeft="10dp" />-->
+        <!--同梱を希望する場合はチェックを入れてください。-->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:text="@string/requestText04"
+            android:id="@+id/textView4"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp" />
 
-        <!--<CheckBox-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/checkBoxBundle"-->
-            <!--android:id="@+id/checkBoxBundle"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_marginBottom="20dp" />-->
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/checkBoxBundle"
+            android:id="@+id/parcelCheckBox"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp" />
 
         <LinearLayout
             android:layout_width="fill_parent"

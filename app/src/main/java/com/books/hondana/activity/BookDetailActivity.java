@@ -243,7 +243,6 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 				info.setSize(size);
 				targetBook.setInfo(info);
 				condition.setSmell(smell);
-				condition.setSmell(smell);
 				targetBook.setCondition(condition);
 
 

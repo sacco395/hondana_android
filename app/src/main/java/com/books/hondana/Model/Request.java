@@ -36,6 +36,7 @@ public class Request extends KiiModel implements Parcelable {
     public static final String RECEIVED_DATE = "received_date";
     public static final String EVALUATION_BY_CLIENT = "evaluation_by_client";
     public static final String EVALUATE_MESSAGE = "evaluate_message";
+    public static final String PARCEL = "parcel";
     private String id;
     /**
      * リクエストをしたユーザID
@@ -57,6 +58,7 @@ public class Request extends KiiModel implements Parcelable {
     private String pdf_url;
     private int evaluationByClient;
     private String evaluateMessage;
+    private boolean parcel;
 
     /**
      * Request を、新規に作成する。すでにサーバに保存されているオブジェクトの取得は、
@@ -99,6 +101,7 @@ public class Request extends KiiModel implements Parcelable {
         receivedDate = "";
         pdf_url = "";
         evaluateMessage = "";
+        parcel = false;
     }
 
     public static final int EVALUATION_EXCELLENT = 0;
@@ -204,6 +207,14 @@ public class Request extends KiiModel implements Parcelable {
 
     public void setEvaluateMessage(String evaluateMessage) {
         this.evaluateMessage = evaluateMessage;
+    }
+
+    public boolean hasParcel() {
+        return parcel;
+    }
+
+    public void setParcel(boolean parcel) {
+        this.parcel = parcel;
     }
 
 
@@ -316,6 +327,7 @@ public class Request extends KiiModel implements Parcelable {
         receivedDate = object.getString(RECEIVED_DATE);
         evaluationByClient = object.getInt(EVALUATION_BY_CLIENT);
         evaluateMessage = object.getString(EVALUATE_MESSAGE);
+        parcel = object.getBoolean(PARCEL);
 
     }
 
@@ -335,6 +347,7 @@ public class Request extends KiiModel implements Parcelable {
         source.set(RECEIVED_DATE, receivedDate);
         source.set(EVALUATION_BY_CLIENT, evaluationByClient);
         source.set(EVALUATE_MESSAGE, evaluateMessage);
+        source.set(PARCEL, parcel);
         return source;
     }
 
@@ -360,6 +373,7 @@ public class Request extends KiiModel implements Parcelable {
         dest.writeString(this.receivedDate);
         dest.writeInt(this.evaluationByClient);
         dest.writeString(this.evaluateMessage);
+        dest.writeByte(this.parcel ? (byte) 1 : (byte) 0);
     }
 
     protected Request(Parcel in) {
@@ -378,6 +392,7 @@ public class Request extends KiiModel implements Parcelable {
         this.receivedDate = in.readString();
         this.evaluationByClient = in.readInt();
         this.evaluateMessage = in.readString();
+        this.parcel = in.readByte() != 0;
     }
 
     public static final Creator<Request> CREATOR = new Creator<Request>() {

@@ -90,7 +90,7 @@ public class Member extends KiiModel implements Parcelable {
         address = "";
         profile = "";
         imageUrl = "";
-        point = 1;
+        point = 5;
         pointsByBooks = 0;
         favoriteAuthors = new AuthorList();
     }

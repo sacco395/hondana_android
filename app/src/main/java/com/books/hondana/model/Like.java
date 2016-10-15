@@ -24,7 +24,6 @@ public class Like extends KiiModel implements Parcelable {
     /**
      * きになるを押したユーザID
      */
-    private String likeId;
     private String userId;
     private String bookId;
     private String bookTitle;
