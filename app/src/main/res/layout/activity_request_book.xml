@@ -102,6 +102,18 @@
             android:id="@+id/textView4"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="10dp" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:text="@string/requestText05"
+            android:id="@+id/textView5"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:textColor="#FF0000" />
 
         <CheckBox
             android:layout_width="wrap_content"

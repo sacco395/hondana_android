@@ -105,28 +105,28 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.35"
-        android:id="@+id/icon_good"
-        android:src="@drawable/icon_excellent"
-        android:layout_marginTop="26dp" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:id="@+id/icon_good"
+            app:srcCompat="@drawable/icon_excellent"
+            android:layout_marginTop="26dp" />
 
         <ImageView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.35"
-        android:id="@+id/icon_neutral"
-        android:src="@drawable/icon_good"
-        android:layout_marginTop="26dp" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:id="@+id/icon_neutral"
+            app:srcCompat="@drawable/icon_good"
+            android:layout_marginTop="26dp" />
 
         <ImageView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.35"
-        android:id="@+id/icon_bad"
-        android:src="@drawable/icon_bad"
-        android:layout_marginTop="26dp" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:id="@+id/icon_bad"
+            app:srcCompat="@drawable/icon_bad"
+            android:layout_marginTop="26dp" />
         </LinearLayout>
 
 

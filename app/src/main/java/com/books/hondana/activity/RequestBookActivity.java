@@ -112,9 +112,13 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                     break;
 
                 case R.id.buttonRequest:
-                    // クリック処理（交換リクエストの日時とユーザーIDを保存）
-                    saveRequestDate();
-                    saveMinusPoint();
+                    String pdfUrl = request.getPdfUrl ();
+                    if (pdfUrl.equals("")) {
+                        Toast.makeText(getApplicationContext(), "ラベルをアップロードしないとリクエストできません", Toast.LENGTH_LONG).show();
+                    } else {
+                        saveRequestDate ();
+                        saveMinusPoint ();
+                    }
                     break;
                 default:
                     break;

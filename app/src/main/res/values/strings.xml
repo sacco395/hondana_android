@@ -49,7 +49,8 @@
     <string name="requestText03">"2.宛名ラベルのデータをアップロードしましょう。"</string>
     <string name="buttonSelectFile">"アップロード画面へ"</string>
 
-    <string name="requestText04">"3.同梱を希望する場合はチェックを入れてください。\n＊希望しても同梱できない場合もあります。"</string>
+    <string name="requestText04">"3.同梱を希望する場合はチェックを入れてください。"</string>
+    <string name="requestText05">"＊希望しても同梱できない場合もあります。"</string>
     <string name="checkBoxBundle">"同梱希望"</string>
 
     <string name="buttonCancel">"キャンセル"</string>
