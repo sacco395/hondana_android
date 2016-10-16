@@ -185,86 +185,91 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 		btnAddKiiCloud.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//備考欄のテキストここから
-				EditText noteField = (EditText) (findViewById (R.id.edtNote));
-				assert noteField != null;
-				String noteStr = noteField.getText().toString ();
-				// 入力された文字を取得して保存
-				condition.setNote(noteStr);
-				//備考欄のテキストここまで
+				if (!DateUtil.isOneYearAfter (info.getIssueDate ())) {
+					Toast.makeText (BookDetailActivity.this, "一年以内に発行された書籍は登録できません。",
+							Toast.LENGTH_LONG).show ();
+				} else {
+					//備考欄のテキストここから
+					EditText noteField = (EditText) (findViewById (R.id.edtNote));
+					assert noteField != null;
+					String noteStr = noteField.getText ().toString ();
+					// 入力された文字を取得して保存
+					condition.setNote (noteStr);
+					//備考欄のテキストここまで
 
-				Size size = info.getSize();
+					Size size = info.getSize ();
 
-				//本のサイズここから
-				EditText heightField = (EditText) (findViewById(R.id.Height));
-				assert heightField != null;
-				String heightStr = heightField.getText().toString();
-				double height = getValidDouble(heightStr);
-				size.setHeight(height);
-				// 入力された文字を取得して保存
+					//本のサイズここから
+					EditText heightField = (EditText) (findViewById (R.id.Height));
+					assert heightField != null;
+					String heightStr = heightField.getText ().toString ();
+					double height = getValidDouble (heightStr);
+					size.setHeight (height);
+					// 入力された文字を取得して保存
 
 
-				EditText widthField = (EditText) (findViewById(R.id.Wide));
-				assert widthField != null;
-				String widthStr = widthField.getText().toString();
-				double width = getValidDouble(widthStr);
-				size.setWidth(width);
+					EditText widthField = (EditText) (findViewById (R.id.Wide));
+					assert widthField != null;
+					String widthStr = widthField.getText ().toString ();
+					double width = getValidDouble (widthStr);
+					size.setWidth (width);
 
-				EditText thicknessField = (EditText) (findViewById(R.id.Depth));
-				assert thicknessField != null;
-				String thicknessStr = thicknessField.getText().toString();
-				double thickness = getValidDouble(thicknessStr);
-				size.setThickness(thickness);
+					EditText thicknessField = (EditText) (findViewById (R.id.Depth));
+					assert thicknessField != null;
+					String thicknessStr = thicknessField.getText ().toString ();
+					double thickness = getValidDouble (thicknessStr);
+					size.setThickness (thickness);
 
-				EditText weightField = (EditText) (findViewById(R.id.Weight));
-				assert weightField != null;
-				String weightStr = weightField.getText().toString();
-				double weight = getValidDouble(weightStr);
-				size.setWeight(weight);
-				//本のサイズここまで
+					EditText weightField = (EditText) (findViewById (R.id.Weight));
+					assert weightField != null;
+					String weightStr = weightField.getText ().toString ();
+					double weight = getValidDouble (weightStr);
+					size.setWeight (weight);
+					//本のサイズここまで
 
-				KiiUser user = KiiUser.getCurrentUser();
-				if (user == null || user.getID() == null) {
-					Log.e(TAG, "onClick: User ID が取得できません");
-					Toast.makeText(BookDetailActivity.this, "エラー: ユーザ情報が取得できません", Toast.LENGTH_SHORT).show();
-					return;
+					KiiUser user = KiiUser.getCurrentUser ();
+					if (user == null || user.getID () == null) {
+						Log.e (TAG, "onClick: User ID が取得できません");
+						Toast.makeText (BookDetailActivity.this, "エラー: ユーザ情報が取得できません", Toast.LENGTH_SHORT).show ();
+						return;
+					}
+
+					KiiUser kiiUser = KiiUser.getCurrentUser ();
+					assert kiiUser != null;
+					String userId = kiiUser.getID ();
+					LogUtil.d (TAG, "userID = " + userId);
+					String userName = kiiUser.getUsername ();
+					LogUtil.d (TAG, "userName = " + userName);
+
+
+					targetBook.setOwnerId (user.getID ());
+					targetBook.setOwnerName (user.getUsername ());
+					info.setSize (size);
+					targetBook.setInfo (info);
+					condition.setSmell (smell);
+					targetBook.setCondition (condition);
+
+
+					// show a progress dialog to the user
+					final ProgressDialog progress = ProgressDialog.show (BookDetailActivity.this, "登録中", "しばらくお待ちください", true);
+					targetBook.save (false, new KiiModel.KiiSaveCallback () {
+						@Override
+						public void success(int token, KiiObject object) {
+							progress.dismiss ();
+							Log.d (TAG, "success: ");
+							Intent intent = new Intent ();
+							setResult (Activity.RESULT_OK, intent);
+							finish ();
+						}
+
+						@Override
+						public void failure(@Nullable Exception e) {
+							progress.dismiss ();
+							Log.e (TAG, "failure: ", e);
+							Toast.makeText (BookDetailActivity.this, "本の登録に失敗しました。", Toast.LENGTH_SHORT).show ();
+						}
+					});
 				}
-
-				KiiUser kiiUser = KiiUser.getCurrentUser();
-				assert kiiUser != null;
-				String userId = kiiUser.getID();
-				LogUtil.d (TAG, "userID = " + userId);
-				String userName = kiiUser.getUsername();
-				LogUtil.d (TAG, "userName = " + userName);
-
-
-				targetBook.setOwnerId(user.getID());
-				targetBook.setOwnerName(user.getUsername());
-				info.setSize(size);
-				targetBook.setInfo(info);
-				condition.setSmell(smell);
-				targetBook.setCondition(condition);
-
-
-				// show a progress dialog to the user
-				final ProgressDialog progress = ProgressDialog.show(BookDetailActivity.this, "登録中", "しばらくお待ちください", true);
-				targetBook.save(false, new KiiModel.KiiSaveCallback() {
-					@Override
-					public void success(int token, KiiObject object) {
-						progress.dismiss();
-						Log.d(TAG, "success: ");
-						Intent intent = new Intent();
-						setResult(Activity.RESULT_OK, intent);
-						finish();
-					}
-
-					@Override
-					public void failure(@Nullable Exception e) {
-						progress.dismiss();
-						Log.e(TAG, "failure: ", e);
-						Toast.makeText(BookDetailActivity.this, "本の登録に失敗しました。", Toast.LENGTH_SHORT).show();
-					}
-				});
 			}
 		});
 	}
