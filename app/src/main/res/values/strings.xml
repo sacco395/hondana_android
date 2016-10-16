@@ -49,7 +49,7 @@
     <string name="requestText03">"2.宛名ラベルのデータをアップロードしましょう。"</string>
     <string name="buttonSelectFile">"アップロード画面へ"</string>
 
-    <string name="requestText04">"3.同梱を希望する場合はチェックを入れてください。"</string>
+    <string name="requestText04">"3.同梱を希望する場合はチェックを入れてください。\n＊希望しても同梱できない場合もあります。"</string>
     <string name="checkBoxBundle">"同梱希望"</string>
 
     <string name="buttonCancel">"キャンセル"</string>
@@ -68,10 +68,9 @@
     <string name="passedText03">"2.宛名ラベルをプリントして梱包した本に貼り付け、\n本を発送してください。"</string>
     <string name="passedText04">"本の梱包のやりかた>"</string>
 
-    <string name="passedText05">"3.同梱を希望している人に発送する場合は\n選択してください。"</string>
+    <string name="passedText05">"3.同梱を希望している人に発送する場合は\n同梱できたらチェックを入れてください。"</string>
 
-    <string name="radioButtonBundle">"同梱しました！"</string>
-    <string name="radioButtonNotBundle">"ごめんなさい、同梱できませんでした‥"</string>
+    <string name="parcel">"同梱しました！"</string>
 
     <string name="buttonSending">"発送完了"</string>
 

@@ -61,9 +61,6 @@ public class ReceivedRequestBookListViewAdapter extends BaseAdapter {
 
             ImageView ivCover = (ImageView) itemLayout.findViewById(R.id.iv_BookImg);
             TextView tvTitle = (TextView) itemLayout.findViewById(R.id.tv_BookTitle);
-//            TextView tvMessage = (TextView) itemLayout.findViewById(R.id.tv_message);
-//            TextView tvDate = (TextView) itemLayout.findViewById(R.id.tv_date);
-//            itemLayout.setTag(new ViewHolder(ivCover, tvTitle, tvMessage, tvDate));
             itemLayout.setTag(new ViewHolder(ivCover, tvTitle));
 
             convertView = itemLayout;
@@ -89,36 +86,6 @@ public class ReceivedRequestBookListViewAdapter extends BaseAdapter {
 
         holder.tvTitle.setText("「" + info.getTitle() + "」の発送をしましょう");
 
-//        String bookId = book.getId ();
-//        LogUtil.d(TAG, "bookId: " + bookId);
-//        KiiRequestConnection.fetchRequestsByOthers(bookId, new KiiObjectCallback<Request> () {
-//            @Override
-//            public void success(int token, Request request) {
-//                final String requestDate = request.getRequestedDate ();
-//                LogUtil.d (TAG, "requestDate: " + requestDate);
-//                holder.tvDate.setText (requestDate);
-//            }
-//
-//            @Override
-//            public void failure(Exception e) {
-//                LogUtil.e(TAG, "failure: ", e);
-//            }
-//        });
-//
-//        KiiMemberConnection.fetch(clientId, new KiiObjectCallback<Member> () {
-//            @Override
-//            public void success(int token, Member member) {
-//                final String name = member.getName();
-//                LogUtil.d(TAG, "name: " + name);
-//                holder.tvMessage.setText(name + "さんがあなたにリクエストをしました。");
-//            }
-//
-//            @Override
-//            public void failure(Exception e) {
-//                LogUtil.e(TAG, "failure: ", e);
-//            }
-//        });
-
         return convertView;
     }
 
@@ -129,15 +96,10 @@ public class ReceivedRequestBookListViewAdapter extends BaseAdapter {
     public static class ViewHolder {
         public ImageView ivCover;
         public TextView tvTitle;
-//        public TextView tvMessage;
-//        public TextView tvDate;
 
-//        public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvMessage, TextView tvDate) {
-public ViewHolder(ImageView ivCover, TextView tvTitle) {
+    public ViewHolder(ImageView ivCover, TextView tvTitle) {
             this.ivCover = ivCover;
             this.tvTitle = tvTitle;
-//            this.tvMessage = tvMessage;
-//            this.tvDate = tvDate;
         }
     }
 }

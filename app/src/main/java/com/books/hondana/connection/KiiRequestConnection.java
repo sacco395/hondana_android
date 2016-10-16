@@ -121,14 +121,6 @@ public class KiiRequestConnection {
         queryRequestBucket(EvaluatedQuery, callback);
     }
 
-//    public static void fetchStared(String userId, String book_Id, KiiObjectListCallback<Request> callback){
-//        KiiQuery StaredQuery = new KiiQuery(KiiClause.and(
-//                KiiClause.equals(Request.CLIENT_ID, userId),
-//                //KiiClause.equals(Request.BOOK_ID, book_Id),
-//                KiiClause.equals(Request.LIKE, true)));
-//        queryRequestBucket(StaredQuery, callback);
-//    }
-
     /**
      * KiiQuery を元に、Request のバケツを検索、リストを取得
      * @param query 検索条件
@@ -159,7 +151,7 @@ public class KiiRequestConnection {
     /**
      * @param callback
      */
-    public static void fetchByRequestBookId(final String bookId, final String serverUserId, final KiiObjectCallback<Request> callback) {
+    public static void fetchRequestByBookId(final String bookId, final String serverUserId, final KiiObjectCallback<Request> callback) {
         final KiiQuery query = new KiiQuery(
                 KiiClause.and(
                         KiiClause.equals(Request.SERVER_ID, serverUserId),
@@ -199,46 +191,6 @@ public class KiiRequestConnection {
         }, query);
     }
 
-
-    public static void fetchRequestByBookId(final String bookId, final String clientUserId, final KiiObjectCallback<Request> callback) {
-        final KiiQuery query = new KiiQuery(
-                KiiClause.and(
-                        KiiClause.equals(Request.CLIENT_ID, clientUserId),
-                        KiiClause.equals(Request.BOOK_ID, bookId)
-                )
-        );
-        query.setLimit(1);
-        query.sortByDesc("_created");
-        final KiiBucket requestBucket = Kii.bucket(Request.BUCKET_NAME);
-        requestBucket.query(new KiiQueryCallBack<KiiObject>() {
-            @Override
-            public void onQueryCompleted(int token, @Nullable KiiQueryResult<KiiObject> result, @Nullable Exception e) {
-                // エラーハンドリングと適したコールバック呼び出し
-                if (e != null) {
-                    callback.failure(e);
-                    return;
-                }
-                // result の null チェック（おそらくエラーが null なかぎり、このようなケースはないと思われるが、念のため）
-                if (result == null || result.getResult() == null) {
-                    Log.e(TAG, "onQueryCompleted: Could not get any result with " +
-                            "serverId=" + clientUserId + " AND bookId=" + bookId);
-                    callback.failure(null);
-                    return;
-                }
-                try {
-                    // KiiQueryResult が持っている KiiObject の List を getResult
-                    // で取得し、その List の一番先頭にあるものを取る
-                    // クエリで Limit を指定しているので、List と言っても、一つしかないはず
-                    KiiObject kiiObject = result.getResult().get(0);
-                    // KiiObject から Request を生成
-                    Request request = Request.createFrom(kiiObject);
-                    callback.success(token, request);
-                } catch (JSONException e1) {
-                    callback.failure(e1);
-                }
-            }
-        }, query);
-    }
 
     private static List<Request> convert(List<KiiObject> requestObjects) throws JSONException {
         List<Request> requests = new ArrayList<>();

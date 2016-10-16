@@ -116,41 +116,35 @@
 
 
 
-        <!--&lt;!&ndash;同梱を希望している人に発送する場合はチェックを入れてください。&ndash;&gt;-->
-        <!--<TextView-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="0.08"-->
-            <!--android:paddingLeft="6dip"-->
-            <!--android:paddingRight="6dip"-->
-            <!--android:paddingBottom="6dip"-->
-            <!--android:text="@string/passedText05"-->
-            <!--android:id="@+id/passedText05"-->
-            <!--android:layout_gravity="center_horizontal" />-->
-
-
-        <!--<RadioGroup android:layout_height="wrap_content"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:id="@+id/RadioGroup" >-->
-
-            <!--&lt;!&ndash;同梱しました！&ndash;&gt;-->
-            <!--<RadioButton-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="100dp"-->
-                <!--android:text="@string/radioButtonBundle"-->
-                <!--android:id="@+id/radioButtonBundle"-->
-                <!--android:checked="false" />-->
-
-            <!--&lt;!&ndash;ごめんなさい、同梱できませんでした‥&ndash;&gt;-->
-            <!--<RadioButton-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="100dp"-->
-                <!--android:text="@string/radioButtonNotBundle"-->
-                <!--android:id="@+id/radioButtonNotBundle"-->
-                <!--android:checked="false" />-->
-
-        <!--</RadioGroup>-->
-
+        <!--同梱を希望している人に発送する場合はチェックを入れてください。-->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.08"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:text="@string/passedText05"
+            android:id="@+id/passedText05"
+            android:layout_gravity="center_horizontal" />
+            <!--交換リクエストが届きました-->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.08"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:id="@+id/parcel"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#FF0000" />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parcel"
+            android:id="@+id/parcelCheckBox"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp" />
 
 
         <LinearLayout

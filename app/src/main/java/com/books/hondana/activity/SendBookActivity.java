@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,15 +68,27 @@ public class SendBookActivity extends AppCompatActivity
         LogUtil.d(TAG, "requested_date: " + requested_date);
         tvDate.setText(requested_date);
 
-        final TextView ClientName = (TextView)findViewById(R.id.client_name);
-        final String clientId = request.getClientId ();
+
+        TextView tv_parcel = (TextView)findViewById(R.id.parcel);
+        String parcel = request.getParcelText ();
+        if (!parcel.equals("")) {
+            tv_parcel.setText (parcel);
+        }
+
+        CheckBox cbParcel = (CheckBox) findViewById(R.id.parcelCheckBox);
+        assert cbParcel != null;
+        cbParcel.setChecked(false);
+        cbParcel.setOnClickListener(this);
+
+        final TextView clientName = (TextView)findViewById(R.id.client_name);
+        final String clientId = request.getClientId();
         LogUtil.d(TAG, "clientId: " + clientId);
-        KiiMemberConnection.fetch(clientId, new KiiObjectCallback<Member> () {
+        KiiMemberConnection.fetch(clientId, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {
                 final String name = member.getName();
                 LogUtil.d(TAG, "name: " + name);
-                ClientName.setText(name + "さんから");
+                clientName.setText(name + "さんから");
             }
 
             @Override
@@ -83,6 +96,8 @@ public class SendBookActivity extends AppCompatActivity
                 LogUtil.e(TAG, "failure: ", e);
             }
         });
+
+
 // ツールバーをアクションバーとしてセット
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar02);
         setSupportActionBar(toolbar);
@@ -113,6 +128,15 @@ public class SendBookActivity extends AppCompatActivity
                 default:
                     break;
             }
+        }
+        if (!(v instanceof CheckBox)) {
+            return;
+        }
+        CheckBox cb = (CheckBox) v;
+        switch (cb.getId()) {
+            case R.id.parcelCheckBox:
+                request.setParcelByServer(cb.isChecked());
+                break;
         }
     }
     public void bookPacking(View view) {

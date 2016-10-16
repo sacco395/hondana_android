@@ -37,6 +37,7 @@ public class Request extends KiiModel implements Parcelable {
     public static final String EVALUATION_BY_CLIENT = "evaluation_by_client";
     public static final String EVALUATE_MESSAGE = "evaluate_message";
     public static final String PARCEL = "parcel";
+    public static final String PARCEL_BY_SERVER = "parcel_by_server";
     private String id;
     /**
      * リクエストをしたユーザID
@@ -59,6 +60,7 @@ public class Request extends KiiModel implements Parcelable {
     private int evaluationByClient;
     private String evaluateMessage;
     private boolean parcel;
+    private boolean parcelByServer;
 
     /**
      * Request を、新規に作成する。すでにサーバに保存されているオブジェクトの取得は、
@@ -102,6 +104,7 @@ public class Request extends KiiModel implements Parcelable {
         pdf_url = "";
         evaluateMessage = "";
         parcel = false;
+        parcelByServer = false;
     }
 
     public static final int EVALUATION_EXCELLENT = 0;
@@ -209,12 +212,20 @@ public class Request extends KiiModel implements Parcelable {
         this.evaluateMessage = evaluateMessage;
     }
 
-    public boolean hasParcel() {
+    public boolean getParcel() {
         return parcel;
     }
 
     public void setParcel(boolean parcel) {
         this.parcel = parcel;
+    }
+
+    public boolean getParcelByServer() {
+        return parcelByServer;
+    }
+
+    public void setParcelByServer(boolean parcelByServer) {
+        this.parcelByServer = parcelByServer;
     }
 
 
@@ -241,6 +252,22 @@ public class Request extends KiiModel implements Parcelable {
                 return R.drawable.icon_bad;
             default:
                 return 1;
+        }
+    }
+
+    public String getParcelText() {
+        if (getParcel()) {
+            return "*相手のユーザーは同梱を希望しています";
+        } else {
+            return "";
+        }
+    }
+
+    public String getParcelByServerText() {
+        if (getParcelByServer()) {
+            return "同梱して送付中です";
+        } else {
+            return "同梱できなかったので個別に送付中です";
         }
     }
 
@@ -328,6 +355,7 @@ public class Request extends KiiModel implements Parcelable {
         evaluationByClient = object.getInt(EVALUATION_BY_CLIENT);
         evaluateMessage = object.getString(EVALUATE_MESSAGE);
         parcel = object.getBoolean(PARCEL);
+        parcelByServer = object.getBoolean(PARCEL_BY_SERVER);
 
     }
 
@@ -348,6 +376,7 @@ public class Request extends KiiModel implements Parcelable {
         source.set(EVALUATION_BY_CLIENT, evaluationByClient);
         source.set(EVALUATE_MESSAGE, evaluateMessage);
         source.set(PARCEL, parcel);
+        source.set (PARCEL_BY_SERVER, parcelByServer);
         return source;
     }
 
@@ -374,6 +403,7 @@ public class Request extends KiiModel implements Parcelable {
         dest.writeInt(this.evaluationByClient);
         dest.writeString(this.evaluateMessage);
         dest.writeByte(this.parcel ? (byte) 1 : (byte) 0);
+        dest.writeByte (this.parcelByServer ? (byte) 1 : (byte) 0);
     }
 
     protected Request(Parcel in) {
@@ -393,6 +423,7 @@ public class Request extends KiiModel implements Parcelable {
         this.evaluationByClient = in.readInt();
         this.evaluateMessage = in.readString();
         this.parcel = in.readByte() != 0;
+        this.parcelByServer = in.readByte() != 0;
     }
 
     public static final Creator<Request> CREATOR = new Creator<Request>() {

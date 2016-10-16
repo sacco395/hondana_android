@@ -82,12 +82,17 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
             assert tvDate != null;
             tvDate.setText(sent_date);
             assert tvBookTitle != null;
-            tvBookTitle.setText(BookTitle + "に本が発送されました\n" +
-                    "本が届いたら相手の評価をしましょう");
+            tvBookTitle.setText("「" + BookTitle + "」が発送されました。本が届いたら相手の評価をしましょう\n");
         } else {
             assert tvDate != null;
             tvDate.setText(requested_date);
             tvBookTitle.setText("「" + BookTitle + "」にリクエストしました");
+        }
+
+        TextView tv_parcel = (TextView)findViewById(R.id.parcel);
+        String parcel = request.getParcelByServerText();
+        if (!parcel.equals("")) {
+            tv_parcel.setText (parcel);
         }
 
         String coverUrl = request.getBookImageUrl();

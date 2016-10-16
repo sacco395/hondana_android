@@ -83,7 +83,7 @@ public class SentRequestBookListViewAdapter extends BaseAdapter {
 
         if (!sent_date.equals ("")) {
             holder.tvDate.setText(sent_date);
-            holder.tvTitle.setText(book_title + "に本が発送されました\n" +
+            holder.tvTitle.setText("「" + book_title + "」が発送されました\n" +
                     "本が届いたら相手の評価をしましょう");
         } else {
             holder.tvDate.setText(requested_date);

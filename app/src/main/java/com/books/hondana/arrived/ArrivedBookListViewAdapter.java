@@ -61,9 +61,8 @@ class ArrivedBookListViewAdapter extends BaseAdapter {
 
             ImageView ivCover = (ImageView) itemLayout.findViewById(R.id.iv_bookImg);
             TextView tvTitle = (TextView) itemLayout.findViewById(R.id.tv_bookTitle);
-            TextView tvMessage = (TextView) itemLayout.findViewById(R.id.tv_message);
             TextView tvDate = (TextView) itemLayout.findViewById(R.id.tv_date);
-            itemLayout.setTag(new ViewHolder(ivCover, tvTitle, tvMessage, tvDate));
+            itemLayout.setTag(new ViewHolder(ivCover, tvTitle, tvDate));
 
             convertView = itemLayout;
         }
@@ -100,13 +99,11 @@ class ArrivedBookListViewAdapter extends BaseAdapter {
     public static class ViewHolder {
         ImageView ivCover;
         TextView tvTitle;
-        TextView tvMessage;
         TextView tvDate;
 
-        public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvMessage, TextView tvDate) {
+        public ViewHolder(ImageView ivCover, TextView tvTitle, TextView tvDate) {
             this.ivCover = ivCover;
             this.tvTitle = tvTitle;
-            this.tvMessage = tvMessage;
             this.tvDate = tvDate;
         }
     }
