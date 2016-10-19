@@ -135,14 +135,14 @@
             android:paddingLeft="6dip"
             android:paddingRight="6dip"
             android:paddingBottom="6dip"
-            android:id="@+id/parcel"
+            android:id="@+id/several"
             android:layout_gravity="center_horizontal"
             android:textColor="#FF0000" />
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/parcel"
-            android:id="@+id/parcelCheckBox"
+            android:id="@+id/acceptSeveralCheckBox"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp" />
 

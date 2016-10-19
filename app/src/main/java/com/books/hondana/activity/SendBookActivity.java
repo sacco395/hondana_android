@@ -69,16 +69,16 @@ public class SendBookActivity extends AppCompatActivity
         tvDate.setText(requested_date);
 
 
-        TextView tv_parcel = (TextView)findViewById(R.id.parcel);
-        String parcel = request.getParcelText ();
-        if (!parcel.equals("")) {
-            tv_parcel.setText (parcel);
+        TextView tv_accept_several = (TextView)findViewById(R.id.several);
+        String acceptSeveral = request.getSeveralBooksText();
+        if (!acceptSeveral.equals("")) {
+            tv_accept_several.setText (acceptSeveral);
         }
 
-        CheckBox cbParcel = (CheckBox) findViewById(R.id.parcelCheckBox);
-        assert cbParcel != null;
-        cbParcel.setChecked(false);
-        cbParcel.setOnClickListener(this);
+        CheckBox cbAcceptSeveral = (CheckBox) findViewById(R.id.acceptSeveralCheckBox);
+        assert cbAcceptSeveral != null;
+        cbAcceptSeveral.setChecked(false);
+        cbAcceptSeveral.setOnClickListener(this);
 
         final TextView clientName = (TextView)findViewById(R.id.client_name);
         final String clientId = request.getClientId();
@@ -134,8 +134,8 @@ public class SendBookActivity extends AppCompatActivity
         }
         CheckBox cb = (CheckBox) v;
         switch (cb.getId()) {
-            case R.id.parcelCheckBox:
-                request.setParcelByServer(cb.isChecked());
+            case R.id.acceptSeveralCheckBox:
+                request.setAcceptSeveralBooks(cb.isChecked());
                 break;
         }
     }

@@ -205,7 +205,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/bookInfoBookConditionIcon"
-                android:src="@drawable/book_icon_good"
+                app:srcCompat="@drawable/book_icon_good"
                 android:layout_marginLeft="145dp"
                 android:layout_marginTop="20dp" />
         </LinearLayout>
@@ -307,7 +307,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ページの折れ"
-                android:id="@+id/bookInfoBrokenLead"
+                android:id="@+id/bookInfoFoldedLead"
                 android:textStyle="bold"
                 android:textColor="#2FCDB4"
                 android:layout_marginTop="10dp"
@@ -327,6 +327,32 @@
                 android:layout_marginTop="5dp"
                 android:background="#E6E5E1" />
 
+            <!--ページの破けリード-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ページの破け"
+                android:id="@+id/bookInfoBrokenLead"
+                android:textStyle="bold"
+                android:textColor="#2FCDB4"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp" />
+            <!--ページの破け-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ページの破け"
+                android:id="@+id/bookInfoBroken"
+                android:layout_marginLeft="10dp" />
+
+            <!--細い区切り線-->
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dip"
+                android:layout_marginTop="5dp"
+                android:background="#E6E5E1" />
+
+
             <!--サイズリード-->
             <TextView
                 android:layout_width="wrap_content"
@@ -345,6 +371,14 @@
                 android:text="サイズ"
                 android:id="@+id/bookInfoSize"
                 android:layout_marginLeft="10dp" />
+
+            <!--規格外の注意-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bookInfoBiggerThanClickpost"
+                android:layout_marginLeft="10dp"
+                android:textColor="#F26964"/>
 
             <!--細い区切り線-->
             <View

@@ -89,10 +89,10 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
             tvBookTitle.setText("「" + BookTitle + "」にリクエストしました");
         }
 
-        TextView tv_parcel = (TextView)findViewById(R.id.parcel);
-        String parcel = request.getParcelByServerText();
-        if (!parcel.equals("")) {
-            tv_parcel.setText (parcel);
+        TextView tv_several = (TextView)findViewById(R.id.severalBook);
+        String several = request.getAcceptSeveralBooksText();
+        if (!several.equals("")) {
+            tv_several.setText (several);
         }
 
         String coverUrl = request.getBookImageUrl();

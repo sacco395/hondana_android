@@ -73,10 +73,10 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.buttonRequest).setOnClickListener(this);
         findViewById(R.id.buttonSelectFile).setOnClickListener(this);
 
-        CheckBox cbParcel = (CheckBox) findViewById(R.id.parcelCheckBox);
-        assert cbParcel != null;
-        cbParcel.setChecked(false);
-        cbParcel.setOnClickListener(this);
+        CheckBox cbSeveral = (CheckBox) findViewById(R.id.severalCheckBox);
+        assert cbSeveral != null;
+        cbSeveral.setChecked(false);
+        cbSeveral.setOnClickListener(this);
 
 
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -129,8 +129,8 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         }
         CheckBox cb = (CheckBox) v;
         switch (cb.getId()) {
-            case R.id.parcelCheckBox:
-                request.setParcel(cb.isChecked());
+            case R.id.severalCheckBox:
+                request.setSeveralBooks(cb.isChecked());
                 break;
         }
     }

@@ -30,9 +30,12 @@ public class BookCondition extends JSONConvertible implements Parcelable {
     // KiiCloud 上のフィールド名
     public static final String LINED = "lined";
     public static final String FOLDED = "folded";
+    public static final String BROKEN = "broken";
     public static final String SUNBURNED = "sunburned";
     public static final String SCRATCHED = "scratched";
+    public static final String HAS_STICKER = "hasSticker";
     public static final String HAS_BAND = "hasBand";
+    public static final String DIFFERENT_COVER = "differentCover";
     public static final String EVALUATION = "evaluation";
     public static final String SMELL = "smell";
     public static final String NOTE = "note";
@@ -93,6 +96,10 @@ public class BookCondition extends JSONConvertible implements Parcelable {
     // 帯
     private boolean hasBand;
 
+    private boolean hasSticker;
+
+    private boolean differentCover;
+
     /**
      * 総合的な評価。良い、普通、汚れあり
      * 0: 良い
@@ -132,6 +139,13 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         this.folded = folded;
     }
 
+    public int getBroken() {
+        return broken;
+    }
+
+    public void setBroken(int broken) {
+        this.broken = broken;
+    }
 
     public boolean isSunburned() {
         return sunburned;
@@ -155,6 +169,22 @@ public class BookCondition extends JSONConvertible implements Parcelable {
 
     public void setHasBand(boolean hasBand) {
         this.hasBand = hasBand;
+    }
+
+    public boolean isHasSticker() {
+        return hasSticker;
+    }
+
+    public void setHasSticker(boolean hasSticker) {
+        this.hasSticker = hasSticker;
+    }
+
+    public boolean isDifferentCover() {
+        return differentCover;
+    }
+
+    public void setDifferentCover(boolean differentCover) {
+        this.differentCover = differentCover;
     }
 
     public int getEvaluation() {
@@ -218,6 +248,22 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         }
     }
 
+    public String getStickerText() {
+        if (hasSticker) {
+            return "シール跡あり";
+        } else {
+            return "";
+        }
+    }
+
+    public String getCoverText() {
+        if (differentCover) {
+            return "表紙違い";
+        } else {
+            return "";
+        }
+    }
+
     public String getLinedText() {
         switch (lined) {
             case LINED_ZERO_TO_FIVE:
@@ -275,9 +321,12 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         JSONObject json = new JSONObject();
         json.put(LINED, lined);
         json.put(FOLDED, folded);
+        json.put(BROKEN, broken);
         json.put(SUNBURNED, sunburned);
         json.put(SCRATCHED, scratched);
         json.put(HAS_BAND, hasBand);
+        json.put(HAS_STICKER, hasSticker);
+        json.put(DIFFERENT_COVER, differentCover);
         json.put(EVALUATION, evaluation);
         json.put(SMELL, smell.toJSON());
         json.put(NOTE, note);
@@ -288,9 +337,12 @@ public class BookCondition extends JSONConvertible implements Parcelable {
     public void setValues(JSONObject json) throws JSONException {
         lined = json.getInt(LINED);
         folded = json.getInt(FOLDED);
+        broken = json.getInt (BROKEN);
         sunburned = json.getBoolean(SUNBURNED);
         scratched = json.getBoolean(SCRATCHED);
         hasBand = json.getBoolean(HAS_BAND);
+        hasSticker = json.getBoolean(HAS_STICKER);
+        differentCover = json.getBoolean(DIFFERENT_COVER);
         evaluation = json.getInt(EVALUATION);
         smell = new Smell(json.getJSONObject(SMELL));
         note = json.getString(NOTE);
@@ -309,6 +361,8 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         dest.writeByte(this.sunburned ? (byte) 1 : (byte) 0);
         dest.writeByte(this.scratched ? (byte) 1 : (byte) 0);
         dest.writeByte(this.hasBand ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.hasSticker ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.differentCover ? (byte) 1 : (byte) 0);
         dest.writeInt(this.evaluation);
         dest.writeParcelable(this.smell, flags);
         dest.writeString(this.note);
@@ -321,6 +375,8 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         this.sunburned = in.readByte() != 0;
         this.scratched = in.readByte() != 0;
         this.hasBand = in.readByte() != 0;
+        this.hasSticker = in.readByte() != 0;
+        this.differentCover = in.readByte() != 0;
         this.evaluation = in.readInt();
         this.smell = in.readParcelable(Smell.class.getClassLoader());
         this.note = in.readString();

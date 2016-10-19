@@ -19,6 +19,7 @@ public class Size extends JSONConvertible implements Parcelable {
     private static final String HEIGHT = "height";
     private static final String THICKNESS = "thickness";
     private static final String WEIGHT = "weight";
+    private static final String BIGGER_THAN_CLICKPOST = "bigger_than_clickpost";
 
     private double width;
 
@@ -28,7 +29,10 @@ public class Size extends JSONConvertible implements Parcelable {
 
     private double weight;
 
+    private boolean biggerThanClickpost;
+
     public Size() {
+        biggerThanClickpost = false;
     }
 
     public Size(JSONObject json) throws JSONException {
@@ -67,6 +71,22 @@ public class Size extends JSONConvertible implements Parcelable {
         this.weight = weight;
     }
 
+    public boolean isBiggerThanClickpost() {
+        return biggerThanClickpost;
+    }
+
+    public void setBiggerThanClickpost(boolean biggerThanClickpost) {
+        this.biggerThanClickpost = biggerThanClickpost;
+    }
+
+    public String getBiggerThanClickpostText() {
+        if (biggerThanClickpost) {
+            return "この本は規格外のため、発送方法は発送者に委ねられて着払いになります";
+        } else {
+            return "";
+        }
+    }
+
     @Override
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
@@ -74,6 +94,7 @@ public class Size extends JSONConvertible implements Parcelable {
         json.put(HEIGHT, height);
         json.put(THICKNESS, thickness);
         json.put(WEIGHT, weight);
+        json.put(BIGGER_THAN_CLICKPOST, biggerThanClickpost);
         return json;
     }
 
@@ -83,6 +104,7 @@ public class Size extends JSONConvertible implements Parcelable {
         height = json.getDouble(HEIGHT);
         thickness = json.getDouble(THICKNESS);
         weight = json.getDouble(WEIGHT);
+        biggerThanClickpost = json.getBoolean(BIGGER_THAN_CLICKPOST);
     }
 
     @Override
@@ -96,6 +118,7 @@ public class Size extends JSONConvertible implements Parcelable {
         dest.writeDouble(this.height);
         dest.writeDouble(this.thickness);
         dest.writeDouble(this.weight);
+        dest.writeByte(this.biggerThanClickpost ? (byte) 1 : (byte) 0);
     }
 
     protected Size(Parcel in) {
@@ -103,6 +126,7 @@ public class Size extends JSONConvertible implements Parcelable {
         this.height = in.readDouble();
         this.thickness = in.readDouble();
         this.weight = in.readDouble();
+        this.biggerThanClickpost = in.readByte() != 0;
     }
 
     public static final Creator<Size> CREATOR = new Creator<Size>() {
