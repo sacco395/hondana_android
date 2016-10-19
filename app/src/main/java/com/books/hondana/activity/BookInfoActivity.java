@@ -47,9 +47,6 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
     final ImageLoader imageLoader = ImageLoader.getInstance();
 
 
-    KiiUser kiiUser = KiiUser.getCurrentUser();
-    String userId = kiiUser.getID();
-
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -107,6 +104,10 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         assert tv_bookFolded != null;
         tv_bookFolded.setText(condition.getFoldedText());
 
+        TextView tv_bookBroken = (TextView) findViewById(R.id.bookInfoBroken);
+        assert tv_bookBroken != null;
+        tv_bookBroken.setText(condition.getBrokenText());
+
         TextView tv_bookNotes = (TextView) findViewById(R.id.bookInfoNotes);
         assert tv_bookNotes != null;
         tv_bookNotes.setText(condition.getNote());
@@ -124,6 +125,13 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 //本のその他の状態
         // 空の文字列を作成
         String etcText = "";
+
+        String cover = condition.getCoverText();
+        if (!cover.equals("")) {
+            cover += "／";
+        }
+        etcText += cover;
+
         // 日焼け情報を追加
         String band = condition.getBandText();
         // sunburned が空の文字列でなければ、読点を挿入（ここは趣味で）
@@ -131,6 +139,12 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
             band += "／";
         }
         etcText += band;
+
+        String sticker = condition.getStickerText();
+        if (!sticker.equals("")) {
+            sticker += "／";
+        }
+        etcText += sticker;
 
         String sunburned = condition.getSunburnedText();
         // sunburned が空の文字列でなければ、読点を挿入（ここは趣味で）
@@ -183,6 +197,12 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         assert tv_bookInfoWeight != null;
         tv_bookInfoWeight.setText(size.getWeight() + "g");
 
+        TextView tv_bigger_than_clickpost = (TextView)findViewById(R.id.bookInfoBiggerThanClickpost);
+        String biggerThanClickpost = size.getBiggerThanClickpostText();
+        if (!biggerThanClickpost.equals("")) {
+            tv_bigger_than_clickpost.setText (biggerThanClickpost);
+        }
+
         //本のサイズここまで
 
         findViewById(R.id.buttonPreRequest).setOnClickListener(this);
@@ -217,6 +237,13 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         });
 
         final ImageView star = (ImageView) findViewById(R.id.bookInfoLike);
+        KiiUser kiiUser = KiiUser.getCurrentUser();
+        if (kiiUser == null) {
+            assert star != null;
+            star.setBackgroundResource(R.drawable.star_off);
+            return;
+        }
+        String userId = kiiUser.getID();
         KiiLikeConnection.fetchLikeByBookId(bookId, userId, new KiiObjectCallback<Like>() {
             @Override
             public void success(int token, Like like) {
@@ -308,6 +335,15 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
     private void clickToStarred() {
         String bookId = book.getId();
         LogUtil.d(TAG, "bookId = " + bookId);
+        KiiUser kiiUser = KiiUser.getCurrentUser();
+        if (kiiUser == null) {
+            Log.d (TAG, "onClick: Current KiiUser is null!");
+            Intent intent = new Intent (this, StartActivity.class);
+            startActivity (intent);
+            showToast ("会員登録をお願いします！");
+            return;
+        }
+        final String userId = kiiUser.getID();
         KiiLikeConnection.fetchLikeByBookId(bookId, userId, new KiiObjectCallback<Like>() {
             @Override
             public void success(int token, Like like) {

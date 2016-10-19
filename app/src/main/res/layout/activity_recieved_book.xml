@@ -67,7 +67,7 @@
                 android:paddingLeft="6dip"
                 android:paddingRight="6dip"
                 android:paddingBottom="6dip"
-                android:id="@+id/parcel"
+                android:id="@+id/severalBook"
                 android:layout_gravity="center_horizontal"
                 android:textColor="#FF0000" />
         </LinearLayout>

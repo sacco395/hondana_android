@@ -88,7 +88,6 @@
             android:text="その他状態"
             android:id="@+id/textView3"
             android:textStyle="bold" />
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -97,10 +96,32 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="表紙違い"
+                android:id="@+id/chkCover"
+                android:textSize="11dp"
+                android:layout_weight="0.3"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="帯あり"
                 android:id="@+id/chkBand"
                 android:textSize="11dp"
                 android:layout_weight="0.3"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="シール跡あり"
+                android:id="@+id/chkSticker"
+                android:textSize="11dp"
+                android:layout_weight="0.3"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <CheckBox
                 android:layout_width="wrap_content"
@@ -159,7 +180,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="290dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="4dp">
 
             <TextView
@@ -224,15 +245,14 @@
                     android:text="cm"
                     android:id="@+id/textView12"
                     android:textColor="@android:color/black" />
-
             </LinearLayout>
-
         </LinearLayout>
+
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.3"
             android:layout_margin="4dp">
 
@@ -264,7 +284,25 @@
 
             </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+        <CheckBox
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="規格外サイズ"
+            android:id="@+id/chkBiggerThanClickpost"
+            android:textSize="11dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A4サイズ/厚さ3cm/重さ1kgを超えるもの"
+            android:textSize="11dp"
+            android:textColor="#F26964"/>
     </LinearLayout>
 
     <LinearLayout
@@ -379,6 +417,65 @@
                     android:layout_height="wrap_content"
                     android:text="10P以上"
                     android:id="@+id/rFolded_10over"
+                    android:textSize="11dp"
+                    android:textColor="@android:color/black" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ページの破れ"
+            android:id="@+id/tvBroken"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/rBroken">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="なし"
+                    android:id="@+id/rBroken_no"
+                    android:textSize="11dp"
+                    android:textColor="@android:color/black" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5P未満"
+                    android:id="@+id/rBroken_5"
+                    android:textSize="11dp"
+                    android:textColor="@android:color/black" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5P以上 10P未満"
+                    android:id="@+id/rBroken_5_10"
+                    android:textSize="11dp"
+                    android:textColor="@android:color/black" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10P以上"
+                    android:id="@+id/rBroken_10over"
                     android:textSize="11dp"
                     android:textColor="@android:color/black" />
             </RadioGroup>

@@ -51,10 +51,25 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 		condition = targetBook.getCondition();
 		smell = condition.getSmell();
 
+		CheckBox cbBiggerThanClickpost = (CheckBox) findViewById(R.id.chkBiggerThanClickpost);
+		assert cbBiggerThanClickpost != null;
+		cbBiggerThanClickpost.setChecked(false);
+		cbBiggerThanClickpost.setOnClickListener(this);
+
 		CheckBox cbBand = (CheckBox) findViewById(R.id.chkBand);
 		assert cbBand != null;
 		cbBand.setChecked(false);
 		cbBand.setOnClickListener(this);
+
+		CheckBox cbCover = (CheckBox) findViewById(R.id.chkCover);
+		assert cbCover != null;
+		cbCover.setChecked(false);
+		cbCover.setOnClickListener(this);
+
+		CheckBox cbSticker = (CheckBox) findViewById(R.id.chkSticker);
+		assert cbSticker != null;
+		cbSticker.setChecked(false);
+		cbSticker.setOnClickListener(this);
 
 		CheckBox cbSunburned = (CheckBox) findViewById(R.id.chkSunburned);
 		assert cbSunburned != null;
@@ -108,7 +123,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 		assert tv_issueDate != null;
 		tv_issueDate.setText(info.getIssueDate());
 
-		final BookCondition condition = new BookCondition();
+//		final BookCondition condition = new BookCondition();
 
 		((RadioGroup)findViewById(R.id.rCondition)).setOnCheckedChangeListener
 				(new RadioGroup.OnCheckedChangeListener () {
@@ -164,6 +179,26 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 						}else if(checkedId == R.id.rFolded_10over){
 							//３つめを選択
 							condition.setFolded(BookCondition.FOLDED_MORE_THAN_TEN);
+						}
+					}
+
+				});
+
+		((RadioGroup)findViewById(R.id.rBroken)).setOnCheckedChangeListener
+				(new RadioGroup.OnCheckedChangeListener () {
+					public void onCheckedChanged(RadioGroup group, int checkedId) {
+						if(checkedId == R.id.rBroken_no){
+							//１つめを選択
+							condition.setBroken(BookCondition.BROKEN_NONE);
+						}else if(checkedId == R.id.rBroken_5){
+							//２つめを選択
+							condition.setBroken(BookCondition.BROKEN_ZERO_TO_FIVE);
+						}else if(checkedId == R.id.rBroken_5_10){
+							//３つめを選択
+							condition.setBroken(BookCondition.BROKEN_FIVE_TO_TEN);
+						}else if(checkedId == R.id.rBroken_10over){
+							//３つめを選択
+							condition.setBroken(BookCondition.BROKEN_MORE_THAN_TEN);
 						}
 					}
 
@@ -291,6 +326,12 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 			case R.id.chkBand:		//帯付きの場合
 				condition.setHasBand(cb.isChecked());
 				break;
+			case R.id.chkCover:		//表紙違いの場合
+				condition.setDifferentCover(cb.isChecked());
+				break;
+			case R.id.chkSticker:		//シール跡がある場合
+				condition.setHasSticker(cb.isChecked());
+				break;
 			case R.id.chkSunburned:	//日焼けの場合
 				condition.setSunburned(cb.isChecked());
 				break;
@@ -305,6 +346,12 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 				break;
 			case R.id.chkMoldSmell:	//カビ臭の場合
 				smell.setMold(cb.isChecked());
+				break;
+			case R.id.chkBiggerThanClickpost:
+				//規格外サイズの場合
+				final BookInfo info = targetBook.getInfo();
+				Size size = info.getSize();
+				size.setBiggerThanClickpost(cb.isChecked());
 				break;
 		}
 	}

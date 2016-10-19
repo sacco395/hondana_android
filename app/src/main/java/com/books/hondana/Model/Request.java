@@ -36,8 +36,8 @@ public class Request extends KiiModel implements Parcelable {
     public static final String RECEIVED_DATE = "received_date";
     public static final String EVALUATION_BY_CLIENT = "evaluation_by_client";
     public static final String EVALUATE_MESSAGE = "evaluate_message";
-    public static final String PARCEL = "parcel";
-    public static final String PARCEL_BY_SERVER = "parcel_by_server";
+    public static final String SEVERAL_BOOKS = "several_books";
+    public static final String ACCEPT_SEVERAL_BOOKS = "accept_several_books";
     private String id;
     /**
      * リクエストをしたユーザID
@@ -59,8 +59,8 @@ public class Request extends KiiModel implements Parcelable {
     private String pdf_url;
     private int evaluationByClient;
     private String evaluateMessage;
-    private boolean parcel;
-    private boolean parcelByServer;
+    private boolean severalBooks;
+    private boolean acceptSeveralBooks;
 
     /**
      * Request を、新規に作成する。すでにサーバに保存されているオブジェクトの取得は、
@@ -103,8 +103,8 @@ public class Request extends KiiModel implements Parcelable {
         receivedDate = "";
         pdf_url = "";
         evaluateMessage = "";
-        parcel = false;
-        parcelByServer = false;
+        severalBooks = false;
+        acceptSeveralBooks = false;
     }
 
     public static final int EVALUATION_EXCELLENT = 0;
@@ -212,20 +212,20 @@ public class Request extends KiiModel implements Parcelable {
         this.evaluateMessage = evaluateMessage;
     }
 
-    public boolean getParcel() {
-        return parcel;
+    public boolean getSeveralBooks() {
+        return severalBooks;
     }
 
-    public void setParcel(boolean parcel) {
-        this.parcel = parcel;
+    public void setSeveralBooks(boolean severalBooks) {
+        this.severalBooks = severalBooks;
     }
 
-    public boolean getParcelByServer() {
-        return parcelByServer;
+    public boolean getAcceptSeveralBooks() {
+        return acceptSeveralBooks;
     }
 
-    public void setParcelByServer(boolean parcelByServer) {
-        this.parcelByServer = parcelByServer;
+    public void setAcceptSeveralBooks(boolean acceptSeveralBooks) {
+        this.acceptSeveralBooks = acceptSeveralBooks;
     }
 
 
@@ -255,16 +255,16 @@ public class Request extends KiiModel implements Parcelable {
         }
     }
 
-    public String getParcelText() {
-        if (getParcel()) {
+    public String getSeveralBooksText() {
+        if (getSeveralBooks()) {
             return "*相手のユーザーは同梱を希望しています";
         } else {
             return "";
         }
     }
 
-    public String getParcelByServerText() {
-        if (getParcelByServer()) {
+    public String getAcceptSeveralBooksText() {
+        if (getAcceptSeveralBooks()) {
             return "同梱して送付中です";
         } else {
             return "同梱できなかったので個別に送付中です";
@@ -354,8 +354,8 @@ public class Request extends KiiModel implements Parcelable {
         receivedDate = object.getString(RECEIVED_DATE);
         evaluationByClient = object.getInt(EVALUATION_BY_CLIENT);
         evaluateMessage = object.getString(EVALUATE_MESSAGE);
-        parcel = object.getBoolean(PARCEL);
-        parcelByServer = object.getBoolean(PARCEL_BY_SERVER);
+        severalBooks = object.getBoolean(SEVERAL_BOOKS);
+        acceptSeveralBooks = object.getBoolean(ACCEPT_SEVERAL_BOOKS);
 
     }
 
@@ -375,8 +375,8 @@ public class Request extends KiiModel implements Parcelable {
         source.set(RECEIVED_DATE, receivedDate);
         source.set(EVALUATION_BY_CLIENT, evaluationByClient);
         source.set(EVALUATE_MESSAGE, evaluateMessage);
-        source.set(PARCEL, parcel);
-        source.set (PARCEL_BY_SERVER, parcelByServer);
+        source.set(SEVERAL_BOOKS, severalBooks);
+        source.set (ACCEPT_SEVERAL_BOOKS, acceptSeveralBooks);
         return source;
     }
 
@@ -402,8 +402,8 @@ public class Request extends KiiModel implements Parcelable {
         dest.writeString(this.receivedDate);
         dest.writeInt(this.evaluationByClient);
         dest.writeString(this.evaluateMessage);
-        dest.writeByte(this.parcel ? (byte) 1 : (byte) 0);
-        dest.writeByte (this.parcelByServer ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.severalBooks ? (byte) 1 : (byte) 0);
+        dest.writeByte (this.acceptSeveralBooks ? (byte) 1 : (byte) 0);
     }
 
     protected Request(Parcel in) {
@@ -422,8 +422,8 @@ public class Request extends KiiModel implements Parcelable {
         this.receivedDate = in.readString();
         this.evaluationByClient = in.readInt();
         this.evaluateMessage = in.readString();
-        this.parcel = in.readByte() != 0;
-        this.parcelByServer = in.readByte() != 0;
+        this.severalBooks = in.readByte() != 0;
+        this.acceptSeveralBooks = in.readByte() != 0;
     }
 
     public static final Creator<Request> CREATOR = new Creator<Request>() {
