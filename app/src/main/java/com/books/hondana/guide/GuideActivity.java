@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.books.hondana.R;
 import com.books.hondana.activity.BookMainActivity;
 import com.books.hondana.activity.InquiryActivity;
+import com.books.hondana.activity.UserPolicyActivity;
 import com.books.hondana.like.LikesActivity;
 import com.books.hondana.arrived.HadArrivedBookActivity;
 import com.books.hondana.exhibited.ExhibitedBookActivity;
@@ -148,6 +149,9 @@ public class GuideActivity extends AppCompatActivity
                         break;
                     case 4:
                         intent.setClass(GuideActivity.this, GuideSendingActivity.class);
+                        break;
+                    case 5:
+                        intent.setClass(GuideActivity.this, UserPolicyActivity.class);
                         break;
                 }
                 intent.putExtra("SELECTED_DATA", strData);

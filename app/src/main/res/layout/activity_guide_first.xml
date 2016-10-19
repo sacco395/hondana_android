@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageViewGuideFlow"
-        android:background="@drawable/hondana_guide_flow1"
-        android:adjustViewBounds="true" />
+        android:background="@drawable/hondana_guide_flow2"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false" />
 </LinearLayout>
     </ScrollView>

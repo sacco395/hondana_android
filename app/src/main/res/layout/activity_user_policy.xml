@@ -197,14 +197,5 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp" />
 
-        <!--第16条-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/textViewUserPolicy16"
-            android:id="@+id/textViewUserPolicy16"
-            android:textSize="14sp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp" />
     </LinearLayout>
 </ScrollView>
