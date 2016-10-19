@@ -206,43 +206,5 @@
             android:textSize="14sp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp" />
-
-        <!--第17条-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/textViewUserPolicy17"
-            android:id="@+id/textViewUserPolicy17"
-            android:textSize="14sp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp" />
-
-        <!--第18条-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/textViewUserPolicy18"
-            android:id="@+id/textViewUserPolicy18"
-            android:textSize="14sp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp" />
-
-        <!--第19条-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/textViewUserPolicy19"
-            android:id="@+id/textViewUserPolicy19"
-            android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
-
-        <!--第20条-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/textViewUserPolicy20"
-            android:id="@+id/textViewUserPolicy20"
-            android:textSize="14sp"
-            android:layout_marginLeft="20dp" />
     </LinearLayout>
 </ScrollView>
