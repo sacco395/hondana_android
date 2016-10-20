@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/scroller"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--交換をリクエストします-->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingTop="6dip"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/requestText01"
+            android:text="@string/requestText01"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:id="@+id/biggerThanClickpostText"
+            android:text="@string/biggerThanClickpostText"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="15dp"
+            android:textColor="#FF0000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#2FCDB4"
+            android:layout_marginLeft="15dp"
+            android:text="現在登録されている住所"/>
+
+        <EditText
+            android:id="@+id/address_field"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="住所の登録・変更\n(例)〒000-0000 〇〇県〇〇市０−０−０"
+            android:maxLength="500"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:background="@drawable/edittext_style"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dip"
+            android:layout_marginTop="5dp"
+            android:background="#E6E5E1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#2FCDB4"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="現在登録されている氏名"/>
+
+        <EditText
+            android:id="@+id/name_field"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="氏名"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:background="@drawable/edittext_style"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dip"
+            android:layout_marginTop="5dp"
+            android:background="#E6E5E1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#2FCDB4"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="現在登録されている電話番号"/>
+
+        <TextView
+            android:id="@+id/tv_user_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"/>
+
+        <!--区切り線-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#F1F0EE"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="20dip"
+            android:layout_marginBottom="20dip" />
+
+        <!--同梱を希望する場合はチェックを入れてください。-->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:text="@string/requestText04"
+            android:id="@+id/textView4"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:text="@string/requestText05"
+            android:id="@+id/textView5"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:textColor="#FF0000" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/checkBoxBundle"
+            android:id="@+id/severalCheckBox"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/bottom_bar"
+            android:gravity="center_vertical">
+
+            <!--下部に固定されたキャンセルボタン-->
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonCancel"
+                android:text="@string/buttonCancel"
+                android:textColor="#52AE93"
+                android:background="#4b4b4b"/>
+
+            <!--下部に固定されたリクエスト完了ボタン-->
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonRequest"
+                android:text="@string/buttonRequest"
+                android:background="#2FCDB4" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

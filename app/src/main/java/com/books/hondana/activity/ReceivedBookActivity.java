@@ -91,7 +91,8 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
 
         TextView tv_several = (TextView)findViewById(R.id.severalBook);
         String several = request.getAcceptSeveralBooksText();
-        if (!several.equals("")) {
+        String sendDate = request.getSentDate();
+        if (!several.equals("")&& !sendDate.equals("")) {
             tv_several.setText (several);
         }
 

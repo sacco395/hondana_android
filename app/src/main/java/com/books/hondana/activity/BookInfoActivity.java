@@ -308,6 +308,10 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
 
                 final String userId = currentUser.getID();
                 LogUtil.d (TAG, "userId: " + userId);
+                book = getIntent().getParcelableExtra(Book.class.getSimpleName());
+                final BookInfo info = book.getInfo();
+                final Size size = info.getSize();
+                final String biggerThanClickpost = size.getBiggerThanClickpostText();
                 KiiMemberConnection.fetch(userId, new KiiObjectCallback<Member>() {
                     @Override
                     public void success(int token, Member member) {
@@ -316,7 +320,10 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
                         if(current < 1){
                             Toast.makeText(getApplicationContext(), "ブクが足りないのでリクエストできません", Toast.LENGTH_LONG).show();
                             finish();
-                        }else {
+                        }else if(!biggerThanClickpost.equals("")) {
+                            Request request = Request.createNew(currentUser.getID(), book);
+                            startActivity(RequestBookLargerActivity.createIntent(BookInfoActivity.this, request));
+                        }else{
                             Request request = Request.createNew(currentUser.getID(), book);
                             startActivity(RequestBookActivity.createIntent(BookInfoActivity.this, request));
                         }

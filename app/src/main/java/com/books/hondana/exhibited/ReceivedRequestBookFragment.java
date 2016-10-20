@@ -10,12 +10,15 @@ import android.widget.ListView;
 
 import com.books.hondana.R;
 import com.books.hondana.activity.SendBookActivity;
+import com.books.hondana.activity.SendBookLargerActivity;
 import com.books.hondana.connection.KiiBookConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.connection.KiiRequestConnection;
 import com.books.hondana.model.Book;
+import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Request;
+import com.books.hondana.model.Size;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 
@@ -70,9 +73,15 @@ public class ReceivedRequestBookFragment extends Fragment {
             public void onClick(Book book) {
                 LogUtil.d (TAG, "onItemClick: " + book);
                 String bookId = book.getId ();
+                BookInfo info = book.getInfo();
+                Size size = info.getSize();
+                final Boolean biggerThanClickpost  = size.isBiggerThanClickpost();
                 KiiRequestConnection.fetchRequestByBookId (bookId, serverUserId, new KiiObjectCallback<Request> () {
                     @Override
                     public void success(int token, Request request) {
+                        if(biggerThanClickpost) {
+                        startActivity(SendBookLargerActivity.createIntent(getContext (), request));
+                        } else
                         startActivity(SendBookActivity.createIntent(getContext (), request));
                     }
 

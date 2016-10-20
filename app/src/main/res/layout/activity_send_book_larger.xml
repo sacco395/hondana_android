@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/scroller"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:drawableLeft="@drawable/ic_query_builder_black_24dp"
+            android:drawablePadding="5dp"
+            android:textColor="#666"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:paddingTop="6dip"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/client_name"
+                android:layout_weight="0.04" />
+            <!--交換リクエストが届きました-->
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="6dip"
+                android:paddingTop="6dip"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/passedText01"
+                android:text="@string/passedText01"
+                android:layout_weight="0.04" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="6dip"
+            android:paddingTop="6dip"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/severalBook"
+            android:text="@string/passedText06"
+            android:layout_weight="0.04"
+            android:textColor="#FF0000"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#2FCDB4"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="住所"/>
+
+        <TextView
+            android:id="@+id/tv_client_address"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dip"
+            android:layout_marginTop="5dp"
+            android:background="#E6E5E1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#2FCDB4"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="氏名"/>
+
+        <TextView
+            android:id="@+id/tv_client_full_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dip"
+            android:layout_marginTop="5dp"
+            android:background="#E6E5E1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#2FCDB4"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="電話番号"/>
+
+        <TextView
+            android:id="@+id/tv_client_phone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"/>
+
+        <!--区切り線-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#F1F0EE"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="6dip"
+            android:layout_marginBottom="12dip" />
+
+
+
+        <!--同梱を希望している人に発送する場合はチェックを入れてください。-->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.08"
+            android:layout_marginLeft="15dp"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:text="@string/passedText05"
+            android:id="@+id/passedText05"
+            android:layout_gravity="center_horizontal" />
+        <!--交換リクエストが届きました-->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.08"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:id="@+id/several"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#FF0000" />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parcel"
+            android:id="@+id/acceptSeveralCheckBox"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp" />
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/bottom_bar"
+            android:gravity="center_vertical">
+
+
+
+
+            <!--下部に固定されたキャンセルボタン-->
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonCancel"
+                android:text="@string/buttonCancel"
+                android:textColor="#52AE93"
+                android:background="#4b4b4b"/>
+
+            <!--下部に固定されたリクエスト完了ボタン-->
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonSent"
+                android:text="@string/buttonSending"
+                android:background="#2FCDB4" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

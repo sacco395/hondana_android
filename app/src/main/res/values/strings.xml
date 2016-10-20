@@ -57,6 +57,9 @@
     <string name="buttonCancel">"キャンセル"</string>
     <string name="buttonRequest">"リクエスト完了"</string>
 
+    <string name="biggerThanClickpostText">"この本は着払いになりますので相手に住所・氏名・電話番号をお知らせしましょう。（登録がまだの方や、変更がある場合は訂正してください）"</string>
+
+
     <!--宛名ラベルのアップロードページに使用-->
     <string name="requestTextUpload">つくった宛名ラベルをアップロードしましょう。</string>
     <string name="textViewattach_button2">宛名ラベルを選択</string>
@@ -71,6 +74,7 @@
     <string name="passedText04">"本の梱包のやりかた>"</string>
 
     <string name="passedText05">"3.同梱を希望している人に発送する場合は\n同梱できたらチェックを入れてください。"</string>
+    <string name="passedText06">"クリックポストの規格外の本は着払いで発送します。\n相手の住所・氏名・電話番号は以下です。"</string>
 
     <string name="parcel">"同梱しました！"</string>
 

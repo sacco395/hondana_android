@@ -22,6 +22,8 @@ public class Member extends KiiModel implements Parcelable {
 
     // KiiCloud 上のフィールド名
     public static final String NAME = "name";
+    public static final String FULL_NAME = "full_name";
+    public static final String PHONE = "phone";
     public static final String BIRTHDAY = "birthday";
     public static final String ADDRESS = "address";
     public static final String PROFILE = "profile";
@@ -32,6 +34,10 @@ public class Member extends KiiModel implements Parcelable {
     public static final String DELETED = "deleted";
 
     private String name;
+
+    private String fullName;
+
+    private String phone;
 
     private String birthday;
 
@@ -81,11 +87,14 @@ public class Member extends KiiModel implements Parcelable {
         member.id = id;
         member.source = member.bucket().object(id);
         member.name = kiiUser.getUsername();
+        member.phone = kiiUser.getPhone();
         return member;
     }
 
     private Member() {
         name = "";
+        fullName = "";
+        phone = "";
         birthday = "";
         address = "";
         profile = "";
@@ -105,6 +114,22 @@ public class Member extends KiiModel implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getBirthday() {
@@ -183,6 +208,8 @@ public class Member extends KiiModel implements Parcelable {
     @Override
     public void setValuesFrom(KiiObject kiiObject) throws JSONException {
         name = kiiObject.getString(NAME);
+        fullName = kiiObject.getString(FULL_NAME);
+        phone = kiiObject.getString(PHONE);
         birthday = kiiObject.getString(BIRTHDAY);
         address = kiiObject.getString(ADDRESS);
         profile = kiiObject.getString(PROFILE);
@@ -199,6 +226,8 @@ public class Member extends KiiModel implements Parcelable {
             source = bucket().object();
         }
         source.set(NAME, name);
+        source.set(FULL_NAME, fullName);
+        source.set(PHONE, phone);
         source.set(BIRTHDAY, birthday);
         source.set(ADDRESS, address);
         source.set(PROFILE, profile);
@@ -222,6 +251,8 @@ public class Member extends KiiModel implements Parcelable {
         dest.writeLong(this.createdAt);
         dest.writeLong(this.updatedAt);
         dest.writeString(this.name);
+        dest.writeString(this.fullName);
+        dest.writeString(this.phone);
         dest.writeString(this.birthday);
         dest.writeString(this.address);
         dest.writeString(this.profile);
@@ -238,6 +269,8 @@ public class Member extends KiiModel implements Parcelable {
         this.createdAt = in.readLong();
         this.updatedAt = in.readLong();
         this.name = in.readString();
+        this.fullName = in.readString();
+        this.phone = in.readString();
         this.birthday = in.readString();
         this.address = in.readString();
         this.profile = in.readString();
