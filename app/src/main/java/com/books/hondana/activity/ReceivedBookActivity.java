@@ -158,7 +158,6 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
             public void success(int token, Member member) {
                 int current = member.getPoint();
                 android.util.Log.d(TAG, "point:" + current);
-                member.setPoint(current +1);
             }
 
             @Override
