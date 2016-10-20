@@ -17,7 +17,7 @@ public class UserPolicyActivity extends AppCompatActivity {
 
         // ツールバーをアクションバーとしてセット
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("利用規約に同意する");
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
 
