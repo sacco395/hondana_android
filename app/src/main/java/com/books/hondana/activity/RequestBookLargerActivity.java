@@ -60,6 +60,11 @@ public class RequestBookLargerActivity extends AppCompatActivity implements View
         cbSeveral.setChecked(false);
         cbSeveral.setOnClickListener(this);
 
+        CheckBox cbMyData = (CheckBox) findViewById(R.id.myDataCheckBox);
+        assert cbMyData != null;
+        cbMyData.setChecked(false);
+        cbMyData.setOnClickListener(this);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -107,9 +112,7 @@ public class RequestBookLargerActivity extends AppCompatActivity implements View
                     break;
 
                 case R.id.buttonRequest:
-                        saveMinusPoint();
                         saveRequestDate();
-                        saveClientData();
                     break;
                 default:
                     break;
@@ -122,6 +125,14 @@ public class RequestBookLargerActivity extends AppCompatActivity implements View
         switch (cb.getId()) {
             case R.id.severalCheckBox:
                 request.setSeveralBooks(cb.isChecked());
+                break;
+
+            case R.id.myDataCheckBox:
+                if(cb.isChecked()){
+                    saveClientData();
+                }else{
+                    Toast.makeText(getApplicationContext(), "情報を確認してチェックしてください", Toast.LENGTH_LONG).show();
+                }
                 break;
         }
     }
@@ -141,7 +152,7 @@ public class RequestBookLargerActivity extends AppCompatActivity implements View
                     member.save (false, new KiiModel.KiiSaveCallback () {
                         @Override
                         public void success(int token, KiiObject object) {
-                            LogUtil.d (TAG, "save_full_name:" + nameNote);
+                            LogUtil.d (TAG, "save_address:" + addressNote + "save_full_name:" + nameNote);
                         }
 
                         @Override
@@ -150,10 +161,9 @@ public class RequestBookLargerActivity extends AppCompatActivity implements View
                         }
                     });
                 }
-
                 @Override
                 public void failure(Exception e) {
-
+                    LogUtil.e (TAG, "failure: ", e);
                 }
             });
         }
@@ -174,6 +184,21 @@ public class RequestBookLargerActivity extends AppCompatActivity implements View
             return;
         }
 
+        final String userId = user.getID();
+        int diff = -1;
+        KiiMemberConnection.updatePoint(userId, diff, new KiiObjectCallback<Member>() {
+            @Override
+            public void success(int token, Member member) {
+                int current = member.getPoint();
+                LogUtil.d(TAG, "point:" + current);
+            }
+
+            @Override
+            public void failure(Exception e) {
+                LogUtil.e(TAG, "failure: ", e);
+            }
+        });
+
         request.setRequestedDate(dateString);
         request.save(false, new KiiModel.KiiSaveCallback() {
             @Override
@@ -193,24 +218,24 @@ public class RequestBookLargerActivity extends AppCompatActivity implements View
         });
     }
 
-    private void saveMinusPoint(){
-        KiiUser kiiUser = KiiUser.getCurrentUser();
-        assert kiiUser != null;
-        final String userId = kiiUser.getID();
-        int diff = -1;
-        KiiMemberConnection.updatePoint(userId, diff, new KiiObjectCallback<Member> () {
-            @Override
-            public void success(int token, Member member) {
-                int current = member.getPoint();
-                Log.d(TAG, "point:" + current);
-            }
-
-            @Override
-            public void failure(Exception e) {
-
-            }
-        });
-    }
+//    private void saveMinusPoint(){
+//        KiiUser kiiUser = KiiUser.getCurrentUser();
+//        assert kiiUser != null;
+//        final String userId = kiiUser.getID();
+//        int diff = -1;
+//        KiiMemberConnection.updatePoint(userId, diff, new KiiObjectCallback<Member> () {
+//            @Override
+//            public void success(int token, Member member) {
+//                int current = member.getPoint();
+//                Log.d(TAG, "point:" + current);
+//            }
+//
+//            @Override
+//            public void failure(Exception e) {
+//
+//            }
+//        });
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

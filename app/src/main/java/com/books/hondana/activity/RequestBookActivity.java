@@ -116,8 +116,7 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                     if (pdfUrl.equals("")) {
                         Toast.makeText(getApplicationContext(), "ラベルをアップロードしないとリクエストできません", Toast.LENGTH_LONG).show();
                     } else {
-                        saveRequestDate ();
-                        saveMinusPoint ();
+                        saveRequestDate();
                     }
                     break;
                 default:
@@ -254,6 +253,20 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
             // TODO: 9/13/16 Launch LoginActivity or something
             return;
         }
+        final String userId = user.getID();
+        int diff = -1;
+        KiiMemberConnection.updatePoint(userId, diff, new KiiObjectCallback<Member>() {
+            @Override
+            public void success(int token, Member member) {
+                int current = member.getPoint();
+                LogUtil.d(TAG, "point:" + current);
+            }
+
+            @Override
+            public void failure(Exception e) {
+                LogUtil.e(TAG, "failure: ", e);
+            }
+        });
 
         request.setRequestedDate(dateString);
         request.save(false, new KiiModel.KiiSaveCallback() {
@@ -274,24 +287,24 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         });
     }
 
-    private void saveMinusPoint(){
-        KiiUser kiiUser = KiiUser.getCurrentUser();
-        assert kiiUser != null;
-        final String userId = kiiUser.getID();
-        int diff = -1;
-        KiiMemberConnection.updatePoint(userId, diff, new KiiObjectCallback<Member>() {
-            @Override
-            public void success(int token, Member member) {
-                int current = member.getPoint();
-                Log.d(TAG, "point:" + current);
-            }
-
-            @Override
-            public void failure(Exception e) {
-
-            }
-        });
-    }
+//    private void saveMinusPoint(){
+//        KiiUser kiiUser = KiiUser.getCurrentUser();
+//        assert kiiUser != null;
+//        final String userId = kiiUser.getID();
+//        int diff = -1;
+//        KiiMemberConnection.updatePoint(userId, diff, new KiiObjectCallback<Member>() {
+//            @Override
+//            public void success(int token, Member member) {
+//                int current = member.getPoint();
+//                Log.d(TAG, "point:" + current);
+//            }
+//
+//            @Override
+//            public void failure(Exception e) {
+//
+//            }
+//        });
+//    }
 
 
     @Override

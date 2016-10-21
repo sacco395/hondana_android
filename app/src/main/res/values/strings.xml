@@ -54,6 +54,8 @@
     <string name="requestText05">"＊希望しても同梱できない場合もあります。"</string>
     <string name="checkBoxBundle">"同梱希望"</string>
 
+    <string name="checkBoxMyData">"上記の情報でOKです"</string>
+
     <string name="buttonCancel">"キャンセル"</string>
     <string name="buttonRequest">"リクエスト完了"</string>
 

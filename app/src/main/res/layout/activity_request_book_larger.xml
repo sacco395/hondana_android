@@ -95,6 +95,22 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"/>
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dip"
+            android:layout_marginTop="5dp"
+            android:background="#E6E5E1" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/checkBoxMyData"
+            android:id="@+id/myDataCheckBox"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:textColor="#FF0000"/>
+
         <!--区切り線-->
         <View
             android:layout_width="wrap_content"
