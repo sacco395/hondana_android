@@ -1,0 +1,107 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:layout_margin="4dp">
+
+        <ImageView
+            android:id="@+id/imgBookDetail"
+            android:layout_width="120dp"
+            android:layout_height="130dp"
+            android:src="@android:drawable/presence_busy"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:adjustViewBounds="true" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp">
+
+            <TextView
+                android:id="@+id/textView_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/textView_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/textView_isbn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/textView_publisher"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/textView_issueDate"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="4dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_weight="1">
+
+        <include layout="@layout/book_condition" android:id="@+id/inc_book_condition" />
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/bottom_bar"
+        android:gravity="center_vertical">
+
+        <Button
+            android:layout_width="0dip"
+            android:layout_weight="0.1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnDeleteKiiBook"
+            android:text="@string/delete_book"
+            android:textColor="#52AE93"
+            android:background="#4b4b4b"/>
+
+        <Button
+            android:layout_width="0dip"
+            android:layout_weight="0.1"
+            android:layout_height="wrap_content"
+            android:text="@string/update_book"
+            android:id="@+id/btnAddKiiBook"
+            android:background="#2FCDB4"/>
+
+    </LinearLayout>
+
+</LinearLayout>
