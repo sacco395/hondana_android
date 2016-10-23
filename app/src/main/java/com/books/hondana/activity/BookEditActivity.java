@@ -53,6 +53,93 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 		condition = targetBook.getCondition ();
 		smell = condition.getSmell ();
 
+		TextView tv_bookCondition = (TextView) findViewById(R.id.bookInfoCondition);
+		assert tv_bookCondition != null;
+		tv_bookCondition.setText(condition.getEvaluationText());
+
+		TextView tv_bookLine = (TextView) findViewById(R.id.bookInfoLine);
+		assert tv_bookLine != null;
+		tv_bookLine.setText(condition.getLinedText());
+
+		TextView tv_bookFolded = (TextView) findViewById(R.id.bookInfoFolded);
+		assert tv_bookFolded != null;
+		tv_bookFolded.setText(condition.getFoldedText());
+
+		TextView tv_bookBroken = (TextView) findViewById(R.id.bookInfoBroken);
+		assert tv_bookBroken != null;
+		tv_bookBroken.setText(condition.getBrokenText());
+
+		final String bookId = targetBook.getId();
+		LogUtil.d(TAG, "bookId: " + bookId);
+
+
+//本のその他の状態
+		// 空の文字列を作成
+		String etcText = "";
+
+		String cover = condition.getCoverText();
+		if (!cover.equals("")) {
+			cover += "／";
+		}
+		etcText += cover;
+
+		// 日焼け情報を追加
+		String band = condition.getBandText();
+		// sunburned が空の文字列でなければ、読点を挿入（ここは趣味で）
+		if (!band.equals("")) {
+			band += "／";
+		}
+		etcText += band;
+
+		String sticker = condition.getStickerText();
+		if (!sticker.equals("")) {
+			sticker += "／";
+		}
+		etcText += sticker;
+
+		String sunburned = condition.getSunburnedText();
+		// sunburned が空の文字列でなければ、読点を挿入（ここは趣味で）
+		if (!sunburned.equals("")) {
+			sunburned += "／";
+		}
+		etcText += sunburned;
+
+		String scratched = condition.getScratchedText();
+		if (!scratched.equals("")) {
+			scratched += "／";
+		}
+		etcText += scratched;
+
+		final Smell smell = condition.getSmell();
+
+		String cigar_smell = smell.getCigarSmellText();
+		if (!cigar_smell.equals("")) {
+			cigar_smell += "／";
+		}
+		etcText += cigar_smell;
+
+		String petSmell = smell.getPetSmellText();
+		if (!petSmell.equals("")) {
+			petSmell += "／";
+		}
+		etcText += petSmell;
+
+		String mold_smell = smell.getMoldSmellText();
+		if (!mold_smell.equals("")) {
+			mold_smell += "／";
+		}
+		etcText += mold_smell;
+
+
+		TextView tv_bookEtc = (TextView) findViewById(R.id.bookInfoEtc);
+		assert tv_bookEtc != null;
+		tv_bookEtc.setText(etcText);
+//本のその他の状態ここまで
+
+		final BookInfo info = targetBook.getInfo ();
+
+
+
 		findViewById (R.id.btnDeleteKiiBook).setOnClickListener (this);
 
 		CheckBox cbBiggerThanClickpost = (CheckBox) findViewById (R.id.chkBiggerThanClickpost);
@@ -100,8 +187,7 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 		cbMold.setChecked (false);
 		cbMold.setOnClickListener (this);
 
-		final BookInfo info = targetBook.getInfo ();
-		String imgUrl = info.getImageUrl ();
+		final String imgUrl = info.getImageUrl ();
 
 		if ((imgUrl != null) && (imgUrl.length () > 0)) {
 			// 画像データのダウンロードと設定

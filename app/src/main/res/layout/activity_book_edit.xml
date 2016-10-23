@@ -69,13 +69,143 @@
         </LinearLayout>
 
     </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--本の状態リード-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本の状態："
+            android:id="@+id/bookInfoConditionLead"
+            android:textStyle="bold"
+            android:layout_marginLeft="24dp" />
+        <!--本の状態-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="現在登録されている本の状態"
+            android:id="@+id/bookInfoCondition"
+            android:layout_marginBottom="4dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--その他の状態リード-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="その他状態："
+            android:id="@+id/bookInfoEtcLead"
+            android:textStyle="bold"
+            android:layout_marginLeft="24dp" />
+        <!--その他の状態-->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="現在登録されているその他状態"
+            android:id="@+id/bookInfoEtc"
+            android:layout_alignTop="@+id/bookInfoEtcLead"
+            android:layout_toRightOf="@+id/bookInfoLine"
+            android:layout_toEndOf="@id/bookInfoEtcLead"
+            android:layout_alignBottom="@+id/bookInfoSize"
+            android:layout_marginBottom="4dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <!--書き込み線リード-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="書き込み線："
+            android:id="@+id/bookInfoLineLead"
+            android:textStyle="bold"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="4dp" />
+        <!--書き込み線-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="書き込み線"
+            android:id="@+id/bookInfoLine"
+            android:layout_marginBottom="4dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ページの折れ："
+            android:id="@+id/bookInfoFoldedLead"
+            android:textStyle="bold"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="4dp" />
+        <!--ページの折れ-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ページの折れ"
+            android:id="@+id/bookInfoFolded"
+            android:layout_marginBottom="4dp" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ページの破け："
+            android:id="@+id/bookInfoBrokenLead"
+            android:textStyle="bold"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="10dp" />
+        <!--ページの破け-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ページの破け"
+            android:id="@+id/bookInfoBroken"
+            android:layout_marginBottom="10dp" />
+       </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="↓変更がある場合は以下より編集してください"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+        android:textColor="#F26964"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dip"
+        android:layout_marginTop="5dp"
+        android:background="#E6E5E1" />
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView"
         android:layout_weight="1">
-
         <include layout="@layout/book_condition" android:id="@+id/inc_book_condition" />
     </ScrollView>
 
