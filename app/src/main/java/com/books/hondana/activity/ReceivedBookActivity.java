@@ -90,10 +90,11 @@ public class ReceivedBookActivity extends AppCompatActivity implements View.OnCl
         }
 
         TextView tv_several = (TextView)findViewById(R.id.severalBook);
-        String several = request.getAcceptSeveralBooksText();
+        String several = request.getSeveralBooksText();
+        String acceptSeveral = request.getAcceptSeveralBooksText();
         String sendDate = request.getSentDate();
-        if (!several.equals("")&& !sendDate.equals("")) {
-            tv_several.setText (several);
+        if (!several.equals("")&& !acceptSeveral.equals("")&& !sendDate.equals("")) {
+            tv_several.setText (acceptSeveral);
         }
 
         String coverUrl = request.getBookImageUrl();
