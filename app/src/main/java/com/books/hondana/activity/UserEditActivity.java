@@ -1,6 +1,7 @@
 //ユーザーの編集
 package com.books.hondana.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -233,10 +235,14 @@ public class UserEditActivity extends AppCompatActivity {
                 member.save(false, new KiiModel.KiiSaveCallback() {
                     @Override
                     public void success(int token, KiiObject object) {
-                        Intent intent = new Intent(getApplicationContext(), UserpageActivity.class);
-                        //Activityを終了します。
-                        startActivity(intent);
-                        finish();
+//                        Intent intent = new Intent(getApplicationContext(), UserpageActivity.class);
+//                        //Activityを終了します。
+//                        startActivity(intent);
+//                        finish();
+                        Log.d (TAG, "success: ");
+                        Intent intent = new Intent ();
+                        setResult (Activity.RESULT_OK, intent);
+                        finish ();
                     }
 
                     @Override

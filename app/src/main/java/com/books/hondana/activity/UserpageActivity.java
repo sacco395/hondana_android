@@ -64,6 +64,7 @@ public class UserpageActivity extends AppCompatActivity
     private static final int ACT_READ_BARCODE = 1;
     private static final int ACT_BOOK_SEARCH_LIST = 2;
     private static final int ACT_BOOK_DETAIL_TO_ADD = 3;
+    private static final int USER_EDIT = 4;
 
     ////////////////////////////////////////
     private static final int ZXING_CAMERA_PERMISSION = 1;
@@ -170,8 +171,8 @@ public class UserpageActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 LogUtil.d(TAG, "onClick");
-                Intent intent = new Intent(UserpageActivity.this, UserEditActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent (UserpageActivity.this, UserEditActivity.class);
+                startActivityForResult(intent,USER_EDIT);
             }
         });
 
@@ -342,7 +343,7 @@ public class UserpageActivity extends AppCompatActivity
         int id = item.getItemId ();
         if (id == R.id.nav_edit) {
             Intent intent = new Intent (this, UserEditActivity.class);
-            startActivity (intent);
+            startActivityForResult(intent,USER_EDIT);
         }
         return super.onOptionsItemSelected (item);
     }
@@ -399,9 +400,14 @@ public class UserpageActivity extends AppCompatActivity
         }
         else if (requestCode == ACT_BOOK_DETAIL_TO_ADD){
             if(resultCode == RESULT_OK){
-                // 再起動しなくてもいいかも？
-                //kickLoadHondanaBooks();
-                // No Action
+                startActivity(getIntent());
+            }
+        }
+        else if (requestCode == USER_EDIT) {
+            if (resultCode == RESULT_OK) {
+                LogUtil.d(TAG,"プロフィールが更新されたね");
+                startActivity(getIntent());
+
             }
         }
     }

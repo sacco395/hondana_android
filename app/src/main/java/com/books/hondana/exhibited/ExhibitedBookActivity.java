@@ -261,9 +261,7 @@ public class ExhibitedBookActivity extends AppCompatActivity
         }
         else if (requestCode == ACT_BOOK_DETAIL_TO_ADD){
             if(resultCode == RESULT_OK){
-                // 再起動しなくてもいいかも？
-                //kickLoadHondanaBooks();
-                // No Action
+                startActivity(getIntent());
             }
         }
     }
