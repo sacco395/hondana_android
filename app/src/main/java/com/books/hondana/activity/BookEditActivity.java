@@ -20,6 +20,7 @@ import com.books.hondana.R;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookCondition;
 import com.books.hondana.model.BookInfo;
+import com.books.hondana.model.GenreList;
 import com.books.hondana.model.Size;
 import com.books.hondana.model.Smell;
 import com.books.hondana.model.abst.KiiModel;
@@ -39,6 +40,7 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 
 	private BookCondition condition;
 	private Smell smell;
+	private GenreList genre;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +52,9 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 			Log.e (TAG, "onCreate: Book が null!");
 			Toast.makeText (BookEditActivity.this, "エラー: 本の情報が取得できませんでした。", Toast.LENGTH_SHORT).show ();
 		}
-		condition = targetBook.getCondition ();
-		smell = condition.getSmell ();
+		condition = targetBook.getCondition();
+		smell = condition.getSmell();
+		genre = targetBook.getGenres();
 
 		TextView tv_bookCondition = (TextView) findViewById(R.id.bookInfoCondition);
 		assert tv_bookCondition != null;
@@ -367,13 +370,13 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 					LogUtil.d (TAG, "userName = " + userName);
 
 
-					targetBook.setOwnerId (user.getID ());
-					targetBook.setOwnerName (user.getUsername ());
-					info.setSize (size);
-					targetBook.setInfo (info);
-					condition.setSmell (smell);
-					targetBook.setCondition (condition);
-
+//					targetBook.setOwnerId (user.getID ());
+//					targetBook.setOwnerName (user.getUsername ());
+//					info.setSize (size);
+//					targetBook.setInfo (info);
+//					condition.setSmell (smell);
+//					targetBook.setCondition (condition);
+//					targetBook.setGenres (genre);
 
 					// show a progress dialog to the user
 					final ProgressDialog progress = ProgressDialog.show (BookEditActivity.this, "登録中", "しばらくお待ちください", true);
