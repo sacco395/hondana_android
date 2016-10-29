@@ -138,6 +138,17 @@ public class RequestBookLargerActivity extends AppCompatActivity implements View
     }
 
     private void saveClientData() {
+        request.save(false, new KiiModel.KiiSaveCallback() {
+                    @Override
+                    public void success(int token, KiiObject object) {
+                        LogUtil.d(TAG, "一旦request保存します");
+                    }
+
+                    @Override
+                    public void failure(@Nullable Exception e) {
+                        LogUtil.e(TAG, "failure: ", e);
+                    }
+        });
         EditText noteField = (EditText) (findViewById (R.id.address_field));
         EditText nameField = (EditText) (findViewById (R.id.name_field));
         addressNote = noteField.getText ().toString ();
@@ -198,7 +209,6 @@ public class RequestBookLargerActivity extends AppCompatActivity implements View
                 LogUtil.e(TAG, "failure: ", e);
             }
         });
-
         request.setRequestedDate(dateString);
         request.save(false, new KiiModel.KiiSaveCallback() {
             @Override
