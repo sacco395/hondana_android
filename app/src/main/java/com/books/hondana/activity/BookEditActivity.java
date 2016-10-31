@@ -54,7 +54,6 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 		}
 		condition = targetBook.getCondition();
 		smell = condition.getSmell();
-		genre = targetBook.getGenres();
 
 		TextView tv_bookCondition = (TextView) findViewById(R.id.bookInfoCondition);
 		assert tv_bookCondition != null;
@@ -71,9 +70,6 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 		TextView tv_bookBroken = (TextView) findViewById(R.id.bookInfoBroken);
 		assert tv_bookBroken != null;
 		tv_bookBroken.setText(condition.getBrokenText());
-
-		final String bookId = targetBook.getId();
-		LogUtil.d(TAG, "bookId: " + bookId);
 
 
 //本のその他の状態
@@ -370,13 +366,13 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 					LogUtil.d (TAG, "userName = " + userName);
 
 
-//					targetBook.setOwnerId (user.getID ());
-//					targetBook.setOwnerName (user.getUsername ());
-//					info.setSize (size);
-//					targetBook.setInfo (info);
-//					condition.setSmell (smell);
-//					targetBook.setCondition (condition);
-//					targetBook.setGenres (genre);
+					targetBook.setOwnerId (user.getID ());
+					targetBook.setOwnerName (user.getUsername ());
+					info.setSize (size);
+					targetBook.setInfo (info);
+					condition.setSmell (smell);
+					targetBook.setCondition (condition);
+//
 
 					// show a progress dialog to the user
 					final ProgressDialog progress = ProgressDialog.show (BookEditActivity.this, "登録中", "しばらくお待ちください", true);

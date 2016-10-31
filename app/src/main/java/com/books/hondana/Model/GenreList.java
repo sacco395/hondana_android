@@ -35,7 +35,7 @@ public class GenreList implements Parcelable {
 
     public GenreList() {
         values = new ArrayList<>(5);
-        values.add("");
+        values.add("001");
         values.add("");
         values.add("");
         values.add("");
