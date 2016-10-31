@@ -32,6 +32,8 @@ import com.kii.cloud.storage.KiiUser;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.List;
+
 public class BookEditActivity extends AppCompatActivity implements View.OnClickListener {
 
 	final static String TAG = BookEditActivity.class.getSimpleName ();
@@ -40,7 +42,8 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 
 	private BookCondition condition;
 	private Smell smell;
-	private GenreList genre;
+	private GenreList genres;
+	private List<String> genre;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,9 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 		}
 		condition = targetBook.getCondition();
 		smell = condition.getSmell();
+		genres = targetBook.getGenres();
+		genre = genres.getValues();
+		LogUtil.d(TAG,"genre:" + genre.toString ());
 
 		TextView tv_bookCondition = (TextView) findViewById(R.id.bookInfoCondition);
 		assert tv_bookCondition != null;
