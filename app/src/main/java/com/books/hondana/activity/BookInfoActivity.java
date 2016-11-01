@@ -59,6 +59,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         BookInfo info = book.getInfo();
         String imgUrl = info.getImageUrl();
         LogUtil.d(TAG, info.getTitle());
+        String bookId = book.getId ();
 
         if ((imgUrl != null) && (imgUrl.length() > 0)) {
             // 画像データのダウンロードと設定
@@ -111,9 +112,6 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         TextView tv_bookNotes = (TextView) findViewById(R.id.bookInfoNotes);
         assert tv_bookNotes != null;
         tv_bookNotes.setText(condition.getNote());
-
-        final String bookId = book.getId();
-        LogUtil.d(TAG, "bookId: " + bookId);
 
         TextView tv_bookState = (TextView) findViewById(R.id.book_state);
         assert tv_bookState != null;

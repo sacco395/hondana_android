@@ -20,19 +20,14 @@ import com.books.hondana.R;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookCondition;
 import com.books.hondana.model.BookInfo;
-import com.books.hondana.model.GenreList;
 import com.books.hondana.model.Size;
 import com.books.hondana.model.Smell;
 import com.books.hondana.model.abst.KiiModel;
-import com.books.hondana.util.DateUtil;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.Kii;
 import com.kii.cloud.storage.KiiObject;
-import com.kii.cloud.storage.KiiUser;
 import com.kii.cloud.storage.callback.KiiObjectCallBack;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.util.List;
 
 public class BookEditActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,8 +37,6 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 
 	private BookCondition condition;
 	private Smell smell;
-	private GenreList genres;
-	private List<String> genre;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +50,6 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 		}
 		condition = targetBook.getCondition();
 		smell = condition.getSmell();
-		genres = targetBook.getGenres();
-		genre = genres.getValues();
-		LogUtil.d(TAG,"genre:" + genre.toString ());
 
 		TextView tv_bookCondition = (TextView) findViewById(R.id.bookInfoCondition);
 		assert tv_bookCondition != null;
@@ -139,11 +129,8 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 		TextView tv_bookEtc = (TextView) findViewById(R.id.bookInfoEtc);
 		assert tv_bookEtc != null;
 		tv_bookEtc.setText(etcText);
-//本のその他の状態ここまで
 
 		final BookInfo info = targetBook.getInfo ();
-
-
 
 		findViewById (R.id.btnDeleteKiiBook).setOnClickListener (this);
 
@@ -218,7 +205,6 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 		assert tv_issueDate != null;
 		tv_issueDate.setText (info.getIssueDate ());
 
-//		final BookCondition condition = new BookCondition();
 
 		((RadioGroup) findViewById (R.id.rCondition)).setOnCheckedChangeListener
 				(new RadioGroup.OnCheckedChangeListener () {
@@ -300,10 +286,10 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 				});
 
 
-		if (!DateUtil.isOneYearAfter (info.getIssueDate ())) {
-			Toast.makeText (BookEditActivity.this, "一年前以上に発行された書籍ではありません。",
-					Toast.LENGTH_LONG).show ();
-		}
+//		if (!DateUtil.isOneYearAfter (info.getIssueDate ())) {
+//			Toast.makeText (BookEditActivity.this, "一年前以上に発行された書籍ではありません。",
+//					Toast.LENGTH_LONG).show ();
+//		}
 
 		Button btnAddKiiCloud = (Button) findViewById (R.id.btnAddKiiBook);
 		// ボタンにフォーカスを移動させる
@@ -315,10 +301,10 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 		btnAddKiiCloud.setOnClickListener (new View.OnClickListener () {
 			@Override
 			public void onClick(View v) {
-				if (!DateUtil.isOneYearAfter (info.getIssueDate ())) {
-					Toast.makeText (BookEditActivity.this, "一年以内に発行された書籍は登録できません。",
-							Toast.LENGTH_LONG).show ();
-				} else {
+//				if (!DateUtil.isOneYearAfter (info.getIssueDate ())) {
+//					Toast.makeText (BookEditActivity.this, "一年以内に発行された書籍は登録できません。",
+//							Toast.LENGTH_LONG).show ();
+//				} else {
 					//備考欄のテキストここから
 					EditText noteField = (EditText) (findViewById (R.id.edtNote));
 					assert noteField != null;
@@ -357,29 +343,28 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 					size.setWeight (weight);
 					//本のサイズここまで
 
-					KiiUser user = KiiUser.getCurrentUser ();
-					if (user == null || user.getID () == null) {
-						Log.e (TAG, "onClick: User ID が取得できません");
-						Toast.makeText (BookEditActivity.this, "エラー: ユーザ情報が取得できません", Toast.LENGTH_SHORT).show ();
-						return;
-					}
+//					KiiUser user = KiiUser.getCurrentUser ();
+//					if (user == null || user.getID () == null) {
+//						Log.e (TAG, "onClick: User ID が取得できません");
+//						Toast.makeText (BookEditActivity.this, "エラー: ユーザ情報が取得できません", Toast.LENGTH_SHORT).show ();
+//						return;
+//					}
+//
+//					KiiUser kiiUser = KiiUser.getCurrentUser ();
+//					assert kiiUser != null;
+//					String userId = kiiUser.getID ();
+//					LogUtil.d (TAG, "userID = " + userId);
+//					String userName = kiiUser.getUsername ();
+//					LogUtil.d (TAG, "userName = " + userName);
+//
+//
+//					targetBook.setOwnerId (user.getID ());
+//					targetBook.setOwnerName (user.getUsername ());
 
-					KiiUser kiiUser = KiiUser.getCurrentUser ();
-					assert kiiUser != null;
-					String userId = kiiUser.getID ();
-					LogUtil.d (TAG, "userID = " + userId);
-					String userName = kiiUser.getUsername ();
-					LogUtil.d (TAG, "userName = " + userName);
-
-
-					targetBook.setOwnerId (user.getID ());
-					targetBook.setOwnerName (user.getUsername ());
 					info.setSize (size);
 					targetBook.setInfo (info);
 					condition.setSmell (smell);
 					targetBook.setCondition (condition);
-//
-
 					// show a progress dialog to the user
 					final ProgressDialog progress = ProgressDialog.show (BookEditActivity.this, "登録中", "しばらくお待ちください", true);
 					targetBook.save (false, new KiiModel.KiiSaveCallback () {
@@ -399,8 +384,46 @@ public class BookEditActivity extends AppCompatActivity implements View.OnClickL
 							Toast.makeText (BookEditActivity.this, "本の登録に失敗しました。", Toast.LENGTH_SHORT).show ();
 						}
 					});
+
+
+					String bookId = targetBook.getId ();
+					KiiObject object = Kii.bucket("appBooks").object(bookId);
+					object.refresh(new KiiObjectCallBack() {
+						@Override
+						public void onRefreshCompleted(int token, KiiObject object, Exception exception) {
+							if (exception != null) {
+								// Error handling
+								return;
+							}
+							LogUtil.d(TAG,"本の情報はね" + object.toString ());
+							String genre1 = object.getString("genre_1");
+							LogUtil.d(TAG,"genre1:"+ genre1);
+							object.set ("genre_1",genre1);
+							String genre2 = object.getString("genre_2");
+							LogUtil.d(TAG,"genre2:"+ genre2);
+							object.set ("genre_2",genre2);
+							String genre3 = object.getString("genre_3");
+							LogUtil.d(TAG,"genre3:"+ genre3);
+							object.set ("genre_3",genre3);
+							String genre4 = object.getString("genre_4");
+							LogUtil.d(TAG,"genre4:"+ genre4);
+							object.set ("genre_4",genre4);
+							String genre5 = object.getString("genre_5");
+							LogUtil.d(TAG,"genre5:"+ genre5);
+							object.set ("genre_5",genre5);
+
+							object.save(new KiiObjectCallBack() {
+								@Override
+								public void onSaveCompleted(int token, KiiObject object, Exception exception) {
+									if (exception != null) {
+										// Error handling
+										return;
+									}LogUtil.d(TAG,"ジャンルだけ保存したよ");
+								}
+							});
+						}
+					});
 				}
-			}
 		});
 	}
 
