@@ -494,7 +494,8 @@
             android:text="この本を読んだ時のことを教えてください。"
             android:id="@+id/textView15"
             android:textStyle="bold"
-            android:textIsSelectable="false" />
+            android:textIsSelectable="false"
+            android:textColor="#F26964"/>
 
         <EditText
             android:layout_width="match_parent"
