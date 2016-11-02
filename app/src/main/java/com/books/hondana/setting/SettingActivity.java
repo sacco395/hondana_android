@@ -45,6 +45,7 @@ public class SettingActivity extends AppCompatActivity
 
     final ImageLoader imageLoader = ImageLoader.getInstance();
 
+    private static final int USER_EDIT = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +129,7 @@ public class SettingActivity extends AppCompatActivity
                 switch (position) {
                     case 0:
                         intent.setClass(SettingActivity.this, UserEditActivity.class);
+
                         break;
                     case 1:
                         intent.setClass(SettingActivity.this, SettingMailActivity.class);
@@ -137,7 +139,7 @@ public class SettingActivity extends AppCompatActivity
                         break;
                 }
                 intent.putExtra("SELECTED_DATA", strData);
-                startActivity(intent);
+                startActivityForResult(intent,USER_EDIT);
             }
         });
     }
@@ -261,5 +263,17 @@ public class SettingActivity extends AppCompatActivity
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == USER_EDIT) {
+            if (resultCode == RESULT_OK) {
+                LogUtil.d(TAG,"プロフィールが更新されたね");
+                Intent intent = new Intent(SettingActivity.this, UserpageActivity.class);
+                startActivity(intent);
+            }
+        }
     }
 }

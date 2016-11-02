@@ -60,6 +60,14 @@ public class KiiRequestConnection {
         queryRequestBucket (HadArrivedQuery, callback);
     }
 
+    public static void fetchTodoEvaluate(String userId, KiiObjectListCallback<Request> callback) {
+        KiiQuery HadArrivedQuery = new KiiQuery (KiiClause.and (
+                KiiClause.equals (Request.CLIENT_ID, userId),
+                KiiClause.notEquals (Request.REQUESTED_DATE, ""),
+                KiiClause.equals (Request.RECEIVED_DATE, "")));
+        HadArrivedQuery.sortByDesc ("_modified");
+        queryRequestBucket (HadArrivedQuery, callback);
+    }
 
 
     /**
@@ -71,6 +79,15 @@ public class KiiRequestConnection {
         KiiClause clause = KiiClause.equals(Request.SERVER_ID, userId);
         KiiQuery serverIdQuery = new KiiQuery(clause);
         queryRequestBucket(serverIdQuery, callback);
+    }
+
+    public static void fetchTodoSent(String userId, KiiObjectListCallback<Request> callback) {
+        KiiQuery HadArrivedQuery = new KiiQuery (KiiClause.and (
+                KiiClause.equals (Request.SERVER_ID, userId),
+                KiiClause.notEquals (Request.REQUESTED_DATE, ""),
+                KiiClause.equals (Request.SENT_DATE, "")));
+        HadArrivedQuery.sortByDesc ("_modified");
+        queryRequestBucket (HadArrivedQuery, callback);
     }
 
     /**

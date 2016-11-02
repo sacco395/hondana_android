@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -34,6 +35,8 @@ import com.books.hondana.R;
 import com.books.hondana.arrived.HadArrivedBookActivity;
 import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
+import com.books.hondana.connection.KiiObjectListCallback;
+import com.books.hondana.connection.KiiRequestConnection;
 import com.books.hondana.connection.QueryParamSet;
 import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
@@ -41,12 +44,17 @@ import com.books.hondana.like.LikesActivity;
 import com.books.hondana.model.Book;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Member;
+import com.books.hondana.model.Request;
 import com.books.hondana.setting.SettingActivity;
 import com.books.hondana.start.StartActivity;
 import com.books.hondana.todo.TodoActivity;
 import com.books.hondana.util.LogUtil;
 import com.kii.cloud.storage.KiiUser;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.List;
+
+import static com.books.hondana.R.id.nav_todo;
 
 public class BookMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -191,12 +199,49 @@ public class BookMainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onPrepareOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.toolbar_top, menu);
+        getMenuInflater ().inflate (R.menu.toolbar_top, menu);
+        final MenuItem menu_bgm = menu.findItem (R.id.nav_todo);
+        KiiUser kiiUser = KiiUser.getCurrentUser ();
+        LogUtil.d (TAG, "kiiUser: " + kiiUser);
+        if (kiiUser != null) {
+            String userId = kiiUser.getID ();
+            KiiRequestConnection.fetchTodoEvaluate (userId, new KiiObjectListCallback<Request> () {
+                @Override
+                public void success(int token, List<Request> result) {
+                    Log.d (TAG, "リクエストしたやること" + result.size ());
+                    if (result.size () == 0) {
+                        menu_bgm.setIcon (R.drawable.ic_done_black_24dp);
+                    } else {
+                        menu_bgm.setIcon (R.drawable.ic_check_circle_black_24px);
+                    }
+                }
+
+                @Override
+                public void failure(@Nullable Exception e) {
+                    LogUtil.e (TAG, "failure: ", e);
+                }
+            });
+            KiiRequestConnection.fetchTodoSent (userId, new KiiObjectListCallback<Request> () {
+                @Override
+                public void success(int token, List<Request> result) {
+                    Log.d (TAG, "リクエストされたやること" + result.size ());
+                    if (result.size () == 0) {
+                        menu_bgm.setIcon (R.drawable.ic_done_black_24dp);
+                    } else {
+                        menu_bgm.setIcon (R.drawable.ic_check_circle_black_24px);
+                    }
+                }
+
+                @Override
+                public void failure(@Nullable Exception e) {
+                    LogUtil.e (TAG, "failure: ", e);
+                }
+            });
+        }
         return true;
     }
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -238,7 +283,7 @@ public class BookMainActivity extends AppCompatActivity
 //                break;
 //            }
 
-            case R.id.nav_todo:{
+            case nav_todo:{
                 if (kiiUser != null) {
                     Intent intent = new Intent(this, TodoActivity.class);
                     startActivity(intent);
