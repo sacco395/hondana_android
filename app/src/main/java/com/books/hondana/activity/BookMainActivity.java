@@ -461,8 +461,21 @@ public class BookMainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 LogUtil.d(TAG, "onClick");
-                Intent intent = new Intent(BookMainActivity.this, UserpageActivity.class);
-                startActivity(intent);
+                KiiUser kiiUser = KiiUser.getCurrentUser();
+                LogUtil.d(TAG, "kiiUser: " + kiiUser);
+
+                if (kiiUser != null) {
+                    Intent intent = new Intent(BookMainActivity.this,
+                            UserpageActivity.class);
+                    BookMainActivity.this.startActivity(intent);
+                    LogUtil.d(TAG, "ユーザーだよ");
+
+                } else {
+                    Intent intent = new Intent(BookMainActivity.this,
+                            StartActivity.class);
+                    BookMainActivity.this.startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
             }
         });
     }

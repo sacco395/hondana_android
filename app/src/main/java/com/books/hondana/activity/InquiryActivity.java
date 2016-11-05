@@ -96,28 +96,6 @@ public class InquiryActivity extends AppCompatActivity
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
-        //navigationViewにアイコンここから
-        View header = navigationView.getHeaderView(0);
-        header.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                KiiUser kiiUser = KiiUser.getCurrentUser();
-                LogUtil.d(TAG, "kiiUser: " + kiiUser);
-
-                if (kiiUser != null) {
-                    Intent intent = new Intent(InquiryActivity.this,
-                            UserpageActivity.class);
-                    InquiryActivity.this.startActivity(intent);
-
-
-                } else {
-                    Intent intent = new Intent(InquiryActivity.this,
-                            StartActivity.class);
-                    InquiryActivity.this.startActivity(intent);
-                    showToast("会員登録をお願いします！");
-                }
-            }
-        });
     }
 
     @Override
@@ -253,8 +231,21 @@ public class InquiryActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 LogUtil.d(TAG, "onClick");
-                Intent intent = new Intent(InquiryActivity.this, UserpageActivity.class);
-                startActivity(intent);
+                KiiUser kiiUser = KiiUser.getCurrentUser();
+                LogUtil.d(TAG, "kiiUser: " + kiiUser);
+
+                if (kiiUser != null) {
+                    Intent intent = new Intent(InquiryActivity.this,
+                            UserpageActivity.class);
+                    InquiryActivity.this.startActivity(intent);
+                    LogUtil.d(TAG, "ユーザーだよ");
+
+                } else {
+                    Intent intent = new Intent(InquiryActivity.this,
+                            StartActivity.class);
+                    InquiryActivity.this.startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
             }
         });
     }

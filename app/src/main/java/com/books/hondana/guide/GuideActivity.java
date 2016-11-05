@@ -97,27 +97,6 @@ public class GuideActivity extends AppCompatActivity
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
-        //navigationViewにアイコンここから
-        View header = navigationView.getHeaderView(0);
-        header.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                KiiUser kiiUser = KiiUser.getCurrentUser();
-                LogUtil.d(TAG, "kiiUser: " + kiiUser);
-
-                if (kiiUser != null) {
-                    Intent intent = new Intent(GuideActivity.this,
-                            UserpageActivity.class);
-                    GuideActivity.this.startActivity(intent);
-
-                } else {
-                    Intent intent = new Intent(GuideActivity.this,
-                            StartActivity.class);
-                    GuideActivity.this.startActivity(intent);
-                    showToast("会員登録をお願いします！");
-                }
-            }
-        });
 
         ListView list = (ListView) findViewById(R.id.list_view);
         String[] item01 = getResources().getStringArray(R.array.array01);
@@ -270,8 +249,21 @@ public class GuideActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 LogUtil.d(TAG, "onClick");
-                Intent intent = new Intent(GuideActivity.this, UserpageActivity.class);
-                startActivity(intent);
+                KiiUser kiiUser = KiiUser.getCurrentUser();
+                LogUtil.d(TAG, "kiiUser: " + kiiUser);
+
+                if (kiiUser != null) {
+                    Intent intent = new Intent(GuideActivity.this,
+                            UserpageActivity.class);
+                    GuideActivity.this.startActivity(intent);
+                    LogUtil.d(TAG, "ユーザーだよ");
+
+                } else {
+                    Intent intent = new Intent(GuideActivity.this,
+                            StartActivity.class);
+                    GuideActivity.this.startActivity(intent);
+                    showToast("会員登録をお願いします！");
+                }
             }
         });
     }
