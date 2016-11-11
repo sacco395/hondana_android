@@ -491,18 +491,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="この本を読んだ時のことを教えてください。"
+            android:text="備考"
             android:id="@+id/textView15"
             android:textStyle="bold"
-            android:textIsSelectable="false"
-            android:textColor="#F26964"/>
+            android:textIsSelectable="false"/>
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="61dp"
             android:inputType="textMultiLine"
-            android:textSize="13dp"
-            android:hint="場所・時間・天候・気持ちなど\n\n(例)秋の夕暮れ、縁側で1人ビール片手に読んだ1冊。"
             android:ems="10"
             android:id="@+id/edtNote" />
     </LinearLayout>

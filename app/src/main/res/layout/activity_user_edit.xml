@@ -72,7 +72,6 @@
                 android:id="@+id/comment_field"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="自分の好きなもの・ことを書きましょう。\n(単語で10個まで)\n\n(例)ビール、明太子、手ぬぐい、文房具、３月のライオン"
                 android:maxLength="500"
                 android:padding="10dp"
                 android:layout_margin="10dp"
