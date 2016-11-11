@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerInside"
-        android:src="@drawable/logo_hondana_beta"
+        android:src="@drawable/logo_hondana"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp" />
 </LinearLayout>
