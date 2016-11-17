@@ -53,13 +53,15 @@
     <string name="requestText04">"3.同梱を希望する場合はチェックを入れてください。"</string>
     <string name="requestText05">"＊希望しても同梱できない場合もあります。"</string>
     <string name="checkBoxBundle">"同梱希望"</string>
+    <string name="requestMessage">"4.リクエストメッセージを一言どうぞ。"</string>
 
-    <string name="checkBoxMyData">"上記の情報でOKです"</string>
+    <string name="checkBoxMyData">"上記の情報でOKです(必須)"</string>
 
     <string name="buttonCancel">"キャンセル"</string>
     <string name="buttonRequest">"リクエスト完了"</string>
 
-    <string name="biggerThanClickpostText">"この本は着払いになりますので相手に住所・氏名・電話番号をお知らせしましょう。（登録がまだの方や、変更がある場合は訂正してください）"</string>
+    <string name="biggerThanClickpostText">"1.この本は着払いになりますので相手に住所・氏名・電話番号をお知らせしましょう。（登録がまだの方や、変更がある場合は訂正してください）"</string>
+    <string name="requestCheckText">"2.上記に間違いがなければチェックを入れてください。"</string>
 
 
     <!--宛名ラベルのアップロードページに使用-->

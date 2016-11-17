@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.books.hondana.R;
@@ -268,6 +269,12 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
+        EditText noteField = (EditText) (findViewById (R.id.requestMessage_field));
+        assert noteField != null;
+        String noteStr = noteField.getText().toString ();
+        LogUtil.d(TAG, "リクエストメッセージ:" + noteStr);
+
+        request.setRequestMessage(noteStr);
         request.setRequestedDate(dateString);
         request.save(false, new KiiModel.KiiSaveCallback() {
             @Override

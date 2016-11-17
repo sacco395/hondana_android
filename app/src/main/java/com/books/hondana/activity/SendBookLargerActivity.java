@@ -68,6 +68,14 @@ public class SendBookLargerActivity extends AppCompatActivity
         cbAcceptSeveral.setChecked(false);
         cbAcceptSeveral.setOnClickListener(this);
 
+        final TextView message = (TextView) findViewById(R.id.tv_client_message);
+        String requestMessage = request.getRequestMessage();
+        Log.d(TAG, "requestMessage: " + requestMessage);
+        if (!requestMessage.equals ("")) {
+            assert message != null;
+            message.setText(requestMessage);
+        }
+
         final TextView clientName = (TextView)findViewById(R.id.client_name);
         final TextView clientFullName = (TextView)findViewById(R.id.tv_client_full_name);
         final TextView clientAddress = (TextView)findViewById(R.id.tv_client_address);

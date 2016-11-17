@@ -38,6 +38,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="メールアドレスの登録・変更"
+            android:textColorHint="#a4a4a4"
             android:layout_margin="10dp"
             android:padding="10dp"
             android:background="@drawable/edittext_style"></EditText>

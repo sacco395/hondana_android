@@ -45,6 +45,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="住所の登録・変更\n(例)〒000-0000 〇〇県〇〇市０−０−０"
+            android:textColorHint="#a4a4a4"
             android:maxLength="500"
             android:layout_margin="10dp"
             android:padding="10dp"
@@ -70,6 +71,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="氏名"
+            android:textColorHint="#a4a4a4"
             android:layout_margin="10dp"
             android:padding="10dp"
             android:background="@drawable/edittext_style"/>
@@ -101,14 +103,28 @@
             android:layout_marginTop="5dp"
             android:background="#E6E5E1" />
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:layout_marginTop="6dip"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:text="@string/requestCheckText"
+            android:id="@+id/requestCheck"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp" />
+
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
             android:text="@string/checkBoxMyData"
             android:id="@+id/myDataCheckBox"
+            android:layout_marginTop="6dip"
+            android:layout_marginBottom="6dip"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
             android:textColor="#FF0000"/>
 
         <!--区切り線-->
@@ -118,7 +134,6 @@
             android:background="#F1F0EE"
             android:layout_marginLeft="6dip"
             android:layout_marginRight="6dip"
-            android:layout_marginTop="20dip"
             android:layout_marginBottom="20dip" />
 
         <!--同梱を希望する場合はチェックを入れてください。-->
@@ -151,8 +166,38 @@
             android:layout_height="wrap_content"
             android:text="@string/checkBoxBundle"
             android:id="@+id/severalCheckBox"
+            android:layout_gravity="center_horizontal"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#F1F0EE"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginBottom="20dip" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:text="@string/requestMessage"
+            android:id="@+id/tv_requestMessage"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginLeft="10dp" />
+
+        <EditText
+            android:id="@+id/requestMessage_field"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="例）ずっと読みたかった本です。よろしくお願いします!"
+            android:textColorHint="#a4a4a4"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:background="@drawable/edittext_style">
+        </EditText>
 
         <LinearLayout
             android:layout_width="fill_parent"

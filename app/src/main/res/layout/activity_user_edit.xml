@@ -72,6 +72,8 @@
                 android:id="@+id/comment_field"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:hint="自己紹介文をどうぞ。"
+                android:textColorHint="#a4a4a4"
                 android:maxLength="500"
                 android:padding="10dp"
                 android:layout_margin="10dp"

@@ -32,6 +32,7 @@ public class Request extends KiiModel implements Parcelable {
     public static final String BOOK_TITLE = "book_title";
     public static final String BOOK_IMAGE_URL = "book_image_url";
     public static final String REQUESTED_DATE = "requested_date";
+    public static final String REQUEST_MESSAGE = "request_message";
     public static final String SENT_DATE = "sent_date";
     public static final String RECEIVED_DATE = "received_date";
     public static final String EVALUATION_BY_CLIENT = "evaluation_by_client";
@@ -54,6 +55,7 @@ public class Request extends KiiModel implements Parcelable {
     private String bookTitle;
     private String bookImageUrl;
     private String requestedDate;
+    private String requestMessage;
     private String sentDate;
     private String receivedDate;
     private String pdf_url;
@@ -99,6 +101,7 @@ public class Request extends KiiModel implements Parcelable {
         bookTitle = "";
         bookImageUrl="";
         requestedDate = "";
+        requestMessage = "";
         sentDate = "";
         receivedDate = "";
         pdf_url = "";
@@ -177,6 +180,14 @@ public class Request extends KiiModel implements Parcelable {
 
     public void setRequestedDate(String requestedDate) {
         this.requestedDate = requestedDate;
+    }
+
+    public String getRequestMessage() {
+        return requestMessage;
+    }
+
+    public void setRequestMessage(String requestMessage) {
+        this.requestMessage = requestMessage;
     }
 
     public String getSentDate() {
@@ -350,6 +361,7 @@ public class Request extends KiiModel implements Parcelable {
         bookTitle = object.getString(BOOK_TITLE);
         bookImageUrl = object.getString(BOOK_IMAGE_URL);
         requestedDate = object.getString(REQUESTED_DATE);
+        requestMessage = object.getString(REQUEST_MESSAGE);
         sentDate = object.getString(SENT_DATE);
         receivedDate = object.getString(RECEIVED_DATE);
         evaluationByClient = object.getInt(EVALUATION_BY_CLIENT);
@@ -371,6 +383,7 @@ public class Request extends KiiModel implements Parcelable {
         source.set(BOOK_TITLE, bookTitle);
         source.set(BOOK_IMAGE_URL, bookImageUrl);
         source.set(REQUESTED_DATE, requestedDate);
+        source.set(REQUEST_MESSAGE, requestMessage);
         source.set(SENT_DATE, sentDate);
         source.set(RECEIVED_DATE, receivedDate);
         source.set(EVALUATION_BY_CLIENT, evaluationByClient);
@@ -398,6 +411,7 @@ public class Request extends KiiModel implements Parcelable {
         dest.writeString(this.bookTitle);
         dest.writeString(this.bookImageUrl);
         dest.writeString(this.requestedDate);
+        dest.writeString(this.requestMessage);
         dest.writeString(this.sentDate);
         dest.writeString(this.receivedDate);
         dest.writeInt(this.evaluationByClient);
@@ -418,6 +432,7 @@ public class Request extends KiiModel implements Parcelable {
         this.bookTitle = in.readString();
         this.bookImageUrl = in.readString();
         this.requestedDate = in.readString();
+        this.requestMessage = in.readString();
         this.sentDate = in.readString();
         this.receivedDate = in.readString();
         this.evaluationByClient = in.readInt();

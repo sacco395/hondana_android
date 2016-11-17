@@ -92,6 +92,7 @@
         </activity>
         <activity
             android:name=".activity.RequestBookActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.SendBookActivity"
@@ -170,6 +171,7 @@
 
         <activity
             android:name=".activity.RequestBookLargerActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.SendBookLargerActivity">
         </activity>

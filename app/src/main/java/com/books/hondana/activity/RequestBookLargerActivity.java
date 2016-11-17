@@ -209,6 +209,13 @@ public class RequestBookLargerActivity extends AppCompatActivity implements View
                 LogUtil.e(TAG, "failure: ", e);
             }
         });
+
+        EditText noteField = (EditText) (findViewById (R.id.requestMessage_field));
+        assert noteField != null;
+        String noteStr = noteField.getText().toString ();
+        LogUtil.d(TAG, "リクエストメッセージ:" + noteStr);
+
+        request.setRequestMessage(noteStr);
         request.setRequestedDate(dateString);
         request.save(false, new KiiModel.KiiSaveCallback() {
             @Override

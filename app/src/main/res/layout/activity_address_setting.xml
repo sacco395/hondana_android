@@ -38,6 +38,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="住所の登録・変更\n(例)〒000-0000 〇〇県〇〇市０−０−０"
+            android:textColorHint="#a4a4a4"
             android:maxLength="500"
             android:layout_margin="10dp"
             android:padding="10dp"

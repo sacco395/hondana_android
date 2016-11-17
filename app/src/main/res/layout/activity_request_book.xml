@@ -77,7 +77,6 @@
             android:text="@string/buttonSelectFile"
             android:id="@+id/buttonSelectFile"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="15dp"
             android:background="@drawable/shape_rounded_corners" />
 
         <!--区切り線-->
@@ -120,8 +119,38 @@
             android:layout_height="wrap_content"
             android:text="@string/checkBoxBundle"
             android:id="@+id/severalCheckBox"
+            android:layout_gravity="center_horizontal"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:background="#F1F0EE"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginBottom="20dip" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:text="@string/requestMessage"
+            android:id="@+id/tv_requestMessage"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginLeft="10dp" />
+
+        <EditText
+            android:id="@+id/requestMessage_field"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="例）ずっと読みたかった本です。よろしくお願いします!"
+            android:textColorHint="#a4a4a4"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:background="@drawable/edittext_style">
+        </EditText>
 
         <LinearLayout
             android:layout_width="fill_parent"

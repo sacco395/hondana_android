@@ -97,6 +97,14 @@ public class SendBookActivity extends AppCompatActivity
             }
         });
 
+        final TextView message = (TextView) findViewById(R.id.tv_client_message);
+        String requestMessage = request.getRequestMessage();
+        Log.d(TAG, "requestMessage: " + requestMessage);
+        if (!requestMessage.equals ("")) {
+            assert message != null;
+            message.setText(requestMessage);
+        }
+
 
 // ツールバーをアクションバーとしてセット
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar02);
