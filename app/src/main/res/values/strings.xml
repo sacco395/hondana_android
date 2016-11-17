@@ -79,6 +79,7 @@
 
     <string name="passedText05">"3.同梱を希望している人に発送する場合は\n同梱できたらチェックを入れてください。"</string>
     <string name="passedText06">"クリックポストの規格外の本は着払いで発送します。\n相手の住所・氏名・電話番号は以下です。"</string>
+    <string name="passedText07">"同梱を希望している人に発送する場合は\n同梱できたらチェックを入れてください。"</string>
 
     <string name="parcel">"同梱しました！"</string>
 

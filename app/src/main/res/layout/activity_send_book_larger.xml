@@ -138,8 +138,6 @@
             android:layout_width="wrap_content"
             android:layout_height="20dip"
             android:background="#F1F0EE"
-            android:layout_marginLeft="6dip"
-            android:layout_marginRight="6dip"
             android:layout_marginTop="6dip"
             android:layout_marginBottom="12dip" />
 
@@ -153,7 +151,7 @@
             android:layout_marginLeft="15dp"
             android:paddingRight="6dip"
             android:paddingBottom="6dip"
-            android:text="@string/passedText05"
+            android:text="@string/passedText07"
             android:id="@+id/passedText05"
             android:layout_gravity="center_horizontal" />
         <!--交換リクエストが届きました-->
