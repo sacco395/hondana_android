@@ -161,6 +161,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
+            android:id="@+id/book_owner_page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

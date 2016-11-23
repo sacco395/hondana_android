@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -206,6 +207,7 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.buttonPreRequest).setOnClickListener(this);
         findViewById(R.id.bookInfoLike).setOnClickListener(this);
 
+        final LinearLayout OwnerPage = (LinearLayout)findViewById(R.id.book_owner_page);
         final TextView bookOwner = (TextView) findViewById(R.id.textViewBookInfoUserName);
         final ImageView userIcon = (ImageView) findViewById(R.id.bookInfoUserIcon);
 
@@ -214,11 +216,25 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
         bookOwner.setText(ownerName);
         Log.d(TAG, "ownerName: " + ownerName);
 
+
         final String ownerId = book.getOwnerId();
         Log.d(TAG, "ownerId: " + ownerId);
         KiiMemberConnection.fetch(ownerId, new KiiObjectCallback<Member>() {
             @Override
-            public void success(int token, Member member) {
+            public void success(int token, final Member member) {
+                KiiUser currentUser = KiiUser.getCurrentUser ();
+                if (currentUser == null) {
+                    Log.d(TAG, "onClick: Current KiiUser is null!");
+                    return;
+                }
+                OwnerPage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        LogUtil.d(TAG, "onClickだよ");
+                        startActivity(MemberPageActivity.createIntent(BookInfoActivity.this, member));
+                    }
+                });
+
                 if (!member.hasValidImageUrl()) {
                     return;
                 }
