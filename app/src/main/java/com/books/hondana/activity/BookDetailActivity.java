@@ -22,6 +22,7 @@ import com.books.hondana.model.BookCondition;
 import com.books.hondana.model.BookInfo;
 import com.books.hondana.model.Size;
 import com.books.hondana.model.Smell;
+import com.books.hondana.model.Tracking;
 import com.books.hondana.model.abst.KiiModel;
 import com.books.hondana.util.DateUtil;
 import com.books.hondana.util.LogUtil;
@@ -35,8 +36,12 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
 	private Book targetBook;
 
+    private Tracking tracking;
+
 	private BookCondition condition;
 	private Smell smell;
+
+	private ProgressDialog mProgress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -271,7 +276,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
 					KiiUser kiiUser = KiiUser.getCurrentUser ();
 					assert kiiUser != null;
-					String userId = kiiUser.getID ();
+					final String userId = kiiUser.getID ();
 					LogUtil.d (TAG, "userID = " + userId);
 					String userName = kiiUser.getUsername ();
 					LogUtil.d (TAG, "userName = " + userName);
@@ -309,7 +314,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 		});
 	}
 
-	private double getValidDouble(String s) {
+    private double getValidDouble(String s) {
 		if (s == null || s.equals("")) {
 			return 0;
 		}

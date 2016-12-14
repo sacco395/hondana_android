@@ -34,6 +34,7 @@ import com.kii.cloud.storage.callback.KiiObjectPublishCallback;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -256,11 +257,13 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
         }
         final String userId = user.getID();
         int diff = -1;
-        KiiMemberConnection.updatePoint(userId, diff, new KiiObjectCallback<Member>() {
+        KiiMemberConnection.updateRequestCount(userId, diff, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {
-                int current = member.getPoint();
+                int current = member.getPointsByBooks();
                 LogUtil.d(TAG, "point:" + current);
+                int current1 = member.getRequestCount();
+                LogUtil.d(TAG, "交換回数:" + current1);
             }
 
             @Override
@@ -268,6 +271,30 @@ public class RequestBookActivity extends AppCompatActivity implements View.OnCli
                 LogUtil.e(TAG, "failure: ", e);
             }
         });
+        Calendar calendar = Calendar.getInstance();
+        final int month = calendar.get(Calendar.MONTH) + 1;
+        KiiMemberConnection.fetch (userId,new KiiObjectCallback<Member>(){
+            @Override
+            public void success(int token, Member member) {
+                member.setLastRequestMonth (month);
+                member.save (false, new KiiModel.KiiSaveCallback () {
+                    @Override
+                    public void success(int token, KiiObject object) {
+                        LogUtil.d(TAG, "リクエストしたよ!今月は" + month);
+                    }
+
+                    @Override
+                    public void failure(@Nullable Exception e) {
+                        Log.e(TAG, "failure: ", e);
+                    }
+                });
+            }
+            @Override
+            public void failure(Exception e) {
+                Log.e(TAG, "failure: ", e);
+            }
+        });
+
 
         EditText noteField = (EditText) (findViewById (R.id.requestMessage_field));
         assert noteField != null;

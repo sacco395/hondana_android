@@ -331,10 +331,18 @@ public class BookInfoActivity extends AppCompatActivity implements View.OnClickL
                     public void success(int token, Member member) {
                         int current = member.getPoint() + member.getPointsByBooks();
                         Log.d(TAG, "point:" + current);
+
+                        int count = member.getRequestCount();
+                        Log.d(TAG, "交換回数:" + count);
+
                         if(current < 1){
                             Toast.makeText(getApplicationContext(), "ブクが足りないのでリクエストできません", Toast.LENGTH_LONG).show();
                             finish();
-                        }else if(!biggerThanClickpost.equals("")) {
+                        }else if(count < 1) {
+                            Toast.makeText(getApplicationContext(), "今月の交換上限の10回を超えたので、リクエストできません", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                        else if(!biggerThanClickpost.equals("")) {
                             Request request = Request.createNew(currentUser.getID(), book);
                             startActivity(RequestBookLargerActivity.createIntent(BookInfoActivity.this, request));
                         }else{

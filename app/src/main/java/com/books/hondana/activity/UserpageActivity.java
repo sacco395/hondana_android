@@ -288,7 +288,8 @@ public class UserpageActivity extends AppCompatActivity
                 mListAdapter.notifyDataSetChanged();
 
                 int postedBook = result.size();
-                final int pointsByBooks = postedBook / 10;
+                final int pointsByBooks = postedBook;
+//                final int pointsByBooks = postedBook / 10;
                 Log.d(TAG, "pointsByBooks:" + pointsByBooks);
 
                 int diff = 0;

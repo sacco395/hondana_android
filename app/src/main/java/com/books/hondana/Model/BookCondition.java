@@ -39,6 +39,7 @@ public class BookCondition extends JSONConvertible implements Parcelable {
     public static final String EVALUATION = "evaluation";
     public static final String SMELL = "smell";
     public static final String NOTE = "note";
+    public static final String SITUATION = "situation";
 
     public static final int LINED_NONE = 0;
     public static final int LINED_ZERO_TO_FIVE = 1;
@@ -114,9 +115,12 @@ public class BookCondition extends JSONConvertible implements Parcelable {
 
     private String note;
 
+    private String situation;
+
     public BookCondition() {
         smell = new Smell();
         note = "";
+        situation = "";
     }
 
     public BookCondition(JSONObject json) throws JSONException {
@@ -210,6 +214,15 @@ public class BookCondition extends JSONConvertible implements Parcelable {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public String getSituation() {
+        return situation;
+    }
+
+    public void setSituation(String situation) {
+        this.situation = situation;
+    }
+
 
     public int getIconDrawableResId() {
         switch (evaluation) {
@@ -330,6 +343,7 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         json.put(EVALUATION, evaluation);
         json.put(SMELL, smell.toJSON());
         json.put(NOTE, note);
+        json.put(SITUATION, situation);
         return json;
     }
 
@@ -346,6 +360,7 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         evaluation = json.getInt(EVALUATION);
         smell = new Smell(json.getJSONObject(SMELL));
         note = json.getString(NOTE);
+        situation = json.getString(SITUATION);
     }
 
     @Override
@@ -366,6 +381,7 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         dest.writeInt(this.evaluation);
         dest.writeParcelable(this.smell, flags);
         dest.writeString(this.note);
+        dest.writeString(this.situation);
     }
 
     protected BookCondition(Parcel in) {
@@ -380,6 +396,7 @@ public class BookCondition extends JSONConvertible implements Parcelable {
         this.evaluation = in.readInt();
         this.smell = in.readParcelable(Smell.class.getClassLoader());
         this.note = in.readString();
+        this.situation = in.readString();
     }
 
     public static final Creator<BookCondition> CREATOR = new Creator<BookCondition>() {

@@ -197,11 +197,13 @@ public class RequestBookLargerActivity extends AppCompatActivity implements View
 
         final String userId = user.getID();
         int diff = -1;
-        KiiMemberConnection.updatePoint(userId, diff, new KiiObjectCallback<Member>() {
+        KiiMemberConnection.updateRequestCount(userId, diff, new KiiObjectCallback<Member>() {
             @Override
             public void success(int token, Member member) {
                 int current = member.getPoint();
                 LogUtil.d(TAG, "point:" + current);
+                int current1 = member.getRequestCount();
+                LogUtil.d(TAG, "交換回数:" + current1);
             }
 
             @Override

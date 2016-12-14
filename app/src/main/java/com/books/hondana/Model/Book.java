@@ -26,6 +26,7 @@ public class Book extends KiiModel implements Parcelable {
     public static final String CONDITION = "condition";
     public static final String STATE = "state";
 
+
     private String ownerId;
 
     private String ownerName;
@@ -35,6 +36,8 @@ public class Book extends KiiModel implements Parcelable {
     private BookCondition condition;
 
     private GenreList genres;
+
+
 
     /**
      * 本の状態
@@ -120,9 +123,11 @@ public class Book extends KiiModel implements Parcelable {
     public int getState() {
         return state;
     }
+
     public void setState(int state) {
         this.state = state;
     }
+
 
     public String getStateText() {
         switch (state) {

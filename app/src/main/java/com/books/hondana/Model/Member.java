@@ -32,6 +32,9 @@ public class Member extends KiiModel implements Parcelable {
     public static final String POINTS_BY_BOOKS = "points_by_books";
     public static final String FAVORITE_AUTHORS = "favorite_authors";
     public static final String DELETED = "deleted";
+    public static final String TYPE = "type";
+    public static final String REQUEST_COUNT = "request_count";
+    public static final String LAST_REQUEST_MONTH = "last_request_month";
 
     private String name;
 
@@ -54,6 +57,20 @@ public class Member extends KiiModel implements Parcelable {
     private AuthorList favoriteAuthors;
 
     private boolean deleted;
+
+    /**
+     * 会員の種別
+     * 0: 無料会員
+     * 1: スタンダード
+     * 2: プレミアム
+     *
+     * 初期値は無料の 0
+     */
+    private int type;
+
+    private int requestCount;
+
+    private int lastRequestMonth;
 
     /**
      * すでに KiiCloud 上に保存されているオブジェクトから Member を生成
@@ -99,9 +116,12 @@ public class Member extends KiiModel implements Parcelable {
         address = "";
         profile = "";
         imageUrl = "";
-        point = 5;
+        point = 0;
         pointsByBooks = 0;
         favoriteAuthors = new AuthorList();
+        type = 0;
+        requestCount = 10;
+        lastRequestMonth = 0;
     }
 
     private Member(KiiObject kiiObject) throws JSONException {
@@ -196,6 +216,31 @@ public class Member extends KiiModel implements Parcelable {
         this.deleted = deleted;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getRequestCount() {
+        return requestCount;
+    }
+
+    public void setRequestCount(int requestCount) {
+        this.requestCount = requestCount;
+    }
+
+    public int getLastRequestMonth() {
+        return lastRequestMonth;
+    }
+
+    public void setLastRequestMonth(int lastRequestMonth) {
+        this.lastRequestMonth = lastRequestMonth;
+    }
+
+
     public boolean hasValidImageUrl() {
         return !(imageUrl == null || imageUrl.equals(""));
     }
@@ -215,9 +260,12 @@ public class Member extends KiiModel implements Parcelable {
         profile = kiiObject.getString(PROFILE);
         imageUrl = kiiObject.getString(IMAGE_URL);
         point = kiiObject.getInt(POINT);
-        pointsByBooks = kiiObject.getInt(POINTS_BY_BOOKS,0);
+        pointsByBooks = kiiObject.getInt(POINTS_BY_BOOKS);
         favoriteAuthors = new AuthorList(kiiObject.getJSONObject(FAVORITE_AUTHORS));
         deleted = kiiObject.getBoolean(DELETED);
+        type = kiiObject.getInt(TYPE);
+        requestCount = kiiObject.getInt(REQUEST_COUNT);
+        lastRequestMonth = kiiObject.getInt(LAST_REQUEST_MONTH);
     }
 
     @Override
@@ -236,6 +284,9 @@ public class Member extends KiiModel implements Parcelable {
         source.set(POINTS_BY_BOOKS, pointsByBooks);
         source.set(FAVORITE_AUTHORS, favoriteAuthors.toJSON());
         source.set(DELETED, deleted);
+        source.set(TYPE, type);
+        source.set(REQUEST_COUNT, requestCount);
+        source.set(LAST_REQUEST_MONTH, lastRequestMonth);
         return source;
     }
 
@@ -261,6 +312,9 @@ public class Member extends KiiModel implements Parcelable {
         dest.writeInt(this.pointsByBooks);
         dest.writeParcelable(this.favoriteAuthors, flags);
         dest.writeByte(this.deleted ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.type);
+        dest.writeInt(this.requestCount);
+        dest.writeInt(this.lastRequestMonth);
     }
 
     protected Member(Parcel in) {
@@ -279,6 +333,9 @@ public class Member extends KiiModel implements Parcelable {
         this.pointsByBooks = in.readInt();
         this.favoriteAuthors = in.readParcelable(AuthorList.class.getClassLoader());
         this.deleted = in.readByte() != 0;
+        this.type = in.readInt();
+        this.requestCount = in.readInt();
+        this.lastRequestMonth = in.readInt();
     }
 
     public static final Creator<Member> CREATOR = new Creator<Member>() {

@@ -82,12 +82,15 @@ public class SplashActivity extends Activity {
                             }
                         });
                     } else {
-                        LogUtil.e(TAG, "onLoginCompleted: 自動ログインできません", exception);
-
-                        Toast.makeText(SplashActivity.this, "ホンダナからのお知らせ\n通信状態を確認の上、もう一度お試しください",
-                                Toast.LENGTH_LONG).show();
-
-                        finish();
+                        Intent intent = new Intent(getApplicationContext(),
+                                BookMainActivity.class);
+                        startActivity(intent);
+//                        LogUtil.e(TAG, "onLoginCompleted: 自動ログインできません", exception);
+//
+//                        Toast.makeText(SplashActivity.this, "ホンダナからのお知らせ\n通信状態を確認の上、もう一度お試しください",
+//                                Toast.LENGTH_LONG).show();
+//
+//                        finish();
                     }
                 }
             }, token);

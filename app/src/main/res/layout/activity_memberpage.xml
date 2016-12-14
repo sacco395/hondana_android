@@ -158,11 +158,11 @@
                     android:id="@+id/numberOfBad"
                     />
                 </LinearLayout>
-                <ImageView
-                    app:srcCompat="@drawable/ic_chevron_right_black_24dp"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:scaleType="centerCrop" />
+                <!--<ImageView-->
+                    <!--app:srcCompat="@drawable/ic_chevron_right_black_24dp"-->
+                    <!--android:layout_width="24dp"-->
+                    <!--android:layout_height="24dp"-->
+                    <!--android:scaleType="centerCrop" />-->
             </LinearLayout>
             <!--区切り線-->
             <View

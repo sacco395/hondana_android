@@ -86,4 +86,43 @@ public class KiiMemberConnection {
             }
         });
     }
+
+
+    /**
+     * @param userId 対象ユーザの ID
+     * @param diff 交換回数の差分。減るときは負の数を指定
+     * @param callback
+     */
+    public static void updateRequestCount (String userId, final int diff, final KiiObjectCallback<Member> callback) {
+        fetch(userId, new KiiObjectCallback<Member>() {
+            @Override
+            public void success(int token, Member member) {
+                int current1 = member.getRequestCount();
+                member.setRequestCount (current1 + diff);
+                int current = member.getPointsByBooks();
+                member.setPointsByBooks (current + diff);
+                member.save(false, new KiiModel.KiiSaveCallback() {
+                    @Override
+                    public void success(int token, KiiObject object) {
+                        try {
+                            Member result = Member.createFrom(object);
+                            callback.success(token, result);
+                        } catch (JSONException e) {
+                            callback.failure(e);
+                        }
+                    }
+
+                    @Override
+                    public void failure(@Nullable Exception e) {
+                        callback.failure(e);
+                    }
+                });
+            }
+
+            @Override
+            public void failure(@Nullable Exception e)  {
+                callback.failure(new IllegalStateException("KiiCloud 上の Member の値が書き換わっている。ポイントと交換回数の整合性が取れなくなる可能性があるので、ポイントと交換回数を書き換えずに通信終了"));
+            }
+        });
+    }
 }

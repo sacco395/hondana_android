@@ -28,7 +28,6 @@ import com.books.hondana.connection.KiiMemberConnection;
 import com.books.hondana.connection.KiiObjectCallback;
 import com.books.hondana.connection.KiiObjectListCallback;
 import com.books.hondana.connection.KiiRequestConnection;
-import com.books.hondana.evaluation.EvaluationActivity;
 import com.books.hondana.exhibited.ExhibitedBookActivity;
 import com.books.hondana.guide.GuideActivity;
 import com.books.hondana.like.LikesActivity;
@@ -176,17 +175,17 @@ public class MemberPageActivity extends AppCompatActivity
         userName.setText (user.getUsername ());
 
 
-        LinearLayout Evaluation = (LinearLayout) findViewById (R.id.evaluation);
-
-
-        Evaluation.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                LogUtil.d (TAG, "onClick");
-                Intent intent = new Intent (MemberPageActivity.this, EvaluationActivity.class);
-                startActivity (intent);
-            }
-        });
+//        LinearLayout Evaluation = (LinearLayout) findViewById (R.id.evaluation);
+//
+//
+//        Evaluation.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                LogUtil.d (TAG, "onClick");
+//                Intent intent = new Intent (MemberPageActivity.this, EvaluationActivity.class);
+//                startActivity (intent);
+//            }
+//        });
 
 
         final ImageView userIcon = (ImageView) findViewById (R.id.user_icon);
